@@ -1,0 +1,121 @@
+<include file="Public:head"/>
+
+<style>
+.msgWrap .control-group {
+margin-bottom: 20px;
+}
+.msgWrap .control-label {
+text-align: left;
+width: 140px;
+font-weight: bold;
+padding-top: 5px;
+float: left;
+display: block;
+margin-bottom: 5px;
+}
+.msgWrap .controls {
+margin-left: 160px;
+}
+.msgWrap .form-actions {
+padding: 19px 20px 20px 160px;
+margin-top: 20px;
+}
+.span4, .span1, .option, .valid, .input-large{
+	background: url(../images/px.png) repeat-x scroll 0 0 #FFFFFF;
+    border-color: #848484 #E0E0E0 #E0E0E0 #848484;
+    border-style: solid;
+    border-width: 1px;
+	border-radius: 2px 2px 2px 2px;
+	padding:5px;
+	width: 210px;
+}
+.alert {
+padding: 8px 35px 0 10px;
+text-shadow: none;
+-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+background-color: #f9edbe;
+border: 1px solid #f0c36d;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+color: #333333;
+margin-top: 5px;
+}
+.alert p {
+margin: 0 0 10px;
+display: block;
+}
+.alert .bold{
+font-weight:bold;
+}
+</style>
+<div class="content">
+    
+          <div class="cLine">
+    <div class="alert">
+    <p><span class="bold">使用方法：</span>功能勾选，必须是服务号并通过微信认证的公众号，使用之前需要更新粉丝列表。</p>
+    </div>
+</div>
+          
+          <div class="cLine">
+            <div class="pageNavigator right">
+				<a href="{pigcms::U('User/Wechat_group/send')}" class="btnGrayS vm bigbtn">
+					<img src="tpl/User/default/common/images/text.png" class="vm">更新粉丝
+				</a>
+            </div>
+            <div class="clr"></div>
+          </div>
+          <div class="msgWrap">
+          <form method="post" action="" id="info">
+          <input name="delall" type="hidden" value="del">
+           <input name="wxid" type="hidden" value="gh_423dwjkewad">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					<th class="select">编号</th>
+					<th>粉丝昵称</th>
+					<th>性别 </th>
+					<th>访问时间</th>
+					<th>事件</th>
+					<th></th>
+					<th class="norightborder">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+			  <pigcmslist array="list" foreach="list">
+                <tr>
+                  <td>{pigcms:$list.id}</td>
+                  <td>{pigcms:$list.nickname}</td>
+                  <td><pigcmsif where="$list['sex'] eq 1">男<else/>女</pigcmsif></td>
+                  <td>{pigcms:$list.openid}</td>
+                  <td>
+					
+					<div class="cateimg">
+						<img src="{pigcms:$list.headimgurl} " class="cateimg_small"  />
+						<img src="{pigcms:$list.headimgurl} " class="cateimg_big"  /></div>
+					</td>
+                  <td>{pigcms:$list.subscribe_time|date='Y-m-d',###} </td>
+                  <td class="norightborder">
+						<a href="{pigcms::U('Wechat_behavior/wechatList',array('openid'=>$list['openid']))}">粉丝行为管理</a>　
+						
+						
+				   </td>
+                </tr>
+      			</pigcmslist>
+                 <tr>
+
+                </tr>
+              </tbody>
+            </table>
+           </form> 
+          </div>
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+            </div>
+            <div class="clr"></div>
+          </div>
+        </div>	
+<include file="Public:footer"/>

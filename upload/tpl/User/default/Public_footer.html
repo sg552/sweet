@@ -1,0 +1,33 @@
+</div>
+</div>
+</div>
+<style>
+.IndexFoot {
+	BACKGROUND-COLOR: #333; WIDTH: 100%; HEIGHT: 39px
+}
+.foot{ width:988px; margin:0px auto; font-size:12px; line-height:39px;}
+.foot .foot_page{ float:left; width:600px;color:white;}
+.foot .foot_page a{ color:white; text-decoration:none;}
+#copyright{ float:right; width:380px; text-align:right; font-size:12px; color:#FFF;}
+</style>
+<div class="IndexFoot" style="height:120px;clear:both">
+<div class="foot">
+<div class="foot_page" >
+<a href="{pigcms::C('site_url')}">{pigcms::C('site_name')},微信公众平台营销源码</a><br/>
+帮助您快速搭建属于自己的营销平台,构建自己的客户群体。
+</div>
+<div id="copyright" style="color:white">
+	{pigcms::C('site_name')}(c)版权所有<br/>
+	技术支持：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={pigcms::C('site_qq')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{pigcms::C('site_qq')}:51" alt="联系我吧" title="联系我吧"/></a>
+
+</div>
+    </div>
+</div>
+
+<div style="display:none">
+{pigcms:$alert}
+{pigcms::base64_decode(C('countsz'))}
+<script src="http://s15.cnzz.com/stat.php?id=5524076&web_id=5524076" language="JavaScript"></script>
+</div>
+</body>
+</html>
