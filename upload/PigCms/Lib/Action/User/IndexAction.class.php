@@ -13,6 +13,14 @@ class IndexAction extends UserAction{
 		$count=$db->where($where)->count();
 		$page=new Page($count,25);
 		$info=$db->where($where)->limit($page->firstRow.','.$page->listRows)->select();
+		if ($info){
+			foreach ($info as $item){
+				if (!$item['appid']){
+					$apiinfo=M('Diymen_set')->where(array('token'=>$item['token']))->find();
+					//$db->where(array('id'=>$item['id']))->save(array('appid'=>$apiinfo['appid'],'appsecret'=>$apiinfo['appsecret']));
+				}
+			}
+		}
 		$this->assign('info',$info);
 		$this->assign('group',$groups);
 		$this->assign('page',$page->show());

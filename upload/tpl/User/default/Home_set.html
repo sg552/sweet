@@ -1,6 +1,28 @@
 <include file="Public:head"/>
 <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
 <script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.mb.miniPlayer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/tpl/static/audioplayer/css/miniplayer.css" title="style" media="screen"/>
+    <script type="text/javascript">
+        $(function () {
+
+            $(".audio").mb_miniPlayer({
+                width: 200,
+                inLine: false,
+                onEnd: playNext
+            });
+
+            function playNext(player) {
+                var players = $(".audio");
+                document.playerIDX = player.idx + 1 <= players.length - 1 ? player.idx + 1 : 0;
+                players.eq(document.playerIDX).mb_miniPlayer_play();
+            }
+        });
+    </script>
+    
 <div class="content">
 
 <div class="cLineB">
@@ -31,6 +53,12 @@
 				<tr>
 					<th>3G网站背景：</th>
 					<td><input type="hidden" name="homeurl" id="homeurl" value="{pigcms:$home.homeurl}" class="px" style="width:550px;"><a href="?g=User&m=Flash&a=index&token={pigcms:$token}&tip=2">请在首页背景图中设置</a></td>
+				</tr>
+				<tr>
+					<th>背景音乐：</th>
+					<td>
+					<table><tr><if condition="$home.musicurl neq ''"><td><a style="width:120px;float:left" id="musicurl_src" class="audio {skin:'blue'}" href="{pigcms:$home.musicurl}">音乐播放</a></td></if><td> <input class="px" name="musicurl" value="{pigcms:$home.musicurl}" id="musicurl" style="width:200px;float:left" onchange="$('#musicurl_src').attr('href',this.value"> <a href="###" onclick="chooseFile('musicurl','music')" class="a_upload">选择</a></td></tr></table>
+					 </td>
 				</tr>
 				<tr>
 					<th>公司Logo：</th>

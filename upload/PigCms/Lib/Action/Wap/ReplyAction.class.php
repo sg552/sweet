@@ -6,11 +6,17 @@ class ReplyAction extends BaseAction{
     public $wecha_id;
     public function __construct(){
         parent::__construct();
-        $this->needCheck=0;//当needCheck=0正在审核中 为1时无需审核
+        $this->token=$this->_get('token');
+        $this->reply_info_model=M('reply_info');
+		$thisInfoConfig = $this->reply_info_model->where(array('infotype'=>'message','token'=>$this->token))->find();
+		$detailConfig=unserialize($thisInfoConfig['config']);
+		//
+		$this->needCheck=intval($detailConfig['needcheck']);
+		//
         $this->sepTime=60;
         $this->wecha_id	= $this->_get('wecha_id');        
         //session('token','gh_aab60b4c5a39');
-        $this->token=$this->_get('token');
+        
         $this->assign('wecha_id',$this->wecha_id);
         $this->assign('needCheck',$this->needCheck);
         $this->assign('token',$this->token);

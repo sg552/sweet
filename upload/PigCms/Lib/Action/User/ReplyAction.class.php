@@ -12,13 +12,48 @@ class ReplyAction extends UserAction{
 		}
 		//session('token','gh_aab60b4c5a39');
 		$this->wecha_id	= $this->_get('wecha_id');
-		$this->needCheck=1;
+		//
+		$this->reply_info_model=M('reply_info');
+		$thisInfoConfig = $this->reply_info_model->where(array('infotype'=>'message','token'=>$this->token))->find();
+		$detailConfig=unserialize($thisInfoConfig['config']);
+		//
+		$this->needCheck=intval($detailConfig['needcheck']);
 		$this->differ=1;
 		//$this->token=session('token');
-		$this->token=$this->_get('token');
+		//$this->token=$this->_get('token');
 		$this->assign("wecha_id",$this->wecha_id);
 		$this->assign('token',$this->token);
 		$this->assign('needCheck',$this->needCheck);
+	}
+	public function config(){
+		$infotype = 'message';
+		$thisInfo = $this->reply_info_model->where(array('infotype'=>$infotype,'token'=>$this->token))->find();
+		if ($thisInfo&&$thisInfo['token']!=$this->token){
+			exit();
+		}
+		if(IS_POST){
+			$row['title']=$this->_post('title');
+			$row['info']=$this->_post('info');
+			$row['picurl']=$this->_post('picurl');
+			$row['token']=$this->token;
+			$row['infotype']=$infotype;
+			$row['config']=serialize(array('needcheck'=>intval($_POST['needcheck'])));
+			if ($thisInfo){
+				$where=array('infotype'=>$thisInfo['infotype'],'token'=>$this->token);
+				$this->reply_info_model->where($where)->save($row);
+				$this->success('修改成功',U('Reply/config'));
+			}else {
+				$this->reply_info_model->add($row);
+				$this->success('添加成功',U('Reply/config'));
+			}
+		}else{
+			//
+			$config=unserialize($thisInfo['config']);
+			$thisInfo['needcheck']=$config['needcheck'];
+			$this->assign('set',$thisInfo);
+			$this->display();
+		}
+		
 	}
 	public function index(){
 		$leave_model =M("leave");

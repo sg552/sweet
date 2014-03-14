@@ -67,6 +67,10 @@
     </head>
 
     <body id="cate10">
+    <!--背景音乐-->
+    <if condition="$homeInfo['musicurl'] neq false">
+<include file="Index:music"/>
+</if>
         <div class="banner">
 		<div id="wrapper">
 			<div id="scroller">
@@ -80,7 +84,6 @@
 		<div id="nav">
 			<div id="prev" onclick="myScroll.scrollToPage('prev', 0,400,3);return false">&larr; prev</div>
 			<ul id="indicator">
-			
 			<volist name="flash" id="so">
 			<li   <if condition="$i eq 1">class="active"</if>  >{pigcms:$i}</li>
 			</volist>
@@ -138,6 +141,7 @@
         <div id="insert2"></div>
         <div style="display:none"> </div>
 <if condition="$showPlugMenu">
+
 <div class="plug-div">
         <div class="plug-phone">
             <div class="plug-menu themeStyle" style="background:{pigcms:$homeInfo.plugmenucolor}"><span class="close"></span></div> 

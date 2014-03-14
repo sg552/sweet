@@ -39,6 +39,11 @@ width:0px;
 </head>
 
 <body id="cate7">
+<!--背景音乐-->
+    <if condition="$homeInfo['musicurl'] neq false">
+<include file="Index:music"/>
+</if>
+    
 <div class="banner"><img src="{pigcms:$flash[0]['img']}" /></div>
 
 
