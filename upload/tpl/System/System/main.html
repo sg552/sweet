@@ -9,14 +9,14 @@
 </head>
 <body style="background:none">
 <div class="content">
-<div class="box">
+<div class="box" style='display:none'>
 	<h3>易联达更新消息</h3>
     <div class="con dcon">
     <div class="update">
     <p style="display:none">服务器环境：Apache/2.2.9 (APMServ) mod_ssl/2.2.9 OpenSSL/0.9.8h PHP/5.2.6</p>
     <p>服务器IP：127.0.0.1</p>
     <p>当前网站语言：UTF-8简体中文</p>
-    <p>公司网站：<a href="http://www.pigcms.com" class="blue">公司网站</a></p>
+    <p>公司网站：<a href="http://www.weixin.pe" class="blue">公司网站</a></p>
     <p>系统版本：<if condition="$updateRecord.version">{pigcms:$updateRecord.version|date="Ymd",###}<else/>暂无版本记录</if>&nbsp;&nbsp;<a href="?g=System&m=System&a=checkUpdate" class="blue">检查更新</a> <if condition="$canEnUpdate neq 1"><span style="color:red;font-weight:bold"></span></if></p>
     <p style="display:none">数据库版本： <a href="?g=System&m=System&a=checkUpdate" class="blue">检查更新</a></p>
     </div>
@@ -28,7 +28,7 @@
     </div>
 </div>
 <!--/box-->
-<div class="box">
+<div class="box" style='display:none'>
 	<h3>易联达说明</h3>
     <div class="con dcon">
     <div class="kjnav" style="display:none">
