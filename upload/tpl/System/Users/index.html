@@ -57,7 +57,7 @@
 				</td>
 				<td align='center'>
 					<a href="{pigcms::U('Users/edit/',array('id'=>$vo['id']))}">修改</a>
-					| <eq name="vo.username" value="admin"><font color="#cccccc">删除</font><else/><a href="javascript:void(0)" onclick="return confirmurl('{pigcms::U('Users/del/',array('id'=>$vo['id']))}','确定删除该用户吗?')">删除</a></eq>
+					| <eq name="vo.username" value="admin"><font color="#cccccc">删除</font><else/><a href="javascript:void(0)" onclick="if(confirm('确定删除吗')){location.href='{pigcms::U('Users/del/',array('id'=>$vo['id']))}'}">删除</a></eq>
 				</td>
 			</tr>
 	    </volist>

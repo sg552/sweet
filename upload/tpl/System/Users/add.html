@@ -94,6 +94,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td height="48" align="right"><strong>附件大小：</strong></td>
+					<td colspan="3" class="lt">
+						<input type="text" name="attachmentsize" class="ipt" size="45" value="<?php echo $info['attachmentsize'];?>"> <?php echo $info['attachmentsize']/(1024*1024);?> M
+					</td>
+				</tr>
+				<tr>
 					<td height="48" align="right"><strong>到期时间：</strong></td>
 					<td colspan="3" class="lt">
 						<input type="text" name="viptime" onClick="WdatePicker()" class="ipt" size="45" value="{pigcms:$info.viptime|date="Y-m-d",###}">
@@ -103,6 +109,13 @@
 					<td height="48" align="right"><strong>备注说明：</strong></td>
 					<td colspan="3" class="lt">
 						<input type="text" name="remark" class="ipt" size="45" value="{pigcms:$info.remark}"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td height="48" align="right"><strong>邀请列表：</strong></td>
+					<td colspan="3" class="lt">
+					<a href="?g=System&m=Users&a=index&inviter={pigcms:$info.id}">点击查看邀请列表（共{pigcms:$inviteCount}人）</a>
 					</td>
 				</tr>
 	<tr>

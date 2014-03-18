@@ -3,10 +3,19 @@ class UsersAction extends BackAction{
 	public function index(){
 		$db=D('Users');
 		$group=M('User_group')->field('id,name')->order('id desc')->select();
-		$count= $db->count();
+		$where='';
+		if (isset($_GET['agentid'])){
+			$where=array('agentid'=>intval($_GET['agentid']));
+		}
+		if (isset($_GET['inviter'])){
+			$where=array('inviter'=>intval($_GET['inviter']));
+		}
+		
+		$count= $db->where($where)->count();
 		$Page= new Page($count,25);
 		$show= $Page->show();
-		$list = $db->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+		
+		$list = $db->where($where)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 		foreach($group as $key=>$val){
 			$g[$val['id']]=$val['name'];
 		}
@@ -42,7 +51,11 @@ class UsersAction extends BackAction{
                 $this->error($UserDB->getError());
             }
         }else{
-            $role = M('User_group')->field('id,name')->where('status = 1')->select();
+        	$map=array('status'=>1);
+        	if (C('agent_version')){
+				$map['agentid']=array('lt',1);
+			}
+            $role = M('User_group')->field('id,name')->where($map)->select();
             $this->assign('role',$role);
             $this->assign('tpltitle','添加');
             $this->display();
@@ -112,8 +125,14 @@ class UsersAction extends BackAction{
         }else{
             $id = $this->_get('id','intval',0);
             if(!$id)$this->error('参数错误!');
-            $role = M('User_group')->field('id,name')->where('status = 1')->select();
+            $map=array('status'=>1);
+        	if (C('agent_version')){
+				$map['agentid']=array('lt',1);
+			}
+            $role = M('User_group')->field('id,name')->where($map)->select();
             $info = $UserDB->find($id);
+            $inviteCount=$UserDB->where(array('inviter'=>$id))->count();
+            $this->assign('inviteCount',$inviteCount);
             $this->assign('tpltitle','编辑');
             $this->assign('role',$role);
             $this->assign('info',$info);
@@ -139,8 +158,17 @@ class UsersAction extends BackAction{
         $id = $this->_get('id','intval',0);
         if(!$id)$this->error('参数错误!');
         $UserDB = D('Users');
+        $thisUser=$UserDB->where(array('id'=>$id))->find();
+        $where['uid']=$id;
+        $wxUserCount=M('wxuser')->where($where)->count();
         if($UserDB->delete($id)){
-			$where['uid']=$id;
+        	//
+        	if ($thisUser['agentid']){
+        		M('Agent')->where(array('id'=>$thisUser['agentid']))->setDec('usercount');
+        		M('Agent')->where(array('id'=>$thisUser['agentid']))->setDec('wxusercount',$wxUserCount);
+        	}
+        	//
+			
 			M('wxuser')->where($where)->delete();
 			M('token_open')->where($where)->delete();
 			M('text')->where($where)->delete();

@@ -197,6 +197,9 @@ box-shadow: 0px 1px 3px #ccc;
 .innerPanel .content {
     padding:10px 20px 20px;
 }
+.sideBar .catalogList ul li .test{
+	position: absolute; top:4px; right:0; width:33px; height:18px; z-index:10;background: url("../images/icon_test.png") no-repeat transparent; display:block;border: 0 none;
+}
 .innerPanel .operator {
     background: none repeat scroll 0 0 #F0F1F2;
     border-radius: 0 0 2px 2px;
@@ -215,6 +218,7 @@ box-shadow: 0px 1px 3px #ccc;
 }
 .login_box_msg {
     color: red;
+
     padding: 10px 20px 0;
 }
 .textMiddle {

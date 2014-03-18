@@ -8,7 +8,7 @@
      );
     protected $_auto = array (
     array('token','gettoken',1,'callback'),
-    array('endtime','getTime',3,'callback'),
+    //array('endtime','getTime',1,'callback'),
         array('time','time',1,'function')
     );
     function gettoken(){

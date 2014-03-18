@@ -7,7 +7,7 @@
 * @licence http://www.kindsoft.net/license.php
 *******************************************************************************/
 
-KindEditor.lang({
+KindEditor.lang({ 
 	source : 'HTML代码',
 	preview : '预览',
 	undo : '后退(Ctrl+Z)',
@@ -42,13 +42,15 @@ KindEditor.lang({
 	multiimage : '批量图片上传',
 	flash : 'Flash',
 	media : '视音频',
+	video:'视频',
+	music:'音乐',
 	table : '表格',
 	tablecell : '单元格',
 	hr : '插入横线',
 	emoticons : '插入表情',
 	link : '超级链接',
 	unlink : '取消超级链接',
-	fullscreen : '全屏显示(Esc)',
+	fullscreen : '全屏显示',
 	about : '关于',
 	print : '打印(Ctrl+P)',
 	filemanager : '文件空间',
@@ -111,6 +113,7 @@ KindEditor.lang({
 	uploadError : '上传错误',
 	'plainpaste.comment' : '请使用快捷键(Ctrl+V)把内容粘贴到下面的方框里。',
 	'wordpaste.comment' : '请使用快捷键(Ctrl+V)把内容粘贴到下面的方框里。',
+	'code.pleaseInput' : '请输入程序代码。',
 	'link.url' : 'URL',
 	'link.linkType' : '打开类型',
 	'link.newWindow' : '新窗口',
@@ -120,6 +123,11 @@ KindEditor.lang({
 	'flash.height' : '高度',
 	'flash.upload' : '上传',
 	'flash.viewServer' : '文件空间',
+	'video.url' : 'URL',
+	'video.width' : '宽度',
+	'video.height' : '高度',
+	'video.upload' : '上传',
+	'video.viewServer' : '文件空间',
 	'media.url' : 'URL',
 	'media.width' : '宽度',
 	'media.height' : '高度',
@@ -195,6 +203,7 @@ KindEditor.lang({
 	'map.search' : '搜索',
 	'baidumap.address' : '地址: ',
 	'baidumap.search' : '搜索',
+	'baidumap.insertDynamicMap' : '插入动态地图',
 	'anchor.name' : '锚点名称',
 	'formatblock.formatBlock' : {
 		h1 : '标题 1',

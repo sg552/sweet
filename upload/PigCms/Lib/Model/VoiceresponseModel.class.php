@@ -5,9 +5,9 @@ class VoiceresponseModel extends Model{
 		array('title','require','标题不能为空',1),
 		array('keyword','require','关键词不能为空',1),
 		array('musicurl','require','音乐连接不能为空',1),
-		array('musicurl','url','音乐连接格式不正确',1),
-		array('hqmusicurl','require','高品质音乐连接不能为空',1),
-		array('hqmusicurl','url','高品质音乐连接格式不正确',1),
+		//array('musicurl','url','音乐连接格式不正确',1),
+		//array('hqmusicurl','require','高品质音乐连接不能为空',1),
+		//array('hqmusicurl','url','高品质音乐连接格式不正确',1),
 	);
 	
 	protected $_auto = array (

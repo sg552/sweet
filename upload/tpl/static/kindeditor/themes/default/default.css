@@ -198,6 +198,16 @@
 	width: 16px;
 	height: 16px;
 }
+.ke-icon-music{
+	 background-image:url(m.gif)!important;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-video {
+		 background-image:url(v.gif)!important;
+	width: 16px;
+	height: 16px;
+}
 .ke-icon-media {
 	background-position: 0px -528px;
 	width: 16px;

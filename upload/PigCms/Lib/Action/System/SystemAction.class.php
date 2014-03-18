@@ -18,11 +18,24 @@ class SystemAction extends BackAction{
 
 		$this->key=trim(C('server_key'));
 		$this->topdomain=trim(C('server_topdomain'));
+		if (!$this->topdomain){
+			$this->topdomain=$this->getTopDomain();
+		}
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/Lib')&&is_dir($_SERVER['DOCUMENT_ROOT'].'/Lib')){
 			$this->dirtype=2;
 		}else {
 			$this->dirtype=1;
 		}
+		$Model = new Model();
+		//检查system表是否存在
+		$Model->query("CREATE TABLE IF NOT EXISTS `".C('DB_PREFIX')."system_info` (`lastsqlupdate` INT( 10 ) NOT NULL ,`version` VARCHAR( 10 ) NOT NULL) ENGINE = MYISAM CHARACTER SET utf8");
+		$Model->query("CREATE TABLE IF NOT EXISTS `".C('DB_PREFIX')."update_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `msg` varchar(600) NOT NULL DEFAULT '',
+  `type` varchar(20) NOT NULL DEFAULT '',
+  `time` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MYISAM DEFAULT CHARSET=utf8");
 	}
 	public function index(){
 		$where['display']=1;
@@ -70,16 +83,10 @@ class SystemAction extends BackAction{
 	//
 	public function _needUpdate(){
 		$Model = new Model();
-		//检查system表是否存在
-		$Model->query("CREATE TABLE IF NOT EXISTS `".C('DB_PREFIX')."system_info` (`lastsqlupdate` INT( 10 ) NOT NULL ,`version` VARCHAR( 10 ) NOT NULL) ENGINE = MYISAM CHARACTER SET utf8");
-		$Model->query("CREATE TABLE IF NOT EXISTS `".C('DB_PREFIX')."update_record` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `msg` varchar(600) NOT NULL DEFAULT '',
-  `type` varchar(20) NOT NULL DEFAULT '',
-  `time` int(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MYISAM DEFAULT CHARSET=utf8");
 		$updateRecord=M('System_info')->order('lastsqlupdate DESC')->find();
+		if (!$updateRecord){
+			$Model->query('INSERT INTO `'.C('DB_PREFIX').'system_info` (`lastsqlupdate`, `version`) VALUES(0, \'0\')');
+		}
 		//
 		$key=$this->key;
 		$url=$this->server_url.'server.php?key='.$key.'&lastversion='.$updateRecord['version'].'&domain='.$this->topdomain.'&dirtype='.$this->dirtype;
@@ -125,8 +132,15 @@ class SystemAction extends BackAction{
 				$cannotWrite=1;
 				$this->error('您的服务器PigCms文件夹不可写入，设置好再升级',U('System/main'));
 			}
+			if (!is_writable($_SERVER['DOCUMENT_ROOT'].'/PigCms/Lib/Action')){
+				$cannotWrite=1;
+				$this->error('您的服务器/PigCms/Lib/Action文件夹不可写入，设置好再升级',U('System/main'));
+			}
 			if (!is_writable($_SERVER['DOCUMENT_ROOT'].'/tpl')){
 				$this->error('您的服务器tpl文件夹不可写入，设置好再升级',U('System/main'));
+			}
+			if (!is_writable($_SERVER['DOCUMENT_ROOT'].'/tpl/User/default')){
+				$this->error('您的服务器/tpl/User/default文件夹不可写入，设置好再升级',U('System/main'));
 			}
 		}
 		/*
@@ -147,9 +161,9 @@ class SystemAction extends BackAction{
 		if (intval($rt['success'])<1){
 			if (intval($rt['success'])==0){
 				if (!isset($_GET['ignore'])){
-					$this->success('继续检查更新了'.$rt['msg'],U('System/doSqlUpdate'));
+					$this->success('继续检查更新了,不要关闭,跳是正常的'.$rt['msg'],U('System/doSqlUpdate'));
 				}else {
-					$this->success('继续检查更新了'.$rt['msg'],U('System/doSqlUpdate',array('ignore'=>1)));
+					$this->success('继续检查更新了,不要关闭,跳是正常的'.$rt['msg'],U('System/doSqlUpdate',array('ignore'=>1)));
 				}
 			}else {
 				$this->success($rt['msg'],U('System/main'));
@@ -186,9 +200,9 @@ class SystemAction extends BackAction{
 				M('Update_record')->add(array('msg'=>$rt['msg'],'time'=>$rt['time'],'type'=>$rt['type']));
 			}
 			if (isset($_GET['ignore'])){
-				$this->success('进入下一步:'.$rt['msg'],U('System/doUpdate',array('ignore'=>1)));
+				$this->success('进入下一步(不要关闭,等待完成,跳是正常的):'.$rt['msg'],U('System/doUpdate',array('ignore'=>1)));
 			}else {
-				$this->success('进入下一步:'.$rt['msg'],U('System/doUpdate'));
+				$this->success('进入下一步(不要关闭,等待完成,跳是正常的):'.$rt['msg'],U('System/doUpdate'));
 			}
 		}
 	}
@@ -216,12 +230,23 @@ class SystemAction extends BackAction{
 				M('System_info')->where(array('lastsqlupdate'=>$updateRecord['lastsqlupdate']))->save(array('lastsqlupdate'=>$rt['time']));
 			}
 			if (!isset($_GET['ignore'])){
-				$this->success('进入下一步:'.$rt['msg'],U('System/doSqlUpdate'));
+				$this->success('进入下一步(不要关闭,耐心等待完成,跳是正常的):'.$rt['msg'],U('System/doSqlUpdate'));
 			}else {
-				$this->success('进入下一步:'.$rt['msg'],U('System/doSqlUpdate',array('ignore'=>1)));
+				$this->success('进入下一步(不要关闭,耐心等待完成,跳是正常的):'.$rt['msg'],U('System/doSqlUpdate',array('ignore'=>1)));
 			}
-
 		}
+	}
+	function rollback(){
+		//20140312
+		$time=substr($_GET['time'],0,8);
+		$year=substr($time,0,4);
+		$month=substr($time,4,2);
+		$day=substr($time,6,2);
+		//exit($day);
+		$timeStamp=mktime(0,0,0,$month,$day,$year);
+		$updateRecord=M('System_info')->order('lastsqlupdate DESC')->find();
+		M('System_info')->where(array('lastsqlupdate'=>$updateRecord['lastsqlupdate']))->save(array('lastsqlupdate'=>$timeStamp,'version'=>$timeStamp));
+		$this->success('您可以重新进行升级了',U('System/main'));
 	}
 	function curlGet($url){
 		$ch = curl_init();
@@ -238,6 +263,26 @@ class SystemAction extends BackAction{
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$temp = curl_exec($ch);
 		return $temp;
+	}
+	function getTopDomain(){
+		$host=$_SERVER['HTTP_HOST'];
+		$host=strtolower($host);
+		if(strpos($host,'/')!==false){
+			$parse = @parse_url($host);
+			$host = $parse['host'];
+		}
+		$topleveldomaindb=array('com','edu','gov','int','mil','net','org','biz','info','pro','name','museum','coop','aero','xxx','idv','mobi','cc','me');
+		$str='';
+		foreach($topleveldomaindb as $v){
+			$str.=($str ? '|' : '').$v;
+		}
+		$matchstr="[^\.]+\.(?:(".$str.")|\w{2}|((".$str.")\.\w{2}))$";
+		if(preg_match("/".$matchstr."/ies",$host,$matchs)){
+			$domain=$matchs['0'];
+		}else{
+			$domain=$host;
+		}
+		return $domain;
 	}
 }
 function recurse_copy($src,$dst) {  // 原目录，复制到的目录
@@ -288,7 +333,13 @@ function pigcms_getcontents($url){
 		curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$temp = curl_exec($ch);
-		return $temp;
+		$errorno=curl_errno($ch);
+		if ($errorno) {
+			exit('curl发生错误：错误代码'.$errorno.'，如果错误代码是6，您的服务器可能无法连接我们升级服务器');
+		}else {
+			return $temp;
+		}
+		
 	}else {
 		$str=file_get_contents($url);
 		return $str;

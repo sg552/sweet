@@ -22,7 +22,7 @@ class AdminAction extends Action{
         // 支持使用绑定帐号登录
         $map['username'] = $username;
         $map['status']        = 1;
-        $authInfo = RBAC::authenticate($map);
+        $authInfo = RBAC::authenticate($map,'User');
 		//exit;
         //使用用户名、密码和状态的方式进行认证
 		if($authInfo['password']!=$password)$this->error('账号密码不匹配，请认真填写');
@@ -37,7 +37,7 @@ class AdminAction extends Action{
                 session(C('ADMIN_AUTH_KEY'), true);
             }
             //保存登录信息
-            $User	=	M(C('USER_AUTH_MODEL'));
+            $User	=	M('User');
             $ip		=	get_client_ip();
             $data = array();
             if($ip){    //如果获取到客户端IP，则获取其物理位置

@@ -5,12 +5,19 @@
 class CaseAction extends BackAction{
 	public function index(){
 		$db=D('Case');
+		$where='';
 		F('case',null);
-		$case=$db->where('status=1')->limit(32)->select();
+		if (!C('agent_version')){
+			$case=$db->where('status=1')->limit(32)->select();
+		}else {
+			$case=$db->where('status=1 AND agentid=0')->limit(32)->select();
+			$where=array('agentid'=>0);
+		}
+		
 		F('case',$case);
-		$count=$db->count();
+		$count=$db->where($where)->count();
 		$page=new Page($count,25);
-		$info=$db->limit($page->firstRow.','.$page->listRows)->select();
+		$info=$db->where($where)->limit($page->firstRow.','.$page->listRows)->select();
 		$this->assign('info',$info);
 		$this->assign('page',$page->show());
 		$this->display();

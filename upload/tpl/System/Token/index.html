@@ -14,7 +14,7 @@
 		<td  style="display:none">使用次数</td>
 		
 		<td style="display:none">状态</td>
-		<td style="display:none">管理操作</td>
+		<td>管理操作</td>
 	  </tr>
 	    <volist name="list" id="vo">
 			<tr>
@@ -25,9 +25,7 @@
 				<td align='center' style="display:none">{pigcms:$vo.usenum}</td>
 				<td align='center' style="display:none"><eq name="vo.status" value="1"><font color="red">√</font><else/><font color="blue">×</font></eq> 
 				</td>
-				<td align='center' style="display:none">
-					
-					| <eq name="vo.username" value="admin"><font color="#cccccc">删除</font><else/><a href="javascript:void(0)" onclick="return confirmurl('{pigcms::U('Token/del/',array('id'=>$vo['id']))}','确定删除该用户吗?')">删除</a></eq>
+				<td align='center'><a href="javascript:void(0)" onclick="if(confirm('确定删除吗')){location.href='{pigcms::U('Token/del/',array('id'=>$vo['id']))}'}">删除</a>
 				</td>
 			</tr>
 	    </volist>

@@ -3,6 +3,9 @@ class TokenAction extends BackAction{
 	public function index(){
 		$map = array();
 		$UserDB = D('Wxuser');
+		if (isset($_GET['agentid'])){
+			$map=array('agentid'=>intval($_GET['agentid']));
+		}
 		$count = $UserDB->where($map)->count();
 		$Page       = new Page($count,5);// 实例化分页类 传入总记录数
 		// 进行分页数据查询 注意page方法的参数的前面部分是当前的页数使用 $_GET[p]获取
@@ -26,6 +29,9 @@ class TokenAction extends BackAction{
 	public function del(){
 		$id=$this->_get('id','intval',0);
 		$wx=M('Wxuser')->where(array('id'=>$id))->find();
+		if ($wx['agentid']){
+			M('Agent')->where(array('id'=>$wx['agentid']))->setDec('wxusercount');
+		}
 		M('Img')->where(array('token'=>$wx['token']))->delete();
 		M('Text')->where(array('token'=>$wx['token']))->delete();
 		M('Lottery')->where(array('token'=>$wx['token']))->delete();
@@ -34,11 +40,8 @@ class TokenAction extends BackAction{
 		M('Home')->where(array('token'=>$wx['token']))->delete();
 		M('Areply')->where(array('token'=>$wx['token']))->delete();
 		$diy=M('Diymen_class')->where(array('token'=>$wx['token']))->delete();
-		if($diy){
-			$this->success('操作成功');
-		}else{
-			$this->error('操作失败');
-		}
+		M('Wxuser')->where(array('id'=>$id))->delete();
+		$this->success('操作成功');
 	}
 	public function edit(){
 		if(IS_POST){
