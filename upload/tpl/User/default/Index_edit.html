@@ -27,7 +27,23 @@
                 </tr>
                  
                  <input type="hidden" name="token" value="{pigcms:$info.token}" class="px" tabindex="1" size="40">
-               
+                <tr>
+                  <th><span class="red"></span>AppID：</th>
+                  <td><input type="text" name="appid" value="{pigcms:$info.appid}" class="px" tabindex="1" size="25">　用于自定义菜单等高级功能，可以不填 </td>
+                </tr>
+                <tr>
+                  <th><span class="red"></span>AppSecret：</th>
+                  <td><input type="text" name="appsecret" value="{pigcms:$info.appsecret}" class="px" tabindex="1" size="25">　用于自定义菜单等高级功能，可以不填 </td>
+                </tr>
+                
+                <tr>
+                  <th><span class="red"></span>微信号类型：</th>
+                  <td><select id="winxintype" name="winxintype">                  
+                  <option value="1" <eq name="info.winxintype" value="1">selected</eq>>订阅号</option>
+                  <option value="2" <eq name="info.winxintype" value="2">selected</eq>>服务号</option>
+                  <option value="3" <eq name="info.winxintype" value="3">selected</eq>>高级服务号</option>
+                  </select>　高级服务号是指每年向微信官方交300元认证费的公众号 </td>
+                </tr>
                 
                 <tr>
                   <th><span class="red">*</span>地区</th>

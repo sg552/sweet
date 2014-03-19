@@ -31,20 +31,43 @@ a {
 .copyright a{color:#666;}
 /*cate15*/
 #cate15{background-color: #000000;overflow-x: hidden;}
-#cate15 .mainbg{
+#nav {
+	float:none;
 	width:100%;
+}
+#scroller li p {
+display: none;
+}
+#wrapper {
+position: fixed;
+}
+#indicator {
+position: fixed;
+left: 0;
+text-align: center;
+bottom: 50px;
+width: 100%;
+}
+#indicator > li {
+display: inline-block;
+float:none;
+}
+#indicator > li.active {
+background: #cccccc;
+}
+#cate15 .mainbg{ 
 	position:fixed;
-	z-index:1
+	z-index:1;
+	width: 100%;
 }
 #cate15 .mainbg img{
 	width:100%;
 }
-#cate15 .mainmenu{
-	z-index: 2;
+#cate15 .mainmenu {
+  z-index:20;
 	color: #FFF;
 	position: fixed;
 	bottom: 60px;
-	width: 100%;
 }
 #cate15 .mainmenu ul {
 	display: block;
@@ -55,12 +78,12 @@ a {
 
 #cate15 .mainmenu li a {
 	display: inline-block;
-	background:url(../../images/libg2.png) no-repeat right center rgba(159, 133, 96, 0.45);
+	background:url(../../images/libg.png) no-repeat right center rgba(159, 133, 96, 0.45);
 	background-size: 14px 14px;
 	padding:8px 20px 8px 8px;
 	margin:0 3px 3px 0;
 	font-size:14px;
-	color:rgba(255, 255, 255, 0.6);
+	color:rgba(0, 0, 0, 0.9);
 	text-decoration: none;
 	border-radius:0 3px 3px 0;
 }

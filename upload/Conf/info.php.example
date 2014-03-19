@@ -1,0 +1,23 @@
+<?php 
+return array (
+  'site_name' => '易联达微信营销系统',
+  'site_title' => '易联达微信营销',
+  'site_url' => 'http://www.weixin.pe',
+  'site_my' => '小彪',
+  'server_key' => '',
+  'server_topdomain' => 'weixin.pe',
+  'connectout' => '40000',
+  'ischeckuser' => 'false',
+  'reg_needmp' => 'true',
+  'reg_groupid' => '1',
+  'reg_validdays' => '5',
+  'ipc' => '京ICP备11037495号',
+  'site_qq' => '510045240',
+  'baidu_map_api' => '',
+  'site_email' => 'shensiwei@sina.com',
+  'keyword' => '微信 营销 新疆 ',
+  'content' => '易联达微信营销系统',
+  'countsz' => '',
+  'copyright' => '@weixin.pe 易联达 版权所有',
+  'counts' => '',
+);

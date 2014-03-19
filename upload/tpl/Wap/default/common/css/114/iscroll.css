@@ -22,11 +22,7 @@
 	float:left;
 	padding:0;
 }
-#wrapper{
-	width:100%;
-	position:fixed;
-	z-index:1
-}
+
 #scroller ul {
 	list-style:none;
 	display:block;
@@ -76,7 +72,7 @@
     margin-top: -15px;
     padding: 0;
     position: relative;
-    width: 100%;
+    width: auto;
     z-index: 3;
 }
 
@@ -93,20 +89,6 @@
 	float:right;
 	text-align:right;
 }
-#indicator {
-position: fixed;
-left: 0;
-text-align: center;
-bottom: 50px;
-width: 100%;
-}
-#indicator > li {
-display: inline-block;
-float:none;
-}
-#indicator > li.active {
-background: #cccccc;
-}
 
 #indicator > li {
 	display:block; float:left;
@@ -118,8 +100,7 @@ background: #cccccc;
 	display: block;
     margin: 0;
     padding: 0;
-    width:100%;
-    margin-left:47%;
+    width: auto;
 }
 
 #indicator > li {
@@ -141,5 +122,4 @@ background: #cccccc;
 #indicator > li:last-child {
 	margin:0;
 }
-
 

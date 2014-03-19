@@ -127,7 +127,7 @@ class IndexAction extends BaseAction{
 			}
 		}
 		$this->assign('flashbg',$flashbg);
-		if(!$flashbg){
+		if(!$flashbg&&$this->homeInfo['homeurl']){
 			$flash_db=M('Flash');
 			$arr=array();
 			$arr['token']=$this->token;
@@ -294,7 +294,7 @@ class IndexAction extends BaseAction{
 				$link='/index.php?g=Wap&m=Vote&a=index&token='.$this->token.'&wecha_id='.$this->wecha_id.'&id='.$itemid;
 			}
 		}else {
-			$link=str_replace(array('{wechat_id}','{siteUrl}'),array($this->wecha_id,C('site_url')),$url);
+			$link=str_replace(array('{wechat_id}','{siteUrl}','&amp;'),array($this->wecha_id,C('site_url'),'&'),$url);
 			if (!strpos($url,'wecha_id=')){
 				if (strpos($url,'?')){
 					$link=$link.'&wecha_id='.$this->wecha_id;

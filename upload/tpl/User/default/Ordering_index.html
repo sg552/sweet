@@ -1,7 +1,7 @@
 <include file="Public:head"/>
 
 <div class="content">
-         
+
           <div class="cLineB">
               <h4 class="left">在线订餐</h4>
               <div class="clr"></div>
@@ -10,9 +10,9 @@
             <div class="pageNavigator left">
 			  <a href="{pigcms::U('Ordering/set',array('token'=>session('token')))}" title="微信回复配置" class="btnGrayS vm bigbtn">订餐配置</a>　
 			  <a href="{pigcms::U('Ordering/class_list',array('token'=>session('token')))}" title="分类管理" class="btnGrayS vm bigbtn">分类管理</a>　
-			  <a href="{pigcms::U('Ordering/add',array('token'=>session('token')))}" title="发布菜单" class="btnGrayS vm bigbtn">发布菜单</a>              
+			  <a href="{pigcms::U('Ordering/add',array('token'=>session('token')))}" title="发布菜单" class="btnGrayS vm bigbtn">发布菜单</a>
             </div>
-          
+
             <div class="clr"></div>
           </div>
           <div class="msgWrap">
@@ -23,7 +23,7 @@
               <thead>
                 <tr>
 					<th class="select">选择</th>
-									
+
 					<th>标题</th>
 										<th>类型</th>
 										<th class="time">开始时间</th>
@@ -34,21 +34,21 @@
               </thead>
               <tbody>
                 <tr></tr>
-                  
+
                 <tr>
                   <td>  <input type="checkbox" name="del_id[]" value="674" class="checkitem"></td>
-                    
-                  <td>小猪炒企鹅</td>
+
+                  <td>易联达炒企鹅</td>
                   <td>凉菜</td>
                   <td>2013-07-30</td>
                     <td>2013-07-30</td>
                      <td>暂无</td>
                    <td onclick="alert('内测中,暂时未放出');return false;" class="norightborder">
-				   <a href="{pigcms::U('Vote/list',array('type'=>'text','id'=>$vote['id']))}" title="投票结果">订单管理</a> 
-				   <a href="{pigcms::U('Vote/edit',array('type'=>'text','id'=>$vote['id']))}" title="编辑">编辑</a> 
-				   <a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Vote/del',array('type'=>'text','id'=>$vote['id']))}');">删除</a> 
+				   <a href="{pigcms::U('Vote/list',array('type'=>'text','id'=>$vote['id']))}" title="投票结果">订单管理</a>
+				   <a href="{pigcms::U('Vote/edit',array('type'=>'text','id'=>$vote['id']))}" title="编辑">编辑</a>
+				   <a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Vote/del',array('type'=>'text','id'=>$vote['id']))}');">删除</a>
 				   <a href="javascript:drop_confirm('开始投票活动将预先扣除1000金币，折合RMB 1元 ', '{pigcms::U('Vote/start',array('type'=>'text','id'=>$vote['id']))}');">开始</a>   </td>
-          
+
                 </tr>
       			                 <tr>
                 <td colspan="8"> <input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'del_id')"><label for="checkallBottom">全选</label>
@@ -61,7 +61,7 @@
                 </tr>
               </tbody>
             </table>
-           </form> 
+           </form>
            <script>
    function checkvotethis() {
 var aa=document.getElementsByName('del_id[]');
@@ -81,11 +81,11 @@ alert('未选中内容！')
 
    </script>
           </div>
-            
 
 
- 
- 
+
+
+
           <div class="cLine">
             <div class="pageNavigator right">
                  <div class="pages"></div>
