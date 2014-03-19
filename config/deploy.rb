@@ -2,9 +2,11 @@
 require 'capistrano-rbenv'
 set :rake, "bundle exec rake"
 set :application, "weixin.pe"
-set :repository, "."
-set :scm, :none
-set :deploy_via, :copy
+#set :repository, "."
+#set :scm, :none
+#set :deploy_via, :copy
+set :scm, :git
+set :repository, 'git@github.com:sg552/sweet.git'
 TEST_SERVER= "siwei.me"
 PRODUCTION_SERVER = "weixin.pe"
 
@@ -36,7 +38,7 @@ namespace :deploy do
     run "/etc/init.d/php5-fpm start"
   end
   task :stop do
-    run "/etc/init.d/php5-fpm start"
+    run "/etc/init.d/php5-fpm stop"
   end
   task :restart, :roles => :app, :except => { :no_release => true } do
     stop
@@ -57,20 +59,15 @@ end
 
 
 desc "Copy database files to release_path"
-task :cp_database_yml do
-  #puts "=== executing my customized command: "
-  #run "cp -r #{shared_path}/config/* #{release_path}/config/"
-  #run "rm #{release_path}/public/files -rf"
-  #run "ln -s #{shared_path}/files #{release_path}/public/files"
-  #run "chmod -R 777 #{shared_path}"
-  #run "touch #{release_path}/httparty.log && chmod 777 #{release_path}/httparty.log"
-  #run "cp #{shared_path}/lib/radius/auth.py #{release_path}/lib/radius/"
-  #if server_type.chomp.include? 'test'
-  #  run "cp #{shared_path}/public/images/* #{release_path}/public/images"
-  #  run "cp #{shared_path}/left.html.erb #{release_path}/app/views/users/"
-  #end
-  #run "chmod -R 777 /opt/app/ruby/m-cms/releases"
+task :copy_configure_files do
+
+  puts "=== executing my customized command: "
+  run "cp #{shared_path}/Conf/*.php #{release_path}/upload/Conf/"
+  run "chmod -R 777 #{shared_path}"
+  run "chmod -R 777 #{release_path}"
+  run "rm #{release_path}/upload/Conf/logs -rf"
+  run "ln -s #{shared_path}/Conf/logs #{release_path}/upload/Conf/logs"
+  run "ln -s #{shared_path}/uploads #{release_path}/upload/uploads"
 end
 
-before "deploy:assets:precompile", :cp_database_yml
-#after "deploy", "deploy:restart"
+after "deploy:update_code", :copy_configure_files
