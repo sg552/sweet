@@ -1,8 +1,8 @@
 <?php
 
 	class User_groupAction extends BackAction{
-	
-		public function index(){			
+
+		public function index(){
 			$map = array();
 			if (C('agent_version')){
 				$map['agentid']=array('lt',1);
@@ -13,13 +13,14 @@
 			// 进行分页数据查询 注意page方法的参数的前面部分是当前的页数使用 $_GET[p]获取
 			$nowPage = isset($_GET['p'])?$_GET['p']:1;
 			$show       = $Page->show();// 分页显示输出
-			$list = $UserDB->where($map)->order('id ASC')->page($nowPage.','.C('PAGE_NUM'))->select();		
+			$list = $UserDB->where($map)->order('id ASC')->page($nowPage.','.C('PAGE_NUM'))->select();
 			if ($list){
 				$i=1;
-				foreach ($list as $item){
-					$UserDB->where(array('id'=>$item['id']))->save(array('taxisid'=>$i));
-					$i++;
-				}
+        // TODO siwei 这里有问题，被我注释掉了。
+				//foreach ($list as $item){
+				//  $UserDB->where(array('id'=>$item['id']))->save(array('taxisid'=>$i));
+				//  $i++;
+				//}
 			}
 			$this->assign('list',$list);
 			$this->assign('page',$show);// 赋值分页输出
@@ -30,7 +31,7 @@
 				$this->all_insert();
 			}else{
 				$this->display();
-			}			
+			}
 		}
 		public function edit(){
 			if(IS_POST){
@@ -39,22 +40,22 @@
 				$id = $this->_get('id','intval',0);
 				if(!$id)$this->error('参数错误!');
 				$info = D('User_group')->getGroup(array('id'=>$id));
-				$this->assign('tpltitle','编辑');				
+				$this->assign('tpltitle','编辑');
 				$this->assign('info',$info);
-				$this->display('add');			
-			}			
+				$this->display('add');
+			}
 		}
 		public function del(){
 			$id=$this->_get('id','intval',0);
 			if($id==0)$this->error('非法操作');
 			$info = D('User_group')->delete($id);
 			if($info==false){
-				$this->success('操作成功');		
+				$this->success('操作成功');
 			}else{
 				$this->error('操作失败');
 			}
 		}
-	
-	
+
+
 	}
 ?>
