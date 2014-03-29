@@ -36,9 +36,15 @@ public/files/*
 config/log4r.yml
 *.zip
 nohup.out
+
+
+# for pigcms
 upload/Conf/alipay.php
 upload/Conf/db.php
 upload/Conf/info.php
 upload/Conf/safe.php
 upload/Conf/logs
 upload/uploads/
+upload/Conf/logs/Logs
+public
+upload/uploads
