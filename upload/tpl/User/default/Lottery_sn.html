@@ -1,4 +1,5 @@
 <include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
 <div class="content">
          
           <div class="cLineB">
@@ -13,6 +14,8 @@
         
   <div class="cLineB">
             本次活动奖品总数：<span class="redamount">{pigcms:$datacount}</span>个　　　中奖人数：<span class="redamount">{pigcms:$recordcount} </span>个　　已发奖品：<span class="redamount">{pigcms:$sendCount}</span>个          </div>
+            <div class="ftip" style="margin:0 auto">导出Excel后把Excel表格中的手机号等列弄宽一点就会显示真正完整的手机号等信息
+    </div>
             <div style="margin-top:20px;"><a href="###" onclick="$('#import').css('display','')" class="btnGrayS vm">导入SN码</a>&nbsp;&nbsp;<a href="?g=User&m=Lottery&a=exportSN&id={pigcms:$thisLottery.id}" class="btnGrayS vm">导出中奖数据</a>&nbsp;&nbsp;<a href="/tpl/User/default/common/images/sndemo.xls" class="btnGrayS vm">下载导入Excel模板</a></div>
              <div style="margin-top:20px;display:none" id="import"><form enctype="multipart/form-data" action="?g=User&m=Upyun&a=localUploadSNExcel" id="thumbForm" method="POST" style="font-size:14px;padding:10px 20px 10px 0px;"><div>选择本地文件：<input type="file" style="width:250px;border:1px solid #ddd" name="photo"></input> <input id="submitbtn" name="doSubmit" type="submit" class="btnGreen" value="上传" onclick="this.value='上传中...'"></input> <a href="###" onclick="$('#import').css('display','none')" class="btnGrayS vm">取消导入</a> 注意：不支持xlsx格式</div><input type="hidden" value="{pigcms:$thisLottery.id}" name="lid" /></form></div>
   <div class="cLine" style=" padding: 8px 0">

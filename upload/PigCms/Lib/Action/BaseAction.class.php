@@ -133,7 +133,20 @@ class BaseAction extends Action{
 		}else{
 			$id=$db->save();
 			if($id){
-				$m_arr=array('Img','Text','Voiceresponse','Ordering','Lottery','Host','Product','Selfform','Panorama','Wedding','Vote','Estate','Reservation');
+				$m_arr=array(
+					'Img',
+					'Text',
+					'Voiceresponse',
+					'Ordering','Lottery',
+					'Host','Product',
+					'Selfform',
+					'Panorama',
+					'Wedding',
+					'Vote',
+					'Estate',
+					'Reservation',
+					'Carowner','Carset'
+				);
 				if(in_array($name,$m_arr)){
 					$data['pid']=$_POST['id'];
 					$data['module']=$name;
@@ -148,7 +161,18 @@ class BaseAction extends Action{
 			}
 		}
 	}
-	
+	protected function del_id($name='',$jump=''){
+		$name=$name?$name:MODULE_NAME;
+		$jump=empty($name)?MODULE_NAME.'/index':$jump;
+		$db=D($name);
+		$where['id']=$this->_get('id','intval');
+		$where['token']=session('token');
+		if($db->where($where)->delete()){
+			$this->success('操作成功',U($jump));
+		}else{
+			$this->error('操作失败',U(MODULE_NAME.'/index'));
+		}
+	}
 	protected function all_del($id,$name='',$back='/index'){
 		$name=$name?$name:MODULE_NAME;
 		$db=D($name);

@@ -1,10 +1,7 @@
 <?php
 class HostAction extends UserAction{		
 	public function index(){				
-		$token_open=M('token_open')->field('queryname')->where(array('token'=>session('token')))->find();
-		if(!strpos($token_open['queryname'],'host_kev')){
-            $this->error('您还未开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>session('token'),'id'=>session('wxid'))));
-		}
+		$this->canUseFunction('host_kev');
 		 
 		$data=M('Host');
 		$count      = $data->where(array('token'=>$_SESSION['token']))->count();
@@ -174,6 +171,7 @@ class HostAction extends UserAction{
 			}
     }
 	public function list_del(){
+		
 		$id = $this->_get('id');
             $token = session('token');
 		 $data = M('Host_list_add')->where(array('id'=>$id,'token'=>$token))->delete();
@@ -197,7 +195,7 @@ class HostAction extends UserAction{
         $no_count      = $data->where(array('token'=>$_SESSION['token'],'order_status'=>3,'hid'=>$hid))->count();
         $Page       = new Page($count,20);
         $show       = $Page->show();
-        $li = $data->where(array('token'=>$_SESSION['token'],'hid'=>$hid))->limit($Page->firstRow.','.$Page->listRows)->select(); 
+        $li = $data->where(array('token'=>$_SESSION['token'],'hid'=>$hid))->order('id DESC')->limit($Page->firstRow.','.$Page->listRows)->select(); 
         $this->assign('count',$count);
         $this->assign('ok_count',$ok_count);
         $this->assign('no_count',$no_count);
@@ -217,7 +215,18 @@ class HostAction extends UserAction{
 			$this->display();
 		}
     }
-
+    public function order_del(){
+		
+		$id = $this->_get('id');
+            $token = session('token');
+		 $data = M('Host_order')->where(array('id'=>$id,'token'=>$token))->delete();
+		if($data==false){
+			$this->error('删除失败');
+		}else{
+			$this->success('操作成功');
+		}
+	
+	}
 
 }
 

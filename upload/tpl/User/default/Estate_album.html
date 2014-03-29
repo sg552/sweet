@@ -49,7 +49,7 @@
                                         <td style="text-align:center;">{pigcms:$list['info']}</td> 
                                         <td style="text-align:center;">
                                         <a href="{pigcms::U('Estate/album_add',array('poid'=>$list['id'],'token'=>$list['token']))}" class="btn">编辑</a>
-                                        <a href="{pigcms::U('Estate/album_del',array('id'=>$list['id'],'token'=>$list['token']))}" onclick="return(confirm('确定要删除吗？'))" class="btn">删除</a></a>
+                                        <a href="{pigcms::U('Estate/album_del',array('id'=>$list['mid'],'token'=>$list['token']))}" onclick="return(confirm('确定要删除吗？'))" class="btn">删除</a></a>
 </td>
                                         </tr>
                                     </volist>

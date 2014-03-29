@@ -11,16 +11,23 @@ class IndexAction extends UserAction{
 		unset($group);
 		$db=M('Wxuser');
 		$count=$db->where($where)->count();
-		$page=new Page($count,25);
+		$page=new Page($count,100);
 		$info=$db->where($where)->limit($page->firstRow.','.$page->listRows)->select();
 		if ($info){
 			foreach ($info as $item){
-				if (!$item['appid']){
+				if (!$item['appid']&&$apiinfo['appid']&&$apiinfo['appsecret']){
 					$apiinfo=M('Diymen_set')->where(array('token'=>$item['token']))->find();
-					//$db->where(array('id'=>$item['id']))->save(array('appid'=>$apiinfo['appid'],'appsecret'=>$apiinfo['appsecret']));
+					$db->where(array('id'=>$item['id']))->save(array('appid'=>$apiinfo['appid'],'appsecret'=>$apiinfo['appsecret']));
+				}else {
+					$diymen=M('Diymen_set')->where(array('token'=>$item['token']))->find();
+					if (!$diymen){
+					M('Diymen_set')->add(array('token'=>$item['token'],'appid'=>$item['appid'],'appsecret'=>$item['appsecret']));
+					}
 				}
+				//
 			}
 		}
+		$this->assign('thisGroup',$this->userGroup);
 		$this->assign('info',$info);
 		$this->assign('group',$groups);
 		$this->assign('page',$page->show());
@@ -61,6 +68,13 @@ class IndexAction extends UserAction{
 		$where['id']=$this->_get('id','intval');
 		$where['uid']=session('uid');
 		if(D('Wxuser')->where($where)->delete()){
+			if ($this->isAgent){
+				M('Agent')->where(array('id'=>$this->thisAgent['id']))->setDec('wxusercount');
+				if ($this->thisAgent['wxacountprice']){
+					M('Agent')->where(array('id'=>$this->thisAgent['id']))->setInc('moneybalance',$this->thisAgent['wxacountprice']);
+					M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>$this->thisAgent['wxacountprice'],'des'=>$this->user['username'].'(uid:'.$this->user['id'].')删除公众号'.$_POST['wxname'],'status'=>1,'time'=>time()));
+				}
+			}
 			$this->success('操作成功',U(MODULE_NAME.'/index'));
 		}else{
 			$this->error('操作失败',U(MODULE_NAME.'/index'));
@@ -68,6 +82,7 @@ class IndexAction extends UserAction{
 	}
 	
 	public function upsave(){
+		M('Diymen_set')->where(array('token'=>$this->token))->save(array('appid'=>trim($this->_post('appid')),'appsecret'=>trim($this->_post('appsecret'))));
 		$this->all_save('Wxuser');
 	}
 	
@@ -82,13 +97,24 @@ class IndexAction extends UserAction{
 		//$this->all_insert('Wxuser');
 		//
 		$db=D('Wxuser');
+		if ($this->isAgent){
+			$_POST['agentid']=$this->thisAgent['id'];
+		}
 		if($db->create()===false){
 			$this->error($db->getError());
 		}else{
 			$id=$db->add();
 			if($id){
+				if ($this->isAgent){
+					M('Agent')->where(array('id'=>$this->thisAgent['id']))->setInc('wxusercount');
+					if ($this->thisAgent['wxacountprice']){
+						M('Agent')->where(array('id'=>$this->thisAgent['id']))->setDec('moneybalance',$this->thisAgent['wxacountprice']);
+						M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>(0-$this->thisAgent['wxacountprice']),'des'=>$this->user['username'].'(uid:'.$this->user['id'].')添加公众号'.$_POST['wxname'],'status'=>1,'time'=>time()));
+					}
+				}
 				M('Users')->field('wechat_card_num')->where(array('id'=>session('uid')))->setInc('wechat_card_num');
 				$this->addfc();
+				M('Diymen_set')->add(array('appid'=>trim($this->_post('appid')),'token'=>$this->_post('token'),'appsecret'=>trim($this->_post('appsecret'))));
 				//
 				$this->success('操作成功',U('Index/index'));
 			}else{
@@ -108,7 +134,11 @@ class IndexAction extends UserAction{
 		$open['uid']=session('uid');
 		$open['token']=$_POST['token'];
 		$gid=session('gid');
-		$fun=M('Function')->field('funname,gid,isserve')->where('`gid` <= '.$gid)->select();
+		if (C('agent_version')&&$this->agentid){
+			$fun=M('Agent_function')->field('funname,gid,isserve')->where('`gid` <= '.$gid.' AND agentid='.$this->agentid)->select();
+		}else {
+			$fun=M('Function')->field('funname,gid,isserve')->where('`gid` <= '.$gid)->select();
+		}
 		foreach($fun as $key=>$vo){
 			$queryname.=$vo['funname'].',';
 		}

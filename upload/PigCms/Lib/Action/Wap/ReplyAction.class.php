@@ -48,7 +48,7 @@ class ReplyAction extends BaseAction{
         $message=$this->_get('message');
         $name=$this->_get('name');
         $msgarr = array();
-        $msgarr['checked'] = $this->needCheck;
+        $msgarr['checked'] = 1-intval($this->needCheck);
         $msgarr['name'] =$name;
         $msgarr['message'] = $message;
         $msgarr['wecha_id'] = $this->wecha_id; 
@@ -91,14 +91,26 @@ class ReplyAction extends BaseAction{
     }
      public function reply(){//回复信息处理
          $reply_model=M("reply");
-         //$check = $_GET['check'];//审核字段
-         $check = $this->_get('check');
+
          $message_id = $this->_get('message_id');
          $reply = $this->_get('reply');
          $replyarr = array();
-         $replyarr['checked'] = $check;
+         if (intval($this->needCheck)){
+         	 $replyarr['checked'] = 0;
+         }else {
+         	 $replyarr['checked'] = 1;
+         }
+        
          $replyarr['wecha_id'] = $this->wecha_id;
          $replyarr['message_id'] = $message_id;
+         //
+          $leave_model =M("leave");
+          $thisMessage=$leave_model->where(array('id'=>intval($message_id)))->find();
+          if (!$thisMessage){
+          	$this->ajaxReturn("","留言不存在",0);
+                exit;
+          }
+         //
          $replyarr['reply'] = $reply;
          $replyarr['time'] =time();
          //根据wecha_id 来确定同一用户60秒以后才能回复

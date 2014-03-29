@@ -82,7 +82,7 @@ font-size:12px;line-height: 48px;
 <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody>
 <tr>
 <th width="120">推广页地址：</th>
-<td width="430"><a href="{pigcms::C('site_url')}/index.php/show/{pigcms:$Think.session.token}" target="ddd" title="点击查看推广页" class="green" target="_blank">{pigcms::C('site_url')}/index.php/show/{pigcms:$Think.session.token}</a></td>
+<td width="430"><a href="{pigcms:$f_siteUrl}/index.php/show/{pigcms:$Think.session.token}" target="ddd" title="点击查看推广页" class="green" target="_blank">{pigcms:$f_siteUrl}/index.php/show/{pigcms:$Think.session.token}</a></td>
 <td rowspan="6" valign="top" class="yulan">
 <div class="main">
 <h1 id="adtitle">{pigcms:$adma.title}</h1>
@@ -141,14 +141,14 @@ document.getElementById("gzhinfo").innerHTML=document.getElementById("info").val
 	}
 	</script> 
 		<br/>
-		<span>例如：© 2001-2013 {pigcms::C('site_name')}版权所有</span>
+		<span>例如：© 2001-2013 {pigcms:$f_siteName}版权所有</span>
 		</td>
 </tr>
 <tr>
 <td>&nbsp;</td>
 <td><button type="submit" name="button" class="btnGreen">保存</button>
 <a href="index.php?ac=erweima-edit&amp;id=9878" class="btnGray vm">取消</a>
-<a href="{pigcms::C('site_url')}/index.php/show/{pigcms:$Think.session.token}" class="right btnGray vm" target="ddd" style=" margin-right:20px" target="_blank">查看推广页</a>
+<a href="{pigcms:$f_siteUrl}/index.php/show/{pigcms:$Think.session.token}" class="right btnGray vm" target="ddd" style=" margin-right:20px" target="_blank">查看推广页</a>
 </td>
 </tr>
 

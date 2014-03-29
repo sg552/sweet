@@ -2,10 +2,7 @@
 class LotteryAction extends LotteryBaseAction{
 	public function _initialize() {
 		parent::_initialize();
-		$function=M('Function')->where(array('funname'=>'lottery'))->find();
-		if (intval($this->user['gid'])<intval($function['gid'])){
-			$this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>$this->token)));
-		}
+		//$this->canUseFunction('lottery');
 	}
 	public function cheat(){
 		parent::cheat();
@@ -17,7 +14,8 @@ class LotteryAction extends LotteryBaseAction{
 	
 	}
 	public function sn(){
-		parent::sn(1);
+		$type=isset($_GET['type'])?intval($_GET['type']):1;
+		parent::sn($type);
 		$this->display();
 	}
 	public function add(){

@@ -105,6 +105,7 @@ class UpyunAction extends UserAction{
 					//
 					$fileUrl='http://'.$this->upyun_domain.$_GET['url'];
 					$fileinfo=get_headers($fileUrl,1);
+					$fileinfo['Content-Type']=$fileinfo['Content-Type']?$fileinfo['Content-Type']:'';
 					M('Users')->where(array('id'=>$this->user['id']))->setInc('attachmentsize',intval($fileinfo['Content-Length']));
 					M('Files')->add(array('token'=>$this->token,'size'=>intval($fileinfo['Content-Length']),'time'=>time(),'type'=>$fileinfo['Content-Type'],'url'=>$fileUrl));
 				}else{

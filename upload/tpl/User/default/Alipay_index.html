@@ -14,7 +14,7 @@
         <div class="sideBar">
           <div class="catalogList">
             <ul>
-            	<li class="subCatalogList"> <a href="index.php?ac=editinfo">个人资料</a> </li>
+    
 				<li > <a href="index.php?g=User&amp;m=Index&amp;a=index">我的公众号</a></li>
 				<li class=" subCatalogList "><a href="index.php?g=User&amp;m=Index&amp;a=add">添加公众号</a> </li>
 				<li class="selected"> <a href="/index.php?g=User&m=Alipay&a=index">会员充值</a> </li>
@@ -66,28 +66,37 @@ display: inline-block;
 <script>
 
 $(function(){
-var price=new Array();
-		<volist id="p" name="group">
-			price[{pigcms:$p.id}]={pigcms:$p.price};
-		</volist>
-	$('#group').change(function(){		
-		
-$('#price').val(price[$('#group').val()]*$('#num').val());
+	var price=new Array();
+	<volist id="p" name="group">
+	price[{pigcms:$p.id}]={pigcms:$p.price};
+	</volist>
+	$('#group').change(function(){
+		$('#price').val(price[$('#group').val()]*$('#num').val());
+		$('#needprice').val(price[$('#group').val()]*$('#num').val());
 	});
-	$('#num').change(function(){		
-		
-$('#price').val(price[$('#group').val()]*$('#num').val());
+	$('#num').change(function(){
+
+		$('#price').val(price[$('#group').val()]*$('#num').val());
+		$('#needprice').val(price[$('#group').val()]*$('#num').val());
 	});
 });
+function checkcz(){
+	if($('#group').val()==0){
+		alert('请选择级别');
+		return false;
+	}
+	return true;
+}
 </script>
 <div class="usercontent">
 <ul>
-<form action="{pigcms::U('Alipay/post')}" method="post">
+<form action="{pigcms::U('Alipay/post')}" method="post" onsubmit="return checkcz()">
 	<li> 
-		<b>充值　选项: </b>
+		<b>充值选项: </b>
 		<select name="gid" style="margin-left:10px;" id="group">
+		<option value="0" selected>请选择</option>
 			<volist id="group" name="group">
-			<option value="{pigcms:$group.id}" <if condition="$_SESSION['gid'] eq $group['id']" data="{pigcms:$group.price}">selected="selected"</if>>{pigcms:$group.name}</option>
+			<option value="{pigcms:$group.id}"<if condition="$_SESSION['gid'] eq $group['id']" data="{pigcms:$group.price}"></if>>{pigcms:$group.name}</option>
 			</volist>
 		</select>
 		<select name="num" style="margin-left:10px;" id="num">
@@ -105,8 +114,10 @@ $('#price').val(price[$('#group').val()]*$('#num').val());
 			<option value="12">12个月</option>		
 		</select>
     </li>
-	<li> <b>充值用户名: </b><input type="text" name="uname" value="{pigcms:$Think.session.uname}" size="60" > <b>充值帐号,默认即可请勿修改</b></li>
-	<li> <b>充值　金额: </b><input type="text" name="price" value="{pigcms:$user.price}" id="price" size="60"> <b>先择对应的充值选项,价格自动生成</b></li>
+	<li style="display:none"> <b>充值用户名: </b><input type="text" name="uname" value="{pigcms:$Think.session.uname}" size="60" > <b>充值帐号,默认即可请勿修改</b></li>
+	<li> <b>账户余额: </b><input type="text" style="border:none;width:30px;" name="moneybalance" value="{pigcms:$thisUser.moneybalance}" id="needmoneybalanceprice" size="10" disabled> 元<b></b></li>
+	<li> <b>需要花费: </b><input type="text" style="border:none;width:30px;" name="needprice" value="{pigcms:$user.price}" id="needprice" size="10" disabled> 元<b></b></li>
+	<li> <b>充值金额: </b><input type="text" name="price" style="width:50px;" value="{pigcms:$user.price}" id="price" size="10"> 元 <b>先择对应的充值选项,价格自动生成</b></li>
 
 	<li><span class="bottonbox"><button class="new-btn-login" type="submit" style="text-align:center;">确 认</button></span></li>
 </ul>

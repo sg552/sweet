@@ -7,10 +7,7 @@ class HomeAction extends UserAction{
 		$this->token=$this->_session('token');
 		$this->home_db=M('home');
 		
-		$token_open=M('token_open')->field('queryname')->where(array('token'=>session('token')))->find();
-		if(!strpos($token_open['queryname'],'shouye')){
-           $this->error('您还未开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>session('token'),'id'=>session('wxid'))));
-		}
+		$this->canUseFunction('shouye');
 	}
 	//配置
 	public function set(){

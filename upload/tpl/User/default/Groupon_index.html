@@ -4,14 +4,12 @@
 <script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
         <div class="content">
 <div class="cLineB">
-<h4 class="left">团购订单管理（<a href="{pigcms::U('Product/orders',array('token'=>$token,'handled'=>0))}">未处理订单<span style="color:#f00">{pigcms:$unhandledCount}</span>个</a>） ({pigcms:$page}) </h4>
+<h4 class="left">团购订单管理（<a href="{pigcms::U('Groupon/index',array('token'=>$token,'handled'=>0))}">未处理订单<span style="color:#f00">{pigcms:$unhandledCount}</span>个</a>） ({pigcms:$page}) </h4>
 <div class="searchbar right">
-<form method="post" action="">
-<input type="text" id="msgSearchInput" class="txt left" placeholder="输入订购人名字搜索" name="searchkey" value="">
+
+<input type="text" id="msgSearchInput" class="txt left" placeholder="输入团购券密码搜索" name="searchkey" value="">
 <input type="hidden" name="ac" value="hotels-list">
-<input type="hidden" name="id" value="9878">
-<input type="hidden" name="wxid" value="gh_423dwjkewad">
-<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+<input type="submit" value="搜索" id="msgSearchBtn" onclick="location.href='?g=User&m=Groupon&a=index&token={pigcms:$token}&code='+$('#msgSearchInput').val()" class="btnGrayS" title="搜索">
 <script>
 function selectall(name) {
 	var checkItems=$('.cbitem');
@@ -28,7 +26,7 @@ function selectall(name) {
 }
 </script>
 <if condition="($parentid neq  '0') and ($parentid neq '')"><a href="{pigcms::U('Product/cats',array('token'=>$token,'parentid'=>$parentCat['parentid']))}" class="btnGreen" style="margin-top:-27px">返回上</a></if>
-</form>
+
 </div>
 <div class="clr"></div>
 </div>
@@ -36,9 +34,7 @@ function selectall(name) {
 <!--tab start-->
 <div class="tab">
 <ul>
-<li class="current tabli" id="tab0"><a href="{pigcms::U('Groupon/index',array('token'=>$token))}">团购订单管理</a></li>
-<li class="tabli" id="tab2"><a href="{pigcms::U('Groupon/products',array('token'=>$token))}">团购管理</a></li>
-<li class="tabli" id="tab2"><a href="{pigcms::U('Reply_info/set',array('token'=>$token,'infotype'=>'Groupon'))}">团购回复配置</a></li>
+<include file="tabs"/> 
 </ul>
 </div>
 <!--tab end-->

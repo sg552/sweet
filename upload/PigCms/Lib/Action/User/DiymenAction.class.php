@@ -1,8 +1,24 @@
 <?php
 class DiymenAction extends UserAction{
+	public $thisWxUser;
+	public function _initialize() {
+		parent::_initialize();
+		$where=array('token'=>$this->token);
+		$this->thisWxUser=M('Wxuser')->where($where)->find();
+		if (!$this->thisWxUser['appid']||!$this->thisWxUser['appsecret']){
+			$diyApiConfig=M('Diymen_set')->where($where)->find();
+			if (!$diyApiConfig['appid']||!$diyApiConfig['appsecret']){
+				$this->error('请先设置AppID和AppSecret再使用本功能，谢谢','?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']);
+			}else {
+				$this->thisWxUser['appid']=$diyApiConfig['appid'];
+				$this->thisWxUser['appsecret']=$diyApiConfig['appsecret'];
+			}
+		}
+	}
 	//自定义菜单配置
 	public function index(){
 		$data=M('Diymen_set')->where(array('token'=>$_SESSION['token']))->find();
+		$this->assign('diymen',$data);
 		if(IS_POST){
 			$_POST['token']=$_SESSION['token'];
 			if($data==false){
@@ -11,8 +27,8 @@ class DiymenAction extends UserAction{
 				$_POST['id']=$data['id'];
 				$this->all_save('Diymen_set');
 			}
+			M('Wxuser')->where(array('token'=>$this->token))->save(array('appid'=>trim($this->_post('appid')),'appsecret'=>trim($this->_post('appsecret'))));
 		}else{
-			$this->assign('diymen',$data);
 			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0))->order('sort desc')->select();//dump($class);
 			foreach($class as $key=>$vo){
 				$c=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id']))->order('sort desc')->select();
@@ -27,7 +43,7 @@ class DiymenAction extends UserAction{
 
 	public function  class_add(){
 		if(IS_POST){
-			$this->all_insert('Diymen_class','/class_add');
+			$this->all_insert('Diymen_class','/index');
 		}else{
 			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0))->order('sort desc')->select();
 			$this->assign('class',$class);
@@ -53,7 +69,7 @@ class DiymenAction extends UserAction{
 	public function  class_edit(){
 		if(IS_POST){
 			$_POST['id']=$this->_get('id');
-			$this->all_save('Diymen_class','/class_edit?id='.$this->_get('id'));
+			$this->all_save('Diymen_class','/index?id='.$this->_get('id'));
 		}else{
 			$data=M('Diymen_class')->where(array('token'=>session('token'),'id'=>$this->_get('id')))->find();
 			if($data==false){
@@ -68,9 +84,8 @@ class DiymenAction extends UserAction{
 	}
 	public function  class_send(){
 		if(IS_GET){
-			$api=M('Diymen_set')->where(array('token'=>session('token')))->find();
 			//dump($api);
-			$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$api['appid'].'&secret='.$api['appsecret'];
+			$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->thisWxUser['appid'].'&secret='.$this->thisWxUser['appsecret'];
 			$json=json_decode($this->curlGet($url_get));
 			if (!$json->errmsg){
 				//return array('rt'=>true,'errorno'=>0);
@@ -78,7 +93,7 @@ class DiymenAction extends UserAction{
 				$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
 			}
 
-			if($api['appid']==false||$api['appsecret']==false){$this->error('必须先填写【AppId】【 AppSecret】');exit;}
+
 			$data = '{"button":[';
 
 			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0,'is_show'=>1))->limit(3)->order('sort desc')->select();//dump($class);

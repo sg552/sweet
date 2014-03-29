@@ -1,10 +1,7 @@
 <?php
 class ApiAction extends UserAction{
 	public function index(){
-		$function=M('Function')->where(array('funname'=>'api'))->find();
-		if (intval($this->user['gid'])<intval($function['gid'])){
-			$this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>$this->token)));
-		}
+		$this->canUseFunction('api');
 		$data=D('Api');
 		$this->assign('api',$data->where(array('token'=>session('token'),'uid'=>session('uid')))->select());
 		if(IS_POST){

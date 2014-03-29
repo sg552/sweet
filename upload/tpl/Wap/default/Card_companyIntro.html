@@ -14,7 +14,7 @@
 <div class="cardexplain">
 <ul class="round">
 <li class="userinfo"><a href="/index.php?g=Wap&m=Card&a=companyIntro&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}&companyid={pigcms:$thisCompany.id}"><span><if condition="$thisCompany.name neq ''">{pigcms:$thisCompany.name}<else/>商家未设置</if></span></a></li>
-<li class="tel"><a href="http://site.tg.qq.com/forwardToPhonePage?siteId=1&phone={pigcms:$thisCompany.tel}"><span><if condition="$thisCompany.tel neq ''">{pigcms:$thisCompany.tel}<else/>商家未设置电话</if></span></a></li>
+<li class="tel"><a href="tel:{pigcms:$thisCompany.tel}"><span><if condition="$thisCompany.tel neq ''">{pigcms:$thisCompany.tel}<else/>商家未设置电话</if></span></a></li>
 <li class="address"><a href="/index.php?g=Wap&m=Card&a=companyMap&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}&companyid={pigcms:$thisCompany.id}"><span><if condition="$thisCompany.address neq ''">{pigcms:$thisCompany.address}<else/>商家未设置地址</if></span></a></li>
 </ul>
 

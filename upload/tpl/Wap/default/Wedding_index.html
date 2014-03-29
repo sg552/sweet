@@ -279,7 +279,7 @@
 			</div>
 		</li>
 		<li>
-			<span id="playbox" class="btn_music on" onclick="playbox.init(this).play();">
+			<span id="playbox" class="btn_music on" onClick="playbox.init(this).play();">
 				<audio id="audio" loop="" src="{pigcms:$weddingData.mp3url}"></audio>
 			</span>
 		</li>
@@ -333,7 +333,7 @@
 		</a>
 	</li>
 	<li>
-		<a href="http://site.tg.qq.com/forwardToPhonePage?siteId=1&amp;phone={pigcms:$weddingData.phone}" class="tbox">
+		<a href="tel:{pigcms:$weddingData.phone}" class="tbox">
 			<div class="tel">{pigcms:$weddingData.phone}</div>
 			<div>
 				<figure>
@@ -405,10 +405,10 @@
 			</table>
 		</form>
 	</li>
-	<li style="text-align: right;margin-left: 0;top: 0;background-color: transparent; left:auto;right: 0; width:291px; height:169px;" onclick="$(#overlay_ul).click();event.preventDefault(); return false;">
+	<li style="text-align: right;margin-left: 0;top: 0;background-color: transparent; left:auto;right: 0; width:291px; height:169px;" onClick="$(#overlay_ul).click();event.preventDefault(); return false;">
 	<img src="tpl/Wap/default/common/css/wedding/images/09.png">
 	</li>
-	<li style="text-align: right;margin-left: 0;top: 0;background-color: transparent; left:auto;right: 0; width:291px; height:169px;" onclick="$(#overlay_ul).click();event.preventDefault(); return false;">
+	<li style="text-align: right;margin-left: 0;top: 0;background-color: transparent; left:auto;right: 0; width:291px; height:169px;" onClick="$(#overlay_ul).click();event.preventDefault(); return false;">
 	<img src="tpl/Wap/default/common/css/wedding/images/10.png" >
 	</li>
 </ul>
@@ -426,9 +426,9 @@
  	        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
         window.shareData = {  
             "imgUrl": "{pigcms:$weddingData.picurl}", 
-            "timeLineLink": "{pigcms::C('site_url')}{pigcms::U('Wap/Wedding/index',array('token'=>htmlspecialchars($_GET['token']),'id'=>htmlspecialchars($_GET['id'])))}",
-            "sendFriendLink": "{pigcms::C('site_url')}{pigcms::U('Wap/Wedding/index',array('token'=>htmlspecialchars($_GET['token']),'id'=>htmlspecialchars($_GET['id'])))}",
-            "weiboLink": "{pigcms::C('site_url')}{pigcms::U('Wap/Wedding/index',array('token'=>htmlspecialchars($_GET['token']),'id'=>htmlspecialchars($_GET['id'])))}",
+            "timeLineLink": "{pigcms:$f_siteUrl}{pigcms::U('Wap/Wedding/index',array('token'=>htmlspecialchars($_GET['token']),'id'=>htmlspecialchars($_GET['id'])))}",
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Wap/Wedding/index',array('token'=>htmlspecialchars($_GET['token']),'id'=>htmlspecialchars($_GET['id'])))}",
+            "weiboLink": "{pigcms:$f_siteUrl}{pigcms::U('Wap/Wedding/index',array('token'=>htmlspecialchars($_GET['token']),'id'=>htmlspecialchars($_GET['id'])))}",
             "tTitle": "{pigcms:$weddingData.title}",
             "tContent": "{pigcms:$weddingData.word}",
             "fTitle": "{pigcms:$weddingData.title}",

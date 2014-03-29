@@ -19,9 +19,9 @@
   </TD>
   <TD rowspan="7" valign="top">
 	  <div style="margin-left:20px">
-		<img id="pic1_src" src="<if condition="$vo['starpicurl'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-lottery-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" width="373px" >	
+		<img id="pic1_src" src="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-lottery-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" width="373px" >	
 		<br />
-		<input class="px"  name="starpicurl" value="<if condition="$vo['starpicurl'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-lottery-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" id="pic1" style="width:363px;"  />
+		<input class="px"  name="starpicurl" value="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-lottery-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" id="pic1" style="width:363px;"  />
 		<br />
 		  <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic1',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>&nbsp;活动开始图片
 	  </div>
@@ -82,8 +82,8 @@
   				<td><input type="input" class="px" id="endtite" value="<if condition="$vo['endtite'] eq ''">幸运大转盘活动已经结束了<else/>{pigcms:$vo.endtite}</if>" name="endtite" style="width:400px" />
   					<br />
   					请不要多于50字! </td>
-  				<td rowspan="4" valign="top"><div style="margin-left:20px"><img  id="pic2_src" src="<if condition="$vo['endpicurl'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-lottery-end.jpg<else/>{pigcms:$vo.endpicurl}</if>"  width="373px"/> <br />
-  					<input class="px" id="pic2"  name="endpicurl" value="<if condition="$vo['endpicurl'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-lottery-end.jpg<else/>{pigcms:$vo.endpicurl}</if>"  style="width:363px;"  />
+  				<td rowspan="4" valign="top"><div style="margin-left:20px"><img  id="pic2_src" src="<if condition="$vo['endpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-lottery-end.jpg<else/>{pigcms:$vo.endpicurl}</if>"  width="373px"/> <br />
+  					<input class="px" id="pic2"  name="endpicurl" value="<if condition="$vo['endpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-lottery-end.jpg<else/>{pigcms:$vo.endpicurl}</if>"  style="width:363px;"  />
   					<br />
   					  <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic2',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic2')">预览</a>&nbsp; 活动结束图片网址 </div></td>
   				</tr>

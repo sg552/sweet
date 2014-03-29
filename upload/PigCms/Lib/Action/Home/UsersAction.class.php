@@ -52,7 +52,16 @@ class UsersAction extends BaseAction{
 			$this->error('帐号密码错误',U('Index/login'));
 		}
 	}
-	
+	function randStr($randLength){
+		$randLength=intval($randLength);
+		$chars='abcdefghjkmnpqrstuvwxyz';
+		$len=strlen($chars);
+		$randStr='';
+		for ($i=0;$i<$randLength;$i++){
+			$randStr.=$chars[rand(0,$len-1)];
+		}
+		return $randStr;
+	}
 	public function checkreg(){
 		$db=D('Users');
 		$info=M('User_group')->find(1);
@@ -61,22 +70,41 @@ class UsersAction extends BaseAction{
 				$this->error('手机号填写不正确',U('Index/login'));
 			}
 		}
+		if ($this->isAgent){
+			$_POST['agentid']=$this->thisAgent['id'];
+		}
+		if (isset($_POST['invitecode'])){
+			//$_POST['invitecode']=$this->_get('invitecode');
+			$inviteCode=$this->_post('invitecode');
+			if ($inviteCode&&!ctype_alpha($inviteCode)){
+				exit('invitecode colud not include other letter');
+			}
+			$inviter=$db->where(array('invitecode'=>$inviteCode))->find();
+			$_POST['inviter']=intval($inviter['id']);
+		}else {
+			$_POST['inviter']=0;
+		}
+		$_POST['invitecode']=$this->randStr(6);
 		if($db->create()){
 			$id=$db->add();
-			if($id){				
-				if(C('ischeckuser')!='true'){
+			if($id){
+				if ($this->isAgent){
+					M('Agent')->where(array('id'=>$this->thisAgent['id']))->setInc('usercount');
+				}
+				if($this->reg_needCheck){
+					$gid=$this->minGroupid;
 					$this->success('注册成功,请联系在线客服审核帐号',U('User/Index/index'));exit;
 				}else{
-					$viptime=time()+intval(C('reg_validdays'))*24*3600;
-					$gid=$info['id'];
-					if (C('reg_groupid')){
-						$gid=intval(C('reg_groupid'));
+					$viptime=time()+intval($this->reg_validDays)*24*3600;
+					$gid=$this->minGroupid;
+					if ($this->reg_groupid){
+						$gid=intval($this->reg_groupid);
 					}
 					$db->where(array('id'=>$id))->save(array('viptime'=>$viptime,'status'=>1,'gid'=>$gid));
 				}
 				
 				session('uid',$id);
-				session('gid',1);
+				session('gid',$gid);
 				session('uname',$_POST['username']);
 				session('diynum',0);
 				session('connectnum',0);
@@ -132,7 +160,7 @@ class UsersAction extends BaseAction{
 		$fetchcontent = str_replace('{time}',date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME']),$fetchcontent);
 		$fetchcontent = str_replace('{code}',$code,$fetchcontent);
 		$body=$fetchcontent;
-		//$body = iconv('UTF-8','gb2312',$fetchcontent);
+		//$body = iconv('UTF-8','gb2312',$fetchcontent);inv
 		$send=$smtp->sendmail($to,$sender,$subject,$body,$mailtype);
 		$this->success('请访问你的邮箱 '.$list['email'].' 验证邮箱后登录!<br/>');
 		

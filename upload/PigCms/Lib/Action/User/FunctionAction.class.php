@@ -20,11 +20,20 @@ class FunctionAction extends UserAction{
 		$open['uid']=session('uid');
 		$open['token']=session('token');
 		//遍历功能列表
-		$group=M('User_group')->field('id,name')->where('status=1')->select();
+		if (!C('agent_version')){
+			$group=M('User_group')->field('id,name')->where('status=1')->select();
+		}else {
+			$group=M('User_group')->field('id,name')->where('status=1 AND agentid='.$this->agentid)->select();
+		}
 		$check=explode(',',$toback['queryname']);
 		$this->assign('check',$check);
 		foreach($group as $key=>$vo){
-			$fun=M('Function')->where(array('status'=>1,'gid'=>$vo['id']))->select();
+			if (C('agent_version')&&$this->agentid){
+				$fun=M('Agent_function')->where(array('status'=>1,'gid'=>$vo['id']))->select();
+			}else {
+				$fun=M('Function')->where(array('status'=>1,'gid'=>$vo['id']))->select();
+			}
+			
 			foreach($fun as $vkey=>$vo){
 				$function[$key][$vkey]=$vo;
 			}

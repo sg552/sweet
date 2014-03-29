@@ -1,70 +1,82 @@
 <?php
-
-class WeddingAction extends BaseAction{
-    public function index(){
-        if(isset($_GET['id'])){
-            $data['id'] = $this -> _get('id', 'intval');
-            $data['token'] = $this -> _get('token');
-        }else{
-            exit('非法请求');
-        }
-        $wedding = D('Wedding');
-        $weddingData = $wedding -> where($data) -> find();
-        $photo = M('Photo_list') -> field('id,picurl') -> where(array('pid' => $weddingData['pid'])) -> select();
-        $this -> assign('weddingData', $weddingData);
-        $this -> assign('photo', $photo);
-        $this -> display();
-    }
-    public function check(){
-        if(isset($_GET['id'])){
-            if(IS_POST){
-                $wedding = M('Wedding') -> where(array('token' => $this -> _get('token'), 'id' => $this -> _get('id', 'intval'))) -> find();
-                if($wedding['passowrd'] == $this -> _post('pwd')){
-                    $data = array();
-                    $fid = $this -> _get('id', 'intval');
-                    $type = $this -> _get('type', 'intval');
-                    $count = M('Wedding_info') -> where(array('fid' => $fid, type => $type)) -> count();
-                    $info = M('Wedding_info') -> where(array('fid' => $fid, type => $type)) -> select();
-                    $this -> assign('count', $count);
-                    $this -> assign('wedding', $info);
-                    $this -> assign('pic', $wedding);
-                    if($type == 1){
-                        $this -> display('info2');
-                    }else{
-                        $this -> display('info1');
-                    }
-                }else{
-                    exit('your request error');
-                }
-            }else{
-                $this -> display();
-            }
-        }else{
-            exit('非法请求');
-        }
-    }
-    public function info(){
-        if(IS_POST){
-            $wedding = D('wedding_info');
-            $data['name'] = $this -> _post('name');
-            $data['fid'] = $this -> _post('fid');
-            $data['type'] = $this -> _post('type');
-            $data['phone'] = $this -> _post('phone');
-            $data['time'] = time();
-            if($data['type'] == 1){
-                $data['num'] = $this -> _post('num');
-            }else{
-                $data['info'] = $this -> _post('info');
-            }
-            if($wedding -> add($data)){
-                echo '提交成功';
-            }else{
-                echo '提交失败';
-            }
-        }else{
-            $this -> error('非法操作');
-        }
-    }
+class WeddingAction extends UserAction{
+	public function _initialize() {
+		parent::_initialize();
+		$function=M('Function')->where(array('funname'=>'wedding'))->find();
+		$this->canUseFunction('wedding');
+	}
+	//喜帖配置
+	public function index(){
+		$Wedding=M('Wedding');
+		$where['token']=session('token');
+		$count=$Wedding->where($where)->count();
+		$page=new Page($count,25);
+		$list=$Wedding->where($where)->limit($page->firstRow.','.$page->listRows)->select();
+		$this->assign('page',$page->show());
+		$this->assign('wedding',$list);
+		$this->display();
+	}
+	public function add(){
+		if(IS_POST){
+			$_POST['time']=strtotime($this->_post('time'));
+			$this->all_insert('Wedding','/index');
+		}else{
+			$photo=M('Photo')->where(array('token'=>session('token')))->select();
+			$this->assign('photo',$photo);
+			$this->display();
+		}
+	}
+	public function edit(){
+		$Wedding=M('Wedding')->where(array('token'=>session('token'),'id'=>$this->_get('id','intval')))->find();
+		if(IS_POST){
+			$_POST['time']=strtotime($this->_post('time'));
+			$_POST['id']=$Wedding['id'];
+			$keyword_model=M('Keyword');
+			$keyword_model->where(array('token'=>$this->token,'pid'=>$Wedding['id'],'module'=>'Wedding'))->save(array('keyword'=>$_POST['keyword']));
+			$this->all_save('wedding','/index');	
+		}else{
+			$photo=M('Photo')->where(array('token'=>session('token')))->select();
+			$this->assign('photo',$photo);
+			$this->assign('wedding',$Wedding);
+			$this->display('add');
+		}
+	
+	}
+	public function info(){
+		$data=D('Wedding_info');
+		$where['fid']=$this->_get('id','intval');
+		$where['type']=$this->_get('type','intval')?1:2;
+		$count=$data->where($where)->count();
+		$page=new Page($count,25);
+		$info=$data->where($where)->limit($page->firstRow.','.$page->listRows)->select();
+		$this->assign('page',$page->show());
+		$this->assign('wedding',$info);
+		$this->display();
+	}
+	public function infodel(){
+		$where['id']=$this->_get('id','intval');
+		$info=M('Wedding_info')->field('fid')->where($where)->find();
+		$back=M('Wedding')->where(array('token'=>session('token'),'fid'=>$info['fid']))->find();
+		if($back==false){$this->error('非法操作');exit;}
+		if(D('Wedding_info')->where($where)->delete()){
+			$this->success('操作成功',U(MODULE_NAME.'/index'));
+		}else{
+			$this->error('操作失败',U(MODULE_NAME.'/index'));
+		}
+	}
+	public function del(){
+		$where['id']=$this->_get('id','intval');
+		$where['token']=session('token');
+		if(D('Wedding')->where($where)->delete()){
+			$keyword_model=M('Keyword');
+            $keyword_model->where(array('token'=>$this->token,'pid'=>$this->_get('id','intval'),'module'=>'Wedding'))->delete();
+			$this->success('操作成功',U(MODULE_NAME.'/index'));
+		}else{
+			$this->error('操作失败',U(MODULE_NAME.'/index'));
+		}
+	}
 }
+
+
 
 ?>

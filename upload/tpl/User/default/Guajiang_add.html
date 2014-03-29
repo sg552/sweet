@@ -18,9 +18,9 @@
   </TD>
   <TD rowspan="7" valign="top">
 	  <div style="margin-left:20px">
-		<img id="pic1_src" src="<if condition="$vo['starpicurl'] eq ''">{pigcms::C('site_url')}/tpl/User/default/common/images/img/activity-scratch-card-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" width="373px" >	
+		<img id="pic1_src" src="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/User/default/common/images/img/activity-scratch-card-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" width="373px" >	
 		<br />
-		<input class="px" id="pic1" name="starpicurl" value="<if condition="$vo['starpicurl'] eq ''">{pigcms::C('site_url')}/tpl/User/default/common/images/img/activity-scratch-card-start.jpg<else/>{pigcms:$vo.starpicurl}</if>"   onclick="document.getElementById('pic1_src').src=this.value;" style="width:363px;"  />
+		<input class="px" id="pic1" name="starpicurl" value="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/User/default/common/images/img/activity-scratch-card-start.jpg<else/>{pigcms:$vo.starpicurl}</if>"   onclick="document.getElementById('pic1_src').src=this.value;" style="width:363px;"  />
 		<br /><input name="type" value="2" type="hidden"   />
 		 <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic1',1000,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>&nbsp;活动开始图片
 	  </div>
@@ -76,8 +76,8 @@
   				<td><input type="input" class="px" id="endtite" value="<if condition="$vo['endtite'] eq ''">刮刮卡活动已经结束了<else/>{pigcms:$vo.endtite}</if>" name="endtite" style="width:400px" />
   					<br />
   					请不要多于50字! </td>
-  				<td rowspan="4" valign="top"><div style="margin-left:20px"><img  id="pic2_src" src="<if condition="$vo['endpicurl'] eq ''">{pigcms::C('site_url')}/tpl/User/default/common/images/img/activity-scratch-card-end.jpg<else/>{pigcms:$vo.endpicurl}</if>"  width="373px"/> <br />
-  					<input class="px" id="pic2" name="endpicurl" value="<if condition="$vo['endpicurl'] eq ''">{pigcms::C('site_url')}/tpl/User/default/common/images/img/activity-scratch-card-end.jpg<else/>{pigcms:$vo.endpicurl}</if>"  onchange="document.getElementById('pic2_src').src=this.value;"  style="width:363px;"  />
+  				<td rowspan="4" valign="top"><div style="margin-left:20px"><img  id="pic2_src" src="<if condition="$vo['endpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/User/default/common/images/img/activity-scratch-card-end.jpg<else/>{pigcms:$vo.endpicurl}</if>"  width="373px"/> <br />
+  					<input class="px" id="pic2" name="endpicurl" value="<if condition="$vo['endpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/User/default/common/images/img/activity-scratch-card-end.jpg<else/>{pigcms:$vo.endpicurl}</if>"  onchange="document.getElementById('pic2_src').src=this.value;"  style="width:363px;"  />
   					<br />
   					 <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic2',1000,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic2')">预览</a>&nbsp;活动结束图片</div></td>
   				</tr>

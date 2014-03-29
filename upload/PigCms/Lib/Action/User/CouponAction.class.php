@@ -2,10 +2,7 @@
 class CouponAction extends LotteryBaseAction {
 	public function _initialize() {
 		parent::_initialize();
-		$function=M('Function')->where(array('funname'=>'choujiang'))->find();
-		if (intval($this->user['gid'])<intval($function['gid'])){
-			$this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>$this->token)));
-		}
+		$this->canUseFunction('choujiang');
 	}
 	public function index(){
 		parent::index(3);

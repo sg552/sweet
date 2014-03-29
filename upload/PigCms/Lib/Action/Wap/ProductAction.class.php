@@ -99,6 +99,7 @@ class ProductAction extends BaseAction{
 		//
         	
 		$products = $this->product_model->where($where)->order($order.' '.$method)->limit('8')->select();
+		
 		$this->assign('products',$products);
 		$this->assign('metaTitle','商品');
 		$this->display();
@@ -144,9 +145,9 @@ class ProductAction extends BaseAction{
 		$intro=$this->remove_html_tag($product['intro']);
 		$intro=mb_substr($intro,0,30,'utf-8');
 		$this->assign('intro',$intro);
+		
 		//分店信息
-		$company_model=M('Company');
-		$branchStoreCount=$company_model->where(array('token'=>$this->token,'isbranch'=>1))->count();
+		$branchStoreCount=M('Company')->where(array('token'=>$this->token,'isbranch'=>1))->count();
 		$this->assign('branchStoreCount',$branchStoreCount);
 		//销量最高的商品
 		$sameCompanyProductWhere=array('token'=>$this->token,'id'=>array('neq',$product['id']));
@@ -161,6 +162,7 @@ class ProductAction extends BaseAction{
 			$sameCompanyProductWhere['dining']=array('neq',1);
 		}
 		$products=$this->product_model->where($sameCompanyProductWhere)->limit('salecount DESC')->limit('0,5')->select();
+		
 		$this->assign('products',$products);
 		$this->display();
 	}
@@ -380,7 +382,7 @@ class ProductAction extends BaseAction{
 					$cartsCount++;
 				}
 			}
-			$orderid=$this->wecha_id.time();
+			$orderid=microtime();
 			$row['orderid']=$orderid;
 			$orderid=$row['orderid'];
 			//

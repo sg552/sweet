@@ -71,17 +71,18 @@ $(document).ready(function(){
             alert("你还未选择要操作的项！");
             return;
         }
+
         $.ajax({
             type:"get",
-            url:"index.php?g=User&m=Reply&a=replyChk&token="+token+"&chk_value="+chk_value,
+            url:"index.php?g=User&m=Reply&a=replyChk&token={pigcms:$token}&chk_value="+chk_value,
             success:function(result){
                  $("input[name='items']").each(function(){
 	            if (this.checked) {
 	                this.checked = false;
 	            }
 	        });
+	            //alert(result);
                 window.location.reload();
-                alert(result);
             }
         });
     });  

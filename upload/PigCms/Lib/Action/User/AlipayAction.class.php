@@ -1,11 +1,21 @@
 <?php
 class AlipayAction extends UserAction{
-	public function index(){		
-		$group=M('User_group')->field('id,name,price')->where('price>0')->select();
+	public function index(){
+		if (C('agent_version')){
+			$group=M('User_group')->field('id,name,price')->where('price>0 AND agentid='.$this->agentid)->select();
+		}else {
+			$group=M('User_group')->field('id,name,price')->where('price>0')->select();
+		}
 		$user=M('User_group')->field('price')->where(array('id'=>session('gid')))->find();
 		$this->assign('group',$group);
 		$this->assign('user',$user);
 		$this->display();
+	}
+	public function redirectPost(){
+		if($this->_post('price')==false||$this->_post('uname')==false)$this->error('价格和用户名必须填写');
+		//price ,uname,uid,groupid,num 月
+		$url=str_replace('.cn','.com',C('site_url'));
+		header('Location:'.$url.'/index.php?g=User&m=Alipay&a=post&price='.$this->_post('price').'&uname='.$this->_post('uname').'&uid='.session('uid').'&groupid='.$this->_post('group').'&num='.$this->_post('num'));
 	}
 	public function post(){
 		if($this->_post('price')==false||$this->_post('uname')==false)$this->error('价格和用户名必须填写');
@@ -22,7 +32,7 @@ class AlipayAction extends UserAction{
 		//卖家支付宝帐户
 		$seller_email =trim(C('alipay_name'));
 		 //商户订单号
-		$out_trade_no = session('uname').time();
+		$out_trade_no = $this->user['id'].'_'.time();
 		//商户网站订单系统中唯一订单号，必填
 		//订单名称
 		$subject ='充值vip'.$this->_post('group').'会员'.$this->_post('num').'个月';
@@ -44,7 +54,7 @@ class AlipayAction extends UserAction{
         //非局域网的外网IP地址，如：221.0.0.1
 		$body = $subject;
 		$data=M('Indent')->data(			
-		array('uid'=>session('uid'),'title'=>$subject,'uname'=>$this->_post('uname'),'gid'=>$this->_post('gid'),'create_time'=>time(),'indent_id'=>$out_trade_no,'price'=>$total_fee))->add();
+		array('uid'=>session('uid'),'month'=>intval($this->_post('num')),'title'=>$subject,'uname'=>$this->_post('uname'),'gid'=>$this->_post('gid'),'create_time'=>time(),'indent_id'=>$out_trade_no,'price'=>$total_fee))->add();
 		$show_url = rtrim(C('site_url'),'/');
 
 		//构造要请求的参数数组，无需改动
@@ -86,6 +96,9 @@ class AlipayAction extends UserAction{
 		$alipay_config['transport']    = 'http';		
 		return $alipay_config;
 	}
+	public function add(){
+		$this->index();
+	}
 	//同步数据处理
 	public function return_url (){
 		import("@.ORG.Alipay.AlipayNotify");
@@ -98,19 +111,57 @@ class AlipayAction extends UserAction{
 			//交易状态
 			$trade_status =  $this->_get('trade_status');
 			if( $this->_get('trade_status') == 'TRADE_FINISHED' ||  $this->_get('trade_status') == 'TRADE_SUCCESS') {
-				$indent=M('Indent')->field('id,uid,price')->where(array('index_id'=>$out_trade_no))->find();
+				$indent=M('Indent')->where(array('indent_id'=>$out_trade_no))->find();
 				if($indent!=false){
 					if($indent['status']==1){$this->error('该订单已经处理过,请勿重复操作');}
-					$add=M('Users')->where(array('id'=>$indent['uid']))->setInc('money',$indent['price']);
+					M('Users')->where(array('id'=>$indent['uid']))->setInc('money',intval($indent['price']));
+					M('Users')->where(array('id'=>$indent['uid']))->setInc('moneybalance',intval($indent['price']));
 					$back=M('Indent')->where(array('id'=>$indent['id']))->setField('status',1);
-					//if($back!=false&&$add!=false){
-						$this->success('充值成功',U('User/Index/index'));
-					//}else{
-						//$this->error('充值失败,请在线客服,为您处理',U('User/Index/index'));
-					//}
-				}else{						
+					if($back!=false){
+						$month=intval($indent['month']);
+						//检查费用
+						$groupid=intval($indent['gid']);
+						$thisGroup=M('User_group')->where(array('id'=>$groupid))->find();
+						$needFee=intval($thisGroup['price'])*$month;
+						$moneyBalance=$this->user['moneybalance']+$indent['price'];
+						if ($needFee<$moneyBalance){
+							//
+							$users_db=D('Users');
+							$users_db->where(array('id'=>$indent['uid']))->save(array('viptime'=>$this->user['viptime']+$month*30*24*3600,'status'=>1,'gid'=>$indent['gid']));
+							//
+							$gid=$indent['gid']+1;
+							$functions=M('Function')->where('gid<'.$gid)->select();
+							$str='';
+							if ($functions){
+								$comma='';
+								foreach ($functions as $f){
+									$str.=$comma.$f['funname'];
+									$comma=',';
+								}
+							}
+							//
+							$token_open_db=M('Token_open');
+							$wxusers=M('Wxuser')->where(array('uid'=>$indent['uid']))->select();
+							if ($wxusers){
+								foreach ($wxusers as $wxu){
+									$token_open_db->where(array('token'=>$wxu['token']))->save(array('queryname'=>$str));
+								}
+							}
+							//
+							$spend=0-$needFee;
+							M('Indent')->data(array('uid'=>session('uid'),'month'=>$month,'title'=>'购买服务','uname'=>$this->user['username'],'gid'=>$groupid,'create_time'=>time(),'indent_id'=>$indent['id'],'price'=>$spend,'status'=>1))->add();
+							M('Users')->where(array('id'=>$indent['uid']))->setDec('moneybalance',intval($needFee));
+							//
+							$this->success('充值成功并购买成功',U('User/Index/index'));
+						}else{
+							$this->success('充值成功但您的余额不足',U('User/Index/index'));
+						}
+					}else{
+						$this->error('充值失败,请在线客服,为您处理',U('User/Index/index'));
+					}
+				}else{
 					$this->error('订单不存在',U('User/Index/index'));
-				
+
 				}
 			}else {
 			  $this->error('充值失败，请联系官方客户');

@@ -19,16 +19,6 @@ class IndexAction extends BaseAction{
 			//echo '此功能只能在微信浏览器中使用';exit;
 		}
 		//
-		$Model = new Model();
-		$rt=$Model->query("CREATE TABLE IF NOT EXISTS `tp_site_plugmenu` (
-  `token` varchar(60) NOT NULL DEFAULT '',
-  `name` varchar(20) NOT NULL DEFAULT '',
-  `url` varchar(100) DEFAULT '',
-  `taxis` mediumint(4) NOT NULL DEFAULT '0',
-  `display` tinyint(1) NOT NULL DEFAULT '0',
-  KEY `token` (`token`,`taxis`,`display`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8");
-		//
 		$this->token=$this->_get('token','trim');
 		$where['token']=$this->token;
 		
@@ -38,6 +28,7 @@ class IndexAction extends BaseAction{
 		if (isset($_GET['wecha_id'])&&$_GET['wecha_id']){
 			$_SESSION['wecha_id']=$_GET['wecha_id'];
 			$this->wecha_id=$this->_get('wecha_id');
+			$this->assign('wecha_id',$this->wecha_id);
 		}
 		if (isset($_SESSION['wecha_id'])){
 			$this->wecha_id=$_SESSION['wecha_id'];
@@ -71,6 +62,44 @@ class IndexAction extends BaseAction{
 			}
 		}
 		//
+		$homeInfo=M('home')->where(array('token'=>$this->token))->find();
+		//
+		$catemenu_db=M('catemenu');
+		$catemenu=$catemenu_db->where(array('token'=>$this->token,'status'=>1))->order('orderss desc')->select();
+		
+		$menures=array();
+		if ($catemenu){
+			$res=array();
+			$rescount=0;
+			foreach ($catemenu as $val){
+				$val['url']=$this->getLink($val['url']);
+				$res[$val['id']]=$val;
+				if ($val['fid']==0){
+					$val['vo']=array();
+					$menures[$val['id']]=$val;
+					$menures[$val['id']]['k']=$rescount;
+					$rescount++;
+				}
+			}
+			foreach ($catemenu as $val){
+				$val['url']=$this->getLink($val['url']);
+				if ($val['fid']>0){
+					array_push($menures[$val['fid']]['vo'],$val);
+				}
+			}
+		}
+		$catemenu=$menures;
+		$this->assign('catemenu',$catemenu);
+		//判断菜单风格
+		$styleset_db=M('home');
+		$radiogroup=$homeInfo['radiogroup'];
+		if($radiogroup==false){
+			$radiogroup=0;
+		}
+		$cateMenuFileName='tpl/Wap/default/Index_menuStyle'.$radiogroup.'.html';
+		$this->assign('cateMenuFileName',$cateMenuFileName);
+		$this->assign('radiogroup',$radiogroup);
+		//
 		$gid=D('Users')->field('gid')->find($tpl['uid']);
 		$this->userGroup=M('User_group')->where(array('id'=>$gid['gid']))->find();
 		$this->copyright=$this->userGroup['iscopyright'];
@@ -82,7 +111,6 @@ class IndexAction extends BaseAction{
 		$this->company=$company_db->where(array('token'=>$this->token,'isbranch'=>0))->find();
 		$this->assign('company',$this->company);
 		//
-		$homeInfo=M('home')->where(array('token'=>$this->token))->find();
 		$this->homeInfo=$homeInfo;
 		$this->assign('iscopyright',$this->copyright);//是否允许自定义版权
 		$this->assign('siteCopyright',C('copyright'));//站点版权信息
@@ -135,7 +163,9 @@ class IndexAction extends BaseAction{
 			$arr['url']='';
 			$arr['info']='';
 			$arr['tip']=2;
+			if ($arr['img']){
 			$flash_db->add($arr);
+			}
 		}
 
 		$count=count($flash);
@@ -213,6 +243,7 @@ class IndexAction extends BaseAction{
 	 * @return unknown
 	 */
 	public function getLink($url){
+		$url=$url?$url:'javascript:void(0)';
 		$urlArr=explode(' ',$url);
 		$urlInfoCount=count($urlArr);
 		if ($urlInfoCount>1){
@@ -295,7 +326,7 @@ class IndexAction extends BaseAction{
 			}
 		}else {
 			$link=str_replace(array('{wechat_id}','{siteUrl}','&amp;'),array($this->wecha_id,C('site_url'),'&'),$url);
-			if (!strpos($url,'wecha_id=')){
+			if (!!(strpos($url,'tel')===false)&&$url!='javascript:void(0)'&&!strpos($url,'wecha_id=')){
 				if (strpos($url,'?')){
 					$link=$link.'&wecha_id='.$this->wecha_id;
 				}else {

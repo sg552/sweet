@@ -212,7 +212,6 @@ function() {
         if(data==1){			 
 			alert('更新成功');
 		}else if(data==2){
-			 
 			alert('成功领取了会员卡');
 			location.href = "{pigcms::U('Card/card',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'],'cardid'=>$_GET['cardid']))}";
 		}else if(data==3){
@@ -246,7 +245,7 @@ function check3(obj){
 		document.getElementById(obj.id).style.background="red";
 		return;
 	}
-	reg=/^0{0,1}(13[0-9]|145|15[7-9]|153|150|152|156|18[0-9])[0-9]{8}$/i;
+	reg=/^0{0,1}(13[0-9]|145|15[0-9]|18[0-9])[0-9]{8}$/i;
 	  if(!reg.test(obj.value)){   
 			alert("错误,请输入11位的手机号！");
 			document.getElementById(obj.id).style.background="red";

@@ -6,10 +6,7 @@ class GrouponAction extends UserAction{
 	public $product_cart_model;
 	public function _initialize() {
 		parent::_initialize();
-		$token_open=M('token_open')->field('queryname')->where(array('token'=>session('token')))->find();
-		if(!strpos($token_open['queryname'],'etuan')){
-            $this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>session('token'),'id'=>session('wxid'))));
-		}
+		$this->canUseFunction('etuan');
 		$this->product_cat_model=M('Product_cat');
 		$this->product_cart_model=M('Product_cart');
 		$this->product_model=M('Product');
@@ -38,12 +35,13 @@ class GrouponAction extends UserAction{
 		$this->assign('page',$show);		
 		$this->assign('list',$list);
 		$this->assign('isProductPage',1);
-		
+		$this->assign('tabid',2);
 		$this->display();		
 	}
 	
 	public function add(){ 
 		if(IS_POST){
+			$_POST['endtime']=$this->getTime($_POST['enddate']);
 			$this->all_insert('Product','/products?token='.$this->token);
 		}else{
 			$set=array();
@@ -65,6 +63,16 @@ class GrouponAction extends UserAction{
 			$this->display('set');
 		}
 	}
+	function getTime($enddate){
+		$date=$enddate;
+		if ($date){
+		$dates=explode('-',$date);
+		$time=mktime(23,59,59,$dates[1],$dates[2],$dates[0]);
+		}else {
+			$time=0;
+		}
+		return $time;
+	}
 	public function set(){
         $id = $this->_get('id'); 
 		$checkdata = $this->product_model->where(array('id'=>$id))->find();
@@ -75,7 +83,9 @@ class GrouponAction extends UserAction{
             $where=array('id'=>$this->_post('id'),'token'=>$this->token);
 			$check=$this->product_model->where($where)->find();
 			if($check==false)$this->error('非法操作');
+			
 			if($this->product_model->create()){
+				$_POST['endtime']=$this->getTime($_POST['enddate']);
 				if($this->product_model->where($where)->save($_POST)){
 					$this->success('修改成功',U('Groupon/products',array('token'=>$this->token)));
 					$keyword_model=M('Keyword');
@@ -171,6 +181,9 @@ class GrouponAction extends UserAction{
 				if (isset($_GET['handled'])){
 					$where['handled']=intval($_GET['handled']);
 				}
+				if (isset($_GET['code'])){
+					$where['code']=$this->_get('code');
+				}
 				$count      = $this->product_cart_model->where($where)->count();
 				$Page       = new Page($count,20);
 				$show       = $Page->show();
@@ -185,6 +198,48 @@ class GrouponAction extends UserAction{
 			$this->assign('orders',$orders);
 
 			$this->assign('page',$show);
+			$this->assign('tabid',1);
+			$this->display();
+		}
+	}
+	public function config(){
+		 $infotype = 'Groupon';
+		 $this->reply_info_model=M('Reply_info');
+		$thisInfo = $this->reply_info_model->where(array('infotype'=>$infotype,'token'=>$this->token))->find();
+		F('grouponConfig'.$this->token,$thisInfo);
+		if ($thisInfo&&$thisInfo['token']!=$this->token){
+			exit();
+		}
+
+		if(IS_POST){
+			$row['title']=$this->_post('title');
+			$row['info']=$this->_post('info');
+			$row['picurl']=$this->_post('picurl');
+			$row['apiurl']=$this->_post('apiurl');
+			$row['token']=$this->_post('token');
+			$row['infotype']=$this->_post('infotype');
+			$row['config']=serialize(array('tplid'=>intval($_POST['tplid'])));
+			if ($thisInfo){
+				$where=array('infotype'=>$thisInfo['infotype'],'token'=>$this->token);
+				$this->reply_info_model->where($where)->save($row);
+
+				$keyword_model=M('Keyword');
+				//$keyword_model->where(array('token'=>$this->token,'pid'=>$thisInfo['id'],'module'=>'Reply_info'))->save(array('keyword'=>$_POST['keyword']));
+				$this->success('修改成功',U('Groupon/config',$where));
+						
+			}else {
+				$where=array('infotype'=>$thisInfo['infotype'],'token'=>$this->token);
+				$this->reply_info_model->add($row);
+				$this->success('设置成功',U('Groupon/config',$where));
+			}
+		}else{
+			//
+			$config=unserialize($thisInfo['config']);
+			$this->assign('config',$config);
+			$this->assign('tplid',$config['tplid']);
+			//
+			$this->assign('set',$thisInfo);
+			$this->assign('tabid',3);
 			$this->display();
 		}
 	}

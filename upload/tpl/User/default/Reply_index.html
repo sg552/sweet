@@ -176,7 +176,7 @@ $(document).on("click","#del",function(){
 <td>{pigcms:$item.time|date="Y-m-d H:i:s",###}</td> 
 
 <td class="norightborder">
-    <a href="{pigcms::U('User/Reply/checkOne',array('chk_value'=>$item['id'],'token'=>$token))}"><if condition="$item['checked'] neq 1">&nbsp; 审核</if></a>
+    <a href="{pigcms::U('User/Reply/checkOne',array('chk_value'=>$item['id'],'token'=>$token))}"><if condition="$item['checked'] neq '1'">审核</if></a>
 <!--    &nbsp;&nbsp;<a href="#" messageid="{pigcms:$item.id}" class="replyeded">回复</a>-->
     &nbsp;&nbsp;<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('User/Reply/deled',array('chk_value'=>$item['id'],'token'=>$token))}');">删除</a></td>
 </tr>

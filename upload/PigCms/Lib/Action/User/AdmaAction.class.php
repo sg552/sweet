@@ -2,9 +2,7 @@
 class AdmaAction extends UserAction{
 	public function index(){		
 		//if($this->_get('token')!=session('token')){$this->error('非法操作');}
-		$token_open=M('token_open')->field('queryname')->where(array('token'=>session('token')))->find();
-		//dump($token_open);
-		if(!strpos($token_open['queryname'],'adma')){$this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>session('token'),'id'=>session('wxid'))));}
+		$this->canUseFunction('adma');
 		$data=D('Adma');
 		$adma=$data->where(array('token'=>session('token'),'uid'=>session('uid')))->find();
 		$this->assign('adma',$adma);

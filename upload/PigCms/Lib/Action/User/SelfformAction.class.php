@@ -7,10 +7,7 @@ class SelfformAction extends UserAction{
 	public function _initialize() {
 		
 		parent::_initialize();
-		$token_open=M('token_open')->field('queryname')->where(array('token'=>session('token')))->find();
-		if(!strpos($token_open['queryname'],'diyform')){
-            	$this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>session('token'),'id'=>session('wxid'))));
-		}
+		$this->canUseFunction('diyform');
 		$this->selfform_model=M('Selfform');
 		$this->selfform_input_model=M('Selfform_input');
 		$this->selfform_value_model=M('Selfform_value');
@@ -19,17 +16,19 @@ class SelfformAction extends UserAction{
 		$this->assign('module','Selfform');
 	}
 	public function index(){
+		/*
 		if (IS_POST){
 			if ($_POST['token']!=$this->token){
-				exit();
+				//exit();
 			}
 			for ($i=0;$i<40;$i++){
 				if (isset($_POST['id_'.$i])){
 					
 				}
 			}
-			$this->success('操作成功',U('Selfform/index',array('token'=>$this->token)));
+			//$this->success('操作成功',U('Selfform/index',array('token'=>$this->token)));
 		}else{
+		*/
 			$where=array('token'=>$this->token);
 			if(IS_POST){
 				$key = $this->_post('searchkey');
@@ -52,7 +51,7 @@ class SelfformAction extends UserAction{
 
 			$this->assign('page',$show);
 			$this->display();
-		}
+		//}
 	}
 	public function add(){ 
 		if(IS_POST){

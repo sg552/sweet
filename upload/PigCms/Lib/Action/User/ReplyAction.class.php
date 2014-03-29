@@ -6,10 +6,7 @@ class ReplyAction extends UserAction{
 	public $differ;//区分是网友回复还是管理员回复
 	public function _initialize(){
 		parent::_initialize();
-		$function=M('Function')->where(array('funname'=>'message'))->find();
-		if (intval($this->user['gid'])<intval($function['gid'])){
-			$this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>$this->token)));
-		}
+		//$this->canUseFunction('message');
 		//session('token','gh_aab60b4c5a39');
 		$this->wecha_id	= $this->_get('wecha_id');
 		//
@@ -103,7 +100,7 @@ class ReplyAction extends UserAction{
 		$id = explode(",",$id);
 		$result =array();
 		foreach($id as $val){
-			$res = $leave_model->where(array("id"=>intval($val)))->setField("checked",$this->needCheck);
+			$res = $leave_model->where(array("id"=>intval($val)))->setField("checked",1);
 			if($res){
 				$result = 1;
 			}else{
@@ -123,7 +120,7 @@ class ReplyAction extends UserAction{
 		if($checked == 1){
 			$this->success("已审核",U('User/Reply/index',array('wecha_id'=>$this->wecha_id,'token'=>$this->token)));
 		}else{
-			$res = $leave_model->where(array("id"=>$id))->setField("checked",$this->needCheck);
+			$res = $leave_model->where(array("id"=>$id))->setField("checked",1);
 			if($res){
 				$this->success("审核成功",U('User/Reply/index',array('wecha_id'=>$this->wecha_id,'token'=>$this->token)));
 			}else{
@@ -208,23 +205,19 @@ class ReplyAction extends UserAction{
 	}
 	public function replyChk(){//回复内容多项审核
 		$reply_model = M("reply");
-		$id = $this->_get('chk_value');
-		//$id = $_GET['chk_value'];
+		//$id = intval($_GET['id']);
+		$id = $_GET['chk_value'];
 		$id = explode(",",$id);
-		$result =array();
+		//$result =array($id);
 		foreach($id as $val){
-			$res = $reply_model->where(array("id"=>intval($val)))->setField("checked",$this->needCheck);
+			$res = $reply_model->where(array("id"=>intval($val)))->setField("checked",1);
 			if($res){
 				$result = 1;
 			}else{
 				$result = 0;
 			}
 		}
-		if(in_array("0",$result)){
-			echo "审核失败";
-		}else{
-			echo "审核成功";
-		}
+		echo "审核成功";
 	}
 	public function replyChked(){//回复内容单项审核
 		$reply_model = M("reply");
@@ -234,7 +227,7 @@ class ReplyAction extends UserAction{
 		if($checked == 1){
 			$this->success("已审核",U('User/Reply/index',array('wecha_id'=>$this->wecha_id,'token'=>$this->token)));
 		}else{
-			$res = $reply_model->where(array("id"=>$id))->setField("checked",$this->needCheck);
+			$res = $reply_model->where(array("id"=>$id))->setField("checked",1);
 			if($res){
 				$this->success("审核成功",U('User/Reply/reply',array('wecha_id'=>$this->wecha_id,'token'=>$this->token)));
 			}else{

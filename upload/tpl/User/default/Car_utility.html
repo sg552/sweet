@@ -1,0 +1,63 @@
+<include file="Public:head"/>
+<include file="Car:menu"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
+<div class="content">
+          <div class="cLineB">
+              <h4 class="left">实用工具</h4>
+              <div class="clr"></div>
+          </div>
+          
+          <div class="cLine">
+    <div class="alert">
+    <p><span class="bold">使用方法：</span>开启状态可以在手机显示，关闭就不显示</p>
+    </div>
+</div>
+          
+         
+          <div class="msgWrap">
+
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+                    <th>工具名称</th>
+                    <!--<th>回复关键词</th> -->
+                    <th>状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                <volist name="utility" id="vo">
+                     <form method="post" action="">
+                            <tr>
+                                <td><span class="sn weather">{pigcms:$vo['name']}</span></td>
+                                        
+                                <td>
+                                    <div class="switch switch-small">
+                                        <if condition="$vo['status'] eq 1">
+ <a href="{pigcms::U('Car/utility',array('token'=>$token,'status'=>'on','id'=>$vo['id'],'isPost'=>1))}"><strong>开启</strong></a> 
+                                        <else/>
+<a href="{pigcms::U('Car/utility',array('token'=>$token,'status'=>'off','id'=>$vo['id'],'isPost'=>1))}"><strong>关闭</strong></a> 
+                                        </if>
+                                             
+                                            
+
+                                    </div>
+
+                                </td>
+                            </tr>
+                    </form> 
+                </volist>
+                     
+ 
+                                </tbody>
+            </table>
+
+          </div>
+
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+            </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+<include file="Public:footer"/>

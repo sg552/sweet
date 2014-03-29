@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title> {pigcms::C('site_title')} {pigcms::C('site_name')}</title>
-<meta name="keywords" content="{pigcms::C('keyword')}" />
-<meta name="description" content="{pigcms::C('content')}" />
+<title> {pigcms:$f_siteTitle} {pigcms:$f_siteName}</title>
+<meta name="keywords" content="{pigcms:$f_metaKeyword}" />
+<meta name="description" content="{pigcms:$f_metaDes}" />
 <meta http-equiv="MSThemeCompatible" content="Yes" />
 <script>var SITEURL='';</script>
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/style_2_common.css?BPm" />
@@ -59,13 +59,13 @@ a.a_upload,a.a_choose{border:1px solid #3d810c;box-shadow:0 1px #CCCCCC;-moz-box
 </div>
     <div class="logo">
         <div style="float:left"></div>
-            <h1><a href="/" title="多用户微信营销服务平台"><img src="tpl/Home/pigcms/common/images/logo-pigcms.png" /></a></h1>
+            <h1><a href="/" title="多用户微信营销服务平台"><img src="{pigcms:$f_logo}" /></a></h1>
             <div class="navr">
         <ul id="topMenu">         
             <li <if condition="(ACTION_NAME eq 'index') and (GROUP_NAME eq 'Home')">class="menuon"</if> ><a href="/" >首页</a></li>
                 <li <eq name="ACTION_NAME" value="fc">class="menuon"</eq>><a href="{pigcms::U('Home/Index/fc')}">功能介绍</a></li>
                 <li <eq name="ACTION_NAME" value="about">class="menuon"</eq>><a href="{pigcms::U('Home/Index/about')}">关于我们</a></li>
-                <li <eq name="ACTION_NAME" value="price">class="menuon"</eq>><a href="http://www.pigcms.com/index.php/Index/price">资费说明</a></li>
+                <li <eq name="ACTION_NAME" value="price">class="menuon"</eq>><a href="/index.php?g=Home&m=Index&a=price">资费说明</a></li>
                 <li <eq name="ACTION_NAME" value="common">class="menuon"</eq>><a href="{pigcms::U('Home/Index/common')}">微信导航</a></li>
                 <li <eq name="GROUP_NAME" value="User">class="menuon"</eq>><a href="{pigcms::U('User/Index/index')}">管理中心</a></li>
                 <li <eq name="ACTION_NAME" value="help">class="menuon"</eq>><a href="{pigcms::U('Home/Index/help')}">帮助中心</a></li>
@@ -92,14 +92,14 @@ a.a_upload,a.a_choose{border:1px solid #3d810c;box-shadow:0 1px #CCCCCC;-moz-box
 </div>
 
 <div id="nickname">
-<strong>{pigcms:$wecha.wxname}</strong><a href="#" target="_blank" class="vipimg vip-icon<php>echo $userinfo['id']-1;</php>" title=""></a></div>
+<strong>{pigcms:$wecha.wxname}</strong><a href="#" target="_blank" class="vipimg vip-icon<php>echo $userinfo['taxisid']-1;</php>" title=""></a></div>
 <div id="weixinid">微信号:{pigcms:$wecha.weixin}</div>
 </div>
 
         <div class="accountInfo">
 <table class="vipInfo" width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
-<td><strong>VIP有效期：</strong><if condition="$_SESSION['viptime'] neq 0">{pigcms:$thisUser.viptime|date="Y-m-d",###}<else/>vip0不限时间</if></td>
+<td><strong>VIP有效期：</strong>{pigcms:$thisUser.viptime|date="Y-m-d",###}</td>
 <td><strong>图文自定义：</strong>{pigcms:$thisUser.diynum}/{pigcms:$userinfo.diynum}</td>
 <td><strong>活动创建数：</strong>{pigcms:$thisUser.activitynum}/{pigcms:$userinfo.activitynum}</td>
 <td><strong>请求数：</strong>{pigcms:$thisUser.connectnum}/{pigcms:$userinfo.connectnum}</td>
@@ -187,122 +187,252 @@ ul#menu li.selected a{
 .indent1 { padding-left: 1em; }
 .indent2 { padding-left: 2em; }
 .tableContent .content{min-height: 1328px;}
-</style>
-    
+
+a.nav-header{background:url(/tpl/static/images/arrow_click.png) center right no-repeat;cursor:pointer}
+a.nav-header-current{background:url(/tpl/static/images/arrow_unclick.png) center right no-repeat;}
+</style>  
       <div class="tableContent">
         
         <!--左侧功能菜单-->
  <div  class="sideBar" id="sideBar">
 <div class="catalogList">
 <ul id="menu">
-<a class="nav-header">基础设置</a>
-<ul class="ckit">
-<li <if condition="MODULE_NAME eq 'Function'">class="selected" <else/> class="subCatalogList"</if>> <a href="{pigcms::U('Function/index',array('token'=>$token,'id'=>session('wxid')))}">功能管理</a>
-</li>
-<li <if condition="MODULE_NAME eq 'Areply'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Areply/index',array('token'=>$token))}">关注时回复与帮助</a>
-</li>
-<li <if condition="MODULE_NAME eq 'Text'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Text/index',array('token'=>$token))}">微信－文本回复</a>
-</li>
-<li <if condition="MODULE_NAME eq 'Img'">class="selected" <else/> class="subCatalogList"</if>> <a href="{pigcms::U('Img/index',array('token'=>$token))}">微信－图文回复</a>
-</li>
-<li   <if condition="MODULE_NAME eq 'Voiceresponse'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Voiceresponse/index',array('token'=>$token))}">微信－语音回复</a>
-</li>
-<li   <if condition="MODULE_NAME eq 'Company'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Company/index',array('token'=>$token))}">自定义LBS回复</a><span class="new"></span>
-</li>
-<li <if condition="MODULE_NAME eq 'Other'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Other/index',array('token'=>$token))}">回答不上来的配置</a><span class="new"></span>
-</li>
-</ul>
+<?php
+$menus=array(
+array(
+'name'=>'基础设置',
+'display'=>0,
+'subs'=>array(
+array('name'=>'功能管理','link'=>U('Function/index',array('token'=>$token,'id'=>session('wxid'))),'new'=>0,'selectedCondition'=>array('m'=>'Function')),
+array('name'=>'关注时回复与帮助','link'=>U('Areply/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Areply')),
+array('name'=>'微信－文本回复','link'=>U('Text/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Text')),
+array('name'=>'微信－图文回复','link'=>U('Img/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Img')),
+array('name'=>'微信－语音回复','link'=>U('Voiceresponse/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Voiceresponse')),
+array('name'=>'自定义LBS回复','link'=>U('Company/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Company')),
+array('name'=>'回答不上来的配置','link'=>U('Other/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Other')),
+)),
+
+array(
+'name'=>'3G网站设置',
+'display'=>0,
+'subs'=>array(
+array('name'=>'首页回复配置','link'=>U('Home/set',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Home','g'=>'User','a'=>'set')),
+array('name'=>'分类管理','link'=>U('Classify/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Classify')),
+array('name'=>'模板管理','link'=>U('Tmpls/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Tmpls')),
+array('name'=>'首页幻灯片','link'=>U('Flash/index',array('token'=>$token,'tip'=>1)),'new'=>0,'selectedCondition'=>array('m'=>'Flash','tip'=>1)),
+array('name'=>'轮播背景图','link'=>U('Flash/index',array('token'=>$token,'tip'=>2)),'new'=>1,'selectedCondition'=>array('m'=>'Flash','tip'=>2)),
+array('name'=>'底部导航菜单','link'=>U('Catemenu/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Catemenu')),
+array('name'=>'自定义菜单','link'=>U('Diymen/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Diymen')),
+array('name'=>'留言板','link'=>U('Reply/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Reply')),
+)),
+
+array(
+'name'=>'行业应用',
+'display'=>1,
+'subs'=>array(
+array('name'=>'无线订餐（网络打印）','link'=>U('Product/orders',array('token'=>$token,'dining'=>1)),'new'=>0,'selectedCondition'=>array('m'=>'Product','a'=>'orders')),
+array('name'=>'360°全景','link'=>U('Panorama/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Panorama')),
+array('name'=>'婚庆喜帖','link'=>U('Wedding/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Wedding')),
+array('name'=>'3G微投票','link'=>U('Vote/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Vote')),
+array('name'=>'微汽车','link'=>U('Car/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Car')),
+array('name'=>'楼盘房产','link'=>U('Estate/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Estate')),
+array('name'=>'万能表单,报名,留言,预约','link'=>U('Selfform/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Selfform')),
+array('name'=>'通用订单(酒店,KTV)','link'=>U('Host/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Host')),
+)),
+
+array(
+'name'=>'电商系统',
+'display'=>0,
+'subs'=>array(
+array('name'=>'在线支付设置','link'=>U('Alipay_config/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Alipay_config')),
+array('name'=>'微信团购系统','link'=>U('Groupon/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Groupon')),
+array('name'=>'微信商城系统','link'=>U('Product/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Product','a'=>'index')),
+array('name'=>'淘宝天猫店铺配置','link'=>U('Taobao/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Taobao')),
+array('name'=>'融合第三方','link'=>U('Api/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Api')),
+array('name'=>'DIY宣传页','link'=>U('Adma/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Adma')),
+array('name'=>'3G图集(相册)','link'=>U('Photo/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Photo')),
+)),
+
+array(
+'name'=>'微用户管理CRM',
+'display'=>1,
+'subs'=>array(
+array('name'=>'粉丝管理','link'=>U('Wechat_group/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Wechat_group','a'=>'index')),
+array('name'=>'分组管理','link'=>U('Wechat_group/groups',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Wechat_group','a'=>'groups')),
+array('name'=>'粉丝行为分析','link'=>U('Wechat_behavior/statistics',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Wechat_behavior','a'=>'statistics')),
+array('name'=>'渠道二维码','link'=>U('Recognition/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Recognition')),
+array('name'=>'人工客服','link'=>U('ServiceUser/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'ServiceUser')),
+)),
+
+array(
+'name'=>'推广活动',
+'display'=>0,
+'subs'=>array(
+array('name'=>'幸运大转盘','link'=>U('Lottery/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Lottery')),
+array('name'=>'优惠券','link'=>U('Coupon/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Coupon')),
+array('name'=>'刮刮卡','link'=>U('Guajiang/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Guajiang')),
+array('name'=>'幸运水果机','link'=>U('LuckyFruit/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'LuckyFruit')),
+array('name'=>'砸金蛋','link'=>U('GoldenEgg/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'GoldenEgg')),
+array('name'=>'祝福贺卡','link'=>U('Greeting_card/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Greeting_card')),
+)),
+
+array(
+'name'=>'会员卡',
+'display'=>0,
+'subs'=>array(
+array('name'=>'会员卡','link'=>U('Member_card/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Member_card'),'exceptCondition'=>array('a'=>'replyInfoSet')),
+array('name'=>'回复设置','link'=>U('Member_card/replyInfoSet',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Member_card','a'=>'replyInfoSet')),
+)),
+
+array(
+'name'=>'统计分析',
+'display'=>0,
+'subs'=>array(
+array('name'=>'请求数详情','link'=>U('Requerydata/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'Requerydata')),
+array('name'=>'粉丝行为分析','link'=>U('Wechat_behavior/statistics',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Wechat_behavior','a'=>'statistics')),
+)),
 
 
-<a class="nav-header">3G网站设置</a>
-<ul class="ckit">
-		<li <if condition="ACTION_NAME eq 'set'">class="selected" <else/>class="subCatalogList"</if>> 
-			<a href="{pigcms::U('Home/set',array('token'=>$token))}">首页回复配置</a>
-		</li>
-		<li <if condition="MODULE_NAME eq 'Classify'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Classify/index',array('token'=>$token))}">分类管理</a>
-		</li>
-		<li <if condition="ACTION_NAME eq 'plugmenu'">class="selected" <else/>class="subCatalogList"</if>> 
-			<a href="{pigcms::U('Home/plugmenu',array('token'=>$token))}">一键拨号与版权</a><span class="new"></span>
-		</li>
-		
-		<li   <if condition="MODULE_NAME eq 'Tmpls'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Tmpls/index',array('token'=>$token))}">模板管理</a><span class="new"></span>
-		</li>
-		<?php
-		if (is_dir($_SERVER['DOCUMENT_ROOT'].'/cms')&&!strpos($_SERVER['HTTP_HOST'],'pigcms')){
-			echo '<li class="subCatalogList"> <a href="/cms/manage/index.php">高级模板</a><span class="new"></span></li>';
+);
+?>
+<?php
+$i=0;
+
+$parms=$_SERVER['QUERY_STRING'];
+$parms1=explode('&',$parms);
+$parmsArr=array();
+if ($parms1){
+	foreach ($parms1 as $p){
+		$parms2=explode('=',$p);
+		$parmsArr[$parms2[0]]=$parms2[1];
+	}
+}
+/*
+ksort($parmsArr);
+$newParmStr='';
+if ($parmsArr){
+	$comma='';
+	foreach ($parmsArr as $k=>$v){
+		$newParmStr.=$comma.$k.'='.$v;
+		$comma='&';
+	}
+}
+*/
+//
+$subMenus=array();
+$t=0;
+$currentMenuID=0;
+$currentParentMenuID=0;
+foreach ($menus as $m){
+	$loopContinue=1;
+	if ($m['subs']){
+		$st=0;
+		foreach ($m['subs'] as $s){
+			/*
+			$conditionParmStr='';
+			ksort($s['selectedCondition']);
+			if ($s['selectedCondition']){
+				$comma='';
+				foreach ($s['selectedCondition'] as $k=>$v){
+					$conditionParmStr.=$comma.$k.'='.$v;
+					$comma='&';
+				}
+			}
+			*/
+			$includeArr=1;
+			if ($s['selectedCondition']){
+				foreach ($s['selectedCondition'] as $condition){
+					if (!in_array($condition,$parmsArr)){
+						$includeArr=0;
+						break;
+					}
+				}
+			}
+			if ($includeArr){
+				if ($s['exceptCondition']){
+					foreach ($s['exceptCondition'] as $eptCondition){
+						if (in_array($eptCondition,$parmsArr)){
+							$includeArr=0;
+							break;
+						}
+					}
+				}
+			}
+			/*
+			if ($t==1&&$st==4){
+				echo $conditionParmStr;
+			}
+			*/
+			//
+			if ($includeArr){
+				$currentMenuID=$st;
+				$currentParentMenuID=$t;
+				$loopContinue=0;
+				break;
+			}
+			$st++;
 		}
-		?>
-		<li   <if condition="(MODULE_NAME eq 'Flash') AND ($tip eq 1)">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Flash/index',array('token'=>$token,'tip'=>1))}">首页幻灯片<span class="new"></span></a>
-		</li>
-		<li   <if condition="(MODULE_NAME eq 'Flash') AND ($tip eq 2)">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Flash/index',array('token'=>$token,'tip'=>2))}">轮播背景图<span class="new"></span></a>
-		</li>
-		<li   <if condition="MODULE_NAME eq 'Diymen'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Diymen/index',array('token'=>$token))}">自定义菜单<span class="new"></span></a>
-		</li>
-		<li   <if condition="MODULE_NAME eq 'Reply'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Reply/index',array('token'=>$token))}">留言板<span class="new"></span></a>
-		</li>
-	
-</ul>
-<a class="nav-header">行业应用</a>
-<ul class="ckit">
-		<li   <if condition="ACTION_NAME eq 'orders'">class="selected"<else/>class="subCatalogList"</if> > <a href="{pigcms::U('Product/orders',array('token'=>$token,'dining'=>1))}">无线订餐（网络打印）</a><span class="new"></span></li>
-		<li   <if condition="MODULE_NAME eq 'Panorama'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Panorama/index',array('token'=>$token))}">360°全景<span class="new"></span></a>
-		</li>
-		<li  
-		<if condition="MODULE_NAME eq 'Wedding'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Wedding/index',array('token'=>$token))}">婚庆喜帖<span class="new"></span></a>
-		</li><li  
-		<if condition="MODULE_NAME eq 'Vote'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Vote/index',array('token'=>$token))}">3G微投票<span class="new"></span></a>
-		</li>
-		<li   <if condition="ACTION_NAME eq 'Estate'">class="selected" <else/>class="subCatalogList"</if> > <a href="{pigcms::U('Estate/index',array('token'=>$token))}">楼盘房产</a><span class="new"></span></li>
+		//
+		if ($loopContinue==0){
+			break;
+		}
+	}
+	$t++;
+}
+//
+/*
+echo $currentMenuID;
+echo $currentParentMenuID;
+*/
+//
+foreach ($menus as $m){
+	//
+	$displayStr='';
+	if ($currentParentMenuID!=0||0!=$currentMenuID){
+		$m['display']=0;
+	}
+	if (!$m['display']){
+		$displayStr=' style="display:none"';
+	}
+	if ($currentParentMenuID==$i){
+		$displayStr='';
+	}
+	$aClassStr='';
+	if ($displayStr){
+		$aClassStr=' nav-header-current';
+	}
+	echo '<a class="nav-header'.$aClassStr.'">'.$m['name'].'</a><ul class="ckit"'.$displayStr.'>';
+	if ($m['subs']){
+		$j=0;
+		foreach ($m['subs'] as $s){
+			$selectedClassStr='subCatalogList';
+			if ($currentParentMenuID==$i&&$j==$currentMenuID){
+				$selectedClassStr='selected';
+			}
+			$newStr='';
+			if ($s['test']){
+				$newStr.='<span class="test"></span>';
+			}else {
+			if ($s['new']){
+				$newStr.='<span class="new"></span>';
+			}
+			}
+			echo '<li class="'.$selectedClassStr.'"> <a href="'.$s['link'].'">'.$s['name'].'</a>'.$newStr.'</li>';
+			if ($s['name']=='模板管理'&&is_dir($_SERVER['DOCUMENT_ROOT'].'/cms')&&!strpos($_SERVER['HTTP_HOST'],'pigcms')){
+				echo '<li class="subCatalogList"> <a href="/cms/manage/index.php">高级模板</a><span class="new"></span></li>';
+			}
+			$j++;
+		}
+	}
+	echo '</ul>';
+	$i++;
+}
+?>
 
-			<li   <if condition="MODULE_NAME eq 'Selfform'">class="selected"<else/>class="subCatalogList"</if>> <a href="{pigcms::U('Selfform/index',array('token'=>$token))}">万能表单,报名,留言,预约</a></li>
-			 <li   <if condition="MODULE_NAME eq 'Host'">class="selected"<else/>class="subCatalogList"</if> > <a href="{pigcms::U('Host/index',array('token'=>$token))}">通用订单(酒店,KTV)</a><span class="new"></span></li> 
-</ul>
 
-<a class="nav-header">电商系统</a>
-<ul class="ckit" style="display:none">
-
-	 <li   <if condition="(MODULE_NAME eq 'Product') and (ACTION_NAME eq 'index')">class="selected"<else/>class="subCatalogList"</if> > <a href="{pigcms::U('Groupon/index',array('token'=>$token))}">微信团购系统</a><span class="new"></span></li>
-	 <li   <if condition="(MODULE_NAME eq 'Product') and (ACTION_NAME eq 'index')">class="selected"<else/>class="subCatalogList"</if> > <a href="{pigcms::U('Product/index',array('token'=>$token))}">微信商城系统</a><span class="new"></span></li> 
-	 
-	 <li   <if condition="MODULE_NAME eq 'Alipay_config'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Alipay_config/index',array('token'=>$token))}">支付宝设置</a></li>
-	<li   <if condition="MODULE_NAME eq 'Taobao'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Taobao/index',array('token'=>$token))}">淘宝天猫店铺配置</a></li>
-	<li   <if condition="MODULE_NAME eq 'apilist'">class="selected"<else/>class="subCatalogList"</if> > <a href="{pigcms::U('Api/index',array('token'=>$token))}">融合第三方</a><span class="new"></span></li>
-	<li   <if condition="MODULE_NAME eq 'Adma'">class="selected"<else/>class="subCatalogList"</if> > <a href="{pigcms::U('Adma/index',array('token'=>$token))}">DIY宣传页</a></li>
-	<li   <if condition="MODULE_NAME eq 'Photo'">class="selected"<else/>class="subCatalogList"</if> > <a href="{pigcms::U('Photo/index',array('token'=>$token))}">3G图集(相册)</a><span class="new"></span></li>
-</ul>
-
-<a class="nav-header">微用户管理开发中</a>
-<ul class="ckit" style="display:none">
-	<li   <if condition="MODULE_NAME eq 'wechat_grout'">class="selected" <else/>class="subCatalogList"</if> > <a href="javascript:alert('开发中，感谢关注')">分组管理－新增</a><span class="new"></span></li>
-	<li   <if condition="MODULE_NAME eq 'wechat_grout'">class="selected" <else/>class="subCatalogList"</if> > <a href="javascript:alert('开发中，感谢关注')">微信群发－新增</a><span class="new"></span></li>
-	<li   <if condition="MODULE_NAME eq 'wechat_grout'">class="selected" <else/>class="subCatalogList"</if> > <a href="javascript:alert('开发中，感谢关注')">人工客服－新增</a><span class="new"></span></li>
-
-</ul>
-<a class="nav-header">推广活动</a>
-<ul class="ckit" style="display:none">
-	<li   <if condition="MODULE_NAME eq 'Lottery'">class="selected" <else/>class="subCatalogList"</if> > <a href="{pigcms::U('Lottery/index',array('token'=>$token))}">幸运大转盘</a><span class="new"></span></li>
-	<li   <if condition="MODULE_NAME eq 'Coupon'">class="selected" <else/>class="subCatalogList"</if> > <a href="{pigcms::U('Coupon/index',array('token'=>$token))}">优惠券</a></li>
-	<li   <if condition="MODULE_NAME eq 'Guajiang'">class="selected" <else/>class="subCatalogList"</if> > <a href="{pigcms::U('Guajiang/index',array('token'=>$token))}">刮刮卡</a></li>
-</ul>
-<a class="nav-header">会员卡</a>
-<ul class="ckit" style="display:none">
-	<li <if condition="MODULE_NAME eq 'Member_card'">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Member_card/index',array('token'=>$token))}">会员卡</a></li>
-	<li <if condition="(MODULE_NAME eq 'Member_card') and (ACTION_NAME eq 'replyInfoSet')">class="selected" <else/>class="subCatalogList"</if>> <a href="{pigcms::U('Member_card/replyInfoSet',array('token'=>$token))}">回复设置</a></li>
-
-</ul>
-
-<a class="nav-header">统计分析</a>
-<ul class="ckit" style="display:none">
-<li   <if condition="MODULE_NAME eq 'index'">class="selected" <else/>class="subCatalogList"</if> > <a href="{pigcms::U('Requerydata/index',array('token'=>$token))}">请求数详情</a>
-</li>
-</ul>
 </ul>
 </div>
 </div>
-<style>
-a.nav-header{background:url(/tpl/static/images/arrow_click.png) center right no-repeat;cursor:pointer}
-a.nav-header-current{background:url(/tpl/static/images/arrow_unclick.png) center right no-repeat;}
-</style>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".nav-header").mouseover(function(){

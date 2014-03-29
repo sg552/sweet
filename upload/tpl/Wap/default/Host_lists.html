@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', loaded, false);
 <li><p>{pigcms:$types['type']} - {pigcms:$types['typeinfo']}</p>
 
 <if condition="$types['picurl'] neq false">
-<?php if ($types['url']){echo '<a href="'.$types['url'].'">';}?><img src="{pigcms:$types['picurl']}" /><?php if ($types['url']){echo '</a>';}?>
+<?php if ($types['url']){echo '<a href="'.$types['url'].'">';}else{echo '<a href="###">';}?><img src="{pigcms:$types['picurl']}" /></a>
 <else />
 <img src="{pigcms::RES}/css/style/images/KaN8FWiK0o.jpg" width="100%">
 </if>

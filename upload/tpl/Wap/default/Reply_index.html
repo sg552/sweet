@@ -187,7 +187,7 @@ $(document).on("click",".sure",function(){
 
     $.ajax({
         type:"get",
-        url:"index.php?g=Wap&m=Reply&a=reply&wecha_id="+wecha_id+"&check="+check+"&message_id="+message_id+"&reply="+reply,
+        url:"index.php?g=Wap&m=Reply&a=reply&wecha_id="+wecha_id+"&check="+check+"&message_id="+message_id+"&token={pigcms:$token}&reply="+reply,
         success:function(result){
             //alert(result);exit;
             if(result){

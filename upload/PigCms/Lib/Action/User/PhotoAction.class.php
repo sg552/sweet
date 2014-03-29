@@ -10,10 +10,7 @@ class PhotoAction extends UserAction{
 		}
 		$this->assign('headpic',$headpic);
 		//
-		$function=M('Function')->where(array('funname'=>'album'))->find();
-		if (intval($this->user['gid'])<intval($function['gid'])){
-			$this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>$this->token)));
-		}
+		$this->canUseFunction('album');
 		//相册列表
 		$data=M('Photo');
 		$count      = $data->where(array('token'=>$_SESSION['token']))->count();

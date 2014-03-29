@@ -14,13 +14,13 @@
   <th valign="top"><span class="red">*</span>关键词：</th>
   <td><input type="input" class="px" id="keyword" value="{pigcms:$vo.keyword}" name="keyword" style="width:400px"><br>
   	<span class="red">只能写一个关键词</span>，用户输入此关键词将会触发此活动。</td>
-  <td rowspan="7" valign="top"><div style="margin-left:20px"><img id="pic2_src" src="<if condition="$vo['starpicurl'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" width="373px">
+  <td rowspan="7" valign="top"><div style="margin-left:20px"><img id="pic2_src" src="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" width="373px">
 <br>
-<input class="px" name="starpicurl" value="<if condition="$vo['starpicurl'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" onclick="document.getElementById('pic2_src').src=this.value;" style="width:363px;" id="pic2">
+<input class="px" name="starpicurl" value="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" onclick="document.getElementById('pic2_src').src=this.value;" style="width:363px;" id="pic2">
 <br> <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic2',1000,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic2')">预览</a>&nbsp;活动开始图片
-  </div><div style="margin-left:20px"><img id="pic1_src" src="<if condition="$vo['zjpic'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-winning.jpg<else/>{pigcms:$vo.zjpic}</if>" width="373px">
+  </div><div style="margin-left:20px"><img id="pic1_src" src="<if condition="$vo['zjpic'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-winning.jpg<else/>{pigcms:$vo.zjpic}</if>" width="373px">
 <br>
-<input class="px" name="zjpic" value="<if condition="$vo['zjpic'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-winning.jpg<else/>{pigcms:$vo.zjpic}</if>" onclick="document.getElementById('pic1_src').src=this.value;" style="width:363px;" id="pic1">
+<input class="px" name="zjpic" value="<if condition="$vo['zjpic'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-winning.jpg<else/>{pigcms:$vo.zjpic}</if>" onclick="document.getElementById('pic1_src').src=this.value;" style="width:363px;" id="pic1">
 <br> <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic1',1000,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>&nbsp; 中奖后显示的头部图片
      <br>
 
@@ -79,8 +79,8 @@
   				<td><input type="input" class="px" id="endtite" value="{pigcms:$vo.endtite}" name="endtite" style="width:400px">
   					<br>
   					请不要多于50字! </td>
-  				<td rowspan="4" valign="top"><div style="margin-left:20px"><img id="pic3_src" src="<if condition="$vo['endpicurl'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-end.jpg<else/>{pigcms:$vo.endpicurl}</if>" width="373px"> <br>
-  					<input class="px" id="pic3" name="endpicurl" onchange="document.getElementById('pic3_src').src=this.value;" value="<if condition="$vo['endpicurl'] eq ''">{pigcms::C('site_url')}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-end.jpg<else/>{pigcms:$vo.endpicurl}</if>" style="width:363px;">
+  				<td rowspan="4" valign="top"><div style="margin-left:20px"><img id="pic3_src" src="<if condition="$vo['endpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-end.jpg<else/>{pigcms:$vo.endpicurl}</if>" width="373px"> <br>
+  					<input class="px" id="pic3" name="endpicurl" onchange="document.getElementById('pic3_src').src=this.value;" value="<if condition="$vo['endpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/Wap/default/common/css/guajiang/images/activity-coupon-end.jpg<else/>{pigcms:$vo.endpicurl}</if>" style="width:363px;">
   					<br> <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic3',1000,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic3')">预览</a>&nbsp;活动结束图片 </div></td>
   				</tr>
   			<tr>

@@ -18,8 +18,8 @@
 <title>{pigcms:$es_data['title']}</title>
 <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 <meta name="Keywords" content="pigcms专业微营销系统、微信营销、微信代运营、微信定制开发、微信托管、微网站、微商城、微营销">
-<meta name="Description" content="易联达cms、专业微营销系统，国内最大的微信公众智能服务平台，易联达cms、专业微营销系统八大微体系：微菜单、微官网、微会员、微活动、微商城、微推送、微服务、微统计，企业微营销必备。">
-<!-- Mobile Devices Support @begin -->
+<meta name="Description" content="小猪cms、pigcms专业微营销系统，国内最大的微信公众智能服务平台，小猪cms、pigcms专业微营销系统八大微体系：微菜单、微官网、微会员、微活动、微商城、微推送、微服务、微统计，企业微营销必备。">
+<!-- Mobile Devices Support @begin -->        
 <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
@@ -33,13 +33,13 @@
 </head>
 
 <body onselectstart="return true;" ondragstart="return false;">
-
-<div class="wrapper" id="container">
-<!-- start -->
-<div class="act_top" id="actTop" style="">
-  <div class="act_top_show">
-  <img src="{pigcms:$es_data['banner']}" width="720" height="175" id="bannerPic">
-  </div>
+        
+<div class="wrapper" id="container">  
+<!-- start -->   
+<div class="act_top" id="actTop" style="">  
+  <div class="act_top_show">     
+  <img src="{pigcms:$es_data['banner']}" width="720" height="175" id="bannerPic">    
+  </div>  
   </div>
 <style>
     img{width: 100%;max-height: 245px;}
@@ -55,17 +55,17 @@
             <div class="resp-tabs-container">
                 <div style="padding: 10px;">
                     <div style="word-wrap: break-word;word-break: normal;">
-
+                     
                        {pigcms:$es_data['estate_desc']|html_entity_decode|trim}
                     </div>
-
+                  
                 </div>
                  <div>
-                    <p>
-        <a  href="http://chabus.duapp.com/mapapi.php?lng={pigcms:$es_data['lng']}&lat={pigcms:$es_data['lat']}&title=预约&info=温馨提示：楼盘大概位置">
-
+                    <p>    
+        <a  href="http://chabus.duapp.com/mapapi.php?lng={pigcms:$es_data['lng']}&lat={pigcms:$es_data['lat']}&title=预约&info=温馨提示：楼盘大概位置"> 
+           
     <span>地址： {pigcms:$es_data['place']}</span>
-   <img alt="" src="http://api.map.baidu.com/staticimage?width=600&height=235&center={pigcms:$es_data['address']}&markers={pigcms:$es_data['address']}|{pigcms:$es_data['lng']},{pigcms:$es_data['lat']}&zoom=10&markerStyles=s,A,0xff0000"  height="175" style="max-height: 240px;max-width: 390px;"/>
+   <img alt="" src="http://api.map.baidu.com/staticimage?width=600&height=235&center={pigcms:$es_data['address']}&markers={pigcms:$es_data['address']}|{pigcms:$es_data['lng']},{pigcms:$es_data['lat']}&zoom=10&markerStyles=s,A,0xff0000"  height="175" style="max-height: 240px;max-width: 390px;"/> 
       </a></p>
                 </div>
                 <div>
@@ -75,7 +75,7 @@
 <div class="video-box tpl-video"   id="content" style="display:block;">{pigcms:$es_data['video']}</div>
 <script src="tpl/Wap/default/common/wedding/js/play.js" type="text/javascript"></script>
                     </if>
-
+                    
 
                 </div>
                 <div>
@@ -89,7 +89,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#verticalTab').easyResponsiveTabs({
-            type: 'vertical', //Types: default, vertical, accordion
+            type: 'vertical', //Types: default, vertical, accordion           
             width: 'auto', //auto or any width like 600px
             fit: true,   // 100% fit in a container
             closed: 'accordion', // Start closed if in accordion view
@@ -104,7 +104,7 @@
     });
 </script>
 </div>
-<include file="Estate:menu"/>
+<include file="Estate:menu"/>                
 <div mark="stat_code" style="width:0px; height:0px; display:none;"></div>
-
+    
 </body></html>

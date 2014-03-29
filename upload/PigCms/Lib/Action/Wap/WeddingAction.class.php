@@ -29,7 +29,13 @@ class WeddingAction extends BaseAction{
 					}
 					$count=M('Wedding_info')->where(array('fid'=>$fid,type=>$type))->count();
 					$info=M('Wedding_info')->where(array('fid'=>$fid,type=>$type))->select();
-					$this->assign('count',$count);
+					$num=0;
+					if ($info){
+						foreach ($info as $item){
+							$num=$num+intval($item['num']);
+						}
+					}
+					$this->assign('count',$num);
 					$this->assign('wedding',$info);
 					$this->assign('pic',$wedding);
 					if($type==1){
