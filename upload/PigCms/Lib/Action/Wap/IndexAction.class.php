@@ -126,7 +126,9 @@ class IndexAction extends BaseAction{
 		$this->assign('showPlugMenu',count($plugMenus));
 	}
 	
-	
+	public function debug(){
+		
+	}
 	public function classify(){
 		$this->assign('info',$this->info);
 		

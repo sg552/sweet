@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------
-//ÇëÇó»ù´¡Àà£¬¶¨ÒåÏà¹Ø²ÎÊı¼°´¦Àí
+//è¯·æ±‚åŸºç¡€ç±»ï¼Œå®šä¹‰ç›¸å…³å‚æ•°åŠå¤„ç†
 //---------------------------------------------------------
 
 require_once ("Constants.class.php");
@@ -17,19 +17,19 @@ class CommonRequest {
 	var $SANDBOX_ADDRESS = "https://sandbox.tenpay.com/api";
 	var $API_ADDRESS = "https://api.tenpay.com";
 	
-	//Ö§¸¶Ïà¶ÔµØÖ·
+	//æ”¯ä»˜ç›¸å¯¹åœ°å€
 	var $PAY_OPPOSITE_ADDRESS = "/gateway/pay.htm";
-	//¶©µ¥²éÑ¯Ïà¶ÔµØÖ·
+	//è®¢å•æŸ¥è¯¢ç›¸å¯¹åœ°å€
 	var $NORMALQUERY_OPPOSITE_ADDRESS = "/gateway/normalorderquery.xml";
-	//Í¨ÖªÑéÖ¤Ïà¶ÔµØÖ·
+	//é€šçŸ¥éªŒè¯ç›¸å¯¹åœ°å€
 	var $VERIFY_NOTIFY_OPPOSITE_ADDRESS = "/gateway/verifynotifyid.xml";
 
-	 //»ñÈ¡ÊÕ»ñµØÖ·URL
+	 //è·å–æ”¶è·åœ°å€URL
 	var $DELIVERADDRESS_QUERY_OPPOSITE_ADDRESS = "/gateway/querydeliveryaddress.xml";
-	//WapÖ§¸¶³õÊ¼»¯Ïà¶ÔµØÖ·
+	//Wapæ”¯ä»˜åˆå§‹åŒ–ç›¸å¯¹åœ°å€
 	var $WAP_PAY_OPPOSITE_ADDRESS = "/gateway/wappayinit.xml";
 	
-	//Ö§¸¶Ïà¶ÔµØÖ·
+	//æ”¯ä»˜ç›¸å¯¹åœ°å€
 	var $SMS_SEND_ADDRESS = "/sms/sender.xml";
 	
 	var $secretKey;
@@ -38,7 +38,7 @@ class CommonRequest {
 	var $connectTimeout = 3000;
 	
 	var $timeout = 10000;
-	//²ÎÊı
+	//å‚æ•°
 	var $parameters = array();
 	
 	function __construct($secretKey) {
@@ -48,11 +48,11 @@ class CommonRequest {
 	function genParaStr(){
 		try {
 			if (null == $this->getAppid()) {
-				throw new SDKRuntimeException("appid²»ÄÜÎª¿Õ£¡" . "<br>");
+				throw new SDKRuntimeException("appidä¸èƒ½ä¸ºç©ºï¼" . "<br>");
 			}
 			
 			if (null == $this->getSecretKey()) {
-				throw new SDKRuntimeException("ÃÜÔ¿²»ÄÜÎª¿Õ£¡" . "<br>");
+				throw new SDKRuntimeException("å¯†é’¥ä¸èƒ½ä¸ºç©ºï¼" . "<br>");
 			}
 			$commonUtil = new CommonUtil();
 			ksort($this->parameters);
@@ -68,14 +68,14 @@ class CommonRequest {
 
 	}
 	/**
-	*»ñÈ¡ÒµÎñ²ÎÊıÖµ
+	*è·å–ä¸šåŠ¡å‚æ•°å€¼
 	*/
 	function getParameter($parameter) {
 		return $this->parameters[$parameter];
 	}
 	
 	/**
-	*ÉèÖÃÒµÎñ²ÎÊıÖµ
+	*è®¾ç½®ä¸šåŠ¡å‚æ•°å€¼
 	*/
 	function setParameter($parameter, $parameterValue) {
 		$commonUtil = new CommonUtil();
@@ -87,7 +87,7 @@ class CommonRequest {
 	}
 
 	/**
-	 * ÉèÖÃÁ¬½Ó³¬Ê±
+	 * è®¾ç½®è¿æ¥è¶…æ—¶
 	 * 
 	 * @param connectTimeout
 	 */
@@ -126,7 +126,7 @@ class CommonRequest {
 		}
 		if(null == $charSet){
 			$constants = new Constants();
-			// Ä¬ÈÏÎªGBK
+			// é»˜è®¤ä¸ºGBK
 			$charSet = $constants->DEFAULT_CHARSET;
 		}
 		return $charSet;
@@ -149,10 +149,10 @@ class CommonRequest {
 	}
 	
 	/**
-	 * ÉèÖÃÓ¦ÓÃID
+	 * è®¾ç½®åº”ç”¨ID
 	 * 
 	 * @param appid
-	 *            Ó¦ÓÃID
+	 *            åº”ç”¨ID
 	 */
 	function setAppid($appid){
 		$this->setParameter($this->APPID, $appid);
@@ -167,42 +167,42 @@ class CommonRequest {
 	}
 	
 	/**
-	 * »ñÈ¡ÃÜÔ¿
+	 * è·å–å¯†é’¥
 	 */
 	function getSecretKey(){
 		return $this->secretKey;
 	}
 	/**
-	 * ÉèÖÃÃÜÔ¿
+	 * è®¾ç½®å¯†é’¥
 	 * 
 	 * @param secretKey
-	 *            ÃÜÔ¿
+	 *            å¯†é’¥
 	 */
 	function setSecretKey($secretKey){
 		$this->secretKey = $secretKey;
 	}
 	
 	/**
-	 * »ñÈ¡ÊÇ·ñÔÚÉ³Ïä»·¾³
+	 * è·å–æ˜¯å¦åœ¨æ²™ç®±ç¯å¢ƒ
 	 */
 	function isInSandBox() {
 		return $this->inSandBox;
 	}
 	
 	/**
-	 * ÉèÖÃÊÇ·ñÔÚÉ³Ïä»·¾³
+	 * è®¾ç½®æ˜¯å¦åœ¨æ²™ç®±ç¯å¢ƒ
 	 * 
 	 * @param inSandBox
-	 *            true±íÊ¾ÇëÇó·¢ËÍµ½É³Ïä»·¾³£¬false±íÊ¾ÇëÇó·¢ËÍµ½ÕıÊ½»·¾³
+	 *            trueè¡¨ç¤ºè¯·æ±‚å‘é€åˆ°æ²™ç®±ç¯å¢ƒï¼Œfalseè¡¨ç¤ºè¯·æ±‚å‘é€åˆ°æ­£å¼ç¯å¢ƒ
 	 */
 	function setInSandBox($inSandBox) {
 		$this->inSandBox = $inSandBox;
 	}
 	
 	/**
-	 * »ñÈ¡ÓòÃûµØÖ·
+	 * è·å–åŸŸååœ°å€
 	 *
-	 * @return ½Ó¿ÚµØÖ·
+	 * @return æ¥å£åœ°å€
 	 */
 	function getDomain(){
 		$domain;

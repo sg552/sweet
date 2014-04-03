@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------
-//Ö§¸¶ÇëÇó
+//æ”¯ä»˜è¯·æ±‚
 //---------------------------------------------------------
 
 require_once ("common/CommonRequest.class.php");
@@ -15,7 +15,7 @@ class PayRequest extends CommonRequest {
 	}
 	
 	/**
-	 * Éú³ÉÖ§¸¶Ìø×ªÁ´½Ó
+	 * ç”Ÿæˆæ”¯ä»˜è·³è½¬é“¾æŽ¥
 	 */
 	function getURL(){
 		$paraString = $this->genParaStr();

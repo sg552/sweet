@@ -20,7 +20,7 @@ class IndexAction extends UserAction{
 					$db->where(array('id'=>$item['id']))->save(array('appid'=>$apiinfo['appid'],'appsecret'=>$apiinfo['appsecret']));
 				}else {
 					$diymen=M('Diymen_set')->where(array('token'=>$item['token']))->find();
-					if (!$diymen){
+					if (!$diymen&&$item['appid']&&$item['appsecret']){
 					M('Diymen_set')->add(array('token'=>$item['token'],'appid'=>$item['appid'],'appsecret'=>$item['appsecret']));
 					}
 				}

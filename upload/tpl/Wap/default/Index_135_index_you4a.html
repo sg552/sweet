@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', loaded, false);
 </div>
 
 <volist name="info" id="vo"> 
-<if condition="$vo['key'] lt 4">
+<if condition="$i gt 4">
 <div class="catemenu " >
 <div class="cname"><a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>"><img src="{pigcms:$vo.img}"><p>{pigcms:$vo.name}</p></a></div>
 <ul>
@@ -140,5 +140,5 @@ document.getElementById("thelist").getElementsByTagName("img").item(i).style.css
 {pigcms:$siteCopyright}
 </if>
  </div> <div style="display:none"> </div>
- <include file="Index:styleInclude"/>
+ <include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
 </body></html>

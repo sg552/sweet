@@ -49,9 +49,9 @@ class AlipayAction extends BaseAction{
 				break;
 		}
 		if ($alipayConfig['paytype']=='Weixin'){
-			header('Location:/wxpay/index.php?g=Wap&m='.$alipayConfig['paytype'].'&a=pay&price='.$price.'&orderName='.$orderName.'&single_orderid='.$orderid.'&showwxpaytitle=1&from='.$from.'&token='.$this->token);
+			header('Location:/wxpay/index.php?g=Wap&m='.$alipayConfig['paytype'].'&a=pay&price='.$price.'&orderName='.$orderName.'&single_orderid='.$orderid.'&showwxpaytitle=1&from='.$from.'&token='.$this->token.'&wecha_id='.$this->wecha_id);
 		}else {
-			header('Location:?g=Wap&m='.$alipayConfig['paytype'].'&a=pay&price='.$price.'&orderName='.$orderName.'&single_orderid='.$orderid.'&from='.$from.'&token='.$this->token);
+			header('Location:?g=Wap&m='.$alipayConfig['paytype'].'&a=pay&price='.$price.'&orderName='.$orderName.'&single_orderid='.$orderid.'&from='.$from.'&token='.$this->token.'&wecha_id='.$this->wecha_id);
 		}
 	}
 }

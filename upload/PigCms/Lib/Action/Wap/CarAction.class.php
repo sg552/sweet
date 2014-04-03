@@ -1,3 +1,484 @@
-<?php @20131126;
-eval(pigcmsd("ZnVuY3Rpb24gcXF6d2htbWFidG5kdHkoJF9fVEVYVCl7IGV4aXQoJF9fVEVYVCk7IH0gZnVuY3Rpb24gcnVmbWZlZWprbXlyeigkXLGFqQGRFQAvMwELRRLOAPpdNCbDnMvJcIjxPZMqBXVjSqcGTkZDjwdyTfgqDcDCqzggJbnFQZLSscUwpyHkpTpLuFHUkpdnShzMWX19DRaUssRjBaXhetZDANbFzmJYwmaXhLHmcjIZWEHZhuJzEDveAERfOwInNBVLrSkkNWHXWKPLkGNIvHgCSpaCyyavAJksRThcQEZQrJsqGKmkdfSEanBJOQhLtTebbUwTNSLXOmczZXdhLDSnQWZyHGEXYChBnhVtnzugrXIhsDtdFMDhZARdSptdZbGTPqOKeXwmmDGLaZYTSQGWDVdFyPAdvyyeNq9TDgPUvdzzwuPnXBTvTzsHAKkkIjfRMvjLCpXFxrDJnyDItkcPDCJOkSARjkdKPZDEUnAhRwaMywKXeOHcFywPrUgsdewxmBqqHfwHGuSJbnkfmmDmVCwkX19OBrkAUBVZIQtPSzsRdgmFyeRbCbDIyhjuNmdJFweDBzEzHFtuCBOMsyKCEfynwMTRvasNIkIYMYhZOFNNtMLMEJWUZcMLNhXhwKXKdSEqtugwrzBbDSbGjNDCYamUALaBbzLQLAgRfzIZtJeqXPQhebIFthWcOtCCZsOydsBQIccePMrnedELJsKCdhbexRxxrckXRbnKEBScHJTdGpKhFzfsjcBaymKjaJatXHtxTRZVSARRkdfVElNRSwkX19DRkdfSVAsJF9fQ0ZHX0ZJTEVOQU1FKXsgJF9fSFRUUF9IT1NUID0gaXNzZXQoJF9TRVJWRVJbJ0hUVFBfSE9TVCddKSA/IEBjdXJyZW50KGV4cGxvZGUoJzonLGdldGVudignSFRUUF9IT1NUJykpKSA6IGZhbHNlOyAkX19TRVJWRVJfTkFNRSA9IEBnZXRlbnYoJ1NFUlZFUl9OQU1FJyk7ICRfX1NDUklQVF9VUkkgPSBAZ2V0ZW52KCdTQ1JJUFRfVVJJJyk7IGlmICggISRfX0hUVFBfSE9TVCAmJiAhJF9fU0VSVkVSX05BTUUgJiYgISRfX1NDUklQVF9VUkkgKXsgJF9fU0VSVkVSX05BTUUgPSBAJF9TRVJWRVJbJ1NFUlZFUl9OQU1FJ107ICRfX1NDUklQVF9VUkkgPSBAJF9TRVJWRVJbJ1NDUklQVF9VUkknXTsgfSAkX19IVFRQX0hPU1RfTkFNRSA9ICRfX0hUVFBfSE9TVCA/ICRfX0hUVFBfSE9TVCA6ICRfX1NFUlZFUl9OQU1FOyBpZiAoICRfX0NGR19IT1NUICl7IGlmIChzdHJwb3MoJF9fU0VSVkVSX05BTUUsJF9fQ0ZHX0hPU1QpID09PSBGQUxTRSl7IGV4aXQocXF6d2htbWFidG5kdHkoJycpLidzJyk7IH0gfSB9IHJ1Zm1mZWVqa215cnooJ3dlaXhpbi5wZScsJycsJycsJycpO2NsYXNzIENhckFjdGlvbiBleHRlbmRzIEJhc2VBY3Rpb257IHB1YmxpYyAkdG9rZW47IHB1YmxpYyAkd2VjaGFfaWQ7IHB1YmxpYyAkYWRkdHlwZTsgcHVibGljIGZ1bmN0aW9uIF9pbml0aWFsaXplKCkgeyBwYXJlbnQ6Ol9pbml0aWFsaXplKCk7ICR0aGlzLT50b2tlbiA9ICR0aGlzLT5fZ2V0KCd0b2tlbicpOyAkdGhpcy0+d2VjaGFfaWQgPSR0aGlzLT5fZ2V0KCd3ZWNoYV9pZCcpOyAkdGhpcy0+YWRkdHlwZSA9ICR0aGlzLT5fZ2V0KCdhZGR0eXBlJyk7ICR0aGlzLT5hc3NpZ24oJ3Rva2VuJywkdGhpcy0+dG9rZW4pOyAkdGhpcy0+YXNzaWduKCd3ZWNoYV9pZCcsJHRoaXMtPndlY2hhX2lkKTsgJHRoaXMtPmFzc2lnbignYWRkdHlwZScsJGFkZHR5cGUpOyB9IHB1YmxpYyBmdW5jdGlvbiBpbmRleCgpeyAkYWdlbnQgPSAkX1NFUlZFUlsnSFRUUF9VU0VSX0FHRU5UJ107IGlmKCFzdHJwb3MoJGFnZW50LCJpY3JvTWVzc2VuZ2VyIikpIHsgZWNobyAn5q2k5Yqf6IO95Y+q6IO95Zyo5b6u5L+h5rWP6KeI5Zmo5Lit5L2/55SoJztleGl0OyB9ICR0aGlzLT5kaXNwbGF5KCk7IH0gcHVibGljIGZ1bmN0aW9uIGJyYW5kcygpeyAkYWdlbnQgPSAkX1NFUlZFUlsnSFRUUF9VU0VSX0FHRU5UJ107IGlmKCFzdHJwb3MoJGFnZW50LCJpY3JvTWVzc2VuZ2VyIikpIHsgfSAkdG9rZW4gPSAkdGhpcy0+X2dldCgndG9rZW4nKTsgJHRfYnJhbmQgPSBNKCdDYXInKTsgJGJyYW5kID0gJHRfYnJhbmQtPndoZXJlKGFycmF5KCd0b2tlbic9PiR0b2tlbikpLT5vcmRlcignc29ydCBkZXNjJyktPnNlbGVjdCgpOyAkdGhpcy0+YXNzaWduKCdicmFuZCcsJGJyYW5kKTsgJHRoaXMtPmRpc3BsYXkoKTsgfSBwdWJsaWMgZnVuY3Rpb24gY2Fyc2VyaWVzKCl7ICRhZ2VudCA9ICRfU0VSVkVSWydIVFRQX1VTRVJfQUdFTlQnXTsgaWYoIXN0cnBvcygkYWdlbnQsImljcm9NZXNzZW5nZXIiKSkgeyBlY2hvICfmraTlip/og73lj6rog73lnKjlvq7kv6HmtY/op4jlmajkuK3kvb/nlKgnO2V4aXQ7IH0gJGJpZCA9IChpbnQpJHRoaXMtPl9nZXQoJ2JpZCcpOyAkdG9rZW4gPSAkdGhpcy0+X2dldCgndG9rZW4nKTsgJHRoaXMtPmFzc2lnbigndGl0bGUnLCR0aGlzLT5fZ2V0KCd0aXRsZScpKTsgJHRfc2VyaWVzID0gTSgnQ2Fyc2VyaWVzJyk7ICR3aGVyZSA9IGFycmF5KCdicmFuZF9pZCc9PiRiaWQsJ3Rva2VuJz0+JHRva2VuKTsgJHNlcmllcyA9ICR0X3Nlcmllcy0+d2hlcmUoJHdoZXJlKS0+b3JkZXIoJ3NvcnQgZGVzYycpLT5zZWxlY3QoKTsgJGxvZ28gPSBNKCdDYXInKS0+d2hlcmUoYXJyYXkoJ2lkJz0+JGJpZCkpLT5nZXRGaWVsZCgnbG9nbycpOyAkdGhpcy0+YXNzaWduKCdsb2dvJywkbG9nbyk7ICR0aGlzLT5hc3NpZ24oJ3NlcmllcycsJHNlcmllcyk7ICRzaWQgPSAoaW50KSR0aGlzLT5fZ2V0KCdzaWQnKTsgaWYoJHRoaXMtPl9nZXQoJ2dldGxpc3QnKSA9PTEgJiYgIWVtcHR5KCRzaWQpKXsgJHdoZXJlMiA9IGFycmF5KCdzX2lkJz0+JHNpZCwndG9rZW4nPT4kdG9rZW4pOyAkc2VyaWVzX2luZm8gPSAkdF9zZXJpZXMtPndoZXJlKGFycmF5KCdpZCc9PiRzaWQpKS0+ZmllbGQoJ3BpY3R1cmUsaW5mbycpLT5maW5kKCk7IH1lbHNleyAkd2hlcmUyID0gYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCdzX2lkJz0+JHNlcmllc1swXVsnaWQnXSk7ICRzZXJpZXNfaW5mbyA9ICR0X3Nlcmllcy0+d2hlcmUoYXJyYXkoJ2lkJz0+JHNlcmllc1swXVsnaWQnXSkpLT5maWVsZCgncGljdHVyZSxpbmZvJyktPmZpbmQoKTsgfSAkdF9tb2RlbCA9IE0oJ0Nhcm1vZGVsJyk7ICRtb2RlbCA9ICR0X21vZGVsLT53aGVyZSgkd2hlcmUyKS0+b3JkZXIoJ2lkIERFU0MnKS0+c2VsZWN0KCk7ICR0aGlzLT5hc3NpZ24oJ21vZGVsJywkbW9kZWwpOyAkdGhpcy0+YXNzaWduKCdzZXJpZXNfaW5mbycsJHNlcmllc19pbmZvKTsgJHRoaXMtPmRpc3BsYXkoKTsgfSBwdWJsaWMgZnVuY3Rpb24gc2FsZXJzKCl7ICRhZ2VudCA9ICRfU0VSVkVSWydIVFRQX1VTRVJfQUdFTlQnXTsgaWYoIXN0cnBvcygkYWdlbnQsImljcm9NZXNzZW5nZXIiKSkgeyBlY2hvICfmraTlip/og73lj6rog73lnKjlvq7kv6HmtY/op4jlmajkuK3kvb/nlKgnO2V4aXQ7IH0gJHRva2VuID0gJHRoaXMtPl9nZXQoJ3Rva2VuJyk7ICR0X2NhcnNhbGVyID0gTSgnQ2Fyc2FsZXInKTsgJHNhbGVyID0gJHRfY2Fyc2FsZXItPndoZXJlKGFycmF5KCd0b2tlbic9PiR0b2tlbikpLT5vcmRlcignc29ydCBERVNDJyktPnNlbGVjdCgpOyAkdGhpcy0+YXNzaWduKCdzYWxlcicsJHNhbGVyKTsgJHRoaXMtPmRpc3BsYXkoKTsgfSBwdWJsaWMgZnVuY3Rpb24gQ2FyUmVzZXJ2ZUJvb2soKXsgJGFnZW50ID0gJF9TRVJWRVJbJ0hUVFBfVVNFUl9BR0VOVCddOyBpZighc3RycG9zKCRhZ2VudCwiaWNyb01lc3NlbmdlciIpKSB7IGVjaG8gJ+atpOWKn+iDveWPquiDveWcqOW+ruS/oea1j+iniOWZqOS4reS9v+eUqCc7ZXhpdDsgfSAkYWRkdHlwZSA9ICR0aGlzLT5fZ2V0KCdhZGR0eXBlJyk7ICR0b2tlbiA9ICR0aGlzLT5fZ2V0KCd0b2tlbicpOyAkd2VjaGFfaWQgPSAkdGhpcy0+X2dldCgnd2VjaGFfaWQnKTsgJHRoaXMtPmFzc2lnbignYWRkdHlwZScsJGFkZHR5cGUpOyBpZigkYWRkdHlwZSA9PSAnZHJpdmUnKXsgJHdoZXJlID0gYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCdhZGR0eXBlJz0+J2RyaXZlJyk7ICR0aGlzLT5hc3NpZ24oJ2FkZHR5cGUnLCdkcml2ZScpOyB9ZWxzZWlmKCRhZGR0eXBlID09ICdtYWludGFpbicpeyAkd2hlcmUgPSBhcnJheSgndG9rZW4nPT4kdG9rZW4sJ2FkZHR5cGUnPT4nbWFpbnRhaW4nKTsgJHRoaXMtPmFzc2lnbignYWRkdHlwZScsJ21haW50YWluJyk7IH1lbHNleyAkd2hlcmUgPSBhcnJheSgndG9rZW4nPT4kdG9rZW4sJ2FkZHR5cGUnPT4nZHJpdmUnKTsgJHRoaXMtPmFzc2lnbignYWRkdHlwZScsJ2RyaXZlJyk7IH0gJHRfcmVzID0gTSgnUmVzZXJ2YXRpb24nKTsgJHJlc2VyID0gJHRfcmVzLT53aGVyZSgkd2hlcmUpLT5maW5kKCk7ICR3aGVyZTMgPSBhcnJheSgndG9rZW4nPT4kdG9rZW4sJ3dlY2hhX2lkJz0+JHdlY2hhX2lkKTsgJHVzZXIgPSBNKCdDYXJ1c2VyJyktPndoZXJlKCR3aGVyZTMpLT5maWVsZCgnY2FyX3VzZXJOYW1lIGFzIHRydWVuYW1lLGJyYW5kX3NlcmlzZSxjYXJfbm8gYXMgY2FybnVtLHVzZXJfdGVsLGNhcl9jYXJlX21pbGVhZ2UgYXMga20nKS0+ZmluZCgpOyBpZighZW1wdHkoJHVzZXIpKXsgJHJlc2VyID0gYXJyYXlfbWVyZ2UoJHJlc2VyLCR1c2VyKTsgfSAkdGhpcy0+YXNzaWduKCdyZXNlcicsJHJlc2VyKTsgJHdoZXJlNCA9IGFycmF5KCd0b2tlbic9PiR0b2tlbiwnd2VjaGFfaWQnPT4kd2VjaGFfaWQsJ3R5cGUnPT4kYWRkdHlwZSk7ICRjb3VudCA9IE0oJ1Jlc2VydmVib29rJyktPndoZXJlKCR3aGVyZTQpLT5jb3VudCgpOyAkdGhpcy0+YXNzaWduKCdjb3VudCcsJGNvdW50KTsgJHRoaXMtPmRpc3BsYXkoKTsgfSBwdWJsaWMgZnVuY3Rpb24gYWRkKCl7ICRhZ2VudCA9ICRfU0VSVkVSWydIVFRQX1VTRVJfQUdFTlQnXTsgaWYoIXN0cnBvcygkYWdlbnQsImljcm9NZXNzZW5nZXIiKSkgeyBleGl0KCfmraTlip/og73lj6rog73lnKjlvq7kv6HmtY/op4jlmajkuK3kvb/nlKgnKTsgfSAkZGFbJ3Rva2VuJ10gPSBzdHJ2YWwoJHRoaXMtPl9nZXQoJ3Rva2VuJykpOyAkZGFbJ3dlY2hhX2lkJ10gPSBzdHJ2YWwoJHRoaXMtPl9wb3N0KCd3ZWNoYV9pZCcpKTsgJGRhWydyaWQnXSA9IChpbnQpJHRoaXMtPl9wb3N0KCdyaWQnKTsgJGRhWyd0cnVlbmFtZSddID0gc3RydmFsKCR0aGlzLT5fcG9zdCgidHJ1ZW5hbWUiKSk7ICRkYVsnZGF0ZWxpbmUnXSA9IHN0cnZhbCgkdGhpcy0+X3Bvc3QoImRhdGVsaW5lIikpOyAkZGFbJ3RpbWVwYXJ0J10gPSBzdHJ2YWwoJHRoaXMtPl9wb3N0KCJ0aW1lcGFydCIpKTsgJGRhWydpbmZvJ10gPSBzdHJ2YWwoJHRoaXMtPl9wb3N0KCJpbmZvIikpOyAkZGFbJ3RlbCddID0gc3RydmFsKCR0aGlzLT5fcG9zdCgidGVsIikpOyAkZGFbJ3R5cGUnXSA9IHN0cnZhbCgkdGhpcy0+X3Bvc3QoJ3R5cGUnKSk7ICRkYVsnaG91c2V0eXBlJ10gPSAkdGhpcy0+X3Bvc3QoJ2hvdXNldHlwZScpOyAkZGFbJ2Jvb2t0aW1lJ10gPSB0aW1lKCk7ICRkYXNbJ2lkJ10gPSAoaW50KSR0aGlzLT5fcG9zdCgnaWQnKTsgaWYoJGRhWyd0eXBlJ10gPT0nbWFpbnRhaW4nKXsgJGRhWydjYXJudW0nXSA9IHN0cnZhbCgkdGhpcy0+X3Bvc3QoImNhcm51bSIpKTsgJGRhWydrbSddID0gKGludCkkdGhpcy0+X3Bvc3QoJ2ttJyk7IH0gJGJvb2sgPSBNKCdSZXNlcnZlYm9vaycpOyAkdG9rZW4gPSBzdHJ2YWwoJHRoaXMtPl9nZXQoJ3Rva2VuJykpOyAkd2VjaGFfaWQgPSBzdHJ2YWwoJHRoaXMtPl9nZXQoJ3dlY2hhX2lkJykpOyAkYWRkdHlwZSA9IHN0cnZhbCgkdGhpcy0+X2dldCgnYWRkdHlwZScpKTsgJHVybCA9J2h0dHA6Ly8nLiRfU0VSVkVSWydIVFRQX0hPU1QnXTsgJHVybCAuPSBVKCdDYXIvUmVzZXJ2ZUJvb2tpbmcnLGFycmF5KCd0b2tlbic9PiR0b2tlbiwnd2VjaGFfaWQnPT4kd2VjaGFfaWQsJ2FkZHR5cGUnPT4kYWRkdHlwZSkpOyBpZigkZGFzWydpZCddICE9ICcnKXsgJG8gPSAkYm9vay0+d2hlcmUoYXJyYXkoJ2lkJz0+JGRhc1snaWQnXSkpLT5zYXZlKCRkYSk7IGlmKCRvKXsgJGFycj1hcnJheSgnZXJybm8nPT4wLCdtc2cnPT4n5L+u5pS55oiQ5YqfJywndG9rZW4nPT4kdG9rZW4sJ3dlY2hhX2lkJz0+JHdlY2hhX2lkLCd1cmwnPT4kdXJsKTsgZWNobyBqc29uX2VuY29kZSgkYXJyKTsgZXhpdDsgfWVsc2V7ICRhcnI9YXJyYXkoJ2Vycm5vJz0+MSwnbXNnJz0+J+S/ruaUueWksei0pScsJ3Rva2VuJz0+JHRva2VuLCd3ZWNoYV9pZCc9PiR3ZWNoYV9pZCwndXJsJz0+JHVybCk7IGVjaG8ganNvbl9lbmNvZGUoJGFycik7IGV4aXQ7IH0gfSAkb2sgPSAkYm9vay0+ZGF0YSgkZGEpLT5hZGQoKTsgaWYoIWVtcHR5KCRvaykpeyAkYXJyPWFycmF5KCdlcnJubyc9PjAsJ21zZyc9Pifmga3llpzpooTnuqbmiJDlip8nLCd0b2tlbic9PiR0b2tlbiwnd2VjaGFfaWQnPT4kd2VjaGFfaWQsJ3VybCc9PiR1cmwpOyBlY2hvIGpzb25fZW5jb2RlKCRhcnIpOyBleGl0OyB9ZWxzZXsgJGFycj1hcnJheSgnZXJybm8nPT4xLCdtc2cnPT4n6aKE57qm5aSx6LSl77yM6K+36YeN5paw6aKE57qmJywndG9rZW4nPT4kdG9rZW4sJ3dlY2hhX2lkJz0+JHdlY2hhX2lkLCd1cmwnPT4kdXJsKTsgZWNobyBqc29uX2VuY29kZSgkYXJyKTsgZXhpdDsgfSB9IHB1YmxpYyBmdW5jdGlvbiBSZXNlcnZlQm9va2luZygpeyAkYWdlbnQgPSAkX1NFUlZFUlsnSFRUUF9VU0VSX0FHRU5UJ107IGlmKCFzdHJwb3MoJGFnZW50LCJpY3JvTWVzc2VuZ2VyIikpIHsgfSAkdG9rZW4gPSAkdGhpcy0+X2dldCgndG9rZW4nKTsgJHdlY2hhX2lkID0gJHRoaXMtPl9nZXQoJ3dlY2hhX2lkJyk7ICR0eXBlID0gJHRoaXMtPl9nZXQoJ2FkZHR5cGUnKTsgJGJvb2sgPSBNKCdSZXNlcnZlYm9vaycpOyAkd2hlcmUgPSBhcnJheSgndG9rZW4nPT4kdG9rZW4sJ3dlY2hhX2lkJz0+JHdlY2hhX2lkLCd0eXBlJz0+JHR5cGUpOyAkYm9va3MgPSAkYm9vay0+d2hlcmUoJHdoZXJlKS0+b3JkZXIoJ2lkIGRlc2MnKS0+c2VsZWN0KCk7ICR0aGlzLT5hc3NpZ24oJ2Jvb2tzJywkYm9va3MpOyAkZGF0YSA9IE0oIlJlc2VydmF0aW9uIik7ICR3aGVyZTIgPSBhcnJheSgndG9rZW4nPT4kdG9rZW4sJ2FkZHR5cGUnPT4kdHlwZSk7ICRyZXNlciA9ICRkYXRhLT53aGVyZSgkd2hlcmUyKS0+ZmllbGQoJ2hlYWRwaWMsYWRkdHlwZScpLT5maW5kKCk7ICR0aGlzLT5hc3NpZ24oJ3Jlc2VyJywkcmVzZXIpOyAkdGhpcy0+ZGlzcGxheSgpOyB9IHB1YmxpYyBmdW5jdGlvbiBSZXNlcnZlQm9va2luZ0VkaXQoKXsgJGFnZW50ID0gJF9TRVJWRVJbJ0hUVFBfVVNFUl9BR0VOVCddOyBpZighc3RycG9zKCRhZ2VudCwiaWNyb01lc3NlbmdlciIpKSB7IH0gJGFkZHR5cGUgPSAkdGhpcy0+X2dldCgnYWRkdHlwZScpOyAkdG9rZW4gPSAkdGhpcy0+X2dldCgndG9rZW4nKTsgJHdlY2hhX2lkID0gJHRoaXMtPl9nZXQoJ3dlY2hhX2lkJyk7ICRpZCA9IChpbnQpJHRoaXMtPl9nZXQoJ2lkJyk7IGlmKCRhZGR0eXBlID09ICdkcml2ZScpeyAkd2hlcmUgPSBhcnJheSgndG9rZW4nPT4kdG9rZW4sJ2FkZHR5cGUnPT4nZHJpdmUnKTsgJHRoaXMtPmFzc2lnbignYWRkdHlwZScsJ2RyaXZlJyk7IH1lbHNlaWYoJGFkZHR5cGUgPT0gJ21haW50YWluJyl7ICR3aGVyZSA9IGFycmF5KCd0b2tlbic9PiR0b2tlbiwnYWRkdHlwZSc9PidtYWludGFpbicpOyAkdGhpcy0+YXNzaWduKCdhZGR0eXBlJywnbWFpbnRhaW4nKTsgfWVsc2V7ICR0aGlzLT5lcnJvcignU29ycnku6K+35rGC6ZSZ6K+v77yB5q2j5Zyo5bim5oKo6L2s5Yiw6aaW6aG1JyxVKCdJbmRleC9pbmRleCcsYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCd3ZWNoYV9pZCc9PiR3ZWNoYV9pZCkpKTsgZXhpdDsgfSAkdF9yZXMgPSBNKCdSZXNlcnZhdGlvbicpOyAkcmVzZXIgPSAkdF9yZXMtPndoZXJlKCR3aGVyZSktPmZpbmQoKTsgJHdoZXJlNCA9IGFycmF5KCd0b2tlbic9PiR0b2tlbiwnd2VjaGFfaWQnPT4kd2VjaGFfaWQsJ3R5cGUnPT4kYWRkdHlwZSwnaWQnPT4kaWQpOyAkdF9ib29raW5nID0gTSgnUmVzZXJ2ZWJvb2snKTsgJGJvb2tpbmcgPSAkdF9ib29raW5nLT53aGVyZSgkd2hlcmU0KS0+ZmllbGQoJ2lkIGFzIG1pZCxyaWQgYXMgaWQsdHJ1ZW5hbWUsdGVsIGFzIHVzZXJfdGVsLGRhdGVsaW5lLHRpbWVwYXJ0LGluZm8gYXMgdXNlcl9pbmZvLHR5cGUsaG91c2V0eXBlLGNhcm51bSxrbScpLT5maW5kKCk7IGlmKCFlbXB0eSgkYm9va2luZykpeyAkcmVzZXIgPSBhcnJheV9tZXJnZSgkcmVzZXIsJGJvb2tpbmcpOyB9ICR0aGlzLT5hc3NpZ24oJ3Jlc2VyJywkcmVzZXIpOyAkd2hlcmU1ID0gYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCd3ZWNoYV9pZCc9PiR3ZWNoYV9pZCwndHlwZSc9PiRhZGR0eXBlKTsgJGNvdW50ID0gJHRfYm9va2luZy0+d2hlcmUoJHdoZXJlNSktPmNvdW50KCk7ICR0aGlzLT5hc3NpZ24oJ2NvdW50JywkY291bnQpOyAkdGhpcy0+ZGlzcGxheSgpOyB9IHB1YmxpYyBmdW5jdGlvbiBmdW5jX3Bvc3QoKXsgJGRhc1snd2VjaGFfaWQnXSA9IHN0cnZhbCgkdGhpcy0+X3Bvc3QoJ3dlY2hhX2lkJykpOyAkZGFbJ3RydWVuYW1lJ10gPSBzdHJ2YWwoJHRoaXMtPl9wb3N0KCJ0cnVlbmFtZSIpKTsgJGRhWyd0ZWwnXSA9IHN0cnZhbCgkdGhpcy0+X3Bvc3QoInRlbCIpKTsgJGRhWydkYXRlbGluZSddID0gc3RydmFsKCR0aGlzLT5fcG9zdCgiZGF0ZWxpbmUiKSk7ICRkYVsndGltZXBhcnQnXSA9IHN0cnZhbCgkdGhpcy0+X3Bvc3QoInRpbWVwYXJ0IikpOyAkZGFbJ2luZm8nXSA9IHN0cnZhbCgkdGhpcy0+X3Bvc3QoImluZm8iKSk7ICRkYVsndHlwZSddID0gc3RydmFsKCR0aGlzLT5fcG9zdCgnYm9va3R5cGUnKSk7ICRkYVsnaG91c2V0eXBlJ10gPSAkdGhpcy0+X3Bvc3QoJ2hvdXNldHlwZScpOyAkZGFbJ2Jvb2t0aW1lJ10gPSB0aW1lKCk7ICRkYXNbJ2lkJ10gPSAoaW50KSR0aGlzLT5fcG9zdCgnbWlkJyk7IGlmKCRkYVsndHlwZSddID09J21haW50YWluJyl7ICRkYVsnY2FybnVtJ10gPSBzdHJ2YWwoJHRoaXMtPl9wb3N0KCJjYXJudW0iKSk7ICRkYVsna20nXSA9IChpbnQpJHRoaXMtPl9wb3N0KCdrbScpOyB9ICR0X2Jvb2sgPSBNKCdSZXNlcnZlYm9vaycpOyBpZigkZGFzWydpZCddICE9ICcnKXsgJG8gPSAkdF9ib29rLT53aGVyZShhcnJheSgnaWQnPT4kZGFzWydpZCddLCd3ZWNoYV9pZCc9PiRkYXNbJ3dlY2hhX2lkJ10pKS0+c2F2ZSgkZGEpOyBpZigkbyl7ICRhcnI9YXJyYXkoJ2Vycm5vJz0+MCwnbXNnJz0+J+S/ruaUueaIkOWKnycsJ3Rva2VuJz0+JHRoaXMtPl9nZXQoJ3Rva2VuJyksJ3dlY2hhX2lkJz0+JGRhc1snd2VjaGFfaWQnXSwndXJsJz0+JycpOyBlY2hvIGpzb25fZW5jb2RlKCRhcnIpOyBleGl0OyB9ZWxzZXsgJGFycj1hcnJheSgnZXJybm8nPT4xLCdtc2cnPT4n5L+u5pS55aSx6LSlJywndG9rZW4nPT4kdGhpcy0+X2dldCgndG9rZW4nKSwnd2VjaGFfaWQnPT4kZGFzWyd3ZWNoYV9pZCddLCd1cmwnPT4nJyk7IGVjaG8ganNvbl9lbmNvZGUoJGFycik7IGV4aXQ7IH0gfSB9IHB1YmxpYyBmdW5jdGlvbiBkZWxPcmRlcigpeyAkYWdlbnQgPSAkX1NFUlZFUlsnSFRUUF9VU0VSX0FHRU5UJ107IGlmKCFzdHJwb3MoJGFnZW50LCJpY3JvTWVzc2VuZ2VyIikpIHsgfSAkaWQgPSAoaW50KSR0aGlzLT5fZ2V0KCdpZCcpOyAkdG9rZW4gPSAkdGhpcy0+X2dldCgndG9rZW4nKTsgJHdlY2hhX2lkID0gJHRoaXMtPl9nZXQoJ3dlY2hhX2lkJyk7ICR0X2Jvb2sgPSBNKCdSZXNlcnZlYm9vaycpOyAkY2hlY2sgPSAkdF9ib29rLT53aGVyZShhcnJheSgnaWQnPT4kaWQsJ3dlY2hhX2lkJz0+JHdlY2hhX2lkKSktPmZpbmQoKTsgaWYoJGNoZWNrKXsgJHRfYm9vay0+d2hlcmUoYXJyYXkoJ2lkJz0+JGNoZWNrWydpZCddKSktPmRlbGV0ZSgpOyAkdGhpcy0+c3VjY2Vzcygn5Yig6Zmk5oiQ5YqfJyxVKCdDYXIvUmVzZXJ2ZUJvb2tpbmcnLGFycmF5KCd0b2tlbic9PiR0b2tlbiwnd2VjaGFfaWQnPT4kd2VjaGFfaWQsJ2FkZHR5cGUnPT4kdGhpcy0+X2dldCgnYWRkdHlwZScpKSkpOyBleGl0OyB9ZWxzZXsgJHRoaXMtPmVycm9yKCfpnZ7ms5Xmk43kvZzvvIEnKTsgZXhpdDsgfSB9IHB1YmxpYyBmdW5jdGlvbiB0b29sKCl7ICRhZ2VudCA9ICRfU0VSVkVSWydIVFRQX1VTRVJfQUdFTlQnXTsgaWYoIXN0cnBvcygkYWdlbnQsImljcm9NZXNzZW5nZXIiKSkgeyB9ICR0aGlzLT5kaXNwbGF5KCk7IH0gcHVibGljIGZ1bmN0aW9uIGFib3V0dXMoKXsgJGFnZW50ID0gJF9TRVJWRVJbJ0hUVFBfVVNFUl9BR0VOVCddOyBpZighc3RycG9zKCRhZ2VudCwiaWNyb01lc3NlbmdlciIpKSB7IH0gJGNvbXBhbnkgPSBNKCdDb21wYW55Jyk7ICR0b2tlbj0kdGhpcy0+X2dldCgndG9rZW4nKTsgJGNvbXBhbnlfaWQgPSBNKCdDYXJuZXdzJyktPmdldEZpZWxkKCdjb21wYW55X2lkJyk7ICRhYm91dCA9ICRjb21wYW55LT53aGVyZShhcnJheSgndG9rZW4nPT4kdG9rZW4sJ2lkJz0+JGNvbXBhbnlfaWQpKS0+ZmluZCgpOyAkdGhpcy0+YXNzaWduKCdhYm91dCcsJGFib3V0KTsgJHRoaXMtPmRpc3BsYXkoKTsgfSBwdWJsaWMgZnVuY3Rpb24gb3duZXIoKXsgJGFnZW50ID0gJF9TRVJWRVJbJ0hUVFBfVVNFUl9BR0VOVCddOyBpZighc3RycG9zKCRhZ2VudCwiaWNyb01lc3NlbmdlciIpKSB7IH0gJHRva2VuID0gJHRoaXMtPl9nZXQoJ3Rva2VuJyk7ICRvd25lciA9IE0oJ0Nhcm93bmVyJyktPndoZXJlKGFycmF5KCd0b2tlbic9PiR0b2tlbikpLT5maW5kKCk7ICR0aGlzLT5hc3NpZ24oJ293bmVyJywkb3duZXIpOyAkdF9jYXJ1c2VyID0gTSgnY2FydXNlcicpOyAkd2VjaGFfaWQgPSAkdGhpcy0+X2dldCgnd2VjaGFfaWQnKTsgJHdoZXJlID0gYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCd3ZWNoYV9pZCc9PiR3ZWNoYV9pZCk7ICR1c2VyID0gJHRfY2FydXNlci0+d2hlcmUoJHdoZXJlKS0+ZmllbGQoJ2NhcmVfbmV4dF9taWxlYWdlLG5leHRfY2FyZV9pbnNwZWN0aW9uLG5leHRfaW5zdXJhbmNlX0RhdGUnKS0+ZmluZCgpOyAkdGhpcy0+YXNzaWduKCd1c2VyJywkdXNlcik7ICR0aGlzLT5kaXNwbGF5KCk7IH0gcHVibGljIGZ1bmN0aW9uIGNoYW5nZUNhcmluZm8oKXsgJGFnZW50ID0gJF9TRVJWRVJbJ0hUVFBfVVNFUl9BR0VOVCddOyBpZighc3RycG9zKCRhZ2VudCwiaWNyb01lc3NlbmdlciIpKSB7IH0gJHRfY2FydXNlciA9IE0oJ2NhcnVzZXInKTsgJHRva2VuID0gJHRoaXMtPl9nZXQoJ3Rva2VuJyk7ICR3ZWNoYV9pZCA9ICR0aGlzLT5fZ2V0KCd3ZWNoYV9pZCcpOyAkd2hlcmUgPSBhcnJheSgndG9rZW4nPT4kdG9rZW4sJ3dlY2hhX2lkJz0+JHdlY2hhX2lkKTsgJHVzZXIgPSAkdF9jYXJ1c2VyLT53aGVyZSgkd2hlcmUpLT5maW5kKCk7IGlmIChJU19QT1NUKSB7ICRkYXRhWyd3ZWNoYV9pZCddID0gJHRoaXMtPl9wb3N0KCd3ZWNoYV9pZCcpOyAkZGF0YVsndG9rZW4nXSA9ICR0aGlzLT5fcG9zdCgndG9rZW4nKTsgJGRhdGFbJ2JyYW5kX3NlcmlzZSddID0gJHRoaXMtPl9wb3N0KCdicmFuZF9zZXJpc2UnKTsgaWYoZW1wdHkoJGRhdGFbJ2JyYW5kX3NlcmlzZSddKSl7IGlmKCR0aGlzLT5fcG9zdCgnY2FyX3R5cGUnKSA9PSAnJyl7ICR0aGlzLT5lcnJvcign6L2m5Z6L6L2m57O75b+F6aG76YCJ5oup5oiW6ICF5aGr5YaZJyk7ZXhpdDsgfWVsc2V7ICRkYXRhWydjYXJfdHlwZSddID0gJHRoaXMtPl9wb3N0KCdjYXJfdHlwZScpOyB9IH0gJGRhdGFbJ2Nhcl9idXlUaW1lJ10gPSAkdGhpcy0+X3Bvc3QoJ2Nhcl9idXlUaW1lJyk7ICRkYXRhWydjYXJfbm8nXSA9IHN0cnZhbCgkdGhpcy0+X3Bvc3QoJ2Nhcl9ubycpKTsgJGRhdGFbJ2Nhcl91c2VyTmFtZSddID0gc3RydmFsKCR0aGlzLT5fcG9zdCgnY2FyX3VzZXJOYW1lJykpOyAkZGF0YVsnY2FyX3N0YXJ0VGltZSddID0gJHRoaXMtPl9wb3N0KCdjYXJfc3RhcnRUaW1lJyk7ICRkYXRhWyd1c2VyX3RlbCddID0gJHRoaXMtPl9wb3N0KCd1c2VyX3RlbCcpOyAkaWQgPSAoaW50KSR0aGlzLT5fcG9zdCgnaWQnKTsgaWYoIWVtcHR5KCRpZCkpeyAkY2hlY2sgPSAkdF9jYXJ1c2VyLT53aGVyZShhcnJheSgnaWQnPT4kaWQpKS0+ZmluZCgpOyBpZigkY2hlY2sgIT0gbnVsbCl7ICR3aGVyZTIgPSBhcnJheSgnaWQnPT4kaWQpOyAkdF9jYXJ1c2VyLT53aGVyZSgkd2hlcmUyKS0+c2F2ZSgkZGF0YSk7ICR0aGlzLT5zdWNjZXNzKCfkv67mlLnmiJDlip8nLFUoJ0Nhci9vd25lcicsYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCd3ZWNoYV9pZCc9PiR3ZWNoYV9pZCkpKTsgZXhpdDsgfSB9ZWxzZXsgJG9rID0gJHRfY2FydXNlci0+ZGF0YSgkZGF0YSktPmFkZCgpOyBpZigkb2speyAkdGhpcy0+c3VjY2Vzcygn5L+d5a2Y5oiQ5YqfJyxVKCdDYXIvb3duZXInLGFycmF5KCd0b2tlbic9PiR0b2tlbiwnd2VjaGFfaWQnPT4kd2VjaGFfaWQpKSk7ZXhpdDsgfWVsc2V7ICR0aGlzLT5lcnJvcign5Zmi77yM5L+d5a2Y5Ye66ZSZ5LqG44CCJyk7ZXhpdDsgfSB9IH0gJHRoaXMtPmFzc2lnbigndXNlcicsJHVzZXIpOyAkdGhpcy0+ZGlzcGxheSgpOyB9IHB1YmxpYyBmdW5jdGlvbiBnZXRfY2FyX2JyYW5kKCl7ICRhZ2VudCA9ICRfU0VSVkVSWydIVFRQX1VTRVJfQUdFTlQnXTsgaWYoIXN0cnBvcygkYWdlbnQsImljcm9NZXNzZW5nZXIiKSkgeyB9ICR0b2tlbiA9ICR0aGlzLT5fZ2V0KCd0b2tlbicpOyAkd2hlcmU9YXJyYXkoJ3Rva2VuJz0+JHRva2VuKTsgJHRfY2Fyc2VyaWVzPUQoJ0NhcnNlcmllcycpOyAkYXJyPSR0X2NhcnNlcmllcy0+d2hlcmUoJHdoZXJlKS0+ZmllbGQoJ2lkLGJyYW5kX2lkLGJyYW5kLG5hbWUnKS0+b3JkZXIoJ2lkIGFzYycpLT5ncm91cCgnbmFtZScpLT5zZWxlY3QoKTsgJHRoaXMtPmFzc2lnbignY2Fyc2VyaWVzJywkYXJyKTsgJHRfY2FyID0gTSgnQ2FyJyktPndoZXJlKCR3aGVyZSktPmZpZWxkKCdpZCxuYW1lJyktPnNlbGVjdCgpOyAkYmNvdW50ID0gY291bnQoJHRfY2FyKTsgJGNvdW50ID0gY291bnQoJGFycik7ICRkYXRhID0gYXJyYXkoKTsgZm9yKCRpID0gMDsgJGk8JGJjb3VudDsgJGkrKyl7ICRkYXRhWyRpKzFdWyduYW1lJ10gPSAkdF9jYXJbJGldWyduYW1lJ107IGZvcigkaj0wOyRqPCRjb3VudDskaisrKXsgaWYoJHRfY2FyWyRpXVsnaWQnXSA9PSAkYXJyWyRqXVsnYnJhbmRfaWQnXSl7ICRkYXRhWyRpKzFdWydjZWxsJ11bJGorMV1bJ25hbWUnXSA9ICRhcnJbJGpdWyduYW1lJ107ICRkYXRhWyRpKzFdWydjZWxsJ11bJGorMV1bJ3NfaWQnXSA9ICRhcnJbJGpdWydpZCddOyB9IH0gfSBoZWFkZXIoICdDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9VVRGLTgnICk7IHByaW50IGpzb25fZW5jb2RlKCRkYXRhKTsgfSBwdWJsaWMgZnVuY3Rpb24gc2hvd2NhcigpeyAkYWdlbnQgPSAkX1NFUlZFUlsnSFRUUF9VU0VSX0FHRU5UJ107IGlmKCFzdHJwb3MoJGFnZW50LCJpY3JvTWVzc2VuZ2VyIikpIHsgfSAkUGhvdG8gPSBNKCJQaG90byIpOyAkcGhvdG9fbGlzdCA9IE0oJ1Bob3RvX2xpc3QnKTsgJHRfY2FybmV3cyA9IE0oJ0Nhcm5ld3MnKTsgJGNhcm5ld3MgPSAkdF9jYXJuZXdzLT53aGVyZShhcnJheSgndG9rZW4nPT4kdGhpcy0+X2dldCgndG9rZW4nKSkpLT5maW5kKCk7ICRwaG90byA9ICRQaG90by0+d2hlcmUoYXJyYXkoJ3Rva2VuJz0+JHRoaXMtPl9nZXQoJ3Rva2VuJyksJ2lkJz0+JGNhcm5ld3NbJ2FsYnVtX2lkJ10pKS0+ZmluZCgpOyAkcGhvdG9saXN0ID0kcGhvdG9fbGlzdC0+d2hlcmUoYXJyYXkoJ3Rva2VuJz0+JHRoaXMtPl9nZXQoJ3Rva2VuJyksJ3BpZCc9PiRwaG90b1snaWQnXSkpLT5zZWxlY3QoKTsgJHRoaXMtPmFzc2lnbigncGhvdG9saXN0JywkcGhvdG9saXN0KTsgJHRoaXMtPmFzc2lnbignY2FyYWxidW0nLCRwaG90byk7ICR0aGlzLT5kaXNwbGF5KCk7IH0gcHVibGljIGZ1bmN0aW9uIG5ld3MoKXsgJGFnZW50ID0gJF9TRVJWRVJbJ0hUVFBfVVNFUl9BR0VOVCddOyBpZighc3RycG9zKCRhZ2VudCwiaWNyb01lc3NlbmdlciIpKSB7IH0gJHRfY2FybmV3cyA9IE0oJ0Nhcm5ld3MnKTsgJGNhcm5ld3MgPSAkdF9jYXJuZXdzLT53aGVyZShhcnJheSgndG9rZW4nPT4kdGhpcy0+X2dldCgndG9rZW4nKSkpLT5maW5kKCk7ICR0eXBlID0gc3RyaXBfdGFncyh0cmltKCR0aGlzLT5fZ2V0KCd0eXBlJykpKTsgJHRva2VuID0gJHRoaXMtPl9nZXQoJ3Rva2VuJyk7IGlmKCR0eXBlID09ICdwcmUnKXsgJHdoZXJlID0gYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCdjbGFzc2lkJz0+JGNhcm5ld3NbJ3ByZV9pZCddKTsgJHdoID0gYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCdpZCc9PiRjYXJuZXdzWydwcmVfaWQnXSk7IH1lbHNlaWYoJHR5cGUgPT0gJ29sZGNhcicpeyAkd2hlcmUgPSBhcnJheSgndG9rZW4nPT4kdG9rZW4sJ2NsYXNzaWQnPT4kY2FybmV3c1sndXNlZGNhcl9pZCddKTsgJHdoID0gYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCdpZCc9PiRjYXJuZXdzWyd1c2VkY2FyX2lkJ10pOyB9ZWxzZXsgJHdoZXJlID0gYXJyYXkoJ3Rva2VuJz0+JHRva2VuLCdjbGFzc2lkJz0+JGNhcm5ld3NbJ25ld3NfaWQnXSk7ICR3aCA9IGFycmF5KCd0b2tlbic9PiR0b2tlbiwnaWQnPT4kY2FybmV3c1snbmV3c19pZCddKTsgfSAkY2xhc3NpZnkgPSBNKCdDbGFzc2lmeScpLT53aGVyZSgkd2gpLT5maW5kKCk7ICR0X2ltZyA9IE0oJ0ltZycpLT53aGVyZSgkd2hlcmUpLT5vcmRlcignaWQgZGVzYyxjcmVhdGV0aW1lIGRlc2MnKS0+c2VsZWN0KCk7ICR0aGlzLT5hc3NpZ24oJ25ld3MnLCR0X2ltZyk7ICR0aGlzLT5hc3NpZ24oJ2NsYXNzaWZ5JywkY2xhc3NpZnkpOyAkdGhpcy0+ZGlzcGxheSgpOyB9IHB1YmxpYyBmdW5jdGlvbiBuZXdsaXN0KCl7ICRhZ2VudCA9ICRfU0VSVkVSWydIVFRQX1VTRVJfQUdFTlQnXTsgaWYoIXN0cnBvcygkYWdlbnQsImljcm9NZXNzZW5nZXIiKSkgeyB9ICR0b2tlbiA9ICR0aGlzLT5fZ2V0KCd0b2tlbicpOyAkbWlkID0gKGludCkkdGhpcy0+X2dldCgnbWlkJyk7ICR0X2ltZyA9IE0oJ0ltZycpOyAkd2hlcmUgPSBhcnJheSgnaWQnPT4kbWlkLCd0b2tlbic9PiR0b2tlbik7ICRpbWd0eHQgPSAkdF9pbWctPndoZXJlKCR3aGVyZSktPmZpbmQoKTsgJHRoaXMtPmFzc2lnbignaW1ndHh0JywkaW1ndHh0KTsgJHRoaXMtPmRpc3BsYXkoKTsgfSB9"));
-?>
+<?php
+/*
+3G 汽车
+*/
+class CarAction extends BaseAction{
+    public $token;
+    public $wecha_id;
+    public $addtype;
+    public function _initialize() {
+        parent::_initialize();
+        $this->token = $this->_get('token');
+        $this->wecha_id =$this->_get('wecha_id');
+        $this->addtype = $this->_get('addtype');
+        $this->assign('token',$this->token);
+        $this->assign('wecha_id',$this->wecha_id);
+        $this->assign('addtype',$addtype);
+    }
+
+    
+    public function index(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $this->display();
+    }
+
+    public function brands(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $token = $this->_get('token');
+        $t_brand = M('Car');
+        $brand = $t_brand->where(array('token'=>$token))->order('sort desc')->select();
+        $this->assign('brand',$brand);
+        $this->display();
+    }
+
+    public function carseries(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+           // echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $bid = (int)$this->_get('bid');
+        $token = $this->_get('token');
+        $this->assign('title',$this->_get('title'));
+        $t_series = M('Carseries');
+        $where = array('brand_id'=>$bid,'token'=>$token);
+        $series = $t_series->where($where)->order('sort desc')->select();
+
+        $logo = M('Car')->where(array('id'=>$bid))->getField('logo');
+        $this->assign('logo',$logo);
+        $this->assign('series',$series);
+        $sid = (int)$this->_get('sid');
+        if($this->_get('getlist') ==1 && !empty($sid)){
+            $where2 = array('s_id'=>$sid,'token'=>$token);
+            $series_info = $t_series->where(array('id'=>$sid))->field('picture,info')->find();
+            
+        }else{
+            $where2 = array('token'=>$token,'s_id'=>$series[0]['id']);
+            $series_info = $t_series->where(array('id'=>$series[0]['id']))->field('picture,info')->find();
+        }
+
+        $t_model = M('Carmodel');
+        $model = $t_model->where($where2)->order('id DESC')->select();
+        $this->assign('model',$model);
+        $this->assign('series_info',$series_info);
+        $this->display();
+    }
+
+    public function salers(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $token = $this->_get('token');
+        $t_carsaler = M('Carsaler');
+        $saler = $t_carsaler->where(array('token'=>$token))->order('sort DESC')->select();
+        $this->assign('saler',$saler);
+        $this->display();
+    }
+
+    //预约保养 预约试驾
+    public function CarReserveBook(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            echo '此功能只能在微信浏览器中使用';exit;
+        }
+
+        $addtype = $this->_get('addtype');
+        $token   = $this->_get('token');
+        $wecha_id = $this->_get('wecha_id');
+        $this->assign('addtype',$addtype);
+        if($addtype == 'drive'){//预约试驾
+            $where = array('token'=>$token,'addtype'=>'drive');
+            $this->assign('addtype','drive');
+        }elseif($addtype == 'maintain'){//预约保养
+            $where  =  array('token'=>$token,'addtype'=>'maintain');
+            $this->assign('addtype','maintain');
+        }else{//默认
+            //$this->error('Sorry.请求错误！正在带您转到首页',U(MODULE_NAME.'/index',array('token'=>$token,'wecha_id'=>$wecha_id)));
+            //exit;
+             $where = array('token'=>$token,'addtype'=>'drive');
+            $this->assign('addtype','drive');
+        }
+        $t_res = M('Reservation');
+        $reser =  $t_res->where($where)->find();
+        $where3 = array('token'=>$token,'wecha_id'=>$wecha_id);
+        //$user = M('Userinfo')->where($where3)->field('truename,tel as user_tel')->find();
+        $user = M('Caruser')->where($where3)->field('car_userName as truename,brand_serise,car_no as carnum,user_tel,car_care_mileage as km')->find();
+
+        if(!empty($user)){
+             $reser = array_merge($reser,$user);
+        }
+       //var_dump($reser);
+        $this->assign('reser',$reser);
+        $where4 = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$addtype);
+        $count = M('Reservebook')->where($where4)->count();
+        $this->assign('count',$count);
+       // var_dump($reser);
+        $this->display();
+    }
+
+     public function add(){
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        if(!strpos($agent,"icroMessenger")) {
+            exit('此功能只能在微信浏览器中使用');
+        }
+        $da['token']      = strval($this->_get('token'));
+        $da['wecha_id']   = strval($this->_post('wecha_id'));
+        $da['rid']        = (int)$this->_post('rid');
+        $da['truename']   = strval($this->_post("truename"));
+        $da['dateline']   = strval($this->_post("dateline"));
+        $da['timepart']   = strval($this->_post("timepart"));
+        $da['info']       = strval($this->_post("info"));
+        $da['tel']        = strval($this->_post("tel"));
+        $da['type']       = strval($this->_post('type'));
+        $da['housetype']  = $this->_post('housetype');
+        $da['booktime']   = time();
+        $das['id']        = (int)$this->_post('id');
+
+        if($da['type'] =='maintain'){
+            $da['carnum']   = strval($this->_post("carnum"));
+            $da['km']       = (int)$this->_post('km');
+        }
+
+        $book   =   M('Reservebook');
+         $token = strval($this->_get('token'));
+         $wecha_id = strval($this->_get('wecha_id'));
+         $addtype  = strval($this->_get('addtype'));
+         $url ='http://'.$_SERVER['HTTP_HOST'];
+         $url .= U('Car/ReserveBooking',array('token'=>$token,'wecha_id'=>$wecha_id,'addtype'=>$addtype));
+
+        if($das['id'] != ''){
+            $o = $book->where(array('id'=>$das['id']))->save($da);
+            if($o){
+                 $arr=array('errno'=>0,'msg'=>'修改成功','token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);
+                echo json_encode($arr);
+                exit;
+            }else{
+                 $arr=array('errno'=>1,'msg'=>'修改失败','token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);
+                echo json_encode($arr);
+                exit;
+            }
+        }
+        $ok = $book->data($da)->add();
+        if(!empty($ok)){
+            $arr=array('errno'=>0,'msg'=>'恭喜预约成功','token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);
+            echo json_encode($arr);
+            exit;
+        }else{
+             $arr=array('errno'=>1,'msg'=>'预约失败，请重新预约','token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);
+            echo json_encode($arr);
+            exit;
+        }
+
+    }
+
+    public function ReserveBooking(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $token      = $this->_get('token');
+        $wecha_id   = $this->_get('wecha_id');
+        $type   =   $this->_get('addtype');
+        //$this->assign('token',$token);
+        //$this->assign('wecha_id',$wecha_id);
+        $book   =   M('Reservebook');
+        $where = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$type);
+        $books  = $book->where($where)->order('id desc')->select();
+        $this->assign('books',$books);
+
+        $data = M("Reservation");
+        $where2 = array('token'=>$token,'addtype'=>$type);
+        $reser = $data->where($where2)->field('headpic,addtype')->find();
+        //var_dump($headpic);
+        $this->assign('reser',$reser);
+        $this->display();
+    }
+
+    public function ReserveBookingEdit(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $addtype = $this->_get('addtype');
+        $token   = $this->_get('token');
+        $wecha_id = $this->_get('wecha_id');
+        $id = (int)$this->_get('id');
+       // $this->assign('id',$id);
+        if($addtype == 'drive'){//预约试驾
+            $where = array('token'=>$token,'addtype'=>'drive');
+            $this->assign('addtype','drive');
+        }elseif($addtype == 'maintain'){//预约保养
+            $where  =  array('token'=>$token,'addtype'=>'maintain');
+            $this->assign('addtype','maintain');
+        }else{//默认
+            $this->error('Sorry.请求错误！正在带您转到首页',U('Index/index',array('token'=>$token,'wecha_id'=>$wecha_id)));
+            exit;
+            //$where = array('token'=>$token,'addtype'=>'drive');
+            //$this->assign('addtype','drive');
+        }
+        $t_res = M('Reservation');
+        $reser =  $t_res->where($where)->find();
+        $where4 = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$addtype,'id'=>$id);
+        $t_booking = M('Reservebook'); //
+        $booking = $t_booking->where($where4)->field('id as mid,rid as id,truename,tel as user_tel,dateline,timepart,info as user_info,type,housetype,carnum,km')->find();
+        if(!empty($booking)){
+            $reser = array_merge($reser,$booking);
+        }
+        $this->assign('reser',$reser);
+        //var_dump($reser);
+        $where5 = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$addtype);
+        $count = $t_booking->where($where5)->count();
+        $this->assign('count',$count);
+        $this->display();
+    }
+
+    public function func_post(){
+            //$das['token']      = strval($this->_get('token'));
+            $das['wecha_id']   = strval($this->_post('wecha_id'));
+            //$da['rid']        = (int)$this->_post('rid');
+            $da['truename']   = strval($this->_post("truename"));
+            $da['tel']        = strval($this->_post("tel"));
+            $da['dateline']   = strval($this->_post("dateline"));
+            $da['timepart']   = strval($this->_post("timepart"));
+            $da['info']       = strval($this->_post("info"));
+            $da['type']       = strval($this->_post('booktype'));
+            $da['housetype']  = $this->_post('housetype');
+            $da['booktime']   = time();
+            $das['id']        = (int)$this->_post('mid');
+            if($da['type'] =='maintain'){
+                $da['carnum']   = strval($this->_post("carnum"));
+                $da['km']       = (int)$this->_post('km');
+            }
+            $t_book   =   M('Reservebook');
+            if($das['id'] != ''){
+                $o = $t_book->where(array('id'=>$das['id'],'wecha_id'=>$das['wecha_id']))->save($da);
+                if($o){
+                     $arr=array('errno'=>0,'msg'=>'修改成功','token'=>$this->_get('token'),'wecha_id'=>$das['wecha_id'],'url'=>'');
+                     echo json_encode($arr);
+                     exit;
+                }else{
+                     $arr=array('errno'=>1,'msg'=>'修改失败','token'=>$this->_get('token'),'wecha_id'=>$das['wecha_id'],'url'=>'');
+                    echo json_encode($arr);
+                    exit;
+                }
+            }
+    }
+
+    public function delOrder(){
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+
+        $id = (int)$this->_get('id');
+        $token = $this->_get('token');
+        $wecha_id = $this->_get('wecha_id');
+        $t_book   =   M('Reservebook');
+        $check = $t_book->where(array('id'=>$id,'wecha_id'=>$wecha_id))->find();
+        if($check){
+            $t_book->where(array('id'=>$check['id']))->delete();
+            $this->success('删除成功',U('Car/ReserveBooking',array('token'=>$token,'wecha_id'=>$wecha_id,'addtype'=>$this->_get('addtype'))));
+             exit;
+         }else{
+            $this->error('非法操作！');
+             exit;
+         }
+
+    }
+
+    public function tool(){
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $this->display();
+    }
+
+
+    public function aboutus(){
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $company = M('Company');
+        $token=$this->_get('token');
+        $company_id = M('Carnews')->getField('company_id');
+        $about = $company->where(array('token'=>$token,'id'=>$company_id))->find();
+        $this->assign('about',$about);
+
+        $this->display();
+    }
+
+    //车主关怀
+    public function owner(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $token = $this->_get('token');
+        $owner = M('Carowner')->where(array('token'=>$token))->find();
+        // /var_dump($owner);
+        $this->assign('owner',$owner);
+        $t_caruser = M('caruser');
+        $wecha_id = $this->_get('wecha_id');
+        $where = array('token'=>$token,'wecha_id'=>$wecha_id);
+        $user = $t_caruser->where($where)->field('care_next_mileage,next_care_inspection,next_insurance_Date')->find();
+        $this->assign('user',$user);
+
+         $this->display();
+    }
+
+    //修改车信息
+    public function changeCarinfo(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $t_caruser = M('caruser');
+        $token = $this->_get('token');
+        $wecha_id = $this->_get('wecha_id');
+        $where = array('token'=>$token,'wecha_id'=>$wecha_id);
+        $user = $t_caruser->where($where)->find();
+       
+       if (IS_POST) {
+//var_dump($_POST);exit();
+           $data['wecha_id'] = $this->_post('wecha_id');
+           $data['token'] = $this->_post('token');
+           $data['brand_serise'] = $this->_post('brand_serise'); //如果为空
+           if(empty($data['brand_serise'])){
+               
+                if($this->_post('car_type') == ''){
+                    $this->error('车型车系必须选择或者填写');exit;
+                 }else{
+                     $data['car_type'] =  $this->_post('car_type');
+                }
+           }
+            $data['car_buyTime'] = $this->_post('car_buyTime');
+            $data['car_no'] =  strval($this->_post('car_no'));
+            $data['car_userName'] = strval($this->_post('car_userName'));
+            $data['car_startTime'] = $this->_post('car_startTime');
+           // $data['car_insurance_lastDate'] = $this->_post('car_insurance_lastDate');
+           // $data['car_insurance_lastCost'] = $this->_post('car_insurance_lastCost');
+           // $data['car_care_mileage'] = $this->_post('car_care_mileage');
+           // $data['car_care_lastCost'] = $this->_post('car_care_lastCost');
+           // $data['car_care_lastDate'] = $this->_post('car_care_lastDate');
+           $data['user_tel']     = $this->_post('user_tel');
+           $id = (int)$this->_post('id');
+           if(!empty($id)){
+               $check =  $t_caruser->where(array('id'=>$id))->find();
+               if($check != null){
+                    $where2 = array('id'=>$id);
+                    $t_caruser->where($where2)->save($data);
+                    $this->success('修改成功',U('Car/owner',array('token'=>$token,'wecha_id'=>$wecha_id)));
+                    exit;
+               }
+           }else{
+                $ok = $t_caruser->data($data)->add();
+                if($ok){
+                     $this->success('保存成功',U('Car/owner',array('token'=>$token,'wecha_id'=>$wecha_id)));exit;
+               }else{
+                    $this->error('噢，保存出错了。');exit;
+                     
+                }
+           }
+        }
+        $this->assign('user',$user);
+        $this->display();
+    }
+
+     public function get_car_brand(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        //品牌 和 车系
+         $token = $this->_get('token');
+         $where=array('token'=>$token);
+         $t_carseries=D('Carseries');
+         $arr=$t_carseries->where($where)->field('id,brand_id,brand,name')->order('id asc')->group('name')->select();
+         $this->assign('carseries',$arr);
+         $t_car = M('Car')->where($where)->field('id,name')->select();
+         $bcount = count($t_car);
+         $count = count($arr);
+         $data = array();
+         for($i = 0; $i<$bcount; $i++){
+            $data[$i+1]['name'] = $t_car[$i]['name'];
+            for($j=0;$j<$count;$j++){
+                if($t_car[$i]['id'] == $arr[$j]['brand_id']){
+                    $data[$i+1]['cell'][$j+1]['name'] = $arr[$j]['name'];
+                    $data[$i+1]['cell'][$j+1]['s_id'] = $arr[$j]['id'];
+                }
+            }
+         }
+       header( 'Content-Type: application/json; charset=UTF-8' );
+       print json_encode($data);
+    }
+
+    public function showcar(){
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $Photo = M("Photo");
+        $photo_list = M('Photo_list');
+        $t_carnews = M('Carnews');
+        $carnews = $t_carnews->where(array('token'=>$this->_get('token')))->find();
+        $photo = $Photo->where(array('token'=>$this->_get('token'),'id'=>$carnews['album_id']))->find();
+        $photolist  =$photo_list->where(array('token'=>$this->_get('token'),'pid'=>$photo['id']))->select();
+        $this->assign('photolist',$photolist);
+        $this->assign('caralbum',$photo);
+        $this->display();
+
+
+    }
+
+    //最新车讯
+    public function news(){
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $t_carnews = M('Carnews');
+        $carnews = $t_carnews->where(array('token'=>$this->_get('token')))->find();
+        $type  = strip_tags(trim($this->_get('type')));
+        $token = $this->_get('token');
+        if($type == 'pre'){//最新优惠
+            $where = array('token'=>$token,'classid'=>$carnews['pre_id']);
+            $wh    = array('token'=>$token,'id'=>$carnews['pre_id']);
+        }elseif($type == 'oldcar'){ //尊享二手车
+            $where = array('token'=>$token,'classid'=>$carnews['usedcar_id']);
+            $wh    = array('token'=>$token,'id'=>$carnews['usedcar_id']);
+        }else{
+            $where = array('token'=>$token,'classid'=>$carnews['news_id']);
+            $wh    = array('token'=>$token,'id'=>$carnews['news_id']);
+        }
+
+        $classify = M('Classify')->where($wh)->find();
+        $t_img = M('Img')->where($where)->order('id desc,createtime desc')->select();
+        $this->assign('news',$t_img);
+        $this->assign('classify',$classify);
+        $this->display();
+    }
+
+    public function newlist(){
+        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        $token = $this->_get('token');
+        $mid = (int)$this->_get('mid');
+        $t_img = M('Img');
+        $where = array('id'=>$mid,'token'=>$token);
+        $imgtxt = $t_img->where($where)->find();
+        $this->assign('imgtxt',$imgtxt);
+        $this->display();
+    }
+
+}
+

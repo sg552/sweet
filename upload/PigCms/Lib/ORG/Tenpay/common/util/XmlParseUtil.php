@@ -1,12 +1,12 @@
 <?php
 //---------------------------------------------------------
-//´¦Àí·µ»ØµÄxmlÊı¾İ
+//å¤„ç†è¿”å›çš„xmlæ•°æ®
 //---------------------------------------------------------
 
 class XmlParseUtil{
 	
 	/**
-	 * ½âÎöxml×Ö·û´®ÎªDocument¶ÔÏó
+	 * è§£æxmlå­—ç¬¦ä¸²ä¸ºDocumentå¯¹è±¡
 	 * 
 	 * @param xmlStr
 	 * @param charsetName
@@ -19,7 +19,7 @@ class XmlParseUtil{
 	}
 	
 	/**
-	 * ½«xml½âÎöÎªmap
+	 * å°†xmlè§£æä¸ºmap
 	 * 
 	 * @param xml
 	 * @param charset
@@ -27,13 +27,13 @@ class XmlParseUtil{
 	 */
 	function openapiXmlToMapByDoc($doc, $charset) {
 		$doc->normalize();
-		$root = $doc->documentElement; //»ñÈ¡XMLÊı¾İµÄ¸ù
-		$nodeList = $root->childNodes; //»ñµÃ$nodeµÄËùÓĞ×Ó½Úµã
+		$root = $doc->documentElement; //è·å–XMLæ•°æ®çš„æ ¹
+		$nodeList = $root->childNodes; //è·å¾—$nodeçš„æ‰€æœ‰å­èŠ‚ç‚¹
 		return $this->openapiXmlToMapByNodeList($nodeList, $charset);
 	}
 
 	/**
-	 * ½«xml nodelist½âÎöÎªmap
+	 * å°†xml nodelistè§£æä¸ºmap
 	 * 
 	 * @param xml
 	 * @param charset
@@ -42,11 +42,11 @@ class XmlParseUtil{
 	function openapiXmlToMapByNodeList($nodeList, $charset) {
 		$hashMap = array();
 		if(!empty($nodeList)){
-			foreach($nodeList as $e) //Ñ­»·¶ÁÈ¡Ã¿Ò»¸ö×Ó½Úµã
+			foreach($nodeList as $e) //å¾ªç¯è¯»å–æ¯ä¸€ä¸ªå­èŠ‚ç‚¹
 			{
-				if($e->nodeType == XML_ELEMENT_NODE) //Èç¹û×Ó½ÚµãÎª½Úµã¶ÔÏó£¬Ôòµ÷ÓÃº¯Êı´¦Àí
+				if($e->nodeType == XML_ELEMENT_NODE) //å¦‚æœå­èŠ‚ç‚¹ä¸ºèŠ‚ç‚¹å¯¹è±¡ï¼Œåˆ™è°ƒç”¨å‡½æ•°å¤„ç†
 				{
-					$value= iconv("UTF-8",$charset,$e->nodeValue); //×¢ÒâÒª×ªÂë¶ÔÓÚÖĞÎÄ£¬ÒòÎªXMLÄ¬ÈÏÎªUTF-8¸ñÊ½
+					$value= iconv("UTF-8",$charset,$e->nodeValue); //æ³¨æ„è¦è½¬ç å¯¹äºä¸­æ–‡ï¼Œå› ä¸ºXMLé»˜è®¤ä¸ºUTF-8æ ¼å¼
 					$hashMap[$e->nodeName] = $value;
 				}
 			}
@@ -55,7 +55,7 @@ class XmlParseUtil{
 	}
 
 	/**
-	 * ½«xml½âÎöÎªmap
+	 * å°†xmlè§£æä¸ºmap
 	 * 
 	 * @param xml
 	 * @param charset
@@ -68,15 +68,15 @@ class XmlParseUtil{
 			return $this->openapiXmlToMapByDoc($stringDOM, $charset);
 		}
 		catch(Exception $e){
-			throw new SDKRuntimeException("½âÎöxmlÊ§°Ü:" . $xml . ",". $e . "<br>");
+			throw new SDKRuntimeException("è§£æxmlå¤±è´¥:" . $xml . ",". $e . "<br>");
 		}
 	}
 	
 	/**
-	 * µÃµ½Î¨Ò»½áµãµÄÎÄ±¾
+	 * å¾—åˆ°å”¯ä¸€ç»“ç‚¹çš„æ–‡æœ¬
 	 * 
 	 * @param doc      XML Document
-	 * @param tagName  ½áµãÃû
+	 * @param tagName  ç»“ç‚¹å
 	 * @return
 	 */
 	function getSingleValue($doc, $tagName) {

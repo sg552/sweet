@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------
-//·µ»ØxmlÊı¾İµÄÇëÇó³¬Àà
+//è¿”å›xmlæ•°æ®çš„è¯·æ±‚è¶…ç±»
 //---------------------------------------------------------
 
 require_once ("CommonRequest.class.php");
@@ -12,7 +12,7 @@ class RetXmlRequest extends CommonRequest {
 		$this->secretKey = $secretKey;
 	}
 	
-	//»ñÈ¡url
+	//è·å–url
 	function  getURL($opposite_address){
 		$paraString = $this->genParaStr();
 		$domain = $this->getDomain();
@@ -25,7 +25,7 @@ class RetXmlRequest extends CommonRequest {
 		try {
 		    $queryXml = $objH->httpClientCall($this->getURL($opposite_address),$this->getInputCharset());
 		} catch (Exception $e) {
-			throw new SDKRuntimeException("httpÇëÇóÊ§°Ü:" + $e.getMessage());
+			throw new SDKRuntimeException("httpè¯·æ±‚å¤±è´¥:" + $e.getMessage());
 		}catch (SDKRuntimeException $e)
 		{
 			die($e->errorMessage());

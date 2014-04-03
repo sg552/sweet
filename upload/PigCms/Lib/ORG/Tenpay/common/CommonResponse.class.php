@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------
-//ÏìÓ¦»ù´¡Àà£¬¶¨ÒåÏà¹Ø²ÎÊı¼°´¦Àí
+//å“åº”åŸºç¡€ç±»ï¼Œå®šä¹‰ç›¸å…³å‚æ•°åŠå¤„ç†
 //---------------------------------------------------------
 
 include_once ("SDKRuntimeException.class.php");
@@ -12,7 +12,7 @@ class CommonResponse {
 	var $RETMSG = "retmsg";
 	var $TRADE_STATE = "trade_state";
 	var $TRADE_STATE_SUCCESS = "0";
-	/** ÃÜÔ¿ */
+	/** å¯†é’¥ */
 	var $secretKey;
 	var $parameters = array();
 	var $hasRetcode = true;
@@ -63,12 +63,12 @@ class CommonResponse {
 	protected function verifySign(){
 		try {
 		if (null == $this->parameters) {
-			throw new SDKRuntimeException("parametersÎª¿Õ!". "<br>");
+			throw new SDKRuntimeException("parametersä¸ºç©º!". "<br>");
 		}
 		
 		$sign = $this->getParameter("sign");
 		if (null == $sign) {
-			throw new SDKRuntimeException("signÎª¿Õ!". "<br>");
+			throw new SDKRuntimeException("signä¸ºç©º!". "<br>");
 		}
 		$charSet = $this->getParameter("input_charset");
 		if (null == $charSet) {
@@ -76,10 +76,10 @@ class CommonResponse {
 		}
 		$signStr = CommonUtil::formatQueryParaMap($this->parameters, false);
 		if (null == $this->secretKey) {
-			throw new SDKRuntimeException("Ç©ÃûkeyÎª¿Õ!". "<br>");
+			throw new SDKRuntimeException("ç­¾åkeyä¸ºç©º!". "<br>");
 		}
 		if(!MD5SignUtil::verifySignature($signStr,$sign,$this->secretKey)){
-			throw new SDKRuntimeException("·µ»ØÖµÇ©ÃûÑéÖ¤Ê§°Ü!". "<br>");
+			throw new SDKRuntimeException("è¿”å›å€¼ç­¾åéªŒè¯å¤±è´¥!". "<br>");
 		}
 		return true;
 		}catch (SDKRuntimeException $e)
@@ -88,44 +88,44 @@ class CommonResponse {
 		}
 	}
 	/**
-	 * »ñÈ¡ÃÜÔ¿
+	 * è·å–å¯†é’¥
 	 */
 	function getSecretKey(){
 		return $this->key;
 	}
 	/**
-	 * ÉèÖÃÃÜÔ¿
+	 * è®¾ç½®å¯†é’¥
 	 * 
 	 * @param secretKey
-	 *            ÃÜÔ¿
+	 *            å¯†é’¥
 	 */
 	function setSecretKey($secretKey){
 		$this->key = $secretKey;
 	}
 	/**
-	*»ñÈ¡²ÎÊıÖµ
+	*è·å–å‚æ•°å€¼
 	*/
 	function getParameter($parameter) {
 		return $this->parameters[$parameter];
 	}
 	
 	/**
-	*ÉèÖÃ²ÎÊıÖµ
+	*è®¾ç½®å‚æ•°å€¼
 	*/
 	function setParameter($parameter, $parameterValue) {
 		$this->parameters[$parameter] = $parameterValue;
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñĞèÒªÇ©Ãû
+	 * æ£€æŸ¥æ˜¯å¦éœ€è¦ç­¾å
 	 * 
-	 * @return ÊÇ·ñÇ©Ãû
+	 * @return æ˜¯å¦ç­¾å
 	 */
 	function checkSign() {
 		return $this->isRetCodeOK() && $this->hasSign;
 	}
 	/**
-	 * ½Ó¿Úµ÷ÓÃÊÇ·ñ³É¹¦
+	 * æ¥å£è°ƒç”¨æ˜¯å¦æˆåŠŸ
 	 */
 	function isRetCodeOK(){
 		$code = (bool)$this->hasRetcode;
@@ -136,18 +136,18 @@ class CommonResponse {
 		return $this->isRetCodeOK() && $this->TRADE_STATE_SUCCESS == $this->getParameter($this->TRADE_STATE);
 	}
 	/**
-	 * »ñÈ¡½Ó¿Ú·µ»ØÂë
+	 * è·å–æ¥å£è¿”å›ç 
 	 */
 	function getRetCode(){
 		return $this->getParameter($this->RETCODE);
 	}
 	/**
-	 * »ñÈ¡´íÎóĞÅÏ¢
+	 * è·å–é”™è¯¯ä¿¡æ¯
 	 */
 	function getPayInfo(){
 	    $info = $this->getParameter($this->RETMSG);
 		if(null == CommonUtil::trimString($info) && !$this->isPayed()){
-		   $info = "¶©µ¥ÉĞÎ´Ö§¸¶³É¹¦";
+		   $info = "è®¢å•å°šæœªæ”¯ä»˜æˆåŠŸ";
 		}
 		return $info;
 	}

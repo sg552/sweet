@@ -1,42 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>微信公众平台源码</title>
-<meta http-equiv="MSThemeCompatible" content="Yes" />
-<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/style_2_common.css?BPm" />
-<script src="{pigcms::RES}/js/common.js" type="text/javascript"></script>
-<link href="{pigcms::RES}/css/style.css" rel="stylesheet" type="text/css" />
- <script src="{pigcms::STATICS}/jquery-1.4.2.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak={pigcms::$apikey}"></script>
- <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
- <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
-<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
-<if condition="$type eq 'music'">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-<script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.mb.miniPlayer.js"></script>
-    <link rel="stylesheet" type="text/css" href="/tpl/static/audioplayer/css/miniplayer.css" title="style" media="screen"/>
-    <script type="text/javascript">
-        $(function () {
+<include file="Public:top"/>
+<div id="wp" class="wp"><link href="./tpl/User/default/common/css/style.css" rel="stylesheet" type="text/css">
+ <div class="contentmanage">
+    <div class="developer">
+       <div class="appTitle normalTitle" style="padding: 20px;">
+        <h2>会员充值</h2>
+        <div class="accountInfo">
+        
+        </div>
+        <div class="clr"></div>
+      </div>
+      <div class="tableContent">
+        <!--左侧功能菜单-->
+        <div class="sideBar">
+          <div class="catalogList">
+            <ul>
+    
+				<li > <a href="index.php?g=User&amp;m=Index&amp;a=index">我的公众号</a></li>
+				<li class=" subCatalogList "><a href="index.php?g=User&amp;m=Index&amp;a=add">添加公众号</a> </li>
+				<li class=" subCatalogList "> <a href="/index.php?g=User&m=Alipay&a=index">会员充值</a> </li>
+            </ul>
+          </div>
+        </div>
+<script src="./tpl/static/jquery-1.4.2.min.js" type="text/javascript"></script>
 
-            $(".audio").mb_miniPlayer({
-                width: 200,
-                inLine: false,
-                onEnd: playNext
-            });
-
-            function playNext(player) {
-                var players = $(".audio");
-                document.playerIDX = player.idx + 1 <= players.length - 1 ? player.idx + 1 : 0;
-                players.eq(document.playerIDX).mb_miniPlayer_play();
-            }
-        });
-    </script>
-    </if>
-</head>
-<body style="background:#fff">
-
+<div class="content">
 <style>
 .usercontent ul li{
 float:none;
@@ -101,9 +88,7 @@ function checkcz(){
 	return true;
 }
 </script>
-
-
-<div class="usercontent" style="margin:30px auto;width:85%">
+<div class="usercontent">
 <ul>
 <form action="{pigcms::U('Alipay/vip_post')}" method="post" onsubmit="return checkcz()">
 	<li> 
@@ -132,30 +117,27 @@ function checkcz(){
 	<li style="display:none"> <b>充值用户名: </b><input type="text" name="uname" value="{pigcms:$Think.session.uname}" size="60" > <b>充值帐号,默认即可请勿修改</b></li>
 	<li> <b>账户余额: </b><input type="text" style="border:none;width:30px;" name="moneybalance" value="{pigcms:$thisUser.moneybalance}" id="needmoneybalanceprice" size="10" disabled> 元<b></b></li>
 	<li> <b>需要花费: </b><input type="text" style="border:none;width:30px;" name="needprice" value="{pigcms:$user.price}" id="needprice" size="10" disabled> 元<b></b></li>
-	<li style="display:none"> <b>充值金额: </b><input type="text" name="price" style="width:50px;" value="{pigcms:$user.price}" id="price" size="10"> 元 <b>先择对应的充值选项,价格自动生成</b></li>
+	<li style="display:none"> <b>充值金额: </b><input type="text" name="price" style="width:50px;" value="{pigcms:$user.price}" id="price" size="10"> 元 <b>选择对应的充值选项,价格自动生成</b></li>
 
-	<li style="text-align:center"><span class="bottonbox"><button class="new-btn-login" type="submit" style="text-align:center;">确 认</button></span></li>
-	</form>
+	<li><span class="bottonbox"><button class="new-btn-login" type="submit" style="text-align:center;">确 认</button></span></li>
 </ul>
         <div class="clr"></div>
       </div>
+          <div class="cLine">
+            <div class="pageNavigator right">
+              <div class="pages"></div>
+            </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+        
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+  <!--底部-->
+  	</div>
 
-<script>
-var domid=art.dialog.data('domid');
-// 返回数据到主页面
-function returnHomepage(url){
-	var origin = artDialog.open.origin;
-	var dom = origin.document.getElementById(domid);
-	var domsrcid=domid+'_src';
 
-	if(origin.document.getElementById(domsrcid)){
-	origin.document.getElementById(domsrcid).src=url;
-	}
-	
-	dom.value=url;
-	setTimeout("art.dialog.close()", 100 )
-}
-</script>
 
-</body>
-</html>
+<include file="Public:footer"/>

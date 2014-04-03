@@ -1,20 +1,20 @@
 <?php
 //---------------------------------------------------------
-//ÊÕ»õµØÖ·²éÑ¯ÏìÓ¦
+//æ”¶è´§åœ°å€æŸ¥è¯¢å“åº”
 //---------------------------------------------------------
 require_once ("common/CommonResponse.class.php");
 require_once ("common/util/XmlParseUtil.php");
 require_once ("DeliveryAddressInfo.class.php");
 class DeliveryAddressQueryRespone extends CommonResponse{
 	
-	// µØÖ·ÁĞ±í
+	// åœ°å€åˆ—è¡¨
 	var $deliveryAddresss = array();
 	
 	/**
-	 * XML¹¹Ôì·½·¨
+	 * XMLæ„é€ æ–¹æ³•
 	 * 
-	 * @param xml        ÊÕ»õµØÖ·²éÑ¯XML
-	 * @param charset    XML×Ö·û¼¯
+	 * @param xml        æ”¶è´§åœ°å€æŸ¥è¯¢XML
+	 * @param charset    XMLå­—ç¬¦é›†
 	 */
 	function DeliveryAddressQueryRespone($xml, $charset) {
 		$this->CommonResponse($xml, $charset, null, true, false);
@@ -22,27 +22,27 @@ class DeliveryAddressQueryRespone extends CommonResponse{
 	}
 
 	/**
-	 * µÃµ½ÓÃ»§ID
+	 * å¾—åˆ°ç”¨æˆ·ID
 	 * 
-	 * @return  ÓÃ»§ID
+	 * @return  ç”¨æˆ·ID
 	 */
 	function getUser_id() {
 		return $this->getParameter("user_id");
 	}
 
 	/**
-	 * µÃµ½APPID
+	 * å¾—åˆ°APPID
 	 * 
-	 * @return  Ó¦ÓÃAPPID,ÓÃ»§×¢²áÊ±ÓÉ²Æ¸¶Í¨Í³Ò»·ÖÅä
+	 * @return  åº”ç”¨APPID,ç”¨æˆ·æ³¨å†Œæ—¶ç”±è´¢ä»˜é€šç»Ÿä¸€åˆ†é…
 	 */
 	function getApp_id() {
 		return $this->getParameter("appid");
 	}
 
 	/**
-	 * µÃµ½ÊÕ»õµØÖ·ÁĞ±í
+	 * å¾—åˆ°æ”¶è´§åœ°å€åˆ—è¡¨
 	 * 
-	 * @return  ÊÕ»õµØÖ·ÁĞ±í
+	 * @return  æ”¶è´§åœ°å€åˆ—è¡¨
 	 */
 	function getDeliveryAddresss() {
 		return $this->deliveryAddresss;
@@ -52,10 +52,10 @@ class DeliveryAddressQueryRespone extends CommonResponse{
 		$this->deliveryAddresss = $deliveryAddresss;
 	}
 	/**
-	 * ½«xml½âÎöÎªµØÖ·ÁĞ±í
+	 * å°†xmlè§£æä¸ºåœ°å€åˆ—è¡¨
 	 * 
-	 * @param xml       ĞèÒª½âÎöµÄXML
-	 * @param charset   XMLµÄ×Ö·û¼¯
+	 * @param xml       éœ€è¦è§£æçš„XML
+	 * @param charset   XMLçš„å­—ç¬¦é›†
 	 */
 	function parseDeliveryAddress($xml, $charset) {
 		$doc = null;
@@ -63,11 +63,11 @@ class DeliveryAddressQueryRespone extends CommonResponse{
 		try {
 			$doc = $xmlUtil->parseDoc($xml, $charset);
 		} catch (Exception $e) {
-			throw new SDKRuntimeException("½âÎöxmlÊ§°Ü:" . $xml . ",". $e);
+			throw new SDKRuntimeException("è§£æxmlå¤±è´¥:" . $xml . ",". $e);
 		}
 		$deliveryAddressInfo = null;
 		$addresss = array();
-		// ÌáÈ¡µØÖ·ÁĞ±í
+		// æå–åœ°å€åˆ—è¡¨
 		$root = $doc->documentElement;
 		foreach($root->childNodes as $node) {
 			if ($node->nodeName == "addressInfos") {
@@ -76,7 +76,7 @@ class DeliveryAddressQueryRespone extends CommonResponse{
 						$node = $child;
 						$deliveryAddressInfo = new DeliveryAddressInfo();
 						foreach($node->childNodes as $child) {
-							$value= iconv("UTF-8",$charset,$child->nodeValue); //×¢ÒâÒª×ªÂë¶ÔÓÚÖĞÎÄ£¬ÒòÎªXMLÄ¬ÈÏÎªUTF-8¸ñÊ½
+							$value= iconv("UTF-8",$charset,$child->nodeValue); //æ³¨æ„è¦è½¬ç å¯¹äºä¸­æ–‡ï¼Œå› ä¸ºXMLé»˜è®¤ä¸ºUTF-8æ ¼å¼
 							$this->setAddressInfoAttr($deliveryAddressInfo,$child->nodeName,$value);
 						}
 						array_push($addresss,$deliveryAddressInfo);
@@ -88,11 +88,11 @@ class DeliveryAddressQueryRespone extends CommonResponse{
 	}
 	
 	/**
-	 * ¸ù¾İXML½áµãÃû³Æ,ÉèÖÃDeliveryAddressInfoÏàÓ¦µÄÊôĞÔ
+	 * æ ¹æ®XMLç»“ç‚¹åç§°,è®¾ç½®DeliveryAddressInfoç›¸åº”çš„å±æ€§
 	 * 
-	 * @param deliveryAddressInfo   ĞèÒªÉèÖÃµÄDeliveryAddressInfo¶ÔÏó
-	 * @param nodeName              XML½áµãÃû³Æ
-	 * @param textContent           XML½áµãÎÄ±¾
+	 * @param deliveryAddressInfo   éœ€è¦è®¾ç½®çš„DeliveryAddressInfoå¯¹è±¡
+	 * @param nodeName              XMLç»“ç‚¹åç§°
+	 * @param textContent           XMLç»“ç‚¹æ–‡æœ¬
 	 */
 	function setAddressInfoAttr($deliveryAddressInfo, $nodeName, $textContent) {
 		if(strcmp("address",$nodeName)==0) {

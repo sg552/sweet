@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------
-//¶©µ¥²éÑ¯ÇëÇó
+//è®¢å•æŸ¥è¯¢è¯·æ±‚
 //---------------------------------------------------------
 
 
@@ -9,7 +9,7 @@ require_once ("OrderQueryResponse.class.php");
 class OrderQueryRequest extends RetXmlRequest{
 	
 	/**
-	 * ¹¹Ôì·½·¨
+	 * æž„é€ æ–¹æ³•
 	 * 
 	 * @param secretKey
 	 */

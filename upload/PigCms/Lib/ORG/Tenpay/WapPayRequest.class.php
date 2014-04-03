@@ -8,8 +8,8 @@ require_once('WapPayInitResponse.class.php');
 require_once('common/SDKRuntimeException.class.php');
 //require_once('common/util/XmlParseUtil.php');
 /**
- * WapÖ§¸¶ÇëÇó¶ÔÏó<br/>
- * ¸ù¾İÉèÖÃ²ÎÊıÉú³ÉÖ§¸¶ÇëÇóurl
+ * Wapæ”¯ä»˜è¯·æ±‚å¯¹è±¡<br/>
+ * æ ¹æ®è®¾ç½®å‚æ•°ç”Ÿæˆæ”¯ä»˜è¯·æ±‚url
  * 
  * @author reymondtu
  * @date 2010-12-06
@@ -19,20 +19,20 @@ require_once('common/SDKRuntimeException.class.php');
 class WapPayRequest extends CommonRequest {
 
 	/**
-	 * ¹¹Ôì·½·¨
+	 * æ„é€ æ–¹æ³•
 	 * 
 	 * @param secretKey
-	 *            ¼ÓÃÜKEY
+	 *            åŠ å¯†KEY
 	 */
 	function WapPayRequest($secretKey) {
 		parent::__construct($secretKey);
 	}
 
 	/**
-	 * Éú³ÉÖ§¸¶Ìø×ªÁ´½Ó
+	 * ç”Ÿæˆæ”¯ä»˜è·³è½¬é“¾æ¥
 	 * 
-	 * @return WapÖ§¸¶ÖĞĞÄURL
-	 * @throws Exception WapÖ§¸¶ÖĞĞÄÁ¬½ÓÒì³£, WapÖ§¸¶ÖĞĞÄ³õÊ¼»¯·µ»ØÒì³£
+	 * @return Wapæ”¯ä»˜ä¸­å¿ƒURL
+	 * @throws Exception Wapæ”¯ä»˜ä¸­å¿ƒè¿æ¥å¼‚å¸¸, Wapæ”¯ä»˜ä¸­å¿ƒåˆå§‹åŒ–è¿”å›å¼‚å¸¸
 	 */
 	function getURL(){
 		$paraString = parent::genParaStr();
@@ -48,12 +48,12 @@ class WapPayRequest extends CommonRequest {
 				);
 		} catch (SDKRuntimeException $e){
 			die($e->errorMessage());
-			throw new SDKRuntimeException('WapÖ§¸¶ÖĞĞÄÁ¬½ÓÒì³£.'. $e->getMessage(), e);
+			throw new SDKRuntimeException('Wapæ”¯ä»˜ä¸­å¿ƒè¿æ¥å¼‚å¸¸.'. $e->getMessage(), e);
 		}
 		if ($wapPayInitResponse && $wapPayInitResponse->isRetCodeOK()) {
 			return $wapPayInitResponse->getURL();
 		} else {
-			throw new SDKRuntimeException('WapÖ§¸¶ÖĞĞÄ³õÊ¼»¯·µ»ØÒì³£.'.$wapPayInitResponse->getMessage());
+			throw new SDKRuntimeException('Wapæ”¯ä»˜ä¸­å¿ƒåˆå§‹åŒ–è¿”å›å¼‚å¸¸.'.$wapPayInitResponse->getMessage());
 		}
 	}
 

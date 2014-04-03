@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------
-//httpclientÇëÇó´¦ÀíÀà
+//httpclientè¯·æ±‚å¤„ç†ç±»
 //---------------------------------------------------------
 
 class HttpClientUtil{
@@ -32,7 +32,7 @@ class HttpClientUtil{
 			$response .= fread($this->_fp, 1024);
 		}catch (Exception $e) {
 			fclose($this->_fp);
-			throw new SDKRuntimeException("httpÇëÇóÊ§°Ü:" + $e.getMessage());
+			throw new SDKRuntimeException("httpè¯·æ±‚å¤±è´¥:" + $e.getMessage());
 		}catch (SDKRuntimeException $e)
 		{
 			die($e->errorMessage());

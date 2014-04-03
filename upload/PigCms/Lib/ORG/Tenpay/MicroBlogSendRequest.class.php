@@ -3,9 +3,9 @@ require_once ('common/CommonRequest.class.php');
 require_once ('common/CommonResponse.class.php');
 require_once('common/SDKRuntimeException.class.php');
 /**
- * Î¢²©ÇëÇó¶ÔÏñ¡£
+ * å¾®åšè¯·æ±‚å¯¹åƒã€‚
  * <p>
- * Ö÷ÒªÓÃÓÚÉú³É"×ª·¢Î¢²©°´Å¥µÄhtml´úÂëÒÔ¼°·¢ËÍÎ¢²©Ê±ĞèÒª´«µİµÄ²ÎÊı"¡£
+ * ä¸»è¦ç”¨äºç”Ÿæˆ"è½¬å‘å¾®åšæŒ‰é’®çš„htmlä»£ç ä»¥åŠå‘é€å¾®åšæ—¶éœ€è¦ä¼ é€’çš„å‚æ•°"ã€‚
  * 
  * @author Tenpay
  * @date 2011-03-28
@@ -18,7 +18,7 @@ class MicroBlogSendRequest extends CommonRequest {
 	 * 
 	 */
 	var $serialVersionUID = -6949609732502344014;
-	/** ·¢ËÍÎ¢²©È·ÈÏÒ³ÃæURL¶¨Òå  **/
+	/** å‘é€å¾®åšç¡®è®¤é¡µé¢URLå®šä¹‰  **/
 	var $QQ_MICROBLOG_URL ='/gateway/microBlogSendConfirm.htm';
 	
 	function MicroBlogSendRequest($secretKey) {
@@ -27,20 +27,20 @@ class MicroBlogSendRequest extends CommonRequest {
 	
 	
 	/**
-	 * ÓÃÓÚÉú³É×ª·¢µ½Î¢²©°´Å¥µÄHTML´úÂë
-	 * @return htmlÄÚÈİ
+	 * ç”¨äºç”Ÿæˆè½¬å‘åˆ°å¾®åšæŒ‰é’®çš„HTMLä»£ç 
+	 * @return htmlå†…å®¹
 	 */
 	function toHTML(){		
 		$microBlogContent = parent::getParameter("content");
 		if($microBlogContent == '' )
-		throw Exception("microBlogContent²»ÄÜÎª¿Õ!");
+		throw Exception("microBlogContentä¸èƒ½ä¸ºç©º!");
 		$stringBuilder = '<link href="https://wallet.tenpay.com/mblog/css/release_button.css" rel="stylesheet" type="text/css" />';
-		$stringBuilder = '<a href="'.$this->getURL().'" target="_blank" class="release-txmblog" title="×ª²¥µ½ÌÚÑ¶Î¢²©"><span>×ª²¥µ½ÌÚÑ¶Î¢²©</span></a>';
+		$stringBuilder = '<a href="'.$this->getURL().'" target="_blank" class="release-txmblog" title="è½¬æ’­åˆ°è…¾è®¯å¾®åš"><span>è½¬æ’­åˆ°è…¾è®¯å¾®åš</span></a>';
 		return $stringBuilder;
 	}
 	
 	/**
-	 * Éú³ÉÎ¢²©Ìø×ªµÄURlµØÖ·
+	 * ç”Ÿæˆå¾®åšè·³è½¬çš„URlåœ°å€
 	 * @return
 	 */
 	function getURL(){
@@ -53,7 +53,7 @@ class MicroBlogSendRequest extends CommonRequest {
 		return $domain.$this->QQ_MICROBLOG_URL.'?'.$paraString;
 	}
 	/**
-	 * ¹¹ÔìÈ«Â·¾¶µÄURL
+	 * æ„é€ å…¨è·¯å¾„çš„URL
 	 * @param request
 	 * @return
 	 */
@@ -78,10 +78,10 @@ class MicroBlogSendRequest extends CommonRequest {
 
     
 	/**
-	 * ¶ÔÓÚÎ¢²©µÄSDK±ØĞë´«ÈëÒÔÏÂ²ÎÊı
-	 * key=content(´ú±íÎ¢²©ÄÚÈİ,¸ù¾İhttpĞ­Òé£¬ÖĞÎÄ×÷Îªhttp²ÎÊı£¬±ØĞë×÷encoder²Ù×÷)
-	 * key=picUrl(´ú±íÍ¼Æ¬µÄÈ«Â·¾¶URLµØÖ·)
-	 * key=fromUrl(ÔÚ·¢ËÍÎ¢²©»ò·ÖÏíµ½qzoneÊ±£¬ĞèÒªÓÃµ½µÄÀ´Ô´µØÖ·¶¨Òå)
+	 * å¯¹äºå¾®åšçš„SDKå¿…é¡»ä¼ å…¥ä»¥ä¸‹å‚æ•°
+	 * key=content(ä»£è¡¨å¾®åšå†…å®¹,æ ¹æ®httpåè®®ï¼Œä¸­æ–‡ä½œä¸ºhttpå‚æ•°ï¼Œå¿…é¡»ä½œencoderæ“ä½œ)
+	 * key=picUrl(ä»£è¡¨å›¾ç‰‡çš„å…¨è·¯å¾„URLåœ°å€)
+	 * key=fromUrl(åœ¨å‘é€å¾®åšæˆ–åˆ†äº«åˆ°qzoneæ—¶ï¼Œéœ€è¦ç”¨åˆ°çš„æ¥æºåœ°å€å®šä¹‰)
 	 */
 	function setParameter($key, $value) {
 		parent::setParameter($key, $value);

@@ -382,7 +382,7 @@ class ProductAction extends BaseAction{
 					$cartsCount++;
 				}
 			}
-			$orderid=microtime();
+			$orderid=$this->randStr(4).time();
 			$row['orderid']=$orderid;
 			$orderid=$row['orderid'];
 			//
@@ -557,6 +557,16 @@ class ProductAction extends BaseAction{
 			$this->assign('metaTitle','购物车结算');
 			$this->display();
 		}
+	}
+	function randStr($randLength){
+		$randLength=intval($randLength);
+		$chars='abcdefghjkmnpqrstuvwxyz';
+		$len=strlen($chars);
+		$randStr='';
+		for ($i=0;$i<$randLength;$i++){
+			$randStr.=$chars[rand(0,$len-1)];
+		}
+		return $randStr;
 	}
 	public function my(){
 		$product_cart_model=M('product_cart');

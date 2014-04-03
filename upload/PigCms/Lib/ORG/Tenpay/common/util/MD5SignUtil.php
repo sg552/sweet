@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------
-//MD5¼ÓÃÜ´¦ÀíÀà
+//MD5åŠ å¯†å¤„ç†ç±»
 //---------------------------------------------------------
 
 
@@ -9,10 +9,10 @@ class MD5SignUtil {
 	function sign($content, $key) {
 	    try {
 		    if (null == $key) {
-			   throw new SDKRuntimeException("Ç©ÃûkeyÎª¿Õ£¡" . "<br>");
+			   throw new SDKRuntimeException("ç­¾åkeyä¸ºç©ºï¼" . "<br>");
 		    }
 			if (null == $content) {
-			   throw new SDKRuntimeException("¼ÓÃÜ´®Îª¿Õ£¡" . "<br>");
+			   throw new SDKRuntimeException("åŠ å¯†ä¸²ä¸ºç©ºï¼" . "<br>");
 		    }
 		    $signStr = $content . "&key=" . $key;
 		

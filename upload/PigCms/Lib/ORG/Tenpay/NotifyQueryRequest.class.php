@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------
-//Í¨Öª²éÑ¯ÇëÇó
+//é€šçŸ¥æŸ¥è¯¢è¯·æ±‚
 //---------------------------------------------------------
 
 
@@ -9,7 +9,7 @@ require_once ("NotifyQueryResponse.class.php");
 class NotifyQueryRequest extends RetXmlRequest{
 	
 	/**
-	 * ¹¹Ôì·½·¨
+	 * æž„é€ æ–¹æ³•
 	 * 
 	 * @param secretKey
 	 */

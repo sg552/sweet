@@ -3,7 +3,7 @@
 require_once ("common/CommonResponse.class.php");
 
 /**
- * WapÖ§¸¶³õÊ¼»¯ÏàÓ¦¶ÔÏó
+ * Wapæ”¯ä»˜åˆå§‹åŒ–ç›¸åº”å¯¹è±¡
  * 
  * @author reymondtu
  * @date 2010-12-06

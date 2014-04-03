@@ -12,8 +12,11 @@ class ImgAction extends UserAction{
 		$info=$db->where($where)->order('createtime DESC')->limit($page->firstRow.','.$page->listRows)->select();
 		$this->assign('page',$page->show());
 		$this->assign('info',$info);
+
 		$this->display();
+		
 	}
+	
 	public function add(){
 		$classify_db=M('Classify');
 		$class=$classify_db->where(array('token'=>session('token')))->select();
@@ -41,13 +44,17 @@ class ImgAction extends UserAction{
 		$where['id']=$this->_get('id','intval');
 		$where['uid']=session('uid');
 		$res=D('Img')->where($where)->find();
+		//
+		$thisClass=M('Classify')->where(array('id'=>$res['classid']))->find();
+		$this->assign('thisClass',$thisClass);
+		//
 		$this->assign('info',$res);
 		$this->assign('res',$class);
 		$this->display();
 	}
 	public function del(){
 		$where['id']=$this->_get('id','intval');
-		$where['uid']=session('uid');
+		$where['token']=$this->token;
 		if(D(MODULE_NAME)->where($where)->delete()){
 			M('Keyword')->where(array('pid'=>$this->_get('id','intval'),'token'=>session('token'),'module'=>'Img'))->delete();
 			$this->success('操作成功',U(MODULE_NAME.'/index'));

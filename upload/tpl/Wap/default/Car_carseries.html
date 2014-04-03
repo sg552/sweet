@@ -79,9 +79,11 @@
                 <img alt="{pigcms:$vo['name']}" style="width:100%;max-height:400px;" src="{pigcms:$vo['pic_url']}" data-touchable="touchable"/>
             <div class="main" style="padding-top: 10px;">
             <ul class="car_detail">
+<if condition="$vo['panorama_id'] neq 0">
                 <div style="margin:5px;border: 1px solid #ccc;line-height:35px;text-indent:10px;border-radius:5px;background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#eee));-webkit-box-shadow: 0 1px 1px #fff;">
                     <a href="{pigcms::U('Panorama/item',array('token'=>$token,'id'=>$vo['panorama_id'],'wecha_id'=>$wecha_id,'sgssz'=>'mp.weixin.qq.com'))}" style="color:#666;display:block;">内部设计：360全景看车</a>
                 </div>
+</if>
                 <table>
                     <tbody><tr>
                         <td>指导价：</td>

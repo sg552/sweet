@@ -1,13 +1,13 @@
 <?php
 //---------------------------------------------------------
-//¹²ÏíµÇÂ¼×´Ì¬ »ñÈ¡ÓÃ»§ÐÅÏ¢ ´ÓÐ¡Ç®°üÌø×ªµ½Ó¦ÓÃÊ±ºòÊ¹ÓÃ
+//å…±äº«ç™»å½•çŠ¶æ€ èŽ·å–ç”¨æˆ·ä¿¡æ¯ ä»Žå°é’±åŒ…è·³è½¬åˆ°åº”ç”¨æ—¶å€™ä½¿ç”¨
 //---------------------------------------------------------
 
 
 require_once ("common/SDKRuntimeException.class.php");
 require_once("common/CommonResponse.class.php");
 class ShareLoginState extends CommonResponse {
-	//ÓÃ»§ID
+	//ç”¨æˆ·ID
 	var $USER_ID = "user_id";	
 	
 	var $TOKEN = "token";
@@ -26,10 +26,10 @@ class ShareLoginState extends CommonResponse {
 			}
 			$this->setParameter($this->RETCODE, "0");
 			if(!$this->isRetCodeOK()){
-				throw new SDKRuntimeException("·þÎñµ÷ÓÃÒì³£:" . $this->getPayInfo(). "<br>");
+				throw new SDKRuntimeException("æœåŠ¡è°ƒç”¨å¼‚å¸¸:" . $this->getPayInfo(). "<br>");
 			}
 			if(null == $this->getUserId()){
-				throw new SDKRuntimeException("²Æ¸¶Í¨ÓÃ»§idÎ´´«Èë!<br>");
+				throw new SDKRuntimeException("è´¢ä»˜é€šç”¨æˆ·idæœªä¼ å…¥!<br>");
 			}
 		}catch (SDKRuntimeException $e)
 		{

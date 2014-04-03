@@ -1,15 +1,15 @@
 <?php
 //---------------------------------------------------------
-//Ö§¸¶»Øµ÷ÏìÓ¦
+//æ”¯ä»˜å›žè°ƒå“åº”
 //---------------------------------------------------------
 
 require_once ("common/CommonResponse.class.php");
 class PayResponse extends CommonResponse{
-	//Í¨ÖªID
+	//é€šçŸ¥ID
 	var $NOTIFYID = "notify_id";
 	
 	/**
-	 * ÇëÇóµÄrequest¡¢responeÒÔ¼°secretKey
+	 * è¯·æ±‚çš„requestã€responeä»¥åŠsecretKey
 	 */ 
 	function PayResponse($secretKey) {
 		try {
@@ -32,7 +32,7 @@ class PayResponse extends CommonResponse{
 		unset($this->parameters);
 	}
 	/**
-	 * ¸æÖª²Æ¸¶Í¨»Øµ÷´¦Àí³É¹¦
+	 * å‘ŠçŸ¥è´¢ä»˜é€šå›žè°ƒå¤„ç†æˆåŠŸ
 	 */
 	function acknowledgeSuccess(){
 		echo "success";
@@ -40,9 +40,9 @@ class PayResponse extends CommonResponse{
 	}
 	
 	/**
-	 * »ñÈ¡Í¨Öª²éÑ¯ID
+	 * èŽ·å–é€šçŸ¥æŸ¥è¯¢ID
 	 * 
-	 * @return Í¨Öª²éÑ¯ID
+	 * @return é€šçŸ¥æŸ¥è¯¢ID
 	 */
 	function getNotifyId(){
 		return $this->NOTIFYID;

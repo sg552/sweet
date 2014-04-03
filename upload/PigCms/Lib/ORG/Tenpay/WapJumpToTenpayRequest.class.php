@@ -4,8 +4,8 @@ require_once ('common/CommonRequest.class.php');
 require_once ('common/CommonResponse.class.php');
 
 /**
- * Wap»ØÌø²Æ¸¶Í¨<br/>
- * ¸ù¾İÉèÖÃ²ÎÊıÉú³É´øÓĞµÇÂ¼×´Ì¬µÄ²Æ¸¶Í¨URL
+ * Wapå›è·³è´¢ä»˜é€š<br/>
+ * æ ¹æ®è®¾ç½®å‚æ•°ç”Ÿæˆå¸¦æœ‰ç™»å½•çŠ¶æ€çš„è´¢ä»˜é€šURL
  * 
  * @author marcyli
  * @date 2011-05-11
@@ -20,10 +20,10 @@ class WapJumpToTenpayRequest extends CommonRequest{
 	var $SANDBOX_WAP_JUMP_TO_TENPAY_ADDRESS = 'http://sandwap.tenpay.com/cgi-bin/wapmainv2.0/wm_clientlogin.cgi';
 	
 	/**
-	 * ¹¹Ôì·½·¨
+	 * æ„é€ æ–¹æ³•
 	 * 
 	 * @param secretKey
-	 *            ¼ÓÃÜKEY
+	 *            åŠ å¯†KEY
 	 */
 	function WapJumpToTenpayRequest($secretKey) {
 		//super(secretKey);
@@ -31,7 +31,7 @@ class WapJumpToTenpayRequest extends CommonRequest{
 	}
 	
 	/**
-	 * »ñÈ¡ÓòÃûµØÖ·
+	 * è·å–åŸŸååœ°å€
 	 */
 	function getDomain() {
 		$domain = null;
@@ -44,7 +44,7 @@ class WapJumpToTenpayRequest extends CommonRequest{
 	}
 	
 	/**
-	 * µÃµ½»Øµ÷²Æ¸¶Í¨URL
+	 * å¾—åˆ°å›è°ƒè´¢ä»˜é€šURL
 	 * 
 	 * @param 
 	 */

@@ -66,58 +66,18 @@ display: inline-block;
 <script>
 
 $(function(){
-	var price=new Array();
-	<volist id="p" name="group">
-	price[{pigcms:$p.id}]={pigcms:$p.price};
-	</volist>
-	$('#group').change(function(){
-		$('#price').val(price[$('#group').val()]*$('#num').val());
-		$('#needprice').val(price[$('#group').val()]*$('#num').val());
-	});
-	$('#num').change(function(){
 
-		$('#price').val(price[$('#group').val()]*$('#num').val());
-		$('#needprice').val(price[$('#group').val()]*$('#num').val());
-	});
 });
 function checkcz(){
-	if($('#group').val()==0){
-		alert('请选择级别');
-		return false;
-	}
 	return true;
 }
 </script>
 <div class="usercontent">
 <ul>
-<form action="{pigcms::U('Alipay/post')}" method="post" onsubmit="return checkcz()">
-	<li> 
-		<b>充值选项: </b>
-		<select name="gid" style="margin-left:10px;" id="group">
-		<option value="0" selected>请选择</option>
-			<volist id="group" name="group">
-			<option value="{pigcms:$group.id}"<if condition="$_SESSION['gid'] eq $group['id']" data="{pigcms:$group.price}"></if>>{pigcms:$group.name}</option>
-			</volist>
-		</select>
-		<select name="num" style="margin-left:10px;" id="num">
-			<option value="1">1个月</option>
-			<option value="2">2个月</option>
-			<option value="3">3个月</option>
-			<option value="4">4个月</option>
-			<option value="5">5个月</option>
-			<option value="6">6个月</option>
-			<option value="7">7个月</option>
-			<option value="8">8个月</option>
-			<option value="9">9个月</option>
-			<option value="10">10个月</option>
-			<option value="11">11个月</option>
-			<option value="12">12个月</option>		
-		</select>
-    </li>
+<form action="{pigcms::U('Alipay/recharge')}" method="post" onsubmit="return checkcz()">
 	<li style="display:none"> <b>充值用户名: </b><input type="text" name="uname" value="{pigcms:$Think.session.uname}" size="60" > <b>充值帐号,默认即可请勿修改</b></li>
 	<li> <b>账户余额: </b><input type="text" style="border:none;width:30px;" name="moneybalance" value="{pigcms:$thisUser.moneybalance}" id="needmoneybalanceprice" size="10" disabled> 元<b></b></li>
-	<li> <b>需要花费: </b><input type="text" style="border:none;width:30px;" name="needprice" value="{pigcms:$user.price}" id="needprice" size="10" disabled> 元<b></b></li>
-	<li> <b>充值金额: </b><input type="text" name="price" style="width:50px;" value="{pigcms:$user.price}" id="price" size="10"> 元 <b>先择对应的充值选项,价格自动生成</b></li>
+	<li> <b>充值金额: </b><input type="text" name="price" style="width:50px;" value="{pigcms:$user.price}" id="price" size="10"> 元 <b></b></li>
 
 	<li><span class="bottonbox"><button class="new-btn-login" type="submit" style="text-align:center;">确 认</button></span></li>
 </ul>

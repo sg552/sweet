@@ -4,7 +4,7 @@ require_once ("common/CommonRequest.class.php");
 require_once ("common/CommonResponse.class.php");
 
 /**
- * WapµÇÂ¼ÇëÇóÀà
+ * Wapç™»å½•è¯·æ±‚ç±»
  * 
  * @author marcyli
  * @date 2011-05-11
@@ -34,7 +34,7 @@ class WapLoginRequest extends CommonRequest
 	}
 	
 	/**
-	 * »ñÈ¡ÓòÃûµØÖ·
+	 * è·å–åŸŸååœ°å€
 	 */
 	function getDomain() {
 		$domain = null;

@@ -81,7 +81,7 @@
                     <volist name="info" id="vo">
                         <li class="card_lol"  <if condition="$i%2 eq 1"> style="direction:rtl;" </if> >
                         <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>" class="tbox">
-					<div style="vertical-align:middle;"><label>{pigcms:$vo.name}</label><span>{pigcms:$i}</span></div>
+					<div style="vertical-align:middle;"><label>{pigcms:$vo.name}</label><span></span></div>
 					<div style="background-image: url({pigcms:$vo.img})">
                         
 					</div>
@@ -125,5 +125,5 @@
 {pigcms:$siteCopyright}
 </if>
 </div>
-	<include file="Index:styleInclude"/>
+	<include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
 </body></html>

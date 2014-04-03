@@ -10,13 +10,11 @@ class WxPayHelper
 	var $parameters; //cft 参数
 	public $appid;
 	public $appKey;
-	public $signType;
 	public $partnerKey;
-	function __construct($appid,$appkey,$partnerkey,$signtype='sha1')
+	function __construct($appid,$appkey,$partnerkey)
 	{
 		$this->appid=$appid;
 		$this->appKey=$appkey;
-		$this->signType=$signtype;
 		$this->partnerKey=$partnerkey;
 		
 	}
@@ -71,7 +69,7 @@ class WxPayHelper
 		 }
 		 try {
 		 	if($this->appKey == ""){
-		 			throw new SDKRuntimeException("APPKEY为空！" . "<br>");
+		 			throw new SDKRuntimeException("$this->appKey为空！" . "<br>");
 		 	}
 		 	$bizParameters["appkey"] = $this->appKey;
 		 	ksort($bizParameters);
@@ -111,7 +109,7 @@ class WxPayHelper
 		    $nativeObj["traceid"] = $traceid;
 		    $nativeObj["noncestr"] = $this->create_noncestr();
 		    $nativeObj["app_signature"] = $this->get_biz_sign($nativeObj);
-		    $nativeObj["sign_method"] = $this->signType;
+		    $nativeObj["sign_method"] = SIGNTYPE;
 
 
 		   
@@ -146,7 +144,7 @@ class WxPayHelper
 		    $nativeObj["timeStamp"] = strval(time());
 		    $nativeObj["nonceStr"] = $this->create_noncestr();
 		    $nativeObj["paySign"] = $this->get_biz_sign($nativeObj);
-		    $nativeObj["signType"] = $this->signType;
+		    $nativeObj["signType"] = SIGNTYPE;
 		   
 		    return   json_encode($nativeObj);
 		   
@@ -198,7 +196,7 @@ class WxPayHelper
 		    $nativeObj["RetCode"] = $retcode;
 		    $nativeObj["RetErrMsg"] = $reterrmsg;
 		    $nativeObj["AppSignature"] = $this->get_biz_sign($nativeObj);
-		    $nativeObj["SignMethod"] = $this->signType;
+		    $nativeObj["SignMethod"] = SIGNTYPE;
 		    $commonUtil = new CommonUtil();
 
 		    return  $commonUtil->arrayToXml($nativeObj);

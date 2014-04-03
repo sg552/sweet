@@ -5,7 +5,10 @@ class CarAction extends UserAction{
     public function _initialize() {
         parent::_initialize();
         //
-        $this->canUseFunction('car');
+        $function=M('Function')->where(array('funname'=>'car'))->find();
+        if (intval($this->user['gid'])<intval($function['gid'])){
+            $this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>$this->token)));
+        }
     }
     public function index(){
         $data=M('Car');
@@ -270,7 +273,7 @@ class CarAction extends UserAction{
         $find = array('id'=>$id,'token'=>session('token'));
         $result = $res->where($find)->find();
          if($result){
-            $res->where(array('id'=>$result['id']))->delete();
+            $res->where(array('id'=>$result['id'],'token'=>session('token')))->delete();
             $this->success('删除成功',U('Car/carmodel',array('token'=>session('token'))));
              exit;
          }else{
@@ -443,7 +446,7 @@ class CarAction extends UserAction{
         $check  = $t_reservebook->where($where)->find();
         $car = $this->_get('car');
         if(!empty($check)){
-            $t_reservebook->where(array('id'=>$check['id']))->delete();
+            $t_reservebook->where(array('id'=>$check['id'],'token'=>session('token'))->delete();
             //if($car == 'car'){
                 $this->success('删除成功',U('Car/reservation',array('token'=>session('token'))));
                 exit;
@@ -525,7 +528,7 @@ class CarAction extends UserAction{
         $find = array('id'=>$id,'token'=>session('token'));
         $result = $res->where($find)->find();
          if($result){
-            $res->where(array('id'=>$result['id']))->delete();
+            $res->where(array('id'=>$result['id'],'token'=>session('token')))->delete();
             $this->success('删除成功',U('Car/salers',array('token'=>session('token'))));
              exit;
          }else{
@@ -536,7 +539,7 @@ class CarAction extends UserAction{
     
     public function carowner(){
         $data = M("Carowner");
-        $where = array('token'=>session('token'),'id'=>1);
+        $where = array('token'=>session('token'));
         $carowner = $data->where($where)->find();
         if(IS_POST){
            if($carowner == null){
@@ -554,9 +557,10 @@ class CarAction extends UserAction{
                     }
 
            }else{
-            $wh = array('token'=>session('token'),'id'=>1);
+            $id =filter_var($this->_post('id'),FILTER_VALIDATE_INT);
+            $wh = array('token'=>session('token'),'id'=>$id);
              if($data->where($wh)->save($_POST)){
-                    $data1['pid']=1;
+                    $data1['pid']=$id;
                     $data1['module']='Carowner';
                     $data1['token']=session('token');
                     $da['keyword']=trim($this->_post('keyword'));
@@ -624,7 +628,7 @@ class CarAction extends UserAction{
         $find = array('id'=>$id,'token'=>session('token'));
         $result = $res->where($find)->find();
          if($result){
-            $res->where(array('id'=>$result['id']))->delete();
+            $res->where(array('id'=>$result['id'],'token'=>session('token')))->delete();
             $this->success('删除成功',U('Car/caronwers',array('token'=>session('token'))));
              exit;
          }else{

@@ -80,12 +80,24 @@ document.addEventListener('DOMContentLoaded', loaded, false);
 <volist name="info" id="vo"> 
 <div class="catemenu">
 <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>"><div class="cname"><img src="{pigcms:$vo.img}">{pigcms:$vo.name}</div></a>
-<ul>  
-<li>
-<volist name="vo['sub']" id="res">
-<a href="<if condition="$res['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$res['id'],'token'=>$res['token']))}<else/>{pigcms:$res.url|htmlspecialchars_decode}</if>">{pigcms:$res.name}</a>
-</volist>          
-</li></ul>
+<ul>
+<?php
+$i=1;
+$lastItem=end($vo['sub']);
+foreach ($vo['sub'] as $item){
+	if ($i%4==1){
+		echo '<li>';
+	}
+	$url=$item['url']?htmlspecialchars_decode($item['url']):U('Wap/Index/lists',array('classid'=>$item['id'],'token'=>$item['token']));
+	echo '<a href="'.$url.'">'.$item['name'].'</a>';
+	if ($i%4==0||$lastItem['id']==$item['id']){
+		echo '</li>';
+	}
+	$i++;
+}
+?>  
+
+</ul>
 </div>
 </volist>   
           
@@ -124,5 +136,5 @@ document.getElementById("thelist").getElementsByTagName("img").item(i).style.css
 {pigcms:$siteCopyright}
 </if>
  </div> <div style="display:none"> </div>
-<include file="Index:styleInclude"/>
+<include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
 </body></html>

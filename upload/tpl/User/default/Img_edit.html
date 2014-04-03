@@ -60,9 +60,9 @@ items : [
                  
                     <select name="classid">
                       <volist name="res" id="vo">
-                     <option   value="{pigcms:$vo.id},{pigcms:$vo.name}" <if condition="$info['classid'] eq $vo['id']">selected</if>>{pigcms:$vo.name}</option>
+                     <option   value="{pigcms:$vo.id},{pigcms:$vo.name}"<?php if ($info['classid']==$vo['id']){echo ' selected';}?>>{pigcms:$vo.name}</option>
                         <volist name="vo['vo']" id="va">
-                          <option   value="{pigcms:$va.id},{pigcms:$va.name}" style="color:#aaa" <if condition="$info['classid'] eq $vo['id']">selected</if>>- {pigcms:$va.name}</option>
+                          <option   value="{pigcms:$va.id},{pigcms:$va.name}" style="color:#aaa"<?php if (intval($info['classid'])==intval($va['id'])){echo ' selected="selected"';}?>>- {pigcms:$va.name}</option>
                       
                         </volist>  
                       </volist>  
