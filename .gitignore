@@ -38,7 +38,6 @@ config/log4r.yml
 nohup.out
 
 
-# for pigcms
 upload/Conf/alipay.php
 upload/Conf/db.php
 upload/Conf/info.php
