@@ -604,3 +604,44 @@ footer a:hover {
   padding-top: 50px;
   font-size: 18px; color: #333333; line-height: 30px;
 }
+
+.daili_wrapper{
+  width: 941px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  font-size: 18px; color: #333333;
+  line-height: 20px;
+}
+
+.daili_wrapper .reason span{
+  font-size: 35px;
+  color: #02994c;
+  margin-right: 5px;
+}
+.daili_wrapper p{
+  font-size: 18px; color: #333333;
+  line-height: 40px;
+  margin: 0px;
+}
+
+.daili_wrapper .zhichi_wenzi{
+  width: 45%;
+  float: left;
+  margin: 0 20px;
+}
+
+.daili_wrapper .zhichi_wenzi ul{
+  list-style-image:url('../images/daili_li_image.jpg');
+  list-style-type: circle;
+  padding-left: 20px;
+}
+.daili_wrapper .zhichi_wenzi ul li{
+  font-size: 18px;
+  line-height: 32px;
+  color: #575757;
+}
+.daili_wrapper img{
+  margin-left: auto;
+  margin-right: auto;
+}
