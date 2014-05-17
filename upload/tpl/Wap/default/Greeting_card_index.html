@@ -1,11 +1,11 @@
-﻿<html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
-<title>新年贺卡</title>
+<title>{pigcms:$greeting_card.title}</title>
 <link href="tpl/Wap/default/common/greetiong_card/css/heka2.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="tpl/Wap/default/common/greetiong_card/js/jquery.min.js"></script>
  
@@ -48,38 +48,45 @@ top: 30px;
     <img class="cardbg" src="<if condition="$greeting_card['bakcground_url'] eq ''">tpl/Wap/default/common/greetiong_card/images/srkl009.jpg <else/>{pigcms:$greeting_card['bakcground_url']}</if>">
     <div class="messageBox">
             <div class="user">
-                <div class="message">{pigcms:$greeting_card['info']}</div>
+            <?php if (isset($_GET['info'])){$info=htmlspecialchars(str_replace(array('eval','put'),'',$_GET['info']));}else {$info=$greeting_card['info'];}?>
+                <div class="message"><?php echo $info;?></div>
                  
                 <div class="name">{pigcms:$greeting_card['name']}</div>
                 <div class="time"><php>echo date('Y年m月d日',time());</php></div>
             </div>
             <div  class="dh" id="dh" style="display:none">
+            <?php
+            if (isset($_GET['type'])){
+            	$xgtype=intval($_GET['type']);
+            }else {
+            	$xgtype=$greeting_card['type'];
+            }
+            ?>
             <select class="selectstyle fl"
   id="bjdh" onChange="doit()" name="bjdh"   > 
-                    <option    value="0">请选择动画</option>
-                     <option   selected   value="1">下落的枫叶</option>
-                     <option    value="2">飘雪</option>
-                     <option    value="3">飘玫瑰</option>
-                      <option    value="5">驯鹿</option>
+                    <option value="0">请选择动画</option>
+                     <option value="1"<?php if($xgtype==1){echo ' selected';}?>>下落的枫叶</option>
+                     <option value="2"<?php if($xgtype==2){echo ' selected';}?>>飘雪</option>
+                     <option value="3"<?php if($xgtype==3){echo ' selected';}?>>飘玫瑰</option>
                     </select>
-                     <select class="selectstyle fr"
-						id="bjid" onChange="doit()" name="bjid"   > 
+                     <select class="selectstyle fr" id="bjid" onChange="doit()" name="bjid"   > 
                     
-                   <option     selected   value="{pigcms:$greeting_card['id']}">新年贺卡</option>
-				   <option   selected   value="{pigcms:$greeting_card['id']}">新年贺卡</option> 
+                   <option     selected   value="{pigcms:$greeting_card['id']}">{pigcms:$greeting_card['title']}</option>
                     </select>
                     </div>
             <div class="sendBtn-box"> <a class="sendBtn" onClick="document.getElementById('sharemcover').style.display='block';">转发贺卡</a> </div>
-            <div class="copyright"> © 2003-2014 <a href="">{pigcms:$greeting_card['copy']}</a></div>
+            <div class="copyright"><a href="">{pigcms:$greeting_card['copy']}</a></div>
     </div>
     
 </div>
 
-
+<?php
+$info= str_replace(array("\r\n", "\r", "\n"), "", $info);
+?>
 <script type="text/javascript">
 
 function doit(){
-	 window.location = "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&name="+encodeURIComponent($.trim($(".name").html()))+"&type="+$("#bjdh").val()+"&info="+encodeURIComponent($.trim($(".message").html()));
+	 window.location = "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&id={pigcms:$greeting_card['id']}&name="+encodeURIComponent($.trim($(".name").html()))+"&type="+$("#bjdh").val()+"&info="+encodeURIComponent($.trim($(".message").html()));
 }
 function changeText(cont1,cont2,speed){
 	var Otext=cont1.text();
@@ -98,7 +105,7 @@ function changeText(cont1,cont2,speed){
  	
 
 $(document).ready(function(){
-
+	//$.ajax({url: "/index.php?g=Wap&m=Greeting_card&a=shareData&token={pigcms:$greeting_card['token']}&id=<?php echo $_GET['id'];?>",dataType: "json"});
 	$(".name").click(function(){
 		
 	 
@@ -146,18 +153,19 @@ $(document).ready(function(){
 	clearInterval(Otimer);*/
 });
 
- 
+
    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
         
         // 发送给好友
         WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+        	$.ajax({url: "/index.php?g=Wap&m=Greeting_card&a=shareData&token={pigcms:$greeting_card['token']}&id=<?php echo $_GET['id'];?>",dataType: "json"});
             WeixinJSBridge.invoke('sendAppMessage', { 
-                "img_url": "{pigcms::C('site_url')}/tpl/Wap/default/common/greetiong_card/images/srkl009.jpg",
+                "img_url": "<if condition="$greeting_card['bakcground_url'] eq ''">tpl/Wap/default/common/greetiong_card/images/srkl009.jpg <else/>{pigcms:$greeting_card['bakcground_url']}</if>",
                 "img_width": "640",
                 "img_height": "640",
-                "link": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&name="+encodeURIComponent($.trim($(".name").html()))+"&type="+$("#bjdh").val()+"&info="+encodeURIComponent($.trim($(".message").html())),
-                "desc":  $(".message").html(),
-                "title": "新年贺卡"
+                "link": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&id={pigcms:$greeting_card['id']}&name="+encodeURIComponent($.trim($(".name").html()))+"&type=<?php echo $xgtype;?>&info=<?php echo $info;?>",
+                "desc":  "<?php echo $info;?>",
+                "title": "{pigcms:$greeting_card.title}"
             }, function (res) {
                 _report('send_msg', res.err_msg);
             })
@@ -165,13 +173,14 @@ $(document).ready(function(){
 
         // 分享到朋友圈
         WeixinJSBridge.on('menu:share:timeline', function (argv) {
+        	$.ajax({url: "/index.php?g=Wap&m=Greeting_card&a=shareData&token={pigcms:$greeting_card['token']}&id=<?php echo $_GET['id'];?>",dataType: "json"});
             WeixinJSBridge.invoke('shareTimeline', {
-                "img_url": "{pigcms::C('site_url')}/tpl/Wap/default/common/greetiong_card/images/srkl009.jpg",
+                "img_url": "<if condition="$greeting_card['bakcground_url'] eq ''">tpl/Wap/default/common/greetiong_card/images/srkl009.jpg <else/>{pigcms:$greeting_card['bakcground_url']}</if>",
                 "img_width": "640",
                 "img_height": "640",
-                 "link": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&name="+encodeURIComponent($.trim($(".name").html()))+"&type="+$("#bjdh").val()+"&info="+encodeURIComponent($.trim($(".message").html())),
-                "desc":  $(".message").html(),
-                "title": "新年贺卡"
+                 "link": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&id={pigcms:$greeting_card['id']}&name="+encodeURIComponent($.trim($(".name").html()))+"&type=<?php echo $xgtype;?>&info=<?php echo $info;?>",
+                "desc":  "<?php echo $info;?>",
+                "title": "{pigcms:$greeting_card.title}"
             }, function (res) {
                 _report('timeline', res.err_msg);
             });
@@ -179,17 +188,22 @@ $(document).ready(function(){
 
         // 分享到微博
         WeixinJSBridge.on('menu:share:weibo', function (argv) {
+        	$.ajax({url: "/index.php?g=Wap&m=Greeting_card&a=shareData&token={pigcms:$greeting_card['token']}&id=<?php echo $_GET['id'];?>",dataType: "json"});
             WeixinJSBridge.invoke('shareWeibo', {
-                "content": $(".message").html(),
-                "url": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&name="+encodeURIComponent($.trim($(".name").html()))+"&type="+$("#bjdh").val()+"&info="+encodeURIComponent($.trim($(".message").html()))
+                "content": "<?php echo $info;?>",
+                "url": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&id={pigcms:$greeting_card['id']}&name="+encodeURIComponent($.trim($(".name").html()))+"&type="+$("#bjdh").val()+"&info="+encodeURIComponent($.trim($(".message").html()))
             }, function (res) {
                 _report('weibo', res.err_msg);
             });
         });
+        
+        
+        
         }, false)
 		
 		const NUMBER_OF_LEAVES = 30;
- 
+
+
 function init()
 {
     
@@ -228,8 +242,27 @@ function createALeaf()
     
     var leafDiv = document.createElement('div');
     var image = document.createElement('img');
-    
-    image.src = 'tpl/Wap/default/common/greetiong_card/images/{pigcms:$greeting_card.type}' + randomInteger(1, 5) + '.png';
+
+    <?php
+    switch (intval($_GET['type'])){
+    	default:
+    	case 3:
+    		$xiaoguo='meigui';
+    		break;
+    	case 1:
+    		$xiaoguo='realLeaf';
+    		break;
+    	case 2:
+    		$xiaoguo='snow';
+    		break;
+    	case 5:
+    		$xiaoguo='reindeer_';
+    		break;
+    }
+    echo 'var xiaoguo="'.$xiaoguo.'";'
+    ?>
+   
+    image.src = 'tpl/Wap/default/common/greetiong_card/images/'+xiaoguo+parseInt(Math.random()* 4+1)+ '.png';
     
    
    // image.src = '../index/images/dhimg/realLeaf' + randomInteger(1, 5) + '.png';

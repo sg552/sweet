@@ -337,7 +337,7 @@ class ProductAction extends UserAction{
 			}
 
 
-			$unHandledCount=$product_cart_model->where(array('token'=>$this->_session('token'),'handled'=>0))->count();
+			$unHandledCount=$product_cart_model->where(array('token'=>$this->_session('token'),'handled'=>0,'dining'=>intval($_GET['dining'])))->count();
 			$this->assign('unhandledCount',$unHandledCount);
 
 
@@ -388,8 +388,11 @@ class ProductAction extends UserAction{
 			}
 			/************************************************/
 			//
-			
-			$this->success('修改成功',U('Product/orderInfo',array('token'=>session('token'),'id'=>$thisOrder['id'])));
+			if ($thisOrder['paytype']=='weixin'&&$thisOrder['transactionid']){
+				$this->success('修改成功,正在同步发货状态到微信中',U('Product/deliveryNotify',array('token'=>session('token'),'orderid'=>$thisOrder['orderid'],'wecha_id'=>$thisOrder['wecha_id'],'transactionid'=>$thisOrder['transactionid'],'id'=>$thisOrder['id'])));
+			}else {
+				$this->success('修改成功',U('Product/orderInfo',array('token'=>session('token'),'id'=>$thisOrder['id'])));
+			}
 		}else {
 			//订餐信息
 			$product_diningtable_model=M('product_diningtable');
@@ -554,7 +557,74 @@ class ProductAction extends UserAction{
             }
         }        
 	}
-	
+	function deliveryNotify(){
+		$pay_config_db=M('Alipay_config');
+		$this->payConfig=$pay_config_db->where(array('token'=>$this->token))->find();
+
+		$where=array('token'=>$this->token);
+		$thiswxuser=M('Wxuser')->where($where)->find();
+		//wecha_id   orderid   transactionid   
+		//deliver notify
+		$thiswxuser=M('Wxuser')->where(array('token'=>$this->token))->find();
+		$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$thiswxuser['appid'].'&secret='.$thiswxuser['appsecret'];
+		$json=json_decode($this->curlGet($url_get));
+		if (!$json->errmsg){
+			//return array('rt'=>true,'errorno'=>0);
+		}else {
+			$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
+		}
+
+		$url='https://api.weixin.qq.com/pay/delivernotify?access_token='.$json->access_token;
+		$now=time();
+
+		$string1=sha1('appid='.$this->payConfig['appid'].'&appkey='.$this->payConfig['paysignkey'].'&deliver_msg=ok&deliver_status=1&deliver_timestamp='.$now.'&openid='.$_GET['wecha_id'].'&out_trade_no='.$_GET['orderid'].'&transid='.$_GET['transactionid'].'');
+		$postdata='{"appid":"'.$this->payConfig['appid'].'","openid":"'.$_GET['wecha_id'].'","transid":"'.$_GET['transactionid'].'","out_trade_no":"'.$_GET['orderid'].'","deliver_timestamp":"'.$now.'","deliver_status":"1","deliver_msg":"ok","app_signature":"'.$string1.'","sign_method":"sha1"}';
+		$this->api_notice_increment($url,$postdata);
+		$this->success('同步成功',U('Product/orderInfo',array('token'=>session('token'),'id'=>$_GET['id'])));
+	}
+	function api_notice_increment($url, $data){
+		$ch = curl_init();
+		$header = "Accept-Charset: utf-8";
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$tmpInfo = curl_exec($ch);
+		$errorno=curl_errno($ch);
+		if ($errorno) {
+			return array('rt'=>false,'errorno'=>$errorno);
+		}else{
+			$js=json_decode($tmpInfo,1);
+			if ($js['errcode']=='0'){
+				return array('rt'=>true,'errorno'=>0);
+			}else {
+				
+				$this->error('发生错误：错误代码'.$js['errcode'].',微信返回错误信息：'.$js['errmsg']);
+			}
+		}
+	}
+	function curlGet($url){
+		$ch = curl_init();
+		$header = "Accept-Charset: utf-8";
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$temp = curl_exec($ch);
+		return $temp;
+	}
 }
 
 

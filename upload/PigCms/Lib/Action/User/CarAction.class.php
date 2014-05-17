@@ -1,6 +1,6 @@
 <?php
 class CarAction extends UserAction{
-    
+
 
     public function _initialize() {
         parent::_initialize();
@@ -9,6 +9,7 @@ class CarAction extends UserAction{
         if (intval($this->user['gid'])<intval($function['gid'])){
             $this->error('您还开启该模块的使用权,请到功能模块中添加',U('Function/index',array('token'=>$this->token)));
         }
+        $this->canUseFunction('car');
     }
     public function index(){
         $data=M('Car');
@@ -16,7 +17,7 @@ class CarAction extends UserAction{
         $count      = $data->where($where)->count();
         $Page       = new Page($count,12);
         $show       = $Page->show();
-        $brands = $data->where($where)->order('sort desc')->limit($Page->firstRow.','.$Page->listRows)->select(); 
+        $brands = $data->where($where)->order('sort desc')->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('page',$show);
         $this->assign('brands',$brands);
         $this->display();
@@ -25,8 +26,8 @@ class CarAction extends UserAction{
     // add car brand
     public function carbrand(){
         if(IS_POST){
-            $data=D('Car');     
-            $_POST['token']=session('token'); 
+            $data=D('Car');
+            $_POST['token']=session('token');
             if($data->validate($validate)->create()!=false){
                 if($id=$data->data($_POST)->add()){
                     $this->success('添加成功',U('Car/index',array('token'=>session('token'))));
@@ -76,7 +77,7 @@ class CarAction extends UserAction{
         $res = M('Car');
         $find = array('id'=>$id,'token'=>$this->_get('token'));
         $result = $res->where($find)->find();
-         
+
          if($result){
             $res->where(array('id'=>$result['id']))->delete();
             $this->success('删除成功',U('Car/index',array('token'=>session('token'))));
@@ -90,7 +91,7 @@ class CarAction extends UserAction{
     public function series(){
 
         $t_series = M('carseries');
-        $token =  session('token');  
+        $token =  session('token');
         $where = array('token'=>$token);
         $count      = $t_series->where($where)->count();
         $Page       = new Page($count,12);
@@ -152,7 +153,7 @@ class CarAction extends UserAction{
 
             $id=(int)$this->_get('id');
             $where2=array('id'=>$id,'token'=>session('token'));
-            $data=M('Carseries'); 
+            $data=M('Carseries');
             $check=$data->where($where2)->find();
             if($check==false)$this->error('非法操作');
             $series=$data->where($where2)->find();
@@ -258,7 +259,7 @@ class CarAction extends UserAction{
         }else{
             $id=(int)$this->_get('id');
             $where2=array('id'=>$id,'token'=>session('token'));
-            $data=M('Carmodel'); 
+            $data=M('Carmodel');
             $check=$data->where($where2)->find();
             if($check==false)$this->error('非法操作');
             $carmodel=$data->where($where2)->find();
@@ -289,7 +290,7 @@ class CarAction extends UserAction{
         $count      = $data->where($where)->count();
         $Page       = new Page($count,12);
         $show       = $Page->show();
-        $reslist = $data->where($where)->order('id DESC')->limit($Page->firstRow.','.$Page->listRows)->select(); 
+        $reslist = $data->where($where)->order('id DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
         $drive_count = $data->where(array('addtype' => 'drive','token'=>session('token')))->count();
         $maintain_count = $data->where(array('addtype' => 'maintain','token'=>session('token')))->count();
         $this->assign('drive_count',$drive_count);
@@ -314,9 +315,9 @@ class CarAction extends UserAction{
         $count      = $t_reservebook->where($where)->count();
         $Page       = new Page($count,12);
         $show       = $Page->show();
-        $books = $t_reservebook->where($where)->order('id DESC')->limit($Page->firstRow.','.$Page->listRows)->select(); 
+        $books = $t_reservebook->where($where)->order('id DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('page',$show);
- 
+
         $this->assign('books',$books);
         $this->assign('count',$t_reservebook->where($where)->count());
         $where2 = array('token'=>session('token'),'rid'=>$rid,'type'=>$addtype,'remate'=>1);
@@ -333,7 +334,7 @@ class CarAction extends UserAction{
         $addtype = $this->_get('addtype');
         if(IS_POST){
             $data=D('Reservation');
-            $_POST['token']=session('token'); 
+            $_POST['token']=session('token');
             if($data->create()!=false){
                 if($id=$data->data($_POST)->add()){
                     $data1['pid']=$id;
@@ -361,7 +362,7 @@ class CarAction extends UserAction{
             $data=D('Reservation');
             $where=array('id'=>(int)$this->_post('id'),'token'=>session('token'));
             $check=$data->where($where)->find();
-            
+
             if($check==false)$this->error('非法操作');
 
 
@@ -446,7 +447,7 @@ class CarAction extends UserAction{
         $check  = $t_reservebook->where($where)->find();
         $car = $this->_get('car');
         if(!empty($check)){
-            $t_reservebook->where(array('id'=>$check['id'],'token'=>session('token'))->delete();
+            $t_reservebook->where(array('id'=>$check['id'],'token'=>session('token')))->delete();
             //if($car == 'car'){
                 $this->success('删除成功',U('Car/reservation',array('token'=>session('token'))));
                 exit;
@@ -454,7 +455,7 @@ class CarAction extends UserAction{
             //     $this->success('删除成功',U('Reservation/index',array('token'=>session('token'))));
             //     exit;
             // }
-            
+
         }else{
             $this->error('非法操作！');
             exit;
@@ -468,7 +469,7 @@ class CarAction extends UserAction{
         $count      = $data->where($where)->count();
         $Page       = new Page($count,12);
         $show       = $Page->show();
-        $salers = $data->where($where)->order('sort desc')->limit($Page->firstRow.','.$Page->listRows)->select(); 
+        $salers = $data->where($where)->order('sort desc')->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('page',$show);
         $this->assign('salers',$salers);
         $this->display();
@@ -513,7 +514,7 @@ class CarAction extends UserAction{
         }else{
             $id=(int)$this->_get('id');
             $where2=array('id'=>$id,'token'=>session('token'));
-            $data=M('Carsaler'); 
+            $data=M('Carsaler');
             $check=$data->where($where2)->find();
             if($check==null)$this->error('非法操作');
             $salers=$data->where($where2)->find();
@@ -523,8 +524,8 @@ class CarAction extends UserAction{
     }
 
     public function del_salers(){
-         $id = (int)$this->_get('id');
-        $res = M('Carmodel');
+        $id = (int)$this->_get('id');
+        $res = M('Carsaler');
         $find = array('id'=>$id,'token'=>session('token'));
         $result = $res->where($find)->find();
          if($result){
@@ -536,7 +537,7 @@ class CarAction extends UserAction{
              exit;
          }
     }
-    
+
     public function carowner(){
         $data = M("Carowner");
         $where = array('token'=>session('token'));
@@ -586,12 +587,12 @@ class CarAction extends UserAction{
         $count      = $t_caruser->where($where)->count();
         $Page       = new Page($count,20);
         $show       = $Page->show();
-        $onwers = $t_caruser->where($where)->order('car_insurance_lastCost desc,car_care_mileage desc')->limit($Page->firstRow.','.$Page->listRows)->select(); 
+        $onwers = $t_caruser->where($where)->order('car_insurance_lastCost desc,car_care_mileage desc')->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('page',$show);
         $this->assign('onwers',$onwers);
         $this->display();
 
-       
+
     }
 
     public function owner_uinfo(){
@@ -740,7 +741,7 @@ class CarAction extends UserAction{
                 }
 
             }
-           
+
         }else{
           $this->assign('carset',$carset);
            $this->display();

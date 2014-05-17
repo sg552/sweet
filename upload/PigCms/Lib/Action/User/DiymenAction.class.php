@@ -161,6 +161,7 @@ class DiymenAction extends UserAction{
 			$this->error('非法操作');
 		}
 	}
+	
 	function api_notice_increment($url, $data){
 		$ch = curl_init();
 		$header = "Accept-Charset: utf-8";

@@ -23,30 +23,37 @@ items : [
 });
 });
 </script>
+<script>
+   jQuery(document).ready(function(){
+      jQuery("#formID").validationEngine();
+    });
+</script>
 <div class="cLineB">
   <h4>添加品牌</h4><a href="javascript:history.go(-1);return false;" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
  </div>
-         
+
     <div class="msgWrap bgfc">
-      <form class="form" method="post" action="" target="_top" >     
+      <form class="form" method="post" id="formID" action="" target="_top" >
         <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
                 <tr>
                   <th valign="top"><span class="red">*</span>品牌名称：</th>
                   <td>
-                     <input type="text" name="name" id="name" class="input-medium px" style="width:200px"  value="{pigcms:$brand['name']}"/>
+                     <input type="text" name="name" id="name" class="input-medium px" style="width:200px"  value="{pigcms:$brand['name']}"data-validation-engine="validate[required,minSize[2]]"
+                    data-errormessage-value-missing="必填项!" />
                                         <span class="maroon">*</span>
                                         <span class="help-inline">尽量简单，不要超过20字</span></td>
                 </tr>
                 <tr>
                     <th width="120">官方网站：</th>
-                    <td>   <input type="text" name="www" id="www" class="input-xlarge px" style="width:200px"  placeholder="必须(http://|https://)开头" data-rule-url="true" value="{pigcms:$brand['www']}"/> <span class="help-inline">请输入品牌官方网站的完成url地址,如：http://www.bmw.com.cn/</span></td>
+                    <td>   <input type="text" name="www" id="www" class="input-xlarge px" style="width:200px"  placeholder="必须(http://|https://)开头" value="{pigcms:$brand['www']}" /> <span class="help-inline">请输入品牌官方网站的完成url地址,如：http://www.bmw.com.cn (没有可以留空)</span></td>
                 </tr>
                 <tr>
                     <th>LOGO:</th>
                     <td>
                            <img class="thumb_img" id="logo_src" src="{pigcms:$brand['logo']|default='./tpl/User/default/common/car/car_logo.png'}" style="max-height: 100px;" />
-                                        <input type="text" class="px" id="logo"  name="logo"  value="{pigcms:$brand['logo']|default='./tpl/User/default/common/car/car_logo.png'}"/>
+                              <input type="text" class="px" id="logo"  name="logo"  value="{pigcms:$brand['logo']|default='./tpl/User/default/common/car/car_logo.png'}" data-validation-engine="validate[required,custom[url]]"
+                    data-errormessage-value-missing="必须上传图片!"  data-errormessage-custom-error="如果是手动填写外链,正确的网址,如: http://www.baidu.com/images/demo.png" />
                                          <span class="help-inline">
                                             <script src="{pigcms::STATICS}/upyun.js"></script><a href="###" onclick="upyunPicUpload('logo',420,60,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('logo')">预览</a>
                                         </span>
@@ -55,15 +62,15 @@ items : [
                 </tr>
                 <tr>
                     <th width="120">显示顺序：</th>
-                    <td>   
-                         <input type="text" id="sort" name="sort" value="{pigcms:$brand['sort']|default=1}" class="input-mini px" data-rule-required="true" data-rule-number="true" /><span class="maroon">*</span>
+                    <td>
+                         <input type="text" id="sort" name="sort" value="{pigcms:$brand['sort']|default=1}" class="input-mini px"  data-validation-engine="validate[required,custom[integer],min[1]]" data-errormessage-value-missing="必填项" /><span class="maroon">*</span>
                                         <span class="help-inline">数字越大越靠前</span>
                     </td>
                 </tr>
 
                  <tr>
                     <th width="120">品牌简介:</th>
-                    <td>   
+                    <td>
                           <textarea name="info"  id="info"  data-rule-maxlength="500" style="width:605px;height:120px" data-rule-maxlength="150" placeholder="请您输入改品牌介绍" >{pigcms:$brand['info']}</textarea>
                     </td>
                 </tr>
@@ -76,8 +83,8 @@ items : [
             </tbody>
         </table>
     </form>
-  </div> 
- 
-  
+  </div>
+
+
         </div>
 <include file="Public:footer"/>

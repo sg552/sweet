@@ -47,7 +47,9 @@
             <div class="head_news">
                 <a href="{pigcms:$classify['url']}">
                     <ul>
-                         <li><img src="{pigcms:$classify['img']|default='http://image.pigcms.com/yicms/2014/01/05/1388907072_9500fbbc38b6179a.jpg'}" style="width:100%; max-height:400px;"></li>
+<if condition="$classify['img'] neq ''">
+                         <li><img src="{pigcms:$classify['img']}" style="width:100%; max-height:400px;"></li>
+</if>
                     </ul>
                     <ol>{pigcms:$classify['name']}</ol>
                 </a>

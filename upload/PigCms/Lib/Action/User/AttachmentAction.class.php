@@ -42,7 +42,7 @@ class AttachmentAction extends UserAction{
 		'default'=>array('name'=>'默认','height'=>70,'files'=>array('1.gif','2.jpg','3.jpg','4.jpg','5.gif','6.jpg')),
 		);
 		$music=array(
-		'default'=>array('name'=>'默认','files'=>array(array('file'=>'1.mp3','name'=>'汪峰-一起摇摆'),array('file'=>'2.mp3','name'=>'方大同-明天我要嫁给你了'),array('file'=>'3.mp3','name'=>'今天你要嫁给我'))),
+		'default'=>array('name'=>'默认','files'=>array(array('file'=>'1.mp3','name'=>'汪峰-一起摇摆'),array('file'=>'2.mp3','name'=>'方大同-明天我要嫁给你了'),array('file'=>'3.mp3','name'=>'今天你要嫁给我'),array('file'=>'4.mp3','name'=>'钢琴曲卡农'))),
 		);
 		return array('icon'=>$icons,'background'=>$background,'music'=>$music,'focus'=>$focus);
 	}
@@ -58,6 +58,16 @@ class AttachmentAction extends UserAction{
 		$this->assign('page',$show);
 		$this->assign('type','my');
 		$this->display('index');
+	}
+	public function delete(){
+		$id=intval($_GET['id']);
+		$thisFile=M('Files')->where(array('id'=>$id))->find();
+		M('Files')->where(array('id'=>$id,'token'=>$this->token))->delete();
+		$url2=str_replace('http://','',$thisFile['url']);
+		$url3s=explode('/',$url2);
+		$url4=str_replace($url3s[0],'',$url2);
+		@unlink($_SERVER['DOCUMENT_ROOT'].$url4);
+		$this->success('删除成功');
 	}
 }
 

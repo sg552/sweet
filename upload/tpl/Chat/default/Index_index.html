@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
 	<link rel="shortcut icon" href="https://res.wx.qq.com/zh_CN/htmledition/images/favicon17ced3.ico" type="image/x-icon">
-	<script src="/tpl/User/default/common/js/jquery.js"></script>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 	<title>聊天1</title>	
 	<style>
 .btn_music {
@@ -118,7 +118,7 @@ setTimeout(function() {
 				if('undefined' != typeof($('#'+$opnid))){
 					$('#'+$opnid).remove();
 				 }
-					$str='<div class="chatListColumn" id="'+$opnid+'" onclick="selected(\''+$opnid+'\',1)"> <div class="clicked" style="display:none;"></div><span class="unreadDot" style="display:none">0</span> <span class="unreadDotS" style="display:none"></span><div class="avatar_wrap"><img class="avatar" src="index.php?g=Chat&m=&a=showExternalPic&url='+$headimgurl+'" /></div><span id="showNums'+$opnid+'" class="unreadDot" style="display: block;">1</span><div class="extend"><p class="time">'+$subscribe_time+'</p>   <div class="edited"><i class="editedIcon"></i></div> <div class="mute" style="display:none;"></div></div><div class="info"> <div class="nickName"><div class="left name" style="">'+$nickname+'</div><div class="clr"></div></div> <div class="descWrapper"> <p class="desc">'+$city+'</p> </div></div> <div class="clr"></div> </div>';
+					$str='<div class="chatListColumn" id="'+$opnid+'" onclick="selected(\''+$opnid+'\',1)"> <div class="clicked" style="display:none;"></div><span class="unreadDot" style="display:none">0</span> <span class="unreadDotS" style="display:none"></span><div class="avatar_wrap"><img class="avatar" src="index.php?g=Chat&m=&a=showExternalPic&token={pigcms:$token}&wecha_id='+$opnid+'&url='+$headimgurl+'" /></div><span id="showNums'+$opnid+'" class="unreadDot" style="display: block;">1</span><div class="extend"><p class="time">'+$subscribe_time+'</p>   <div class="edited"><i class="editedIcon"></i></div> <div class="mute" style="display:none;"></div></div><div class="info"> <div class="nickName"><div class="left name" style="">'+$nickname+'</div><div class="clr"></div></div> <div class="descWrapper"> <p class="desc">'+$city+'</p> </div></div> <div class="clr"></div> </div>';
 		clickMisic();
 		//$("playbox").trigger("click") ;
 		//$("playbox").bind("click");
@@ -170,7 +170,7 @@ setTimeout(function() {
 						
 							<div class="info"> 
 								<span class="nickName" id='wqvb'>{pigcms:$Think.session.name}</span> 
-									<span id="playbox" class="btn_music" style="display:none" onclick="playbox.init(this).play();" >
+									<span id="playbox" class="btn_music" style="display:none" onClick="playbox.init(this).play();" >
 										<audio src="http://mp3.9ku.com/file2/554/553131.mp3" loop="" id="audio"></audio>
 									</span>	
 							</div> 
@@ -194,16 +194,16 @@ setTimeout(function() {
 									<div class="clr"></div> </a> 
 								</div> 
 							</div> 
-								<a href="javascript:;" class="iconOperater" id="toggleSysMenu"></a> 
+								<a href="javascript:;" class="iconOperater" style="display:none" id="toggleSysMenu"></a> 
 						</div>
 						<div class="clr"></div>
 					</div>
 				</div>
 				<!--search-->
-				<div class="chatListSearch">
+				<div class="chatListSearch" style="display:none">
 					<div class="chatListSearchPanel">
 						
-						<div class="listOperatorContent">
+						<div class="listOperatorContent" style="display:none">
 							<div class="conmu left active" click="switchPanel" un="conversation" id="chooseConversationBtn">
 								<a class="conmuButton" href="javascript:;" title="聊天">
 									<span class="bag"></span><span id="totalUnreadDot" class="unreadDot" style="display: none;">0</span>
@@ -216,7 +216,7 @@ setTimeout(function() {
 								</a>
 							</div>
 						</div>
-						<div class="chatListSearchInput left">
+						<div class="chatListSearchInput left" style="display:none">
 							<span class="chatListSearchIcon left"></span>
 							<input class="left" type="text" name="search" value="" keydown="preSearch" keyup="search@.chatListSearchInput" placeholder="搜索" id="conv_search">
 							<span class="searchClean left" click="cleanSearchWord@.chatListSearchInput" style="display:none;" id="conv_search_clean"></span>
@@ -230,12 +230,12 @@ setTimeout(function() {
 						<div class="listContent" id="chat_conversationListContent" style="width: 100%; top: 0px; position: absolute;" ctrl="1">
 							<div id="conversationContainer">
 								<pigcmslist array="list" foreach="list">
-								<div class="chatListColumn" id="{pigcms:$list.openid}" onclick="selected('{pigcms:$list.openid}',{pigcms:$i})"> 
+								<div class="chatListColumn" id="{pigcms:$list.openid}" onClick="selected('{pigcms:$list.openid}',{pigcms:$i})"> 
 									<div class="clicked" style="display:none;"></div>    
 									<span class="unreadDot" style="display:none">0</span>   
 									<span class="unreadDotS" style="display:none"></span>
 									<div class="avatar_wrap">
-										<img class="avatar" src="<if condition="$list['headimgurl'] neq ''">index.php?g=Chat&m=&a=showExternalPic&url={pigcms:$list.headimgurl}<else/>/tpl/Chat/default/style/css/img/avatar_default17ced3.png</if>" />
+										<img class="avatar" src="<if condition="$list['headimgurl'] neq ''">index.php?g=Chat&m=&a=showExternalPic&token={pigcms:$token}&wecha_id={pigcms:$list.openid}&url={pigcms:$list.headimgurl}<else/>/tpl/Chat/default/style/css/img/avatar_default17ced3.png</if>" />
 									</div>
 									<div class="extend">
 										<p class="time">{pigcms:$list.endtime}</p>   

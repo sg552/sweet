@@ -282,6 +282,7 @@ class Db {
      */
     protected function parseSet($data) {
         foreach ($data as $key=>$val){
+		$val=str_replace('\'','&apos;',$val);
             $value   =  $this->parseValue($val);
             if(is_scalar($value)) // 过滤非标量数据
                 $set[]    = $this->parseKey($key).'='.$value;
@@ -655,6 +656,7 @@ class Db {
         $values  =  $fields    = array();
         $this->model  =   $options['model'];
         foreach ($data as $key=>$val){
+		    $val=str_replace('\'','&apos;',$val);
             $value   =  $this->parseValue($val);
             if(is_scalar($value)) { // 过滤非标量数据
                 $values[]   =  $value;

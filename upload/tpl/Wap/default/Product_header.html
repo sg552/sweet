@@ -46,3 +46,15 @@
     	<a href="{pigcms::U('Product/cart',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'],'dining'=>$isDining))}" class="p_btn_buy"><span class="ts1">进入购物车</span></a>
     </div>
 </div>
+
+   <script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Product",
+            "moduleID":"0",
+            "imgUrl": "", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Product/index',array('token'=>$token))}",
+            "tTitle": "商城",
+            "tContent": ""
+};
+</script>
+{pigcms:$shareScript}

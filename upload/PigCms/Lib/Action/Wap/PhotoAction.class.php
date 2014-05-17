@@ -1,6 +1,9 @@
 <?php
-class PhotoAction extends BaseAction{
+class PhotoAction extends WapAction{
 	public $token;
+	public function __construct(){
+		parent::_initialize();
+	}
 	public function index(){
 		$this->token=$this->_get('token');
 		$reply_info_db=M('Reply_info');

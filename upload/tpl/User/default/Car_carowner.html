@@ -1,7 +1,6 @@
 <include file="Public:head"/>
 <include file="Car:menu"/>
 <link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
-<script src="{pigcms::RES}/js/select/js/jquery.js"></script>
 <script src="{pigcms::RES}/js/select/js/comm.js"></script>
 <script src="{pigcms::RES}/js/select/js/linkagesel-min.js"></script>
 
@@ -29,6 +28,11 @@ items : [
 });
 });
 </script>
+<script>
+   jQuery(document).ready(function(){
+      jQuery("#formID").validationEngine();
+    });
+</script>
 <div class="cLineB">
   <h4>车主关怀管理</h4><!--a href="javascript:history.go(-1);return false;" class="right btnGrayS vm" style="margin-top:-27px">返回</a-->
  </div>
@@ -36,28 +40,27 @@ items : [
 
 <!--tab end-->
     <div class="msgWrap bgfc" style="margin-top:10px;">
-      <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
+      <form class="form" method="post" action="" id="formID" target="_top" enctype="multipart/form-data">
 
         <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
                 <tr>
                     <th width="120">标题：</th>
                     <td>
-                         <input type="text" name="title" id="title" value="{pigcms:$carowner['title']}" class="px" data-rule-required="true" data-rule-maxlength="10"/>
+                         <input type="text" name="title" id="title" value="{pigcms:$carowner['title']}" class="px" data-validation-engine="validate[required,minSize[1]]"
+                    data-errormessage-value-missing="必填项!"/>
                          <span class="maroon">*</span>
                      </td>
                 </tr>
                 <tr>
                     <th width="120">触发关键词：</th>
-                    <td> <input type="text" name="keyword" id="keyword" class="px" data-rule-required="true" data-rule-maxlength="60" value="{pigcms:$carowner['keyword']}"/>
-      
-                                          <span class="maroon">*</span>
-                                        <span class="help-inline">多个关键字请用空格分开</span>
+                    <td> <input type="text" name="keyword" id="keyword" class="px"  value="{pigcms:$carowner['keyword']}" data-validation-engine="validate[required,minSize[1],maxSize[20]]"
+                    data-errormessage-value-missing="必填项!"/>
                     </td>
                 </tr>
                  <tr>
                     <th width="120">图文消息封面：</th>
-                    <td> 
+                    <td>
                      <p>
                          <img class="thumb_img" id="head_url_src" src="{pigcms:$carowner['head_url']|default='tpl/User/default/common/car/car_woner.png'}" style="max-height:100px;">
                          <input type="input" class="px" id="head_url" value="{pigcms:$carowner['head_url']|default='tpl/User/default/common/car/car_woner.png'}" name="head_url" >
@@ -71,8 +74,8 @@ items : [
                 </tr>
                 <tr>
                     <th width="120">介绍:</th>
-                    <td> <textarea name="info"  id="info" style="width:605px;height:120px" placeholder="可不填">{pigcms:$carowner['info']}</textarea>
-                    <span class="help-block">必填 150文字以内</span>
+                    <td> <textarea name="info"  id="info" style="width:605px;height:320px" >{pigcms:$carowner['info']}</textarea>
+                    <span class="help-block"></span>
                     </td>
                 </tr>
                   <tr>
@@ -88,7 +91,7 @@ items : [
             </tbody>
         </table>
     </form>
-  </div> 
+  </div>
 
         </div>
 <include file="Public:footer"/>

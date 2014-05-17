@@ -46,7 +46,7 @@ items : [
 <link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
 <div class="cLineB">
 
- </div> 
+ </div>
   <div class="msgWrap bgfc">
   <form action="" method="post" class="form-horizontal form-validate" novalidate="novalidate">
   <input type="hidden" name="token" value="{pigcms:$token}" />
@@ -56,22 +56,24 @@ items : [
   <div class="control-group">
     <label for="title" class="control-label">图文消息标题：</label>
     <div class="controls">
-      <input type="text" name="title" id="title" maxlength="10" class="span4" value="{pigcms:$es_data['title']}" data-rule-required="true"><span class="maroon">*</span><span class="help-inline">触发关键词后返回图文消息标题</span>
+      <input type="text" name="title" id="title" maxlength="10" class="span4" value="{pigcms:$es_data['title']}" schoolSet><span class="maroon">*</span><span class="help-inline">触发关键词后返回图文消息标题</span>
     </div>
   </div>
   <div class="control-group">
     <label for="keyword" class="control-label">触发关键词：</label>
     <div class="controls">
-      <input type="text" name="keyword" id="keyword" class="span4" data-rule-required="true" value="{pigcms:$es_data['keyword']}"><span class="maroon">*</span><span class="help-inline">只能设置一个关键字</span>
+      <input type="text" name="keyword" id="keyword" class="span4" schoolSet value="{pigcms:$es_data['keyword']}"><span class="maroon">*</span><span class="help-inline">只能设置一个关键字</span>
     </div>
   </div>
 
   <div class="control-group">
     <label for="coverurl" class="control-label">图文消息封面：</label>
     <div class="controls">
-      <img class="thumb_img" id="cover_src" src="{pigcms:$es_data['cover']|default='http://image.pigcms.com/yicms/2014/01/04/1388808371_be8dc6a6557f8c6b.png'}" style="max-height:100px;">
-      <input type="input" class="px" id="cover" value="{pigcms:$es_data['cover']|default='http://image.pigcms.com/yicms/2014/01/04/1388808371_be8dc6a6557f8c6b.png'}" name="cover" >
-                                     
+<if condition="$es_data['cover'] neq ''">
+      <img class="thumb_img" id="cover_src" src="{pigcms:$es_data['cover']|default=''}" style="max-height:100px;">
+</if>
+      <input type="input" class="px" id="cover" value="{pigcms:$es_data['cover']|default=''}" name="cover" >
+
           <span class="help-inline">
                <script src="{pigcms::STATICS}/upyun.js"></script><a href="###" onclick="upyunPicUpload('cover',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('cover')">预览</a>
               <span class="help-inline">建议尺寸：宽720像素，高400像素</span>
@@ -81,11 +83,12 @@ items : [
   <div class="control-group">
          <label class="control-label">楼盘头部图片：</label>
                                     <div class="controls">
-                                        <img class="thumb_img" id="banner_src" src="{pigcms:$es_data['banner']|default='http://image.pigcms.com/yicms/2014/01/04/1388808453_1a54038a80f59f58.png'}" style="max-height:100px;"> 
-                                        
-                                            <input type="text" id="banner" name="banner" class="px" value="{pigcms:$es_data['banner']|default='http://image.pigcms.com/yicms/2014/01/04/1388808453_1a54038a80f59f58.png'}"> 
-                                            <span class="help-inline">  
-                                            <a href="###" onclick="upyunPicUpload('banner',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('banner')">预览</a>                          
+                                    <if condition="$es_data['banner'] neq ''">
+                    <img class="thumb_img" id="banner_src" src="{pigcms:$es_data['banner']|default=''}" style="max-height:100px;">
+</if>
+                                            <input type="text" id="banner" name="banner" class="px" value="{pigcms:$es_data['banner']|default=''}">
+                                            <span class="help-inline">
+                                            <a href="###" onclick="upyunPicUpload('banner',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('banner')">预览</a>
                                             <span class="help-inline">建议尺寸：宽720像素，高350像素</span>
                                         </span>
                                     </div>
@@ -94,8 +97,11 @@ items : [
     <div class="control-group">
                                     <label class="control-label">户型头部图片：</label>
                                     <div class="controls">
-                                        <img class="thumb_img" id="house_banner_src" src="{pigcms:$es_data['house_banner']|default='http://image.pigcms.com/yicms/2014/01/04/1388808500_ec7cdd855c2bec9e.png'}" style="max-height:100px;">
-                                        <input type="text" name="house_banner" id="house_banner" class="px" value="{pigcms:$es_data['house_banner']|default='http://image.pigcms.com/yicms/2014/01/04/1388808500_ec7cdd855c2bec9e.png'}">
+<if condition="$es_data['house_banner']">
+    <img class="thumb_img" id="house_banner_src" src="{pigcms:$es_data['house_banner']|default=''}" style="max-height:100px;">
+</if>
+
+                                        <input type="text" name="house_banner" id="house_banner" class="px" value="{pigcms:$es_data['house_banner']|default=''}">
                                         <span class="help-inline">
                                              <script src="{pigcms::STATICS}/upyun.js"></script><a href="###" onclick="upyunPicUpload('house_banner',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('house_banner')">预览</a>
                                             <span class="help-inline">建议尺寸：宽720像素，高350像素</span>
@@ -107,8 +113,8 @@ items : [
   <div class="control-group">
                                     <label for="album_title" class="control-label">全景相册名称：</label>
                                     <div class="controls">
-                                    <select id="panorama_id" name="panorama_id" class="input-medium" data-rule-required="true"> 
-                                          <option value="0">请选择360全景相册</option> 
+                                    <select id="panorama_id" name="panorama_id" class="input-medium" schoolSet>
+                                          <option value="0">请选择360全景相册</option>
                                             <volist name="panorama" id="vo">
                                                <option value="{pigcms:$vo['pid']}" <if condition="$vo['pid'] eq $es_data['panorama_id']">selected="selected"</if>>{pigcms:$vo['name']}</option>
                                             </volist>
@@ -121,8 +127,8 @@ items : [
                                 <div class="control-group">
                                     <label class="control-label">楼盘新闻：</label>
                                     <div class="controls">
-                                     <select id="classify_id" name="classify_id" class="input-medium" data-rule-required="true"> 
-                                          <option value="0">请选择3G楼盘新闻</option> 
+                                     <select id="classify_id" name="classify_id" class="input-medium" schoolSet>
+                                          <option value="0">请选择3G楼盘新闻</option>
                                             <volist name="classify" id="vo">
                                                <option value="{pigcms:$vo['cid']}" <if condition="$vo['cid'] eq $es_data['classify_id']">selected="selected"</if>>{pigcms:$vo['name']}</option>
                                             </volist>
@@ -134,8 +140,8 @@ items : [
                                 <div class="control-group">
                                     <label class="control-label">预约版面：</label>
                                     <div class="controls">
-                                     <select id="res_id" name="res_id" class="input-medium" data-rule-required="true"> 
-                                          <option value="0">请选择预约版面</option> 
+                                     <select id="res_id" name="res_id" class="input-medium" schoolSet>
+                                          <option value="0">请选择预约版面</option>
                                             <volist name="reslist" id="vo">
                                                <option value="{pigcms:$vo['rid']}" <if condition="$vo['rid'] eq $es_data['res_id']">selected="selected"</if>>{pigcms:$vo['title']}</option>
                                             </volist>
@@ -146,14 +152,14 @@ items : [
                                 </div>
   <div class="control-group">
     <label for="video" class="control-label">楼盘视频：</label>
-    <div class="controls"> 
+    <div class="controls">
        <input type="text" name="video" id="video" class="span4" style="width:480px" value="{pigcms:$es_data['video']}"><p>
-       支持优酷视频地址如：http://v.youku.com/v_show/id_XNDA1ODEyNjE2.html <br> 
-       腾讯fash视频地址：如http://static.video.qq.com/TPout.swf?vid=v0119s27wd5&amp;auto=0 <br> 
+       支持优酷视频地址如：http://v.youku.com/v_show/id_XNDA1ODEyNjE2.html <br>
+       腾讯fash视频地址：如http://static.video.qq.com/TPout.swf?vid=v0119s27wd5&amp;auto=0 <br>
        也支持mp4和ogg 格式地址 http://www.w3school.com.cn/example/html5/mov_bbb.mp4 </p>
     </div>
   </div>
-                                
+
 <script>
 function setlatlng(longitude,latitude){
   art.dialog.data('longitude', longitude);
@@ -165,9 +171,9 @@ function setlatlng(longitude,latitude){
 </script>
 <div class="control-group">
     <label for="place" class="control-label">楼盘地址地址：</label>
-    <div class="controls"> 
+    <div class="controls">
       <div class="input-prepend">
-         <input type="text" id="suggestId" class="span4 px"  name="place" value="{pigcms:$es_data['place']}" class="input-xlarge" data-rule-required="true"> <span class="maroon">*</span> 
+         <input type="text" id="suggestId" class="span4 px"  name="place" value="{pigcms:$es_data['place']}" class="input-xlarge" schoolSet> <span class="maroon">*</span>
       </div>
     </div>
   </div>
@@ -181,7 +187,7 @@ function setlatlng(longitude,latitude){
          <label for="estate_desc" class="control-label">楼盘简介：</label>
          <div class="controls">
              <textarea class="px" id="estate_desc" name="estate_desc" style="width: 605px; height: 150px;">{pigcms:$es_data['estate_desc']}</textarea>
-                                        
+
          </div>
      </div>
      <div class="control-group">
@@ -203,9 +209,9 @@ function setlatlng(longitude,latitude){
       <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btnGreen">保存</button>　<button type="button" class="btnGray vm">取消</button>
     </div>
 </form>
-  </div> 
- 
-  
+  </div>
+
+
         </div>
-    
+
 <include file="Public:footer"/>

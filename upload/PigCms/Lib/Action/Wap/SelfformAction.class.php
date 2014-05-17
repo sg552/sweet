@@ -1,12 +1,13 @@
 <?php
-class SelfformAction extends BaseAction{
+class SelfformAction extends WapAction{
 	public $token;
 	public $wecha_id;
 	public $selfform_model;
 	public $selfform_input_model;
 	public $selfform_value_model;
 	public function __construct(){
-		parent::__construct();
+
+		parent::_initialize();
 		$this->token		= $this->_get('token');
 		$this->assign('token',$this->token);
 		$this->wecha_id	= $this->_get('wecha_id');
@@ -67,7 +68,9 @@ class SelfformAction extends BaseAction{
 			$this->redirect(U('Selfform/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'id'=>$thisForm['id'],'success'=>1)));
 		}else {
 			//判断是否提交过信息了
+			if ($this->wecha_id){
 			$submitInfo=$this->selfform_value_model->where(array('wecha_id'=>$this->wecha_id,'formid'=>$thisForm['id']))->find();
+			}
 			if ($submitInfo){
 				$info=unserialize($submitInfo['values']);
 				if ($info){

@@ -9,7 +9,7 @@ class ImgAction extends UserAction{
 		$where['token']=session('token');
 		$count=$db->where($where)->count();
 		$page=new Page($count,25);
-		$info=$db->where($where)->order('createtime DESC')->limit($page->firstRow.','.$page->listRows)->select();
+		$info=$db->where($where)->order('usort DESC')->limit($page->firstRow.','.$page->listRows)->select();
 		$this->assign('page',$page->show());
 		$this->assign('info',$info);
 
@@ -19,39 +19,68 @@ class ImgAction extends UserAction{
 	
 	public function add(){
 		$classify_db=M('Classify');
-		$class=$classify_db->where(array('token'=>session('token')))->select();
 
-		//区分二级分类
+		$class=$classify_db->field("fid,id,name,concat(path,'-',id) as bpath")->order('bpath ASC')->where(array('token'=>session('token')))->select();
+		foreach($class as $k=>$v){
+			$total=(count(explode('-',$v['bpath']))-2)*10;
+				for($i=0;$i<$total;$i++){
+
+					$class[$k]['fg'].='-';
+				}
+
+			$id = $v['id'];
+			$fidArr[] = $classify_db->field('distinct(fid)')->where(array('token'=>session('token'),"fid"=>$id))->select();
+			if(!$fidArr[$k][0]['fid'] == NULL){
+				$fid[] = $fidArr[$k][0]['fid'];
+			}
+		}
 
 		
-		$where=array('token'=>session('token'),'fid'=>0);
-		$class=$classify_db->where($where)->select();
-		foreach($class as $key=>$val){
-			$class[$key]['vo']=$classify_db->where(array('token'=>session('token'),'fid'=>$val['id']))->select();
-		}
 		if($class==false){$this->error('请先添加3G网站分类',U('Classify/index',array('token'=>session('token'))));}
 		$this->assign('info',$class);
+		$this->assign('fid',$fid);
 		$this->display();
 	}
+	
+	
 	public function edit(){
 		$db=M('Classify');
 		$where['token']=session('token');
-		//$info=$db->where($where)->select();
-		$class=$db->where(array('token'=>session('token'),'fid'=>0))->select();
-		foreach($class as $key=>$val){
-			$class[$key]['vo']=$db->where(array('token'=>session('token'),'fid'=>$val['id']))->select();
-		}
+
 		$where['id']=$this->_get('id','intval');
 		$where['uid']=session('uid');
 		$res=D('Img')->where($where)->find();
-		//
-		$thisClass=M('Classify')->where(array('id'=>$res['classid']))->find();
+		
+		$thisClass=M('Classify')->field('id,path')->where(array('id'=>$res['classid']))->find();
+
+		$path = $thisClass['path'].'-'.$thisClass['id'];
+		$tree = explode('-',$path);
+		foreach($tree as $k=>$v){
+			if($v != 0){
+				$name[] = $db->field("name")->where(array('token'=>session('token'),'id'=>$v))->find();
+			}else{
+				unset($tree[$k]);
+			}
+		}
+		foreach ($name as $key=>$val){
+			$t .= $val['name'].' >> ';
+			$lastName = $val['name'];
+		}
+
+		$t = rtrim($t,' >> ');
+
+		$this->assign('classValue',array_pop($tree).','.$lastName);
+		
 		$this->assign('thisClass',$thisClass);
-		//
+		$this->assign('classtree',$t);
+		$this->assign('fid',$fid);
 		$this->assign('info',$res);
+		$this->assign('class',$class);
 		$this->assign('res',$class);
 		$this->display();
 	}
+	
+	
 	public function del(){
 		$where['id']=$this->_get('id','intval');
 		$where['token']=$this->token;
@@ -75,6 +104,37 @@ class ImgAction extends UserAction{
 	public function upsave(){
 		$_POST['info']=str_replace('\'','&apos;',$_POST['info']);
 		$this->all_save();
+	}
+	
+	public function editClass(){
+		$token = $this->token;
+		$db = M('Classify');
+		$id = $this->_get('id','intval');
+		$class = $db->field('id,name,path')->where("token = '$token' AND fid = $id")->select();
+		
+		foreach($class as $k=>$v){
+		
+			$fid = $v['id'];
+			$class[$k]['sub'] = $db->where("token = '$token' AND fid = $fid")->field('id,name')->select();
+		}
+		
+				
+
+		$this->assign('class',$class);
+		
+		$this->display();
+	}
+	
+	public function editUsort(){
+		$id = $this->_post('id','intval');
+		$usort = $this->_post('v','intval');
+		$token = $this->_post('token',"htmlspecialchars");
+		
+		if(M('Img')->where("token = '$token' AND id = $id")->setField('usort',$usort)){
+			echo $usort;
+		}else{
+			echo 'error';
+		}
 	}
 }
 ?>

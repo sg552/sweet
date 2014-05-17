@@ -57,7 +57,7 @@
 				<tr>
 					<th>背景音乐：</th>
 					<td>
-					<table><tr><if condition="$home.musicurl neq ''"><td><a style="width:120px;float:left" id="musicurl_src" class="audio {skin:'blue'}" href="{pigcms:$home.musicurl}">音乐播放</a></td></if><td> <input class="px" name="musicurl" value="{pigcms:$home.musicurl}" id="musicurl" style="width:200px;float:left" onchange="$('#musicurl_src').attr('href',this.value"> <a href="###" onclick="chooseFile('musicurl','music')" class="a_upload">选择</a></td></tr></table>
+					<table><tr><if condition="$home.musicurl neq ''"><td><a style="width:120px;float:left" id="musicurl_src" class="audio {skin:'blue'}" href="{pigcms:$home.musicurl}">音乐播放</a></td></if><td> <input class="px" name="musicurl" value="{pigcms:$home.musicurl}" id="musicurl" style="width:200px;float:left" onchange="$('#musicurl_src').attr('href',this.value"> <a href="###" onclick="upyunPicUpload('musicurl',0,0,'{pigcms:$token}')" class="a_upload">上传</a>&nbsp;<a href="###" onclick="chooseFile('musicurl','music')" class="a_upload">选择</a></td></tr></table>
 					 </td>
 				</tr>
 				<tr>

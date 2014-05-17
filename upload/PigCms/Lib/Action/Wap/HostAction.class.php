@@ -1,5 +1,8 @@
 <?php
 class HostAction extends BaseAction{
+	public function __construct(){
+		parent::_initialize();
+	}
     public function index(){
         $agent = $_SERVER['HTTP_USER_AGENT']; 
         if(!strpos($agent,"icroMessenger")) {

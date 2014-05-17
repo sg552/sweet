@@ -33,5 +33,17 @@
 </ul>
 
 </div>
+
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Panorama",
+            "moduleID":"{pigcms:$item.id}",
+            "imgUrl": "{pigcms:$item.frontpic}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Panorama/item',array('token'=>$token,'id'=>$item['id']))}",
+            "tTitle": "{pigcms:$item.name}",
+            "tContent": ""
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

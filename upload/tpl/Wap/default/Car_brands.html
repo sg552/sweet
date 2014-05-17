@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" type="text/css" href="{pigcms::RES}/car/css/reset.css" media="all">
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/car/css/reset.css" media="all">
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/car/css/common.css" media="all">
 <script type="text/javascript" src="{pigcms::RES}/car/js/jQuery.js"></script>
 <script type="text/javascript" src="{pigcms::RES}/car/js/jquery_easing.js"></script>
@@ -18,7 +18,7 @@
 
 <title>全部车型－品牌</title>
         <style>
-            img{width:100%!important;}
+            .main img{width:100%!important;}
             .logohead{
                 padding:5px;
                 text-align: center;
@@ -27,7 +27,7 @@
     <meta content="clickberry-extension-here">
     </head>
     <body onselectstart="return true;" ondragstart="return false;" class="portrait">
-        
+
 
 
     <div class="header">
@@ -53,13 +53,15 @@
                     <a href="{pigcms::U('Car/carseries',array('token'=>$token,'wecha_id'=>$wecha_id,'bid'=>$vo['id'],'title'=>$vo['name']))}" style="color:#666;display:block;text-align: center">查看车系</a>
                     </div>
                     <p style="padding:15px;">
-                    
-                    {pigcms:$vo['info']|html_entity_decode|trim}   
+
+                    {pigcms:$vo['info']|html_entity_decode|trim}
                     </p><br />
+                    <if condition="$vo['www'] neq ''">
                     <div style="margin:5px;border: 1px solid #ccc;line-height:35px;text-indent:10px;border-radius:5px;background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#eee));-webkit-box-shadow: 0 1px 1px #fff;">
                     <a href="{pigcms:$vo['www']}" style="color:#666;display:block;text-align: center">{pigcms:$vo['name']} 官网</a>
                     </div>
-                     
+                    </if>
+
                     </p>
                 </div>
                 </volist>
@@ -67,11 +69,11 @@
         </div>
 
         </div>
-       
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#horizontalTab').easyResponsiveTabs({
-            type: 'accordion', //Types: default, vertical, accordion           
+            type: 'accordion', //Types: default, vertical, accordion
             width: 'auto', //auto or any width like 600px
             fit: true,   // 100% fit in a container
             closed: 'accordion', // Start closed if in accordion view
@@ -91,7 +93,6 @@
 
  <p><br /><br /><br /></p>
        <include file="Car:menu"/>
-                    <div mark="stat_code" style="width:0px; height:0px; display:none;">
-                    </div>
-    
+<div mark="stat_code" style="width:0px; height:0px; display:none;"></div>
+
 </body></html>

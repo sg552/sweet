@@ -48,9 +48,9 @@
 </TR>
 <TR>
 	<th><span class="red">*</span>活动时间：</th>
-	<td><input type="input" class="px" id="statdate" value="<if condition="$vo['statdate'] neq ''">{pigcms:$vo.statdate|date="Y-m-d H:i:s",###}</if>" onClick="WdatePicker()" name="statdate" />                
+	<td><input type="input" class="px" id="statdate" value="<if condition="$vo['statdate'] neq ''">{pigcms:$vo.statdate|date="Y-m-d",###}</if>" onClick="WdatePicker()" name="statdate" />                
 		到
-		<input type="input" class="px" id="enddate" value="<if condition="$vo['enddate'] neq ''">{pigcms:$vo.enddate|date="Y-m-d H:i:s",###}</if>" name="enddate"  onClick="WdatePicker()"  /> 
+		<input type="input" class="px" id="enddate" value="<if condition="$vo['enddate'] neq ''">{pigcms:$vo.enddate|date="Y-m-d",###}</if>" name="enddate"  onClick="WdatePicker()"  /> 
 	</td>
 </TR>
 <TR>
@@ -194,9 +194,9 @@
 </td> 
 </tr>
 <tr>
-<th valign="top">兑奖密码：</th>
+<th valign="top"><span class="red">*</span>兑奖密码：</th>
 <td><input class="px" id="parssword" name="parssword" value="{pigcms:$vo.parssword}" style="width:150px" type="input">
-消费确认密码长度小于15位 不设置密码,兑奖页面的密码输入框则不出现</td>
+消费确认密码长度小于15位</td>
                                         </tr>
                                                                        <tr>
 <th valign="top">SN码重命名为：</th>
@@ -208,7 +208,11 @@
                                         </tr>
 <TR>
 	<th valign="top">抽奖页面是否显示奖品数量：</th>
-	<td><input class="radio" type="radio" name="displayjpnums" value="1"  <if condition="$vo['displayjpnums'] eq 1" >checked</if> >显示  <input class="radio" type="radio" name="displayjpnums" value="0"  <if condition="$vo['displayjpnums'] eq 0" >checked</if>>不显</td> 
+	<td><input class="radio" type="radio" name="displayjpnums" value="1"  <if condition="$vo['displayjpnums'] eq 1" >checked</if> > 显示  <input class="radio" type="radio" name="displayjpnums" value="0"  <if condition="$vo['displayjpnums'] eq 0" >checked</if>> 不显</td> 
+</TR>
+<TR>
+	<th valign="top">注册后才能参与：</th>
+	<td><input class="radio" type="radio" name="needreg" value="1"  <if condition="$vo['needreg'] eq 1" >checked</if> > 需要先注册  <input class="radio" type="radio" name="needreg" value="0"  <if condition="$vo['needreg'] eq 0" >checked</if>> 不需要先注册</td> 
 </TR> 
 <TR>
 <th>&nbsp;</th>

@@ -52,6 +52,8 @@ class AlipayAction extends UserAction{
 					$token_open_db->where(array('token'=>$wxu['token']))->save(array('queryname'=>$str));
 				}
 			}
+			$indent=array();
+			$indent['id']=time();
 			//
 			$spend=0-$needFee;
 			M('Indent')->data(array('uid'=>session('uid'),'month'=>$month,'title'=>'购买服务','uname'=>$this->user['username'],'gid'=>$groupid,'create_time'=>time(),'indent_id'=>$indent['id'],'price'=>$spend,'status'=>1))->add();
@@ -212,7 +214,7 @@ class AlipayAction extends UserAction{
 	public function add(){
 		$this->index();
 	}
-	public function chagrge_return (){
+	public function charge_return (){
 		import("@.ORG.Alipay.AlipayNotify");
 		$alipayNotify = new AlipayNotify($this->setconfig());
 		$verify_result = $alipayNotify->verifyReturn();	

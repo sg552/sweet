@@ -164,7 +164,7 @@
             <div id="outer"><img src="{pigcms::RES}/css/guajiang/images/activity-lottery-5.png"></div>
         </div>
         <div id="inner-cont">
-            <div id="inner"><img src="{pigcms::RES}/css/guajiang/images/activity-lottery-2.png"></div>
+            <div id="inner" <pigcmsif where="$wecha_id eq ''">onclick="alert('您不能参加此活动');"<else/></pigcmsif>><img src="{pigcms::RES}/css/guajiang/images/activity-lottery-2.png"></div>
         </div>
     </div>
     <?php  }?>
@@ -223,6 +223,18 @@
 
 
 <if condition="$Dazpan['On'] eq 1">
+
+<pigcmsif where="$wecha_id eq ''">
+<div class="boxcontent boxyellow">
+    <div class="box">
+    <div class="title-green"><span>友情提醒：</span></div>
+         <div class="Detail">
+				<p style="color:#f00;line-height:160%">您可能是从朋友圈等分享过的页面打开的链接，无法直接参与此活动，如需参与此活动请按照以下步骤操作：<br>1、关注微信名称“{pigcms:$wxuser.wxname}”或者微信号“{pigcms:$wxuser.weixin}”<br>2、输入关键词：“{pigcms:$Dazpan.keyword}”</p>            
+               </div>
+</div>
+</div>
+			</pigcmsif>
+			
 <div class="boxcontent boxyellow">
     <div class="box">
     <div class="title-green"><span>奖项设置：</span></div>
@@ -391,7 +403,7 @@ running = true;
     outter = document.getElementById('outer');
     inner = document.getElementById('inner');
     i = 10;
-
+<pigcmsif where="$wecha_id neq ''">
     $("#inner").click(function() {
 
         if (running) return;
@@ -462,7 +474,9 @@ running = true;
          timeout    : 5000       
         
        })//ajax
-    }) //#inner click function;
+    }
+    </pigcmsif>
+    ) //#inner click function;
 });
 
 
@@ -527,9 +541,17 @@ function () {
 	"json")
 });
 
-document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-	WeixinJSBridge.call('hideOptionMenu'); 
-});
 </script>
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Lottery",
+            "moduleID":"{pigcms:$Dazpan.id}",
+            "imgUrl": "{pigcms:$Dazpan.starpicurl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Lottery/index',array('token'=>$token,'id'=>$Dazpan['id'],'type'=>1))}",
+            "tTitle": "{pigcms:$Dazpan.title}",
+            "tContent": "{pigcms:$Dazpan.info}"
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

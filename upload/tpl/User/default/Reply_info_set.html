@@ -34,11 +34,11 @@
 					<td><input name="apiurl" value="{pigcms:$set.apiurl}" class="px" style="width:550px;" type="text"><br> 只适用于引用第三方3G网站的链接</td>
 				</tr>
 				<if condition="$set and ($infoType.type eq 'Dining')">
-				<tr>
+				<tr style="display:none">
 					<th>订购方式开关：</th>
 					<td><label><input type="checkbox" name="diningyuding" value="1" <if condition="$set.diningyuding eq 1">checked</if> /> 开启预定</label> <label><input type="checkbox" name="diningwaimai" value="1" <if condition="$set.diningwaimai eq 1">checked</if> /> 开启外卖</label></td>
 				</tr>
-				<tr>
+				<tr style="display:none">
         <th>订购时限：</th>
         <td><input type="text" id="yudingdays" name="yudingdays" value="{pigcms:$config.yudingdays}" class="px" style="width:100px;" /> 天（可以订购多少天）</td> 
        </tr>

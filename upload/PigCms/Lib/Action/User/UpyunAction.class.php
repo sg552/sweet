@@ -20,7 +20,7 @@ class UpyunAction extends UserAction{
 	}
 	public function upload(){
 		if (!isset($_SESSION['username'])&&!isset($_SESSION['uid'])){
-			exit('非法操作');
+			//exit('非法操作');
 		}
 		if ($this->upload_type=='upyun'){
 			if (C('site_url')!='http://'.$_SERVER['HTTP_HOST']){
@@ -45,7 +45,12 @@ class UpyunAction extends UserAction{
 			$this->assign('bucket',$bucket);
 			$this->assign('sign',$sign);
 			$this->assign('policy',$policy);
-			$this->display();
+			if (!isset($_GET['from'])){
+				$this->display();
+			}else {
+				$this->display('wap');
+			}
+			
 		}elseif ($this->upload_type=='local'){
 			if (!function_exists('imagecreate')){
 				exit('php不支持gd库，请配置后再使用');
@@ -54,7 +59,12 @@ class UpyunAction extends UserAction{
 				$return=$this->localUpload();
 				echo '<script>location.href="/index.php?g=User&m=Upyun&a=upload&error='.$return['error'].'&msg='.$return['msg'].'";</script>';
 			}else {
-				$this->display('local');
+				if (!isset($_GET['from'])){
+					$this->display('local');
+				}else {
+					$this->display('waplocal');
+				}
+				
 			}
 		}
 	}
@@ -409,7 +419,7 @@ class UpyunAction extends UserAction{
 			$upload->allowExts  = $filetypes;
 		}
 		$upload->autoSub=1;
-		if (isset($_POST['width'])){
+		if (isset($_POST['width'])&&intval($_POST['width'])){
 			$upload->thumb = true;
 			$upload->thumbMaxWidth=$_POST['width'];
 			$upload->thumbMaxHeight=$_POST['height'];

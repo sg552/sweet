@@ -62,5 +62,17 @@ instance = PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), op
       });
     })(jQuery);
   </script>
+  
+   <script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Photo",
+            "moduleID":"{pigcms:$info.id}",
+            "imgUrl": "{pigcms:$info.picurl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Photo/plist',array('token'=>$token,'id'=>$info['id']))}",
+            "tTitle": "{pigcms:$info.title}",
+            "tContent": "{pigcms:$info.info}"
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

@@ -3,13 +3,16 @@
 <link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
 
-<script src="{pigcms::RES}/js/select/js/jquery.js"></script>
 <script src="{pigcms::RES}/js/select/js/comm.js"></script>
 <script src="{pigcms::RES}/js/select/js/linkagesel-min.js"></script>
 
 <script src="{pigcms::STATICS}/artDialog/jquery.artDialog.js?skin=default"></script>
 <script src="{pigcms::STATICS}/artDialog/plugins/iframeTools.js"></script>
-
+<script>
+   jQuery(document).ready(function(){
+      jQuery("#formID").validationEngine();
+    });
+</script>
 
 <div class="content">
 
@@ -20,24 +23,25 @@
 
 <!--tab end-->
     <div class="msgWrap bgfc" style="margin-top:10px;">
-      <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
+      <form class="form" method="post" action="" target="_top" id="formID" enctype="multipart/form-data">
 
         <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
                 <tr>
                     <th width="120">车型名称：</th>
-                    <td> <input type="text" name="name" id="name" class="input-medium px" data-rule-required="true" data-rule-maxlength="20" value="{pigcms:$carmodel['name']}"/>
+                    <td> <input type="text" name="name" id="name" class="px" data-validation-engine="validate[required,minSize[1],maxSize[20]]"
+                    data-errormessage-value-missing="必填项!" value="{pigcms:$carmodel['name']}"/>
                       <span class="maroon">*</span>
                     </td>
                 </tr>
                <tr>
                     <th>品牌/车系：</th>
                     <td>
-                    <select id="car_brands_id"  data-rule-required="true"></select>
+                    <select id="car_brands_id"></select>
                     <input type='hidden' name='brand_serise' id="brand_serise"  value="{pigcms:$carmodel['brand_serise']}"/>
                     <input type='hidden' name='s_id' id="s_id" class='px' value="{pigcms:$carmodel['s_id']}"/>
                     <span class="maroon">选择品牌，车系会自动出来</span>
-                    <!--select name="car_series" id="car_series" class="input-medium px" data-rule-required="true"></select-->
+                    <!--select name="car_series" id="car_series" class="input-medium px" schoolSet></select-->
 <script>
     var opts = {
             select: '#car_brands_id',
@@ -97,14 +101,14 @@
                 </tr>
                 <tr>
                     <th width="120">显示顺序：</th>
-                    <td>  <input type="text" id="sort" name="sort" value="{pigcms:$carmodel['sort']|default=1}" class="input-mini px" data-rule-required="true" data-rule-number="true" /><span class="maroon">*</span>
-                                        <span class="help-inline">数字越大越靠前</span></td>
+                    <td>  <input type="text" id="sort" name="sort" value="{pigcms:$carmodel['sort']|default=1}" class="input-mini px" data-validation-engine="validate[required,custom[integer],min[1]]" data-errormessage-value-missing="必填项"  /><span class="maroon">*</span>
+                    <span class="help-inline">数字越大越靠前</span></td>
                 </tr>
                 <tr>
                     <th>指导价：</th>
-                    <td> 
-                             <input type="text" id="prices" name="guide_price" value="{pigcms:$carmodel['guide_price']}" class="input-mini px" data-rule-number="true" />
-                                        <span class="help-inline">(万元)</span>
+                    <td>
+                    <input type="text" id="prices" name="guide_price" value="{pigcms:$carmodel['guide_price']}" class="input-mini px" data-rule-number="true" />
+                      <span class="help-inline">(万元)</span>
                     </td>
                 </tr>
                 <tr>
@@ -114,11 +118,14 @@
                 </tr>
 
                 <tr>
-                    <th width="120">图片：:</th>
-                    <td> 
+                    <th width="120">图片：</th>
+                    <td>
                                         <p>
-                                            <img class="thumb_img" id="pic_url_src" src="{pigcms:$carmodel['pic_url']|default='tpl/User/default/common/car/lanbo.jpg'}" style="max-height:100px;">
-                                            <input type="input" class="px" id="pic_url" value="{pigcms:$carmodel['pic_url']|default='tpl/User/default/common/car/lanbo.jpg'}" name="pic_url" >
+<if condition="$carmodel['pic_url'] neq ''">
+     <img class="thumb_img" id="pic_url_src" src="{pigcms:$carmodel['pic_url']}" style="max-height:100px;">
+</if>
+    <input type="input" class="px" id="pic_url" value="{pigcms:$carmodel['pic_url']}" name="pic_url" data-validation-engine="validate[required,custom[url]]"
+                    data-errormessage-value-missing="必须上传图片!"  data-errormessage-custom-error="如果是手动填写外链,正确的网址,如: http://www.baidu.com/images/demo.png">
 
                                             <span class="help-inline">
                                                  <script src="{pigcms::STATICS}/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic_url',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic_url')">预览</a>
@@ -129,28 +136,29 @@
                 </tr>
                   <tr>
                     <th width="120">全景相册名称:</th>
-                    <td> 
-                         <select id="panorama_id" name="panorama_id" class="input-medium" data-rule-required="true"> 
-                                          <option value="0">请选择360全景相册</option> 
+                    <td>
+                         <select id="panorama_id" name="panorama_id" class="input-medium" schoolSet>
+                                          <option value="0">请选择360全景相册</option>
                                             <volist name="panorama" id="vo">
                                                <option value="{pigcms:$vo['pid']}" <if condition="$vo['pid'] eq $carmodel['panorama_id']">selected="selected"</if>>{pigcms:$vo['name']}</option>
                                             </volist>
                                         </select>
                                         <span class="maroon">*</span>
-                                        <span class="help-inline">如果没有，请先到 <a href="{pigcms::U('Panorama/add',array('token'=>$token))}" class="btn"><strong><font color='red'>360°全景</strong></font></a>添加</span>
+                                        <span class="help-inline">如果没有留空或者到 <a href="{pigcms::U('Panorama/add',array('token'=>$token))}" class="btn"><strong><font color='red'>360°全景</strong></font></a>添加</span>
                     </td>
                 </tr>
                 <tr>
                     <th width="120">排量：</th>
-                    <td><input type="text" id="pl" name="emission" class="px" value="{pigcms:$carmodel['emission']}" data-rule-number="true" />
+                    <td><input type="text" id="pl" name="emission" class="px" value="{pigcms:$carmodel['emission']}" data-validation-engine="validate[required]"
+                    data-errormessage-value-missing="必填项!" />
                         <span class="help-inline">(L)</span></td>
                 <tr>
                     <th width="120">挡位个数：</th>
-                    <td>  <input type="text" id="dwgs" name="stalls" class="px" value="{pigcms:$carmodel['stalls']}" data-rule-integer="true" /></td>
+                    <td>  <input type="text" id="dwgs" name="stalls" class="px" value="{pigcms:$carmodel['stalls']}" data-rule-integer="true" /> 手动挡车可以留空</td>
                 </tr>
                 <tr>
                     <th width="120">变速箱：</th>
-                    <td> 
+                    <td>
                             <select name="box" id="bsx" class="input-medium">
                                 <option value="1" <if condition="$carmodel['box'] eq 1">selected</if> >自动变速箱(AT)</option>
                                 <option value="2" <if condition="$carmodel['box'] eq 2">selected</if> >手动变速箱(MT)</option>
@@ -176,7 +184,7 @@
             </tbody>
         </table>
     </form>
-  </div> 
+  </div>
 
         </div>
 <include file="Public:footer"/>

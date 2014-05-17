@@ -22,10 +22,10 @@
 <if condition="$homeInfo['musicurl'] neq false">
 <include file="Index:music"/>
 </if>
-        <div class="body">
+        <div class="body" style="width:100%">
     <section>
         <!--img src="../images/v32_1.jpg" style="width:100%;" /-->
-        <ul class="list_ul">
+        <ul class="list_ul" style="width:100%">
             <li class="box">
             <volist name="info" id="vo">
                 <if condition="$i lt 3">    
@@ -85,5 +85,34 @@
 </if>
 </div>
 </div>
-<include file="Index:styleInclude"/>   
+<include file="Index:styleInclude"/><include file="$cateMenuFileName"/>   
+	<if condition="ACTION_NAME eq 'index'">
+		<script type="text/javascript">
+			window.shareData = {  
+					"moduleName":"Index",
+					"moduleID": '0',
+					"imgUrl": "{pigcms:$homeInfo.picurl}", 
+					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"weiboLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"tTitle": "{pigcms:$homeInfo.title}",
+					"tContent": "{pigcms:$homeInfo.info}"
+				};
+		</script>
+	<else />
+		<script type="text/javascript">
+			window.shareData = {  
+				"moduleName":"Index",
+				"moduleID": '1',
+				"imgUrl": "{pigcms:$homeInfo.picurl}", 
+				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"tTitle": "{pigcms:$homeInfo.title}",
+				"tContent": "{pigcms:$homeInfo.info}"
+			};
+		</script>	
+	
+	</if>
+{pigcms:$shareScript}
 </body></html>

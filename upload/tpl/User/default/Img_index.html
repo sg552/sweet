@@ -13,6 +13,7 @@
             </div>
           
             <div class="clr"></div>
+			<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：修改排序直接点击图文消息对应的排序单元格修改即可。数值越大排在越上面</div>
           </div>
           <div class="msgWrap">
             <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
@@ -22,6 +23,7 @@
 					<TH class="keywords">关键词</TH>
 					
                     <TH  class="category" >分类</TH>
+                    <TH class="time">排序</TH>
                     <TH class="time">浏览次数</TH>
 					<TH class="time">时间</TH>
 					<TH class="edit norightborder">操作</TH>
@@ -35,6 +37,9 @@
                   <td>{pigcms:$vo.keyword}</td>
                   
                   <td>{pigcms:$vo.classname}</td>
+                  <td onclick="editUsort({pigcms:$vo.id})" id="edit-{pigcms:$vo.id}" title="点击编修改排序" style="cursor:pointer;">
+					<span class="usort-{pigcms:$vo.id}">{pigcms:$vo.usort}</span>
+				  </td>
                   <td>{pigcms:$vo.click}</td>
                     <td><php>echo date('Y-m-d',$vo['uptatetime']);</php></td>
                    
@@ -48,7 +53,12 @@
                               
               </TBODY>
             </TABLE>
-
+<style>
+	.usort {
+		width:45px;
+		height:25px;
+	}
+</style>
            <script>
    function checkvotethis() {
 var aa=document.getElementsByName('del_id[]');
@@ -65,6 +75,36 @@ document.getElementById('info').submit();
 alert('未选中任何文章或回复！')
 }
 }
+
+			//edit-usort
+		
+					function editUsort(id){
+						if(document.activeElement.id != 'usortinp'){
+							var val = $(".usort-"+id).html();
+							$(".usort-"+id).html('<input type="number" class="usort" id="usortinp" name="usort" value="'+val+'" onkeydown="if(event.keyCode==13){ upUsort('+id+',$(this).val());}" onblur="upUsort('+id+',$(this).val())" />');
+							$("input[name=usort]").focus();
+						}
+
+						
+					}
+					
+					function upUsort(id,b){
+						$.ajax({
+							url:'{pigcms::U("Img/editUsort")}',
+							data:{"id":id,"v":b,"token":"{pigcms:$Think.session.token}"},
+							type:'POST',
+							dataType:'text',
+							success:function(obj){
+								if(obj != 'error'){
+									$(".usort-"+id).html(obj);
+								}else{
+									$(".usort-"+id).html(b);
+								}
+							}
+						});
+						
+					}
+
 
    </script>
           </div>

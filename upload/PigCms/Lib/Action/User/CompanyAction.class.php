@@ -30,7 +30,16 @@ class CompanyAction extends UserAction{
 			$where['isbranch']=0;
 		}
 		$thisCompany=$this->company_model->where($where)->find();
+		if (!$this->isBranch){
+			$fatherCompany=$this->company_model->where(array('token'=>$this->token,'isbranch'=>0))->order('id ASC')->find();
+			if ($fatherCompany){
+				$tj=array('token'=>$this->token);
+				$tj['id']=array('neq',intval($fatherCompany['id']));
+				$this->company_model->where($tj)->save(array('isbranch'=>1));
+			}
+		}
 		if(IS_POST){
+			$_POST['password'] = isset($_POST['password']) && $_POST['password'] ? md5(trim($_POST['password'])) : '';
 			if (!$thisCompany){
 				if ($this->isBranch){
 					$this->insert('Company',U('Company/branches',array('token'=>$this->token,'isBranch'=>$this->isBranch)));
@@ -39,6 +48,9 @@ class CompanyAction extends UserAction{
 				}
 			}else {
 				if($this->company_model->create()){
+					if (empty($_POST['password'])) {
+						unset($_POST['password']);
+					}
 					if($this->company_model->where($where)->save($_POST)){
 						if ($this->isBranch){
 							$this->success('修改成功',U('Company/branches',array('token'=>$this->token,'isBranch'=>$this->isBranch)));
@@ -59,8 +71,16 @@ class CompanyAction extends UserAction{
 		}
 	}
 	public function branches(){
-		$branches=$this->company_model->where(array('isbranch'=>1,'token'=>$this->token))->order('taxis ASC')->select();
-		$this->assign('branches',$branches);
+		$thisCompany=$this->company_model->where(array('token'=>$this->token))->order('id ASC')->find();
+		$where=array('token'=>$this->token);
+		$where['id']=array('neq',$thisCompany['id']);
+		$branches = $this->company_model->where($where)->order('taxis ASC')->select();
+		$list = array();
+		foreach ($branches as $b) {
+			$b['url'] = $_SERVER['HTTP_HOST'] . '/index.php?m=Index&a=clogin&cid=' . $b['id'] . '&k=' . md5($b['id'] . $b['username']);
+			$list[] = $b;
+		}
+		$this->assign('branches', $list);
 		$this->display();
 	}
 	public function delete(){

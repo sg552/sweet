@@ -1,5 +1,5 @@
 <?php
-class DiningAction extends BaseAction{
+class DiningAction extends WapAction{
 	public $token;
 	public $wecha_id;
 	public $product_model;

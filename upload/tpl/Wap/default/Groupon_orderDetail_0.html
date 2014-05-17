@@ -87,7 +87,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,dd,figure,textarea,input,button,select{margin:
    
     <pigcmsif where="$thisOrder.needPay eq '1'">
     <div class="order-btn">
-<span onClick="window.location.href='?g=Wap&m=Alipay&a=pay&price={pigcms:$o.price}&from=groupon&orderName={pigcms:$o.name}&single_orderid={pigcms:$o.id}&token={pigcms:$token}'" gaevent="imt/view/buy" class="btn btn-block btn-strong">付款</span>
+<span onClick="window.location.href='?g=Wap&m=Alipay&a=pay&price={pigcms:$o.price}&from=Groupon&orderName={pigcms:$o.name}&single_orderid={pigcms:$o.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}'" gaevent="imt/view/buy" class="btn btn-block btn-strong">付款</span>
     </div>
     </pigcmsif>
 </article>

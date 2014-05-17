@@ -206,7 +206,7 @@ class GrouponAction extends UserAction{
 		 $infotype = 'Groupon';
 		 $this->reply_info_model=M('Reply_info');
 		$thisInfo = $this->reply_info_model->where(array('infotype'=>$infotype,'token'=>$this->token))->find();
-		F('grouponConfig'.$this->token,$thisInfo);
+		S('grouponConfig'.$this->token,$thisInfo);
 		if ($thisInfo&&$thisInfo['token']!=$this->token){
 			exit();
 		}

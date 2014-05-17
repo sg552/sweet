@@ -2,48 +2,38 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" href="tpl/static/goldenEgg/wap/reset.css" media="all" />
-<link rel="stylesheet" type="text/css" href="tpl/static/goldenEgg/wap/main.css" media="all" />
-<link rel="stylesheet" type="text/css" href="tpl/static/goldenEgg/wap/dialog.css" media="all" />
-<script type="text/javascript" src="tpl/static/goldenEgg/wap/zepto.js"></script>
-<script type="text/javascript" src="tpl/static/goldenEgg/wap/dialog_min.js"></script>
-<script type="text/javascript" src="tpl/static/goldenEgg/wap/player_min.js"></script>
-<script type="text/javascript" src="tpl/static/goldenEgg/wap/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="tpl/static/goldenEgg/wap/style/css/reset.css" media="all" />
+<link rel="stylesheet" type="text/css" href="tpl/static/goldenEgg/wap/style/css/main.css" media="all" />
+<link rel="stylesheet" type="text/css" href="tpl/static/goldenEgg/wap/style/css/dialog.css" media="all" />
+<script type="text/javascript" src="tpl/static/goldenEgg/wap/style/js/zepto.js"></script>
+<script type="text/javascript" src="tpl/static/goldenEgg/wap/style/js/dialog_min.js"></script>
+<script type="text/javascript" src="tpl/static/goldenEgg/wap/style/js/player_min.js"></script>
+<script type="text/javascript" src="tpl/static/goldenEgg/wap/style/js/main.js"></script>
 <title>{pigcms:$lottery.title}</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
         <meta name="Keywords" content="" />
         <meta name="Description" content="" />
-       <!-- Mobile Devices Support @begin -->
+        <!-- Mobile Devices Support @begin -->
             <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
             <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
             <meta content="no-cache" http-equiv="pragma">
             <meta content="0" http-equiv="expires">
             <meta content="telephone=no, address=no" name="format-detection">
+            <meta content="width=device-width, initial-scale=1.0" name="viewport">
             <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
             <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <!-- Mobile Devices Support @end -->
     </head>
     <body onselectstart="return true;" ondragstart="return false;">
         <script>
-        window.alert = function(str){
-		var d7 = new iDialog();
-		d7.open({
-			classList: "alert",
-			title:"",
-			close:"",
-			content:str,
-			btns:[
-				{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
-					self.die();
-				}},
-			]
-		});
-	}
 document.addEventListener("DOMContentLoaded", function(){
+	playbox.init("playbox");
 	//
+	
 	var shape = document.getElementById("shape");
 	var hitObj = {
+		<pigcmsif where="$wecha_id neq ''">
 		handleEvent: function(evt){
 						if("SPAN" == evt.target.tagName){
 				var audio = new Audio();
@@ -56,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function(){
 						type: "POST",
 						dataType: "json",
 						async:true,
-						data:{id:{pigcms:$lottery.id},rid:<?php echo intval($lottery['rid']);?>,wechat_id:'{pigcms:$lottery.wecha_id}',token:'{pigcms:$lottery.token}'},
+						data:{id:{pigcms:$lottery.id},rid:{pigcms:$lottery.rid},wechat_id:'{pigcms:$lottery.wecha_id}',token:'{pigcms:$lottery.token}'},
 						success: function(res){
 							if(1 == res.success){
 								evt.target.classList.toggle("luck");
@@ -83,6 +73,9 @@ document.addEventListener("DOMContentLoaded", function(){
 			shape.removeEventListener("click", hitObj, false);
 
 					}
+					<else/>
+					alert('您不能参加此活动');
+					</pigcmsif>
 	}
 	shape.addEventListener("click", hitObj, false);
 }, false);
@@ -92,10 +85,6 @@ document.addEventListener("DOMContentLoaded", function(){
 		<div style="position:absolute;left:10px;top:10px;z-index:350;">
 		<a href="javascript:;" id="playbox" class="btn_music" onclick="playbox.init(this).play();" ontouchstart="event.stopPropagation();"></a><audio id="audio" loop src="tpl/static/goldenEgg/wap/default.mp3" style="pointer-events:none;display:none;width:0!important;height:0!important;"></audio>
 	</div>
-	<script type="text/javascript">
-		playbox.init("playbox");
-	</script>
-
 	<section class="stage">
 		<img src="tpl/static/goldenEgg/wap/style/images/stage.jpg" />
 		 <div id="shape" class="cube on">
@@ -107,6 +96,16 @@ document.addEventListener("DOMContentLoaded", function(){
 	</section>
 		<section>
 		<div class="instro_wall">
+		
+		<pigcmsif where="$wecha_id eq ''">
+		<article>
+			<h6>参与次数</h6>
+			<div style="line-height:200%">
+				<p style="color:#f00;line-height:160%">您可能是从朋友圈等分享过的页面打开的链接，无法直接参与此活动，如需参与此活动请按照以下步骤操作：<br>1、关注微信名称“{pigcms:$wxuser.wxname}”或者微信号“{pigcms:$wxuser.weixin}”<br>2、输入关键词：“{pigcms:$lottery.keyword}”</p>            
+                </div>
+			</article>
+			</pigcmsif>
+			
 			<article>
 				<h6>参与次数</h6>
 				<div style="line-height:200%">
@@ -181,7 +180,7 @@ sqdh({sn:'{pigcms:$record.sn}',prize_type:'{pigcms:$record.prize}'});
 					var obj = {
 						parssword: $.trim($("#d1_2").val()),
 						id:{pigcms:$lottery.id},
-						rid:<?php echo intval($record['id']);?>,
+						rid:{pigcms:$record.id},
 					}
 					$.post('?g=Wap&m=Lottery&a=exchange', obj,
 					function(data) {
@@ -260,7 +259,7 @@ sqdh({sn:'{pigcms:$record.sn}',prize_type:'{pigcms:$record.prize}'});
 			classList: "result",
 			title:"",
 			close:"",
-			content:'<div class="header"><h5 style="color:#2f8ae5;font-size:16px;">恭喜您中奖了！您的运气太好了！</h6></div>\
+			content:'<div class="header"><h5 style="color:#2f8ae5;font-size:16px;">{pigcms:$lottery.sttxt}</h6></div>\
 				<table style="margin-top:60px;"><tr>\
 					<td style="text-align:center"><label>'+arg.prize+'</label></td>\
 				</tr></table>',
@@ -334,6 +333,16 @@ sqdh({sn:'{pigcms:$record.sn}',prize_type:'{pigcms:$record.prize}'});
 </script>
         		<div mark="stat_code" style="width:0px; height:0px; display:none;">
 					</div>
-					
+					<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"GoldenEgg",
+            "moduleID":"{pigcms:$lottery.id}",
+            "imgUrl": "{pigcms:$lottery.starpicurl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('GoldenEgg/index',array('token'=>$token,'id'=>$lottery['id']))}",
+            "tTitle": "{pigcms:$lottery.title}",
+            "tContent": "{pigcms:$lottery.info}"
+};
+</script>
+{pigcms:$shareScript}
 	</body>
 </html>

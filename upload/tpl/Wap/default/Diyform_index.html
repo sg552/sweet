@@ -327,5 +327,17 @@ window.onresize = function(){
 
 </script>
 </div>
+
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Selfform",
+            "moduleID":"{pigcms:$thisCompany.id}",
+            "imgUrl": "{pigcms:$thisCompany.logourl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Selfform/index',array('token'=>$token,'latitude'=>$_GET['latitude'],'longitude'=>$_GET['longitude'],'id'=>$thisCompany['id']))}",
+            "tTitle": "{pigcms:$thisCompany.name}",
+            "tContent": "{pigcms:$thisCompany.address}"
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

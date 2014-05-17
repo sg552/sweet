@@ -1,4 +1,8 @@
 <include file="Index:header"/>
+ <script src="/tpl/static/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/upyun.js?2013"></script>
 <div class="content">
           <div class="cLineB"><h4>添加微信公众号</h4></div>
           <form method="post" action="{pigcms::U('User/Index/upsave')}" enctype="multipart/form-data">
@@ -23,7 +27,7 @@
                 </tr>
                   <tr>
                   <th>头像地址（url）:</th>
-                  <td><input class="px" name="headerpic" value="{pigcms:$info.headerpic}" size="60">  请填写图片外链地址 <a href="forum.php?mod=viewthread&amp;tid=69&amp;extra=page%3D1" target="_blank"><img src="{pigcms::RES}/images/help.png" class="vm helpimg" title="帮助"></a></td>
+                  <td><input class="px" name="headerpic" id="pic" value="{pigcms:$info.headerpic}" size="60">    <script src="/tpl/static/upyun.js?2013"></script><a href="###" onclick="upyunPicUpload('pic',200,200,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a></td>
                 </tr>
                  
                  <input type="hidden" name="token" value="{pigcms:$info.token}" class="px" tabindex="1" size="40">

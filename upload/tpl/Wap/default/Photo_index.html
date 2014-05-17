@@ -41,6 +41,16 @@ function dourl(url){
 location.href= url;
 }
 </script>
-
+ <script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Photo",
+            "moduleID":"0",
+            "imgUrl": "{pigcms:$headpic}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Photo/index',array('token'=>$token))}",
+            "tTitle": "相册",
+            "tContent": ""
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

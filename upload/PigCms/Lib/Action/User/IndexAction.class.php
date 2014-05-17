@@ -2,6 +2,20 @@
 class IndexAction extends UserAction{
 	//公众帐号列表
 	public function index(){
+		if (class_exists('demoImport')){
+			$this->assign('demo',1);
+			//
+			$token=$this->get_token();
+			$wxinfo=M('wxuser')->where(array('uid'=>intval(session('uid'))))->find();
+			if (!$wxinfo){
+				$demoImport=new demoImport(session('uid'),$token);
+			}
+			$wxinfo=M('wxuser')->where(array('uid'=>intval(session('uid'))))->find();
+			$this->assign('wxinfo',$wxinfo);
+			//
+			$this->assign('token',$token);
+		}
+		//
 		$where['uid']=session('uid');
 		$group=D('User_group')->select();
 		foreach($group as $key=>$val){
@@ -27,11 +41,24 @@ class IndexAction extends UserAction{
 				//
 			}
 		}
+		
 		$this->assign('thisGroup',$this->userGroup);
 		$this->assign('info',$info);
 		$this->assign('group',$groups);
 		$this->assign('page',$page->show());
 		$this->display();
+	}
+	//
+	public function get_token(){
+		$randLength=6;
+		$chars='abcdefghijklmnopqrstuvwxyz';
+		$len=strlen($chars);
+		$randStr='';
+		for ($i=0;$i<$randLength;$i++){
+			$randStr.=$chars[rand(0,$len-1)];
+		}
+		$tokenvalue=$randStr.time();
+		return $tokenvalue;
 	}
 	//添加公众帐号
 	public function add(){
@@ -59,7 +86,8 @@ class IndexAction extends UserAction{
 	public function edit(){
 		$id=$this->_get('id','intval');
 		$where['uid']=session('uid');
-		$res=M('Wxuser')->where($where)->find($id);
+		$where['id']=$id;
+		$res=M('Wxuser')->where($where)->find();
 		$this->assign('info',$res);
 		$this->display();
 	}
@@ -69,7 +97,8 @@ class IndexAction extends UserAction{
 		$where['uid']=session('uid');
 		if(D('Wxuser')->where($where)->delete()){
 			if ($this->isAgent){
-				M('Agent')->where(array('id'=>$this->thisAgent['id']))->setDec('wxusercount');
+				$wxuserCount=M('Wxuser')->where(array('agentid'=>$this->thisAgent['id']))->count();
+				M('Agent')->where(array('id'=>$this->thisAgent['id']))->save(array('wxusercount'=>$wxuserCount));
 				if ($this->thisAgent['wxacountprice']){
 					M('Agent')->where(array('id'=>$this->thisAgent['id']))->setInc('moneybalance',$this->thisAgent['wxacountprice']);
 					M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>$this->thisAgent['wxacountprice'],'des'=>$this->user['username'].'(uid:'.$this->user['id'].')删除公众号'.$_POST['wxname'],'status'=>1,'time'=>time()));
@@ -82,6 +111,7 @@ class IndexAction extends UserAction{
 	}
 	
 	public function upsave(){
+		S('wxuser_'.$this->token,NULL);
 		M('Diymen_set')->where(array('token'=>$this->token))->save(array('appid'=>trim($this->_post('appid')),'appsecret'=>trim($this->_post('appsecret'))));
 		$this->all_save('Wxuser');
 	}
@@ -106,7 +136,8 @@ class IndexAction extends UserAction{
 			$id=$db->add();
 			if($id){
 				if ($this->isAgent){
-					M('Agent')->where(array('id'=>$this->thisAgent['id']))->setInc('wxusercount');
+					$wxuserCount=M('Wxuser')->where(array('agentid'=>$this->thisAgent['id']))->count();
+					M('Agent')->where(array('id'=>$this->thisAgent['id']))->save(array('wxusercount'=>$wxuserCount));
 					if ($this->thisAgent['wxacountprice']){
 						M('Agent')->where(array('id'=>$this->thisAgent['id']))->setDec('moneybalance',$this->thisAgent['wxacountprice']);
 						M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>(0-$this->thisAgent['wxacountprice']),'des'=>$this->user['username'].'(uid:'.$this->user['id'].')添加公众号'.$_POST['wxname'],'status'=>1,'time'=>time()));

@@ -113,6 +113,9 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
 		<!--/if--><!--没有领过-->
 		<!--都显示-->
 			<div class="content">	   
+			
+			
+			<pigcmsif where="$wecha_id neq ''">
 				<div id="zjl" <?php if($Coupon['end'] != 3||($Coupon['end'] == 3&&$Coupon['phone'])){ ?>style="display:none"<?php }?> class="boxcontent boxwhite">
 				<!--领到了优惠券start-->
 					<div class="box">
@@ -136,6 +139,19 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
 					</div>
 					<!--领到了优惠券end-->
 				</div>
+			</pigcmsif>	
+				
+				<pigcmsif where="$wecha_id eq ''">
+<div class="boxcontent boxwhite">
+						<div class="box">
+							<div class="title-brown">友情提醒：</div>
+							<div class="Detail">
+				<p style="color:#f00;line-height:160%">您可能是从朋友圈等分享过的页面打开的链接，无法直接参与此活动，如需参与此活动请按照以下步骤操作：<br>1、关注微信名称“{pigcms:$wxuser.wxname}”或者微信号“{pigcms:$wxuser.weixin}”<br>2、输入关键词：“{pigcms:$Coupon.keyword}”</p>            
+               </div>
+</div>
+</div>
+			</pigcmsif>
+			
 
 					<div class="boxcontent boxwhite">
 						<div class="box">
@@ -158,6 +174,7 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
 						<div class="box">
 							<div class="title-brown">活动说明：</div>
 							<div class="Detail">
+							<?php if ($Coupon['statdate']>time()){echo '<p style="color:red">活动还没有开始 :(</p>';}?>
 							<p>{pigcms:$Coupon.title}</p>
 							<p>{pigcms:$Coupon.info}</p>
 								<p>活动时间: {pigcms:$Coupon.statdate|date="Y-m-d",###}至{pigcms:$Coupon.enddate|date="Y-m-d",###}</p>
@@ -320,7 +337,7 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
 </div>
  
  
-
+<pigcmsif where="$wecha_id neq ''">
 <script type="text/javascript">
 <?php if($Coupon['end'] != 3){ ?>//中过奖之后不显示此js
 /*window.sncode = "{pigcms:$Coupon.sn}";*/
@@ -414,4 +431,16 @@ function () {
 	"json")
 });
 </script>
+</pigcmsif>
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Coupon",
+            "moduleID":"{pigcms:$Coupon.id}",
+            "imgUrl": "{pigcms:$Coupon.starpicurl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Coupon/index',array('token'=>$token,'id'=>$Coupon['id']))}",
+            "tTitle": "{pigcms:$Coupon.title}",
+            "tContent": "{pigcms:$Coupon.info}"
+};
+</script>
+{pigcms:$shareScript}
 </body></html>

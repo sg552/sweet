@@ -3,25 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1">
 <title>
-	{pigcms:$f_siteName}-飞达后台管理登录
+	{pigcms:$f_siteName}-PigCms后台管理登录
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Keywords" content="飞达微信营销系统" />
-<meta name="Description" content="飞达微信营销系统" />
+<meta name="Keywords" content="PigCms微信营销系统" />
+<meta name="Description" content="PigCms微信营销系统" />
 <link type="text/css" rel="stylesheet" href="{pigcms::RES}/css/reset.css" />
 <link type="text/css" rel="stylesheet" href="{pigcms::RES}/css/common.css" />
 <link type="text/css" rel="stylesheet" href="{pigcms::RES}/css/page.css" />
-<script type="text/javascript" src="{pigcms::STATICS}/jquery.min.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 <!--[if IE 6]>
-
+ 
 <script language="javascript" type="text/javascript" src="{pigcms::RES}/js/DD_belatedPNG.js"></script>
-
+ 
 <script language="javascript" type="text/javascript">
-
+ 
 DD_belatedPNG.fix(".logo a img,.shade img");
-
+ 
 </script>
-
+ 
 <![endif]-->
 <script type="text/javascript">
     $(function () {
@@ -34,7 +34,7 @@ DD_belatedPNG.fix(".logo a img,.shade img");
 
     function refresh() {
         var randomRZ = Math.random();
-        $("#imgCheckB").attr("src", "/index.php?g=Admin&m=Admin&a=verify&rz=" + randomRZ);
+        $("#imgCheckB").attr("src", "/index.php?g=System&m=Admin&a=verify&rz=" + randomRZ);
     }
 </script>
 </head>
@@ -51,8 +51,8 @@ DD_belatedPNG.fix(".logo a img,.shade img");
             	<form name="form1" method="post" action="{pigcms::U('Admin/insert')}" id="form1" class="myform">
 
                 	<fieldset>
-                		<legend><h1>飞达 后台管理系统</h1></legend>
-
+                		<legend><h1>PigCms 后台管理系统</h1></legend>
+                       
                   		<p><span><input name="username" type="text" id="username" class="username_input" /></span></p>
                    	    <p><span><input name="password" type="password" id="pw" class="ps_input" /></span></p>
                     	<p>
@@ -60,12 +60,12 @@ DD_belatedPNG.fix(".logo a img,.shade img");
                         	<span class="chk_img"><img src="{pigcms::U('Admin/verify')}" id="imgCheckB"/></span>
                             <span class="chk_txt"><a href="javascript:refresh();" style="color: #0033CC">看不清？换一张</a></span>
                         </p>
-
+                      
                <input type="submit" name="Button1" value="" id="Button1" class="subBtn" />
 
                     </fieldset>
 
-                </form>
+                </form>	
 			</div>
 			<div class="bottom clearfix">
 				<div class="bl"></div>
@@ -74,13 +74,13 @@ DD_belatedPNG.fix(".logo a img,.shade img");
 			</div>
 		</div>
 
-
+        
 </div>
 
 <!--footer-->
 <div class="footer pt30">
-	CopyRight &copy 2013 飞达 All Rights Reserved 版权所有 PigCms<br />
-
+	CopyRight &copy 2013 PigCms All Rights Reserved 版权所有 PigCms<br />
+	
 </div>
 </body>
 </html>

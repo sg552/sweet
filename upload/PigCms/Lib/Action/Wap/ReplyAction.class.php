@@ -1,5 +1,5 @@
 <?php
-class ReplyAction extends BaseAction{
+class ReplyAction extends WapAction{
     public $token;
     public $needCheck;
     public $sepTime;
@@ -65,6 +65,7 @@ class ReplyAction extends BaseAction{
             $res = $leave_model->add($msgarr); 
             //echo $res;exit;
             if($res){
+            	Sms::sendSms($this->token,'留言板有新的留言');
                 $msgarr['id']=$res;
                 if($msgarr['checked'] == 1){
                     $msgarr['time'] =date("Y-m-d H:i:s",$msgarr['time']);

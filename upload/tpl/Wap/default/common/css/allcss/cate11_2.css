@@ -81,7 +81,7 @@ a {
 	background-color:#6DB886;
 }
 
-
+/*
 #cate6 .mainmenu li.li1:nth-child(10) {
     width: 100%;
 	text-align: left;
@@ -168,6 +168,7 @@ a {
 	background: url("../images/ico-next.png") no-repeat scroll right center transparent;
 	background-size: 7px auto;
 }
+
 
 #cate6 .mainmenu li.li0:nth-child(n+16) {
 	height:48px;
@@ -281,7 +282,7 @@ a {
 	background-size: 7px auto;
 }
 
-
+*/
 #cate6 .mainmenu li .menubtn {
 	
 }

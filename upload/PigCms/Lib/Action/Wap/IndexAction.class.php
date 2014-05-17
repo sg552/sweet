@@ -3,42 +3,28 @@ function strExists($haystack, $needle)
 {
 	return !(strpos($haystack, $needle) === FALSE);
 }
-class IndexAction extends BaseAction{
+class IndexAction extends WapAction{
 	private $tpl;	//微信公共帐号信息
 	private $info;	//分类信息
-	private $wecha_id;
-	private $copyright;
+	public $wecha_id;
+	public $copyright;
 	public $company;
 	public $token;
 	public $weixinUser;
 	public $homeInfo;
 	public function _initialize(){
 		parent::_initialize();
-		$agent = $_SERVER['HTTP_USER_AGENT']; 
-		if(!strpos($agent,"icroMessenger")&&!isset($_GET['show'])) {
-			//echo '此功能只能在微信浏览器中使用';exit;
-		}
-		//
-		$this->token=$this->_get('token','trim');
 		$where['token']=$this->token;
-		
-		$tpl=D('Wxuser')->where($where)->find();
+		$tpl=$this->wxuser;
 		$this->weixinUser=$tpl;
-		
 		if (isset($_GET['wecha_id'])&&$_GET['wecha_id']){
 			$_SESSION['wecha_id']=$_GET['wecha_id'];
-			$this->wecha_id=$this->_get('wecha_id');
-			$this->assign('wecha_id',$this->wecha_id);
-		}
-		if (isset($_SESSION['wecha_id'])){
-			$this->wecha_id=$_SESSION['wecha_id'];
-		}
-		//dump($where);
+		}		
 		//父类信息
 		$allClasses=M('Classify')->where(array('token'=>$this->_get('token'),'status'=>1))->order('sorts desc')->select();
 		$allClasses=$this->convertLinks($allClasses);//加外链等信息
 		$info=array();
-		if ($allClasses){
+			if ($allClasses){
 			$classByID=array();
 			$firstGradeCatCount=0;
 			foreach ($allClasses as $c){
@@ -49,11 +35,13 @@ class IndexAction extends BaseAction{
 					$firstGradeCatCount++;
 				}
 			}
+		
 			foreach ($allClasses as $c){
-				if ($c['fid']>0){
+				if ($c['fid']>0&&$info[$c['fid']]){
 					array_push($info[$c['fid']]['sub'],$c);
 				}
 			}
+			
 			//
 			if($info){
 			    foreach($info as $c){
@@ -61,69 +49,10 @@ class IndexAction extends BaseAction{
 				}
 			}
 		}
-		//
-		$homeInfo=M('home')->where(array('token'=>$this->token))->find();
-		//
-		$catemenu_db=M('catemenu');
-		$catemenu=$catemenu_db->where(array('token'=>$this->token,'status'=>1))->order('orderss desc')->select();
-		
-		$menures=array();
-		if ($catemenu){
-			$res=array();
-			$rescount=0;
-			foreach ($catemenu as $val){
-				$val['url']=$this->getLink($val['url']);
-				$res[$val['id']]=$val;
-				if ($val['fid']==0){
-					$val['vo']=array();
-					$menures[$val['id']]=$val;
-					$menures[$val['id']]['k']=$rescount;
-					$rescount++;
-				}
-			}
-			foreach ($catemenu as $val){
-				$val['url']=$this->getLink($val['url']);
-				if ($val['fid']>0){
-					array_push($menures[$val['fid']]['vo'],$val);
-				}
-			}
-		}
-		$catemenu=$menures;
-		$this->assign('catemenu',$catemenu);
-		//判断菜单风格
-		$styleset_db=M('home');
-		$radiogroup=$homeInfo['radiogroup'];
-		if($radiogroup==false){
-			$radiogroup=0;
-		}
-		$cateMenuFileName='tpl/Wap/default/Index_menuStyle'.$radiogroup.'.html';
-		$this->assign('cateMenuFileName',$cateMenuFileName);
-		$this->assign('radiogroup',$radiogroup);
-		//
-		$gid=D('Users')->field('gid')->find($tpl['uid']);
-		$this->userGroup=M('User_group')->where(array('id'=>$gid['gid']))->find();
-		$this->copyright=$this->userGroup['iscopyright'];
-		
+		$homeInfo=$this->homeInfo;
 		$this->info=$info;
 		$tpl['color_id']=intval($tpl['color_id']);
 		$this->tpl=$tpl;
-		$company_db=M('company');
-		$this->company=$company_db->where(array('token'=>$this->token,'isbranch'=>0))->find();
-		$this->assign('company',$this->company);
-		//
-		$this->homeInfo=$homeInfo;
-		$this->assign('iscopyright',$this->copyright);//是否允许自定义版权
-		$this->assign('siteCopyright',C('copyright'));//站点版权信息
-		$this->assign('homeInfo',$homeInfo);
-		//
-		$this->assign('token',$this->token);
-		//
-		
-		$this->assign('copyright',$this->copyright);
-		//plugmenus
-		$plugMenus=$this->_getPlugMenu();
-		$this->assign('plugmenus',$plugMenus);
-		$this->assign('showPlugMenu',count($plugMenus));
 	}
 	
 	public function debug(){
@@ -131,7 +60,6 @@ class IndexAction extends BaseAction{
 	}
 	public function classify(){
 		$this->assign('info',$this->info);
-		
 		$this->display($this->tpl['tpltypename']);
 	}
 	
@@ -142,14 +70,18 @@ class IndexAction extends BaseAction{
 			exit();
 		}
 		//
-		$where['token']=$this->_get('token');
+		$where['token']=$this->token;
 		//
 		$allflash=M('Flash')->where($where)->select();
 		$allflash=$this->convertLinks($allflash);
+		
 		//
 		$flash=array();
 		$flashbg=array();
 		foreach ($allflash as $af){
+		if ($af['url']==''){
+				$af['url']='javascript:void(0)';
+			}
 			if ($af['tip']==1){
 				array_push($flash,$af);
 			}elseif ($af['tip']==2) {
@@ -169,64 +101,280 @@ class IndexAction extends BaseAction{
 			$flash_db->add($arr);
 			}
 		}
+		$info = $this->info;
+		
+		//$info = $this->convertLinks($info);
+		$tpldata=$this->wxuser;
+		$tpldata['color_id']=intval($tpldata['color_id']);
+			//获取模板信息
+			include('./PigCms/Lib/ORG/index.Tpl.php');
+
+				foreach($tpl as $k=>$v){
+					if($v['tpltypeid'] == $tpldata['tpltypeid']){
+						$tplinfo = $v;
+					}
+				}
+			
+			$tpldata['tpltypeid'] = $tplinfo['tpltypeid'];
+			$tpldata['tpltypename'] = $tplinfo['tpltypename'];		
+
+			foreach($info as $k=>$v){
+			
+				if($info[$k]['url'] == ''){
+						$info[$k]['url'] = U('Index/lists',array('classid'=>$v['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
+					}
+			}
+			
+			if($tpldata['tpltypename'] == 'ktv_list' || $tpldata['tpltypename'] == 'yl_list'){
+
+				//控制模板中的不同字段
+				foreach($info as $key=>$val){
+					$info[$key]['title'] = $val['name'];
+					$info[$key]['pic'] = $val['img'];
+					if($info[$key]['url'] == ''){
+						$info[$key]['url'] = U('Index/lists',array('classid'=>$val['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
+					}
+					
+					$info[$key]['info'] = strip_tags(htmlspecialchars_decode($val['info']));
+				}
+				
+			}		
+		
+		
 
 		$count=count($flash);
 		$this->assign('flash',$flash);
-		$this->assign('info',$this->info);
+		$this->assign('homeInfo',$this->homeInfo);
+		$this->assign('info',$info);
 		$this->assign('num',$count);
 		$this->assign('flashbgcount',count($flashbg));
-		$this->assign('info',$this->info);
 		$this->assign('tpl',$this->tpl);
-
+		$this->assign('copyright',$this->copyright);
 		$this->display($this->tpl['tpltypename']);
 	}
 	
 	public function lists(){
-		$where['token']=$this->_get('token','trim');
-		$db=D('Img');	
-		if($_GET['p']==false){
-			$page=1;
+	
+
+		$token = $this->token;
+		$classid = $this->_get('classid','intval');	
+
+
+		$where['token'] = $this->_get('token','trim');
+		$classify = M('classify');
+		//本分类信息		
+		$info = $classify->where("id = $classid AND token = '$token'")->find();		
+		//是否有子类
+		$sub = $classify->where("fid = $classid AND token = '$token'")->select();
+		$sub = $this->convertLinks($sub);
+		$tpldata=D('Wxuser')->where($where)->find();
+		$tpldata['color_id']=intval($tpldata['color_id']);
+			//获取模板信息
+			include('./PigCms/Lib/ORG/index.Tpl.php');
+			foreach($tpl as $k=>$v){
+				if($v['tpltypeid'] == $info['tpid']){
+					$tplinfo = $v;
+				}
+			}
+
+			$tpldata['tpltypeid'] = $tplinfo['tpltypeid'];
+			$tpldata['tpltypename'] = $tplinfo['tpltypename'];
+	
+
+		$imgdata = M('Img')->field('id')->where("classid = $classid")->find();
+		
+	
+		if(!empty($sub) AND empty($imgdata)){
+		//有子类
+
+			//幻灯片
+			$allflash=M('Flash')->where($where)->select();
+			$allflash=$this->convertLinks($allflash);
+			
+			$flash=array();
+			$flashbg=array();
+			foreach ($allflash as $af){
+				if ($af['tip']==1){
+					array_push($flash,$af);
+				}elseif ($af['tip']==2) {
+					array_push($flashbg,$af);
+				}
+			}
+			$this->assign('flashbg',$flashbg);
+			if(!$flashbg&&$this->homeInfo['homeurl']){
+				$flash_db=M('Flash');
+				$arr=array();
+				$arr['token']=$this->token;
+				$arr['img']=$this->homeInfo['homeurl'];
+				$arr['url']='';
+				$arr['info']='';
+				$arr['tip']=2;
+				if ($arr['img']){
+				$flash_db->add($arr);
+				}
+			}
+	
+			if($tpldata['tpltypename'] == 'ktv_list' || $tpldata['tpltypename'] == 'yl_list'){
+
+				//控制模板中的不同字段
+				foreach($sub as $key=>$val){
+					$sub[$key]['title'] = $val['name'];
+					$sub[$key]['pic'] = $val['img'];
+					if($sub[$key]['url'] == ''){
+						$sub[$key]['url'] = U('Index/lists',array('classid'=>$val['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
+					}
+					$sub[$key]['info'] = strip_tags(htmlspecialchars_decode($val['info']));
+					
+					
+				}
+				
+			}
+			foreach($sub as $ke=>$va){
+				 $subpid = $va['id'];
+					$sub[$ke]['sub'] = M('Classify')->where("fid = $subpid")->select();
+				if($sub[$ke]['url'] == ''){
+					$sub[$ke]['url'] = U('Index/lists',array('classid'=>$va['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
+				}
+			}
+			
+				$count=count($flash);
+				$this->assign('flash',$flash);
+				$this->assign('num',$count);
+				$this->assign('flashbgcount',count($flashbg));
+				$this->assign('info',$sub);
+				$this->assign('tpl',$tpldata);
+				$this->assign('copyright',$this->copyright);
+				$this->display($tpldata['tpltypename']);
+		
 		}else{
-			$page=$_GET['p'];			
-		}		
-		$where['classid']=$this->_get('classid','intval');
-		$count=$db->where($where)->count();	
-		$pageSize=8;	
-		$pagecount=ceil($count/$pageSize);
-		if($page > $count){$page=$pagecount;}
-		if($page >=1){$p=($page-1)*$pageSize;}
-		if($p==false){$p=0;}
-		$res=$db->where($where)->order('createtime DESC')->limit("{$p},".$pageSize)->select();
-		$res=$this->convertLinks($res);
-		$this->assign('page',$pagecount);
-		$this->assign('p',$page);
-		$this->assign('info',$this->info);
-		$this->assign('tpl',$this->tpl);
-		$this->assign('res',$res);
-		$this->assign('copyright',$this->copyright);
-		if ($count==1){
-			$this->content($res[0]['id']);
-			exit();
+			//无子类 在模板中显示内容列表
+				$where['token'] = $this->token;
+				$where['classid']=$this->_get('classid','intval');
+				$db=D('Img');
+				
+
+			//多数模板没有分页，这里取消分页功能
+				$res=$db->where($where)->order('usort DESC')->select();
+				$res=$this->convertLinks($res);
+
+			//控制模板中的不同字段
+				foreach($res as $key=>$val){
+					$res[$key]['name'] = $val['title'];
+					$res[$key]['img'] = $val['pic'];
+					if($res[$key]['url'] == ''){
+						$res[$key]['url'] = U('Index/content',array('id'=>$val['id'],'classid'=>$val['classid'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
+					}
+					$res[$key]['info'] = strip_tags(htmlspecialchars_decode($val['info']));
+				}
+				
+			//当列表页只有一篇内容的时候，直接显示内容
+				$listNum = count($res);
+
+				if($listNum == 1){
+					$contid = $res[0]['id'];
+					$cid = $res[0]['classid'];
+					$this->content($contid,$cid);
+					exit;
+				}
+				
+			//幻灯片
+			$allflash=M('Flash')->where($where)->select();
+			$allflash=$this->convertLinks($allflash);
+			
+			$flash=array();
+			$flashbg=array();
+			foreach ($allflash as $af){
+				if ($af['tip']==1){
+					array_push($flash,$af);
+				}elseif ($af['tip']==2) {
+					array_push($flashbg,$af);
+				}
+			}
+			$this->assign('flashbg',$flashbg);
+			if(!$flashbg&&$this->homeInfo['homeurl']){
+				$flash_db=M('Flash');
+				$arr=array();
+				$arr['token']=$this->token;
+				$arr['img']=$this->homeInfo['homeurl'];
+				$arr['url']='';
+				$arr['info']='';
+				$arr['tip']=2;
+				if ($arr['img']){
+				$flash_db->add($arr);
+				}
+			}
+		
+				$count=count($flash);
+				$this->assign('flash',$flash);
+				$this->assign('num',$count);
+				$this->assign('flashbgcount',count($flashbg));
+				
+
+				$this->assign('info',$res);
+				$this->assign('tpl',$tpldata);
+				$this->assign('copyright',$this->copyright);
+				//
+				if ($listNum==1){
+					$this->content($res[0]['id']);
+					exit();
+				}
+				
+				$this->display($tpldata['tpltypename']);	
+
 		}
-		$this->display($this->tpl['tpllistname']);
+				
+
 	}
 	
-	public function content($contentid=0){
-		$db=M('Img');
-		$where['token']=$this->_get('token','trim');
-		if (!$contentid){
-			$contentid=intval($_GET['id']);
+	public function content($contid='',$cid=''){
+		$token = $this->token;
+		$class = M('Classify');
+		$img = M('Img');	
+		
+		//从模板直接浏览，或在列表方法中调用
+		if($contid == '' AND $cid == ''){
+			$id = $this->_get('id','intval');
+			$classid = $this->_get('classid','intval');
+			
+		}else{
+		
+			$id = $contid;
+			$classid = $cid;
+
 		}
-		$where['id']=array('neq',$contentid);
-		$lists=$db->where($where)->limit(5)->order('uptatetime')->select();
-		$where['id']=$contentid;
-		$res=$db->where($where)->find();
-		$this->assign('info',$this->info);	//分类信息
-		$this->assign('lists',$lists);		//列表信息
-		$this->assign('res',$res);			//内容详情;
-		$this->assign('tpl',$this->tpl);				//微信帐号信息
-		$this->assign('copyright',$this->copyright);	//版权是否显示
-		$this->display($this->tpl['tplcontentname']);
+		$res = $img->where("id = ".intval($id)." AND token = '$token'")->find();
+
+		if($classid == ''){
+			$classid = $res['classid'];
+		}
+
+		
+		//增加浏览量
+		$img->where("token = '$token' AND id = ".intval($id)."")->setInc('click');
+
+		$classinfo = $class->where("id = $classid AND token = '$token'")->field('conttpid')->find();
+		$tplinfo = D('Wxuser')->where("token = '$token'")->find();
+		//获取模板
+			include('./PigCms/Lib/ORG/cont.Tpl.php');
+			foreach($contTpl as $k=>$v){
+				if($v['tpltypeid'] == $classinfo['conttpid']){
+					$tpldata = $v;
+				}
+			}
+			
+			$tplinfo['tpltypeid'] = $tpldata['tpltypeid'];
+			$tplinfo['tpltypename'] = $tpldata['tpltypename'];
+			
+
+		$lists=$img->where("classid = $classid AND token = '$token' AND id != $id")->limit(5)->order('uptatetime')->select();
+
+		$this->assign('info',$this->info);			//分类信息
+		$this->assign('copyright',$this->copyright);	//版权是否显示		
+		$this->assign('res',$res);
+		$this->assign('lists',$lists);
+		$this->assign('tpl',$tplinfo);
+		$this->display($tplinfo['tpltypename']);
+	
 	}
 	
 	public function flash(){

@@ -24,7 +24,7 @@
 </if> 
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/125/font-awesome.css" media="all">
 
-<div class="weimob-page" style="display:block; ">
+<div class="pigcms-page" style="display:block; ">
     
         <!--
     幻灯片管理
@@ -67,17 +67,17 @@
     </header>             <!--
         用户分类管理
         -->
-        <div class="weimob-content">
-            <div class="weimob-list">
+        <div class="pigcms-content">
+            <div class="pigcms-list">
                 <volist name="info" id="vo">
-                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>" class="weimob-list-item">
-                            <div class="weimob-list-item-bg">
+                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>" class="pigcms-list-item">
+                            <div class="pigcms-list-item-bg">
                             <div>
                                 <img src="{pigcms:$vo.img}" alt="{pigcms:$vo.name}" style="width:100%;">
                             </div>
-                            <div class="weimob-list-item-box">
-                                <div class="weimob-list-item-line">
-                                    <div class="weimob-list-item-title">{pigcms:$vo.name}</div>
+                            <div class="pigcms-list-item-box">
+                                <div class="pigcms-list-item-line">
+                                    <div class="pigcms-list-item-title">{pigcms:$vo.name}</div>
                                 </div>
                             </div>
                         </div>
@@ -98,5 +98,34 @@
 {pigcms:$siteCopyright}
 </if>
 </div>
- <include file="Index:styleInclude"/>  
+ <include file="Index:styleInclude"/><include file="$cateMenuFileName"/>  
+ 	<if condition="ACTION_NAME eq 'index'">
+		<script type="text/javascript">
+			window.shareData = {  
+					"moduleName":"Index",
+					"moduleID": '0',
+					"imgUrl": "{pigcms:$homeInfo.picurl}", 
+					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"weiboLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"tTitle": "{pigcms:$homeInfo.title}",
+					"tContent": "{pigcms:$homeInfo.info}"
+				};
+		</script>
+	<else />
+		<script type="text/javascript">
+			window.shareData = {  
+				"moduleName":"Index",
+				"moduleID": '1',
+				"imgUrl": "{pigcms:$homeInfo.picurl}", 
+				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"tTitle": "{pigcms:$homeInfo.title}",
+				"tContent": "{pigcms:$homeInfo.info}"
+			};
+		</script>	
+	
+	</if>
+{pigcms:$shareScript}
 </body></html>

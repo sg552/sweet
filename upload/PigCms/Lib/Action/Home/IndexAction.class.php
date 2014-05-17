@@ -1,8 +1,22 @@
 <?php
 class IndexAction extends BaseAction{
+	public $includePath;
 	protected function _initialize(){
 		parent::_initialize();
 		$this->home_theme=$this->home_theme?$this->home_theme:'pigcms';
+		$this->includePath='./tpl/Home/'.$this->home_theme.'/';
+		
+		$this->assign('includeHeaderPath',$this->includePath.'Public_header.html');
+		$this->assign('includeFooterPath',$this->includePath.'Public_footer.html');
+		
+	}
+	public function clogin()
+	{
+		$cid = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
+		$k = isset($_GET['k']) ? $_GET['k'] : '';
+		$this->assign('cid', $cid);
+		$this->assign('k', $k);
+		$this->display($this->home_theme.':Index:'.ACTION_NAME);
 	}
 	//关注回复
 	public function index(){
@@ -13,6 +27,12 @@ class IndexAction extends BaseAction{
 		$links=D('Links')->where($where)->select();
 		$this->assign('links',$links);
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
+	}
+	public function verify(){
+		Image::buildImageVerify(4,1,'png',0,28,'verify');
+	}
+	public function verifyLogin(){
+		Image::buildImageVerify(4,1,'png',0,28,'loginverify');
 	}
 	public function resetpwd(){
 		$uid=$this->_get('uid','intval');

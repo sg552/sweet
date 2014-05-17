@@ -14,6 +14,7 @@ class Reply_infoAction extends UserAction{
 		'Dining'=>array('type'=>'Dining','name'=>'订餐','keyword'=>'订餐','url'=>'/index.php?g=Wap&m=Product&a=dining&dining=1&token='.$this->token),
 		'Shop'=>array('type'=>'Shop','name'=>'商城','keyword'=>'商城','url'=>'/index.php?g=Wap&m=Product&a=cats&token='.$this->token),
 		'panorama'=>array('type'=>'panorama','name'=>'全景','keyword'=>'全景','url'=>'/index.php?g=Wap&m=Product&a=cats&token='.$this->token),
+		'Hotels'=>array('type'=>'Hotels','name'=>'酒店','keyword'=>'酒店','url'=>'/index.php?g=Wap&m=Hotels&a=index&token='.$this->token),
 		);
 		//是否是餐饮
 		if (isset($_GET['infotype'])&&$_GET['infotype']=='Dining'){

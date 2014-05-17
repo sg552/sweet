@@ -1,8 +1,9 @@
 <?php
-class CardAction extends BaseAction{
+class CardAction extends WapAction{
 	public $wecha_id;
 	public $thisUser;
 	public function __construct(){
+		parent::_initialize();
 		if (!defined('RES')){
 			define('RES',THEME_PATH.'common');
 		}
@@ -11,6 +12,9 @@ class CardAction extends BaseAction{
 		//
 		$this->token=$this->_get('token');
 		$this->thisUser = M('Userinfo')->where(array('token'=>$this->_get('token'),'wecha_id'=>$this->wecha_id))->find();
+		if (!$this->wecha_id){
+			$this->error('您没有权限使用会员卡，如需使用请关注微信“'.$this->wxuser['wxname'].'”并回复会员卡',U('Index/index',array('token'=>$this->token)));
+		}
 	}
 	public function index(){
 		//transfer start
@@ -63,7 +67,7 @@ class CardAction extends BaseAction{
 		$this->assign('allCards',$allCards);
 		$this->assign('allCardsCount',$allCardsCount);
 		//
-		$thisCompany=M('Company')->where(array('token'=>$this->token,'isbranch'=>0))->find();
+		$thisCompany=M('Company')->where(array('token'=>$this->token,'isbranch'=>0,'display'=>1))->find();
 		$this->assign('thisCompany',$thisCompany);
 		//
 		$infoType='memberCardHome';
@@ -103,8 +107,8 @@ class CardAction extends BaseAction{
 		$this->assign('cardsCount',$cardsCount);
     	//
 		$company_model=M('Company');
-		$where=array('token'=>$this->token);
-		$companies=$company_model->where($where)->order('isbranch ASC')->select();
+		$where=array('token'=>$this->token,'display'=>1);
+		$companies=$company_model->where($where)->order('taxis ASC')->select();
 		$this->assign('companies',$companies);
 		$infoType='companyDetail';
 		$this->assign('infoType',$infoType);

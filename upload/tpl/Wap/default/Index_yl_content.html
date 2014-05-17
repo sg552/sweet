@@ -97,7 +97,8 @@ location.href= url;
 <ul>
   <volist name="lists" id="lo">
 	<li class="newsmore">
-		<a href="{pigcms::U('Index/content',array('token'=>$lo['token'],'id'=>$lo['id']))}">
+	<!--在整合列表页和分类也的时候，这里修改过模板-->
+		<a href="{pigcms::U('Index/content',array('token'=>$lo['token'],'id'=>$lo['id'],'classid'=>intval($_GET['classid'])))}">
 		<div class="olditem">
 		<div class="title">{pigcms:$lo.title}</div> 
 		</div>
@@ -120,6 +121,21 @@ location.href= url;
 {pigcms:$siteCopyright}
 </if>
 </div> 
-<include file="Index:styleInclude"/> 
+<include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
+
+		<script type="text/javascript">
+			window.shareData = {  
+				"moduleName":"Index",
+				"moduleID": '3',
+				"imgUrl": "{pigcms:$homeInfo.picurl}", 
+				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid'],'id'=>intval($_GET['id'])))}",
+				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid'],'id'=>intval($_GET['id'])))}",
+				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid'],'id'=>intval($_GET['id'])))}",
+				"tTitle": "{pigcms:$homeInfo.title}",
+				"tContent": "{pigcms:$homeInfo.info}"
+			};
+		</script>	
+
+{pigcms:$shareScript}
 </body>
 </html>

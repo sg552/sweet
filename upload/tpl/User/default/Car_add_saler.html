@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
 
-<script src="{pigcms::RES}/js/select/js/jquery.js"></script>
 <script src="{pigcms::RES}/js/select/js/comm.js"></script>
 <script src="{pigcms::RES}/js/select/js/linkagesel-min.js"></script>
 
@@ -31,6 +30,11 @@ items : [
 });
 });
 </script>
+<script>
+   jQuery(document).ready(function(){
+      jQuery("#formID").validationEngine();
+    });
+</script>
 <div class="cLineB">
   <h4>添加销售</h4><a href="javascript:history.go(-1);return false;" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
  </div>
@@ -38,19 +42,20 @@ items : [
 
 <!--tab end-->
     <div class="msgWrap bgfc" style="margin-top:10px;">
-      <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
+      <form class="form" method="post" action="" id="formID" target="_top" enctype="multipart/form-data">
 
         <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
                 <tr>
                     <th width="120">姓名：</th>
-                    <td> <input type="text" name="name" id="name" class="px" data-rule-required="true" data-rule-maxlength="10" value="{pigcms:$salers['name']}"/>
+                    <td> <input type="text" name="name" id="name" class="px"  value="{pigcms:$salers['name']}" data-validation-engine="validate[required,minSize[1],maxSize[20]]"
+                    data-errormessage-value-missing="必填项!"/>
                         <span class="maroon">*</span>
                     </td>
                 </tr>
                  <tr>
                     <th width="120">头像：</th>
-                    <td> 
+                    <td>
                      <p>
                          <img class="thumb_img" id="picture_src" src="{pigcms:$salers['picture']|default='tpl/User/default/common/car/car_sell.png'}" style="max-height:100px;">
                          <input type="input" class="px" id="picture" value="{pigcms:$salers['picture']|default='tpl/User/default/common/car/car_sell.png'}" name="picture" >
@@ -65,14 +70,14 @@ items : [
                 <tr>
                     <th width="120">电话：</th>
                     <td>
-                         <input type="text" name="mobile" id="mobile" class="px" data-rule-required="true" data-rule-phone="true" value="{pigcms:$salers['mobile']}"/>
+                         <input type="text" name="mobile" id="mobile" class="px"  value="{pigcms:$salers['mobile']}" data-validation-engine="validate[required,custom[tel]]"/>
                          <span class="maroon">*</span>
-                         <span class="help-inline">如0551-01234567</span>
+                         <span class="help-inline">如 0551-01234567</span>
                      </td>
                 </tr>
                 <tr>
                     <th width="120">显示顺序：</th>
-                    <td>  <input type="text" id="sort" name="sort" value="{pigcms:$salers['sort']|default=1}" class="input-mini px" data-rule-required="true" data-rule-number="true" /><span class="maroon">*</span>
+                    <td>  <input type="text" id="sort" name="sort" value="{pigcms:$salers['sort']|default=1}" class="input-mini px"data-validation-engine="validate[required,custom[integer],min[1]]" data-errormessage-value-missing="必填项"  /><span class="maroon">*</span>
                      <span class="help-inline">数字越大越靠前</span></td>
                 </tr>
                 <tr>
@@ -82,17 +87,17 @@ items : [
                       <option value="1" <if condition="$salers['salestype'] eq 1"> checked="checked"</if>>售前</option>
                       <option value="2" <if condition="$salers['salestype'] eq 2"> checked="checked"</if>>售后</option>
                       <option value="3" <if condition="$salers['salestype'] eq 3"> checked="checked"</if>>售前/售后</option>
-                    </select> 
-                    
+                    </select>
+
                     </td>
                 </tr>
                 <tr>
-                    <th width="120">介绍:</th>
-                    <td> <textarea name="info"  id="info" style="width:605px;height:120px"  data-rule-maxlength="150" placeholder="可不填">{pigcms:$salers['info']}</textarea></td>
+                    <th width="120">简要介绍:</th>
+                    <td> <textarea name="info"  id="info" style="width:605px;height:120px"  data-rule-maxlength="150" placeholder="可不填">{pigcms:$salers['info']|html_entity_decode|strip_tags}</textarea> [最多显示 10 个字]</td>
                 </tr>
 
-               
-                 
+
+
 
                   <tr>
                     <td>
@@ -107,7 +112,7 @@ items : [
             </tbody>
         </table>
     </form>
-  </div> 
+  </div>
 
         </div>
 <include file="Public:footer"/>

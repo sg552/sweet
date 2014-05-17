@@ -21,10 +21,8 @@
               <thead>
              <tr>                          
 				<th class="span3">ID</th>
-				<th class="span3">登陆名：</th>
-				<th class="span3">工号</th>
-				<th class="span3">时间</th>
-				<th class="span3">操作</th>
+				<th class="span3">信息</th>
+
 			</tr>
 			  </thead>
 				<tbody>
@@ -37,12 +35,9 @@
 						<tr>
 						<td style="text-align:left;">{pigcms:$list['id']}</td> 
 						<td style="text-align:left;">{pigcms:$list['keyword']}</td> 
-						<td style="text-align:center; ;"><span class="label"> {pigcms:$list['name']}</span></td>
-						<td style="text-align:center; ;"><span class="label"> {pigcms:$list['enddate ']|date='Y-m-d',###}</span></td>
+
 						
-						<td style="text-align:center; ">
-						<a href="{pigcms::U('ServiceUser/chat_log_del',array('id'=>$list['id'],'token'=>$list['token']))}" onclick="return(confirm('确定要删除吗？'))" class="btn">删除</a></a>
-						</td>
+					
 						</tr>
 					</volist>
 					</if>

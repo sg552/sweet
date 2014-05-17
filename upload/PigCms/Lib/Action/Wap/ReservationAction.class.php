@@ -19,12 +19,12 @@ class ReservationAction extends BaseAction{
     }
 
     public function index(){
-       $agent = $_SERVER['HTTP_USER_AGENT']; 
+       $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
         }
-       
-       
+
+
         $data = M("Reservation");
         $token      = $this->_get('token');
         $wecha_id   = $this->_get('wecha_id');
@@ -35,9 +35,43 @@ class ReservationAction extends BaseAction{
         //$rid = M('Estate')->where($where)->getField('res_id');
 
         if($rid != ''){
+
             $this->assign('rid',$rid);
             $where2 = array('token'=>$token,'id'=>$rid);
             $reslist =  $data->where($where2)->find();
+            if($reslist['addtype'] =='drive'){
+                //exit($reslist['addtype']);
+                $where_2 = array('token'=>$token,'addtype'=>'drive');
+                $reser =  $data->where($where_2)->find();
+                $this->assign('addtype','drive');
+                $where3 = array('token'=>$token,'wecha_id'=>$wecha_id);
+                $user = M('Caruser')->where($where3)->field('car_userName as truename,brand_serise,car_no as carnum,user_tel,car_care_mileage as km')->find();
+                if(!empty($user)){
+                     $reser = array_merge($reser,$user);
+                }
+                $this->assign('reser',$reser);
+                $where4 = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$addtype);
+                $count = M('Reservebook')->where($where4)->count();
+                $this->assign('count',$count);
+                $this->display("Car:CarReserveBook");
+                exit;
+            }
+            if($reslist['addtype'] =='maintain'){
+                $where_3  =  array('token'=>$token,'addtype'=>'maintain');
+                $this->assign('addtype','maintain');
+                $reser =  $data->where($where_3)->find();
+                $where_5 = array('token'=>$token,'wecha_id'=>$wecha_id);
+                $user = M('Caruser')->where($where_5)->field('car_userName as truename,brand_serise,car_no as carnum,user_tel,car_care_mileage as km')->find();
+                if(!empty($user)){
+                     $reser = array_merge($reser,$user);
+                }
+                $this->assign('reser',$reser);
+                $where4_1 = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$addtype);
+                $count = M('Reservebook')->where($where4_1)->count();
+                $this->assign('count',$count);
+                $this->display("Car:CarReserveBook");
+                exit;
+            }
         }
         $where3 = array('token'=>$token,'wecha_id'=>$wecha_id);
         $user = M('Userinfo')->where($where3)->field('truename,tel as user_tel')->find();
@@ -89,7 +123,7 @@ class ReservationAction extends BaseAction{
          $wecha_id = strval($this->_get('wecha_id'));
          $url ='http://'.$_SERVER['HTTP_HOST'];
          $url .= U('Reservation/mylist',array('token'=>$token,'wecha_id'=>$wecha_id));
-    
+
         if($das['id'] != ''){
             $o = $book->where(array('id'=>$das['id']))->save($da);
             if($o){
@@ -103,7 +137,7 @@ class ReservationAction extends BaseAction{
                 exit;
             }
         }
-         
+
         $ok = $book->data($da)->add();
         if(!empty($ok)){
             $arr=array('errno'=>0,'msg'=>'恭喜预约成功','token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);
@@ -149,7 +183,7 @@ class ReservationAction extends BaseAction{
         if(!strpos($agent,"icroMessenger")) {
             //exit('此功能只能在微信浏览器中使用');
         }
-       
+
         $rid = (int)$this->_get('rid');
         $this->assign('rid',$rid);
         $book = M('Reservebook');

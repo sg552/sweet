@@ -1,5 +1,5 @@
 <?php
-class WeddingAction extends BaseAction{
+class WeddingAction extends WapAction{
 	public function index(){
 		if(isset($_GET['id'])){
 			$data['id']=$this->_get('id','intval');

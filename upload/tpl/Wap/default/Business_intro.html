@@ -1,0 +1,50 @@
+<include file="Business:public_head"/>
+</head>
+<body>
+<!-- website wrapper starts -->
+<div class="websiteWrapper">
+
+  <!-- main menu wrapper starts -->
+<include file="Business:public_menu"/>
+  <!-- main menu wrapper ends -->
+
+  <!-- page wrapper starts -->
+  <div class="pageWrapper singleProjectPageWrapper">
+    <div class="singleProjectImageWrapper"><img src="{pigcms:$busines['toppicurl']}" class="singleProjectImage" alt=""/> </div>
+    <!-- page content wrapper starts -->
+    <div class="pageContentWrapper singleProjectContentWrapper">
+      <!-- page title starts -->
+      <h3 class="pageTitle">{pigcms:$busines['mtitle']}</h3>
+      <!-- page title ends -->
+      {pigcms:$busines['business_desc']|html_entity_decode}
+
+      <div class="textBreakBoth"></div>
+      <h4 class="blockTitle">1</h4>
+<volist name="b_main" id="vo">
+         <!-- small blog post starts  -->
+      <div class="smallPostWrapper">
+        <div class="postExcerptWrapper" style="padding-bottom:2px;padding-top:2px;">
+          <p class="smallPostQuote">"<a href="{pigcms::U('Business/classify',array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$busines['type'],'bid'=>$busines['bid']))}">{pigcms:$vo['name']}</a> &nbsp;<a href="tel:{pigcms:$vo['telphone']}"><strong>{pigcms:$vo['telphone']}</strong></a>"<br/>
+            <br/>
+            <span class="smallPostQuoteAuthor"><if condition="$vo['maddress'] neq ''">地址 - {pigcms:$vo['maddress']}</if></span></p>
+        </div>
+        <!-- <div class="smallPostInfoWrapper"><span class="singleIconWrapper singleIconText iconCalendarDark postInfo postDate postInfoNoMargin">03/06/2013</span></div> -->
+      </div>
+      <!-- small blog post ends -->
+  </volist>
+
+      <div class="pageBreak"></div>
+    </div>
+    <!-- page content wrapper ends -->
+   <!--  <div class="singleProjectItemButtonsWrapper"><a href="images/content/large-1.jpg" class="singleProjectExpandButton">expand</a><a href="" class="singleProjectDetailsButton">website</a></div> -->
+  </div>
+  <!-- page wrapper ends -->
+
+  <!-- footer wrapper starts -->
+<include file="Business:food_menu"/>
+  <!-- footer wrapper ends -->
+
+</div>
+<!-- website wrapper ends -->
+</body>
+</html>

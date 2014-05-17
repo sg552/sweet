@@ -57,16 +57,10 @@ items : [
                 <TR>
                   <TH valign="top"><label for="classid">文章所属类别：</label></TH>
                   <TD>
-                 
-                    <select name="classid">
-                      <volist name="res" id="vo">
-                     <option   value="{pigcms:$vo.id},{pigcms:$vo.name}"<?php if ($info['classid']==$vo['id']){echo ' selected';}?>>{pigcms:$vo.name}</option>
-                        <volist name="vo['vo']" id="va">
-                          <option   value="{pigcms:$va.id},{pigcms:$va.name}" style="color:#aaa"<?php if (intval($info['classid'])==intval($va['id'])){echo ' selected="selected"';}?>>- {pigcms:$va.name}</option>
-                      
-                        </volist>  
-                      </volist>  
-                    </select>  <a href="{pigcms::U('Classify/add')}"  target="ddd" >添加分类</a>
+					<div id="classname" style="padding:5px;">{pigcms:$classtree}</div>
+					<input type="hidden" id="classid" value="{pigcms:$classValue}" name="classid" />
+					<a href="###" onclick="editClass('classid','classname',0)" class="a_upload">选择所属分类</a>
+					<a href="{pigcms::U('Classify/add')}" class="a_upload" style="margin-left:10px;" target="ddd" >添加分类</a>
                   </TD>
                 </TR> 
 				<TR>

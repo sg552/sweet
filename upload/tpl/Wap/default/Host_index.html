@@ -63,5 +63,18 @@
 <li class="detail"><a href="index.php?g=Wap&m=Host&a=companyDetail&token={pigcms:$Think.get.token}&wecha_id={pigcms:$Think.get.wecha_id}&hid={pigcms:$Think.get.hid}"><span>查看商家详情</span></a></li>
 </ul>
 </div>
+
+
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Host",
+            "moduleID":"0",
+            "imgUrl": "", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Host/index',array('token'=>$token))}",
+            "tTitle": "{pigcms:$set['title']}",
+            "tContent": "{pigcms:$set['title']}"
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

@@ -9,10 +9,10 @@ footer{
     position:relative;
     z-index:10;
 }
-footer .weimob-copyright{
+footer .pigcms-copyright{
     color:#000;}
 footer a{color:#000!important; font-size:12px;}
-.weimob-page{
+.pigcms-page{
     min-height: 100%;
     padding-bottom: 70px;
     -webkit-box-sizing: border-box;
@@ -21,7 +21,7 @@ footer a{color:#000!important; font-size:12px;}
 }
 
 
-.weimob-list-item{
+.pigcms-list-item{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);
 }
 /*************************************************************/
@@ -382,7 +382,7 @@ footer a{color:#000!important; font-size:12px;}
     font-size:24px;
     color:#fff;
     line-height:35px;
-    /*background: url(../../img/weimob-icons.png) no-repeat 0 5px;*/
+    /*background: url(../../img/pigcms-icons.png) no-repeat 0 5px;*/
 }
 .top_menu>li span.i_back{
     background-position:0 5px;

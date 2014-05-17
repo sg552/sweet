@@ -17,6 +17,9 @@ class LotteryAction extends LotteryBaseAction{
 		}
 		
 		$Lottery 	= M('Lottery')->where(array('id'=>$id,'token'=>$token,'type'=>1,'status'=>1))->find();
+		if ($this->wecha_id&&!$this->fans&&$Lottery['needreg']){
+			$this->error('请先完善个人资料再参加活动',U('Userinfo/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'redirect'=>MODULE_NAME.'/index|id:'.intval($id))));
+		}
 		$Lottery['renametel']=$Lottery['renametel']?$Lottery['renametel']:'手机号';
 		$Lottery['renamesn']=$Lottery['renamesn']?$Lottery['renamesn']:'SN码';
 		$data=$Lottery;

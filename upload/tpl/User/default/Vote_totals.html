@@ -4,7 +4,7 @@
   <script src="{pigcms::STATICS}/vote/wap/js/jquery.js"></script>
   <script src="{pigcms::STATICS}/vote/wap/jquery.icheck.min.js?v=0.9.1"></script>
 
-<div class="content">
+<div style="width:70%;margin-left:250px;">
     
 
   <div class="layout clear">
@@ -23,15 +23,19 @@
                 <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
                 <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
                  
-                <span><img src="{pigcms::STATICS}/vote/wap/100.jpg" height="5" width="<if condition="$li['per'] eq 0">1<else/>{pigcms:$li.per}</if>" /> {pigcms:$li.per}%</span>             
+               <div class="progress-bar orange shine">
+    <span style="width: {pigcms:$li.per|default=2}%">{pigcms:$li.per}%</span> &nbsp;<span>{pigcms:$li['pro']} (人)</span>
+</div>             
              </li>
           <else/> <!--img-->
                 <li>
-                <span><img src="{pigcms:$li.startpicurl}" width="270" height="103"></span>
+                <span><img src="{pigcms:$li.startpicurl}" ></span>
                 <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
                 <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
                  
-                <span><img src="{pigcms::STATICS}/vote/wap/100.jpg" height="5" width="<if condition="$li['per'] eq 0">1<else/>{pigcms:$li.per}</if>" /> {pigcms:$li.per}%</span>                 
+                <div class="progress-bar orange shine">
+    <span style="width: {pigcms:$li.per|default=2}%">{pigcms:$li.per}%</span> &nbsp;<span>{pigcms:$li['pro']} (人)</span>
+</div>                   
               </li>
           </if>
                  
@@ -42,15 +46,19 @@
                 <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
                 <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
                  
-                <span><img src="{pigcms::STATICS}/vote/wap/100.jpg" height="5" width="<if condition="$li['per'] eq 0">1<else/>{pigcms:$li.per}</if>" /> {pigcms:$li.per}%</span>             
+                <div class="progress-bar orange shine">
+    <span style="width: {pigcms:$li.per|default=2}%">{pigcms:$li.per}%</span> &nbsp;<span>{pigcms:$li['pro']} (人)</span>
+</div>             
              </li>
           <else/> <!--img-->
                 <li>
-                <span><img src="{pigcms:$li.startpicurl}" width="270" height="103"></span>
+                <span><img src="{pigcms:$li.startpicurl}" ></span>
                 <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
                 <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
                  
-                <span><img src="{pigcms::STATICS}/vote/wap/100.jpg" height="5" width="<if condition="$li['per'] eq 0">1<else/>{pigcms:$li.per}</if>" /> {pigcms:$li.per}%</span>                 
+                <div class="progress-bar orange shine">
+    <span style="width: {pigcms:$li.per|default=2}%">{pigcms:$li.per}%</span> &nbsp;<span>{pigcms:$li['pro']} (人)</span>
+</div>                 
               </li>
           </if>
               </if>

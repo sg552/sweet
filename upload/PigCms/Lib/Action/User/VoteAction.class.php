@@ -8,60 +8,56 @@ class VoteAction extends UserAction{
         $this->assign('group',$group);
         $this->assign('activitynum',$user['activitynum']);
 
-       // $type = isset($this->_get('type')) ? $this->_get('type') : 'text'; 
+       // $type = isset($this->_get('type')) ? $this->_get('type') : 'text';
         $list=M('Vote')->where(array('token'=>session('token')))->order('id DESC')->select();
-        $count = M('Vote')->where(array('token'=>session('token')))->count();        
+        $count = M('Vote')->where(array('token'=>session('token')))->count();
         $this->assign('count',$count);
         //你不可以再创建投票活动了。
         // if($count >= $user['activitynum'])
         //     $this->assign('ok',1);
-        
+
         $this->assign('list',$list);
         $this->display();
     }
 
     public function totals(){
-        $token      = session('token');       
-        $id         = $this->_get('id');        
+        $token      = session('token');
+        $id         = $this->_get('id');
         $t_vote     = M('Vote');
         $t_record  = M('Vote_record');
         $where      = array('id'=>$id,'token'=>session('token'));
         $vote   = $t_vote->where($where)->find();
-        if(empty($vote)){            
+        if(empty($vote)){
             exit('非法操作');
         }
-        $vote_item = M('Vote_item')->where('vid='. $vote['id'])->select();        
-        $this->assign('count',$t_record->where(array('vid'=>$id))->count());
-        $where = array('wecha_id'=>$wecha_id,'vid'=>$id);
-        $vote_record  = $t_record->where($where)->find();
-
-                  
-        $total = $t_record->where('vid='.$id)->count('touched'); 
+        $vote_item = M('Vote_item')->where('vid='. $vote['id'])->select();
+        $vcount = $t_record->where(array('vid'=>$id))->count();
+        $this->assign('count',$vcount);
         $item_count = M('Vote_item')->where('vid='.$id)->select();
         foreach ($item_count as $k=>$value) {
-           $vote_item[$k]['per']=(number_format(($value['vcount'] / $total),4))*100;
+            $vote_item[$k]['per']=(number_format(($value['vcount'] / $vcount),2))*100;
+            $vote_item[$k]['pro']=$value['vcount'];
 
-
-        } 
-        $this->assign('vote_item', $vote_item);         
+        }
+        $this->assign('vote_item', $vote_item);
         $this->assign('vote',$vote);
         $this->display();
     }
 
-    public function add(){  
-     $this->assign('type',$this->_get('type'));  
+    public function add(){
+     $this->assign('type',$this->_get('type'));
 
-        if(IS_POST){   
-         //var_dump($_REQUEST);exit;    
+        if(IS_POST){
+         //var_dump($_REQUEST);exit;
             $adds = $_REQUEST['add'];
             if(empty($adds) || empty($_REQUEST['add']['item'][0]) && empty($_REQUEST['add']['startpicurl'][0])){
                 $this->error('投票选项你还没有填写');
                 exit;
             }
-            foreach ($adds as $ke => $value) {   
-                 foreach ($value as $k => $v) { 
-                    if($v != "")      
-                     $item_add[$k][$ke]=$v;         
+            foreach ($adds as $ke => $value) {
+                 foreach ($value as $k => $v) {
+                    if($v != "")
+                     $item_add[$k][$ke]=$v;
                  }
             }
             $data=D('Vote');
@@ -81,15 +77,15 @@ class VoteAction extends UserAction{
                 $this->error('结束时间不能小于开始时间!');
                 exit;
             }
-   
-            $isset_keyword = $data->where(array('keyword' => $_POST['keyword'],'token'=>$_POST['token']))->field('keyword')->find();
-            if($isset_keyword != NULL){
-                $this->error('关键词已经存在！');
-                exit;
-            }
+
+            //$isset_keyword = $data->where(array('keyword' => $_POST['keyword'],'token'=>$_POST['token']))->field('keyword')->find();
+            //if($isset_keyword != NULL){
+             //   $this->error('关键词已经存在！');
+              //  exit;
+           // }
             $t_item = M('Vote_item');
 
-            if($data->create()!=false){             
+            if($data->create()!=false){
                 if($id=$data->add()){
                     foreach ($item_add as $k => $v) {
                       if($v['item'] != ''){
@@ -98,12 +94,12 @@ class VoteAction extends UserAction{
                         $data2['rank']=empty($v['rank']) ? "1" : $v['rank'];
                         $data2['vcount']=empty($v['vcount']) ? "0" : $v['vcount'];
                         if($_POST['type'] == 'img'){
-                            $data2['startpicurl']=$v['startpicurl'];
+                            $data2['startpicurl']=empty($v['startpicurl']) ? "#" : $v['startpicurl'];
                             $data2['tourl']=empty($v['tourl']) ? "#" : $v['tourl'];
-                        }                      
+                        }
                         $t_item->add($data2);
                       }
-                        
+
                     }
                     $data1['pid']=$id;
                     $data1['module']='Vote';
@@ -117,7 +113,7 @@ class VoteAction extends UserAction{
                 }
             }else{
                 $this->error($data->getError());
-            } 
+            }
         }else{
             $this->display();
         }
@@ -130,7 +126,7 @@ class VoteAction extends UserAction{
         $id = $this->_get('id');
         $vote = M('Vote');
         $find = array('id'=>$id,'type'=>$type);
-        $result = $vote->where($find)->find();        
+        $result = $vote->where($find)->find();
          if($result){
             $vote->where('id='.$result['id'])->delete();
             M('Vote_item')->where('vid='.$result['id'])->delete();
@@ -141,7 +137,7 @@ class VoteAction extends UserAction{
          }else{
             $this->error('非法操作！');
          }
-        
+
     }
 
     public function setinc(){
@@ -150,7 +146,7 @@ class VoteAction extends UserAction{
         $check=M('Vote')->where($where)->find();
         if($check==NULL)$this->error('非法操作');
         $user=M('Users')->field('gid,activitynum')->where(array('id'=>session('uid')))->find();
-        $group=M('User_group')->where(array('id'=>$user['gid']))->find();       
+        $group=M('User_group')->where(array('id'=>$user['gid']))->find();
         if($user['activitynum']>=$group['activitynum']){
             $this->error('您的免费活动创建数已经全部使用完,请充值后再使用',U('Home/Index/price'));
         }
@@ -161,7 +157,7 @@ class VoteAction extends UserAction{
             $data=M('Vote')->where($where)->save(array('status'=>0));
             $tip='设置成功,活动已经结束';
         }
-        
+
         if($data!=NULL){
             $this->success($tip);
         }else{
@@ -180,12 +176,12 @@ class VoteAction extends UserAction{
         }else{
             $this->error('服务器繁忙,请稍候再试');
         }
-    
+
     }
 
     public function edit(){
-        $this->assign('type',$this->_get('type'));   
-        if(IS_POST){              
+        $this->assign('type',$this->_get('type'));
+        if(IS_POST){
             $data=D('Vote');
             $_POST['id']= (int)$this->_post('id');
             $_POST['token']=session('token');
@@ -202,56 +198,56 @@ class VoteAction extends UserAction{
                 exit;
             }
             $where=array('id'=>$_POST['id'],'token'=>session('token'));
-            $check=$data->where($where)->find(); 
+            $check=$data->where($where)->find();
 
             if($check==NULL) exit($this->error('非法操作'));
             if(empty($_REQUEST['add'])){
-                $this->error('投票选项必须填写'); 
+                $this->error('投票选项必须填写');
                 exit;
             }
 
             $t_item = M('Vote_item');
             $datas = $_REQUEST['add'];
             //$datas = array_filter($datas);
-             foreach ($datas as $ke => $value) { 
-                 foreach ($value as $k => $v) { 
+             foreach ($datas as $ke => $value) {
+                 foreach ($value as $k => $v) {
                     if( $v != ""){
-                        $item_add[$k][$ke]=$v; 
-                    }    
+                        $item_add[$k][$ke]=$v;
+                    }
                  }
             }
 
             $isnull =  $t_item->where('vid='.$_POST['id'])->find();
-           
+
             foreach ($item_add as $k => $v) {
                 $a++;
                 if($v['item'] !=""){
                     $i_id['id']=$v['id'];
-                    if($i_id['id'] != ''){   
+                    if($i_id['id'] != ''){
                         $data2['item']=$v['item'];
                         $data2['rank']=empty($v['rank']) ? "1" : $v['rank'];
                         $data2['vcount']=empty($v['vcount']) ? "0" : $v['vcount'];
                         if($this->_get('type') == 'img'){
                             $data2['startpicurl']=$v['startpicurl'];
                             $data2['tourl']=empty($v['tourl']) ? "#" : $v['tourl'];
-                        }                                        
+                        }
                       $t_item->where(array('id'=>$i_id['id'],'vid'=>$_POST['id']))->save($data2);
 
                     }else{
-                         
+
                             $data2['vid'] = $_POST['id'];
                             $data2['item']=$v['item'];
                             $data2['rank']=empty($v['rank']) ? "1" : $v['rank'];
                             $data2['vcount']=empty($v['vcount']) ? "0" : $v['vcount'];
                             if($_POST['type'] == 'img'){
-                                $data2['startpicurl']=$v['startpicurl'];
+                                $data2['startpicurl']=empty($v['startpicurl']) ? "#" : $v['startpicurl'];
                                 $data2['tourl']=empty($v['tourl']) ? "#" : $v['tourl'];
-                            }                      
+                            }
                             $t_item->add($data2);
-                        
+
                     }
                 }
-                    
+
             }
 
             if($data->create()){
@@ -260,7 +256,7 @@ class VoteAction extends UserAction{
                     $data1['pid']=$_POST['id'];
                     $data1['module']='Vote';
                     $data1['token']=session('token');
-                    
+
                     $da['keyword']=trim($_POST['keyword']);
                     $ok = M('keyword')->where($data1)->save($da);
                     $this->success('修改成功!',U('Vote/index',array('token'=>session('token'))));exit;
@@ -271,15 +267,15 @@ class VoteAction extends UserAction{
             }else{
                 $this->error($data->getError());
             }
-           
+
 
         }else{
             $id=(int)$this->_get('id');
             $where=array('id'=>$id,'token'=>session('token'));
             $data=M('Vote');
             $check=$data->where($where)->find();
-            if($check==NULL)$this->error('非法操作'); 
-            $vo=$data->where($where)->find();      
+            if($check==NULL)$this->error('非法操作');
+            $vo=$data->where($where)->find();
             $items = M('Vote_item')->where('vid='.$id)->order('rank DESC')->select();
             $this->assign('items',$items);
 

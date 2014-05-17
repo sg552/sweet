@@ -18,7 +18,7 @@
         </style>
     </head>
     <body onselectstart="return true;" ondragstart="return false;">
-        
+
     <body onselectstart="return true;" ondragstart="return false;">
         <style>
             #book_new, #book_list{
@@ -38,7 +38,7 @@
                 text-align:center;
             }
             .list_book dt div:first-of-type{
-                margin-right:10px; 
+                margin-right:10px;
             }
             .list_book dt div a{
                 display:block;
@@ -85,12 +85,12 @@
                     <dl class="list_book">
                         <ul class="list_contact">
                         <volist name="saler" id="vo">
-                            
+
                             <li class="tbox">
                                 <div><img src="{pigcms:$vo['picture']}" style="width: 60px!important;" /></div>
                                 <div>
                                     <p>{pigcms:$vo['name']}</p> <p><a style="padding:1px;" href="tel:{pigcms:$vo['mobile']}"><if condition="$vo['salestype'] eq 1">售前 <elseif condition="$vo['salestype'] eq 2"/>售后<else/>售前/售后</if></a></p>
-                                    <div>{pigcms:$vo['info']}</div>
+                                    <div>{pigcms:$vo['info']|html_entity_decode}</div>
                                     <p><a href="tel:{pigcms:$vo['mobile']}">{pigcms:$vo['mobile']}</a></p>
                                 </div>
                             </li>
@@ -118,7 +118,7 @@
 
             </section>
             <p><br /><br /><br /><br /><br /><br /></p>
-           
+
         </div>
          <include file="Car:menu"/>
     </body>

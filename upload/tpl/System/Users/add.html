@@ -90,13 +90,19 @@
 				<tr>
 					<td height="48" align="right"><strong>资金余额：</strong></td>
 					<td colspan="3" class="lt">
-						<input type="text" name="money" class="ipt" size="45" value="{pigcms:$info.money}">
+						<input type="text" name="moneybalance" class="ipt" size="45" value="{pigcms:$info.moneybalance}">
 					</td>
 				</tr>
 				<tr>
 					<td height="48" align="right"><strong>附件大小：</strong></td>
 					<td colspan="3" class="lt">
 						<input type="text" name="attachmentsize" class="ipt" size="45" value="<?php echo $info['attachmentsize'];?>"> <?php echo $info['attachmentsize']/(1024*1024);?> M
+					</td>
+				</tr>
+				<tr>
+					<td height="48" align="right"><strong>短信数：</strong></td>
+					<td colspan="3" class="lt">
+						<input type="text" name="smscount" class="ipt" size="45" value="<?php echo $info['smscount'];?>">
 					</td>
 				</tr>
 				<tr>

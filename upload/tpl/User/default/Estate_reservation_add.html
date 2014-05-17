@@ -22,21 +22,23 @@
     <div class="control-group">
         <label for="title" class="control-label">图文消息标题：</label>
         <div class="controls">
-           <input type="text" placeholder="请输入图文消息标题" name="title" id="title" class="span4"  value="{pigcms:$reslist['title']}" data-rule-required="true" /><span class="maroon">*</span><span class="help-inline">尽量简单，不要超过20字</span>
+           <input type="text" placeholder="请输入图文消息标题" name="title" id="title" class="span4"  value="{pigcms:$reslist['title']}" schoolSet /><span class="maroon">*</span><span class="help-inline">尽量简单，不要超过20字</span>
         </div>
     </div>
     <div class="control-group">
         <label for="keyword" class="control-label">触发关键词：</label>
         <div class="controls">
-            <input type="text" name="keyword" id="keyword" class="span4" data-rule-required="true" value="{pigcms:$reslist['keyword']}"><span class="maroon">*</span><span class="help-inline">只能设置一个关键字</span>
+            <input type="text" name="keyword" id="keyword" class="span4" schoolSet value="{pigcms:$reslist['keyword']}"><span class="maroon">*</span><span class="help-inline">只能设置一个关键字</span>
         </div>
     </div>
-  
+
     <div class="control-group">
         <label for="coverurl" class="control-label">图文封面：</label>
        <div class="controls">
-      <img class="thumb_img" id="picurl_src" src="{pigcms:$reslist['picurl']|default='http://image.pigcms.com/yicms/2014/01/05/1388908998_8d4be5f47b540d89.jpg'}" style="max-height:100px;">
-      <input id="picurl" type="text" class="span4" name="picurl" class="input-xlarge"  data-rule-required="true" data-rule-url="true" value="{pigcms:$reslist['picurl']|default='http://image.pigcms.com/yicms/2014/01/05/1388908998_8d4be5f47b540d89.jpg'}" />
+       <if condition="$reslist['picurl'] neq ''">
+      <img class="thumb_img" id="picurl_src" src="{pigcms:$reslist['picurl']}" style="max-height:100px;">
+</if>
+      <input id="picurl" type="text" class="span4" name="picurl" class="input-xlarge"  schoolSet data-rule-url="true" value="{pigcms:$reslist['picurl']}" />
           <span class="help-inline">
                <script src="{pigcms::STATICS}/upyun.js"></script><a href="###" onclick="upyunPicUpload('picurl',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('picurl')">预览</a>
               <span class="help-inline">建议尺寸：宽720像素，高400像素</span>
@@ -55,14 +57,14 @@ function setlatlng(longitude,latitude){
      <div class="control-group">
                                 <label for="address" class="control-label">预约地址：</label>
                                 <div class="controls">
-                                    <input type="text" name="address" id="address" class="span4"  value="{pigcms:$reslist['address']}" data-rule-required="true"  placeholder="请输入接待预约用户的地址"/><span class="maroon">*</span><span class="help-inline">如合肥市政务区南二环路3818号万达广场</span>
+                                    <input type="text" name="address" id="address" class="span4"  value="{pigcms:$reslist['address']}" schoolSet  placeholder="请输入接待预约用户的地址"/><span class="maroon">*</span><span class="help-inline">如合肥市政务区南二环路3818号万达广场</span>
                                 </div>
                              </div>
     <div class="control-group">
     <label for="suggestId" class="control-label">地图标识：</label>
          <div class="controls">
           <span class="maroon">注意：这个只是模糊定位，准确位置请地图上标注！</span><br />
-                经度 <input type="text" id="longitude"  name="lng" size="14" class="span4" value="{pigcms:$reslist['lng']}" /> 
+                经度 <input type="text" id="longitude"  name="lng" size="14" class="span4" value="{pigcms:$reslist['lng']}" />
                 纬度 <input type="text"  name="lat" size="14" id="latitude" class="span4" value="{pigcms:$reslist['lat']}" />
                 <a href="###" onclick="setlatlng($('#longitude').val(),$('#latitude').val())">在地图中查看/设置</a>
          </div>
@@ -71,14 +73,16 @@ function setlatlng(longitude,latitude){
 <div class="control-group">
          <label for="estate_desc" class="control-label">预约电话：</label>
          <div class="controls">
-             <input type="text" name="tel" id="tel" class="span4" value="{pigcms:$reslist['tel']}"  data-rule-required="true"  placeholder="请输入接收预约的电话号码"/><span class="maroon">*</span><span class="help-inline">如0551-65371998</span>
+             <input type="text" name="tel" id="tel" class="span4" value="{pigcms:$reslist['tel']}"  schoolSet  placeholder="请输入接收预约的电话号码"/><span class="maroon">*</span><span class="help-inline">如0551-65371998</span>
          </div>
      </div>
      <div class="control-group">
          <label for="project_brief" class="control-label">订单页头部图片：</label>
           <div class="controls">
-             <img class="thumb_img" id="headpic_src" src="{pigcms:$reslist['headpic']|default='http://image.pigcms.com/yicms/2014/01/05/1388908998_8d4be5f47b540d89.jpg'}" style="max-height: 100px;">
-              <input id="headpic"type="text"class="input-large" name="headpic" class="span4 px"  data-rule-required="true" data-rule-url="true" value="{pigcms:$reslist['headpic']|default='http://image.pigcms.com/yicms/2014/01/05/1388908998_8d4be5f47b540d89.jpg'}" />
+<if condition="$reslist['headpic'] neq ''">
+             <img class="thumb_img" id="headpic_src" src="{pigcms:$reslist['headpic']}" style="max-height: 100px;">
+</if>
+              <input id="headpic"type="text"class="input-large" name="headpic" class="span4 px"  schoolSet data-rule-url="true" value="{pigcms:$reslist['headpic']}" />
             <span class="maroon">*</span>
             <span class="help-inline">
             <a href="###" onclick="upyunPicUpload('headpic',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('headpic')">预览</a>
@@ -94,7 +98,7 @@ function setlatlng(longitude,latitude){
 <div class="control-group" style="display:none">
       <label for="typename" class="control-label">重命名订单：</label>
        <div class="controls">
-           <input type="text" class="span4" name="typename" value="{pigcms:$reslist['typename']|default='我的订单'}" id="typename" data-rule-required="true" />
+           <input type="text" class="span4" name="typename" value="{pigcms:$reslist['typename']|default='我的订单'}" id="typename" schoolSet />
                                                     <span class="maroon">*</span><span class="help-inline">用户修改用户手机中“我的订单”栏目的名称，您可以将其修改成诸如“我的团购”、“我的预约”等</span>
        </div>
 </div>
@@ -127,9 +131,9 @@ function setlatlng(longitude,latitude){
                                                         <input type="radio" name="type"class="span2" value="3"  <if condition="$reslist['type'] eq 3"> checked="checked" </if>/>
                                                         限定全部总量<span  id="type3" style="display:none;">设定您总计可接收的订单总数</span>
                                                     </label>
-                                                   
-                                                    
-                                                    
+
+
+
                                                 </div>
                                             </div>
 
@@ -429,16 +433,16 @@ function sdoaddit(i) {
                                             </span>
                                         </div><p style="margin-left:83px;">当有新订单时，发送短信到此手机</p>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="form-actions">
             <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btnGreen">保存</button>　<button type="button" class="btnGray vm">取消</button>
         </div>
                         </div>
- 
+
 </form>
-  </div> 
- 
-  
+  </div>
+
+
         </div>
-  
+
 <include file="Public:footer"/>

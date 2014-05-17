@@ -1,5 +1,18 @@
 <?php
-class LotteryBaseAction extends BaseAction{
+class LotteryBaseAction extends WapAction{
+	public function __construct(){
+		parent::_initialize();
+		$infoWhere['wecha_id']=$this->_get('wecha_id');
+		$infoWhere['token']=$this->_get('token');
+		$userInfoExist=M('Userinfo')->where($infoWhere)->find();
+		
+		if ($userInfoExist){
+			unset($data['id']);
+			//M('Userinfo')->where($infoWhere)->save($data);
+		}else {
+			M('Userinfo')->add($data);
+		}
+	}
 	/**
 	 * Enter description here...
 	 *
@@ -7,7 +20,7 @@ class LotteryBaseAction extends BaseAction{
 	 * @param unknown_type $total 预计参与人数
 	 * @return unknown
 	 */
-	protected function get_rand($proArr,$total) { 
+	protected function get_rand($proArr,$total) {
 		    $result = 7; 
 		    $randNum = mt_rand(1, $total); 
 		    foreach ($proArr as $k => $v) {

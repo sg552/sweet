@@ -9,8 +9,12 @@
     <link rel="stylesheet" href="tpl/static/luckyFruit/wap/tigerslot.css">
     <script src="tpl/static/luckyFruit/wap/jquery-1.js"></script>
     <script src="tpl/static/luckyFruit/wap/jquery.js"></script>
-    <script src="tpl/static/luckyFruit/wap/tigerslot.js"></script>
     <script src="tpl/static/luckyFruit/wap/alert.js"></script>
+    <pigcmsif where="$wecha_id eq ''">
+    <else/>
+    <script src="tpl/static/luckyFruit/wap/tigerslot.js"></script>
+    </pigcmsif>
+    
     <style type="text/css">
 .window {
 	width:290px;
@@ -126,7 +130,8 @@
 	display:block;	
 }
 </style>
-</head><body><div class="window" id="windowcenter">
+</head><body>
+<div class="window" id="windowcenter">
 	<div id="title" class="title">消息提醒<span class="close" id="alertclose"></span></div>
 	<div class="content">
 	 <div id="txt"></div>
@@ -149,7 +154,7 @@
                     <div style="background-position: 0px 0px;" class="box"></div>
                     <div class="cover"></div>
                 </div>
-                <div class="gamebutton"></div>
+                <div class="gamebutton" <pigcmsif where="$wecha_id eq ''">onclick="alert('您只能查看，无法参与此活动')"</pigcmsif>></div>
             <div class="light l0"></div><div class="light l1 on"></div><div class="light l2"></div><div class="light l3 on"></div><div class="light l4"></div><div class="light l5 on"></div><div class="light l6"></div><div class="light l7 on"></div><div class="light l8"></div><div class="light l9 on"></div><div class="light l10"></div><div class="light l11 on"></div><div class="light l12"></div><div class="light l13 on"></div><div class="light l14"></div><div class="light l15 on"></div><div class="light l16"></div><div class="light l17 on"></div><div class="light l18"></div><div class="light l19 on"></div><div class="light l20"></div></div>
             
             
@@ -190,7 +195,15 @@
 					<p>您中了{pigcms:$record.prize}等奖，已于{pigcms:$record.sendtime|date="Y-m-d",###}兑奖</p>
 				</div>
 			</div>
-			</pigcmsif>	
+			</pigcmsif>
+			<pigcmsif where="$wecha_id eq ''">
+			<div class="part">
+                <div class="title">友情提醒:</div>
+                <div class="content">
+				<p style="color:#f00;line-height:160%">您可能是从朋友圈等分享过的页面打开的链接，无法直接参与此活动，如需参与此活动请按照以下步骤操作：<br>1、关注微信名称“{pigcms:$wxuser.wxname}”或者微信号“{pigcms:$wxuser.weixin}”<br>2、输入关键词：“{pigcms:$lottery.keyword}”</p>            
+                </div>
+            </div>
+			</pigcmsif>
 			<pigcmsif where="$lottery['end'] eq 1">
 			<div class="part">
                 <div class="title">结束说明:</div>
@@ -238,4 +251,17 @@
            
 
 
-<div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon ui-icon-loading"></span></div></body></html>
+<div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon ui-icon-loading"></span></div>
+
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"LuckyFruit",
+            "moduleID":"{pigcms:$lottery.id}",
+            "imgUrl": "{pigcms:$lottery.starpicurl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('LuckyFruit/index',array('token'=>$token,'id'=>$lottery['id'],'type'=>5))}",
+            "tTitle": "{pigcms:$lottery.title}",
+            "tContent": "{pigcms:$lottery.info}"
+};
+</script>
+{pigcms:$shareScript}
+</body></html>

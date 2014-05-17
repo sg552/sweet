@@ -13,6 +13,8 @@ class HomeAction extends UserAction{
 	public function set(){
 		$home=$this->home_db->where(array('token'=>session('token')))->find();
 		if(IS_POST){
+			$token = session('token');
+			S("homeinfo_".$token,NULL);
 			if($home==false){				
 				$this->all_insert('Home','/set');
 			}else{
@@ -32,6 +34,7 @@ class HomeAction extends UserAction{
 		if (!$home){
 			$this->error('请先配置3g网站信息',U('Home/set',array('token'=>session('token'))));
 		}else {
+			S("homeinfo_".$this->token,NULL);
 			if(IS_POST){
 				//保存版权信息和菜单颜色
 				$this->home_db->where($where)->save(array('plugmenucolor'=>$this->_post('plugmenucolor'),'copyright'=>$this->_post('copyright')));

@@ -1,12 +1,13 @@
 <?php
-class ProductAction extends BaseAction{
+class ProductAction extends WapAction{
 	public $token;
 	public $wecha_id;
 	public $product_model;
 	public $product_cat_model;
 	public $isDining;
 	public $session_cart_name;
-	public function __construct(){
+	public function _initialize(){
+		parent::_initialize();
 		$agent = $_SERVER['HTTP_USER_AGENT']; 
 		if(!strpos($agent,"MicroMessenger")) {
 		//	echo '此功能只能在微信浏览器中使用';exit;

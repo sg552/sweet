@@ -17,10 +17,10 @@
     </div>
 </div>
           <div class="cLine">
-    
+
 </div>
-          
-         
+
+
           <div class="msgWrap">
           <form method="post" action="" id="info">
           <input name="delall" type="hidden" value="del">
@@ -30,6 +30,7 @@
                 <tr>
                   <th>车主姓名</th>
                   <th>品牌/车系</th>
+                  <th>车型</th>
                   <th>手机号码</th>
                   <th>车牌号码</th>
                    <th>购车时间</th>
@@ -43,22 +44,23 @@
                     <tr>
                     <td>{pigcms:$vo['car_userName']}</td>
                        <td>{pigcms:$vo['brand_serise']}</td>
+                       <td>{pigcms:$vo['carmodel']}</td>
                         <td>{pigcms:$vo['user_tel']}</td>
                        <td>{pigcms:$vo['car_no']}</td>
                         <td>{pigcms:$vo['car_buyTime']}</td>
                        <td>{pigcms:$vo['car_insurance_lastCost']}</td>
                        <td>{pigcms:$vo['car_care_lastCost']}</td>
-                       
+
                        <td class="input-medium">
                             <a href="###" onclick="showIntroDetail({pigcms:$vo.id})">费用详细</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <a class="btn" href="{pigcms::U('Car/del_carowner',array('token'=>$token,'id'=>$vo['id']))}" title="删除" onclick="return(confirm('确定要删除吗？'))" >删除</a></td>
                     </tr>
                 </volist>
-                 
+
               </tbody>
             </table>
-           </form> 
+           </form>
           </div>
           <div class="cLine">
             <div class="pageNavigator right">

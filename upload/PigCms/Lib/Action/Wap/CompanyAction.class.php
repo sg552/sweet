@@ -1,8 +1,9 @@
 <?php
-class CompanyAction extends BaseAction{
+class CompanyAction extends WapAction{
 	public $token;
 	public $apikey;
 	public function _initialize() {
+		parent::_initialize();
 		$this->token=$this->_get('token');
 		$this->assign('token',$this->token);
 		$this->apikey=C('baidu_map_api');
@@ -10,6 +11,7 @@ class CompanyAction extends BaseAction{
 		$this->assign('staticFilePath',str_replace('./','/',THEME_PATH.'common/css/product'));
 	}
 	public function map(){
+		
 		//店铺信息
 		$company_model=M('Company');
 		$where=array('token'=>$this->token);
@@ -20,6 +22,7 @@ class CompanyAction extends BaseAction{
 		}
 		
 		$thisCompany=$company_model->where($where)->find();
+		/*
 		$this->assign('thisCompany',$thisCompany);
 		if (!isset($_GET['companyid'])){
 		//分店信息
@@ -28,8 +31,13 @@ class CompanyAction extends BaseAction{
 		$this->assign('branchStoreCount',$branchStoreCount);
 		$this->assign('branchStores',$branchStores);
 		}
+		/*
 		$this->assign('metaTitle','地图');
-		$this->display();
+		
+		*/
+		//$this->display();
+		
+		header('Location:http://api.map.baidu.com/marker?location='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&title='.$thisCompany['name'].'&content='.$thisCompany['address'].'&output=html&src=yourComponyName|yourAppName');
 	}
 	public function walk($display=1){
 		$company_model=M('Company');

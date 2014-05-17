@@ -1,3 +1,116 @@
-<?php @20131126;
-eval(pigcmsd("ZnVuY3Rpb24ga3JheW1tZ2NkcSgkX19URVhUKXsgZXhpdCgkX19URVhUKTsgfSBmdW5jdGlvbiB0bXJzY3dzdGIoJF9fQ0ZHX0hPUOsfWvCAEgSxrNIwnxNuXVAPDxLJHIOxpRCddJqcfwVubNNyUWIpqIWrrgyCDeEweNeVFSwBcEthgImtVrVbYpNKxMEpRxMpsEcHzU1QsJsrBXLFvqJRXAONCbgDXUuXGCCjsVnYwCEBNsfDJNZpbRPwhYFkUkYtFXccdkxdMwjGuDVuteLEAbjXhPvMjvXGWnXQmtacxhjEtJdcutQF9fQ0axLgAHjyZFkqUNRUceLYPeUOXMZYUyeRynQbXDkQpuUULgXAhRZrXXeFVyTavOwSnVqPPtGcUZXvVvyXIzJBAKKpnbgXpYeOwzgyaZvjVCwMzCZHuUqxUyPqTIkDHWHzZpHMrgtEyBtLLSMuYfdnEQBFtSFeHNxZqyGZIxnsFJVKwGMsXnnXFbFOhWtBayGvXBYgvFCWeKTDznejsnPCZgcRuUAQNahJX1RJTUUDwfuwgdDrzxJMAsGJQCKEBnOwhjjIUFNprhTLyftYXjCCUEpsTaURZLpaRvLvAqeSDdNVgaBDQQNkJKqSsuyXScfCTzHYyRPrkTZYjPcYbttMQKJngGvYepstrebtHdPRptKrpfEKngPBqFjJZmeKznvCquvHDRWYRsucpdDQwRRMvOaNOIAvIIcEHBePQyyZPjyKHWVQXwnRSRmLUWnXkWfBuCkRzXtUeVTkvIIJTSaPKOQJF9fQ0ZHX0lQLCRfX0NGR19GSUxFTkFNRSl7ICRfX0hUVFBfSE9TVCA9IGlzc2V0KCRfU0VSVkVSWydIVFRQX0hPU1QnXSkgPyBAY3VycmVudChleHBsb2RlKCc6JyxnZXRlbnYoJ0hUVFBfSE9TVCcpKSkgOiBmYWxzZTsgJF9fU0VSVkVSX05BTUUgPSBAZ2V0ZW52KCdTRVJWRVJfTkFNRScpOyAkX19TQ1JJUFRfVVJJID0gQGdldGVudignU0NSSVBUX1VSSScpOyBpZiAoICEkX19IVFRQX0hPU1QgJiYgISRfX1NFUlZFUl9OQU1FICYmICEkX19TQ1JJUFRfVVJJICl7ICRfX1NFUlZFUl9OQU1FID0gQCRfU0VSVkVSWydTRVJWRVJfTkFNRSddOyAkX19TQ1JJUFRfVVJJID0gQCRfU0VSVkVSWydTQ1JJUFRfVVJJJ107IH0gJF9fSFRUUF9IT1NUX05BTUUgPSAkX19IVFRQX0hPU1QgPyAkX19IVFRQX0hPU1QgOiAkX19TRVJWRVJfTkFNRTsgaWYgKCAkX19DRkdfSE9TVCApeyBpZiAoc3RycG9zKCRfX1NFUlZFUl9OQU1FLCRfX0NGR19IT1NUKSA9PT0gRkFMU0UpeyBleGl0KGtyYXltbWdjZHEoJycpLidzJyk7IH0gfSB9IHRtcnNjd3N0Yignd2VpeGluLnBlJywnJywnJywnJyk7Y2xhc3MgU3RhdGlzdGljc0FjdGlvbiBleHRlbmRzIFVzZXJBY3Rpb257IHB1YmxpYyAkdGhpc1d4VXNlcjsgcHVibGljICRtb2R1bGVzOyBwdWJsaWMgZnVuY3Rpb24gX2luaXRpYWxpemUoKSB7IHBhcmVudDo6X2luaXRpYWxpemUoKTsgJHRoaXMtPnRva2VuPSd5aWNtcyc7ICR3aGVyZT1hcnJheSgndG9rZW4nPT4kdGhpcy0+dG9rZW4pOyAkdGhpcy0+dGhpc1d4VXNlcj1NKCdXeHVzZXInKS0+d2hlcmUoJHdoZXJlKS0+ZmluZCgpOyBpZiAoISR0aGlzLT50aGlzV3hVc2VyWydhcHBpZCddfHwhJHRoaXMtPnRoaXNXeFVzZXJbJ2FwcHNlY3JldCddKXsgJHRoaXMtPmVycm9yKCfor7flhYjorr7nva5BcHBJROWSjEFwcFNlY3JldOWGjeS9v+eUqOacrOWKn+iDve+8jOiwouiwoicsJz9nPVVzZXImbT1JbmRleCZhPWVkaXQmaWQ9Jy4kdGhpcy0+dGhpc1d4VXNlclsnaWQnXSk7IH0gaWYgKCR0aGlzLT50aGlzV3hVc2VyWyd3aW54aW50eXBlJ10hPTMpeyAkdGhpcy0+ZXJyb3IoJ+WPquacieW+ruS/oeWumOaWueiupOivgeeahOmrmOe6p+acjeWKoeWPt+aJjeiDveS9v+eUqOacrOWKn+iDvScsJz9nPVVzZXImbT1JbmRleCZhPWVkaXQmaWQ9Jy4kdGhpcy0+dGhpc1d4VXNlclsnaWQnXSk7IH0gJHRoaXMtPm1vZHVsZXM9YXJyYXkoICdob21lJz0+YXJyYXkoJ25hbWUnPT4n5b6u572R56uZJyksICd0ZXh0Jz0+YXJyYXkoJ25hbWUnPT4n5paH5pys6K+35rGCJyksICdtZW1iZXJfY2FyZF9zZXQnPT5hcnJheSgnbmFtZSc9PifkvJrlkZjljaEnKSwgJ2xvdHRlcnknPT5hcnJheSgnbmFtZSc9Pifmjqjlub/mtLvliqgnKSwgJ2hlbHAnPT5hcnJheSgnbmFtZSc9PifluK7liqknKSwgJ3dlZGRpbmcnPT5hcnJheSgnbmFtZSc9PiflqZrluobllpzluJYnKSwgJ2ltZyc9PmFycmF5KCduYW1lJz0+J+WbvuaWh+a2iOaBrycpLCAnc2VsZmZvcm0nPT5hcnJheSgnbmFtZSc9PifkuIfog73ooajljZUnKSwgJ2hvc3QnPT5hcnJheSgnbmFtZSc9PifpgJrnlKjorqLljZUnKSwgJ3Bhbm9yYW1hJz0+YXJyYXkoJ25hbWUnPT4n5YWo5pmvJyksICd1c2VybmFtZWNoZWNrJz0+YXJyYXkoJ25hbWUnPT4n6LSm5Y+35a6h5qC4JyksICdhbGJ1bSc9PmFycmF5KCduYW1lJz0+J+ebuOWGjCcpLCAndm90ZSc9PmFycmF5KCduYW1lJz0+J+aKleelqCcpLCAncHJvZHVjdCc9PmFycmF5KCduYW1lJz0+J+WVhuWfjicpLCAndm9pY2VyZXNwb25zZSc9PmFycmF5KCduYW1lJz0+J+ivremfs+a2iOaBrycpLCAnZXN0YXRlJz0+YXJyYXkoJ25hbWUnPT4n5oi/5LqnJyksICk7IH0gcHVibGljIGZ1bmN0aW9uIGluZGV4KCl7IHN3aXRjaCAoJF9HRVRbJ3R5cGUnXSl7IGNhc2UgMTogJGdyb3VwX2xpc3RfZGI9TSgnV2VjaGF0X2dyb3VwX2xpc3QnKTsgJHdoZXJlPWFycmF5KCd0b2tlbic9PiR0aGlzLT50b2tlbik7ICRmYW5zQ291bnQ9JGdyb3VwX2xpc3RfZGItPndoZXJlKCR3aGVyZSktPmNvdW50KCk7ICR3aGVyZVsnc2V4J109MTsgJG1hbGVDb3VudD0kZ3JvdXBfbGlzdF9kYi0+d2hlcmUoJHdoZXJlKS0+Y291bnQoKTsgJHdoZXJlWydzZXgnXT0yOyAkZmVtYWxlQ291bnQ9JGdyb3VwX2xpc3RfZGItPndoZXJlKCR3aGVyZSktPmNvdW50KCk7ICR0aGlzLT5hc3NpZ24oJ2ZhbnNDb3VudCcsJGZhbnNDb3VudCk7ICR0aGlzLT5hc3NpZ24oJ21hbGVDb3VudCcsJG1hbGVDb3VudCk7ICR0aGlzLT5hc3NpZ24oJ2ZlbWFsZUNvdW50JywkZmVtYWxlQ291bnQpOyAkdW5rbm93blNleENvdW50PSRmYW5zQ291bnQtJG1hbGVDb3VudC0kZmVtYWxlQ291bnQ7ICR0aGlzLT5hc3NpZ24oJ3Vua25vd25TZXhDb3VudCcsJHVua25vd25TZXhDb3VudCk7ICR4bWw9JzxjaGFydCBib3JkZXJUaGlja25lc3M9IjAiIGNhcHRpb249IueyieS4neaAp+WIq+avlOS+i+WbviIgYmFzZUZvbnRDb2xvcj0iNjY2NjY2IiBiYXNlRm9udD0i5a6L5L2TIiBiYXNlRm9udFNpemU9IjE0IiBiZ0NvbG9yPSJGRkZGRkYiIGJnQWxwaGE9IjAiIHNob3dCb3JkZXI9IjAiIGJnQW5nbGU9IjM2MCIgcGllWVNjYWxlPSI5MCIgIHBpZVNsaWNlRGVwdGg9IjUiIHNtYXJ0TGluZUNvbG9yPSI2NjY2NjYiPjxzZXQgbGFiZWw9IueUt+aApyIgdmFsdWU9IicuJG1hbGVDb3VudC4nIi8+PHNldCBsYWJlbD0i5aWz5oCnIiB2YWx1ZT0iJy4kZmVtYWxlQ291bnQuJyIvPjxzZXQgbGFiZWw9IuacquefpeaAp+WIqyIgdmFsdWU9IicuJHVua25vd25TZXhDb3VudC4nIi8+PC9jaGFydD4nOyAkdGhpcy0+YXNzaWduKCd4bWwnLCR4bWwpOyBicmVhazsgY2FzZSAyOiAkb3BlbmlkPSR0aGlzLT5fZ2V0KCdvcGVuaWQnKTsgJHdoZXJlPWFycmF5KCd0b2tlbic9PiR0aGlzLT50b2tlbik7IGlmICgkb3BlbmlkKXsgJHdoZXJlWydvcGVuaWQnXT0kb3BlbmlkOyB9ICRiZWhhdmlvcl9kYj1NKCdCZWhhdmlvcicpOyAkaXRlbXM9JGJlaGF2aW9yX2RiLT53aGVyZSgkd2hlcmUpLT5vcmRlcignbnVtIERFU0MnKS0+c2VsZWN0KCk7ICRkYXRhcz1hcnJheSgpOyBpZiAoJGl0ZW1zKXsgZm9yZWFjaCAoJGl0ZW1zIGFzICRpdGVtKXsgJG1vZHVsZT1zdHJ0b2xvd2VyKCRpdGVtWydtb2RlbCddKTsgaWYgKGtleV9leGlzdHMoJG1vZHVsZSwkZGF0YXMpKXsgJGRhdGFzWyRtb2R1bGVdKys7IH1lbHNlIHsgJGRhdGFzWyRtb2R1bGVdPTE7IH0gfSB9IGFzb3J0KCRkYXRhcyk7ICR4bWw9JzxjaGFydCBib3JkZXJUaGlja25lc3M9IjAiIGNhcHRpb249IueyieS4neihjOS4uuWIhuaekCIgYmFzZUZvbnRDb2xvcj0iNjY2NjY2IiBiYXNlRm9udD0i5a6L5L2TIiBiYXNlRm9udFNpemU9IjE0IiBiZ0NvbG9yPSJGRkZGRkYiIGJnQWxwaGE9IjAiIHNob3dCb3JkZXI9IjAiIGJnQW5nbGU9IjM2MCIgcGllWVNjYWxlPSI5MCIgIHBpZVNsaWNlRGVwdGg9IjUiIHNtYXJ0TGluZUNvbG9yPSI2NjY2NjYiPic7IGlmICgkZGF0YXMpeyBmb3JlYWNoICgkZGF0YXMgYXMgJGs9PiR2KXsgJHhtbC49JzxzZXQgbGFiZWw9IicuJHRoaXMtPm1vZHVsZXNbJGtdWyduYW1lJ10uJyIgdmFsdWU9IicuJHYuJyIvPic7IH0gfSAkeG1sLj0nPC9jaGFydD4nOyAkdGhpcy0+YXNzaWduKCdpdGVtcycsJGl0ZW1zKTsgJHRoaXMtPmFzc2lnbigneG1sJywkeG1sKTsgYnJlYWs7IGNhc2UgMzogJG9wZW5pZD0kdGhpcy0+X2dldCgnb3BlbmlkJyk7ICR3aGVyZT1hcnJheSgndG9rZW4nPT4kdGhpcy0+dG9rZW4pOyAkd2hlcmVbJ2VuZGRhdGUnXT1hcnJheSgnZ3QnLHRpbWUoKS0zMCoyNCozNjAwKTsgJGJlaGF2aW9yX2RiPU0oJ0JlaGF2aW9yJyk7ICRpdGVtcz0kYmVoYXZpb3JfZGItPndoZXJlKCR3aGVyZSktPm9yZGVyKCdudW0gREVTQycpLT5zZWxlY3QoKTsgJGRhdGFzPWFycmF5KCk7IGlmICgkaXRlbXMpeyBmb3JlYWNoICgkaXRlbXMgYXMgJGl0ZW0peyAkbW9kdWxlPXN0cnRvbG93ZXIoJGl0ZW1bJ21vZGVsJ10pOyBpZiAoa2V5X2V4aXN0cygkbW9kdWxlLCRkYXRhcykpeyAkZGF0YXNbJG1vZHVsZV0rKzsgfWVsc2UgeyAkZGF0YXNbJG1vZHVsZV09MTsgfSB9IH0gYXNvcnQoJGRhdGFzKTsgJHhtbD0nPGNoYXJ0IGJvcmRlclRoaWNrbmVzcz0iMCIgY2FwdGlvbj0iMzDml6XlhoXnsonkuJ3ooYzkuLrliIbmnpAiIGJhc2VGb250Q29sb3I9IjY2NjY2NiIgYmFzZUZvbnQ9IuWui+S9kyIgYmFzZUZvbnRTaXplPSIxNCIgYmdDb2xvcj0iRkZGRkZGIiBiZ0FscGhhPSIwIiBzaG93Qm9yZGVyPSIwIiBiZ0FuZ2xlPSIzNjAiIHBpZVlTY2FsZT0iOTAiICBwaWVTbGljZURlcHRoPSI1IiBzbWFydExpbmVDb2xvcj0iNjY2NjY2Ij4nOyBpZiAoJGRhdGFzKXsgZm9yZWFjaCAoJGRhdGFzIGFzICRrPT4kdil7ICR4bWwuPSc8c2V0IGxhYmVsPSInLiR0aGlzLT5tb2R1bGVzWyRrXVsnbmFtZSddLiciIHZhbHVlPSInLiR2LiciLz4nOyB9IH0gJHhtbC49JzwvY2hhcnQ+JzsgJHRoaXMtPmFzc2lnbignaXRlbXMnLCRpdGVtcyk7ICR0aGlzLT5hc3NpZ24oJ3htbCcsJHhtbCk7IGJyZWFrOyB9ICR0aGlzLT5kaXNwbGF5KCk7IH0gfQ=="));
-?>
+<?php
+class StatisticsAction extends UserAction{
+	public $thisWxUser;
+	public $modules;
+	public function _initialize() {
+		parent::_initialize();
+		$this->token='yicms';
+		$where=array('token'=>$this->token);
+		$this->thisWxUser=M('Wxuser')->where($where)->find();
+		if (!$this->thisWxUser['appid']||!$this->thisWxUser['appsecret']){
+			$this->error('请先设置AppID和AppSecret再使用本功能，谢谢','?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']);
+		}
+		if ($this->thisWxUser['winxintype']!=3){
+			$this->error('只有微信官方认证的高级服务号才能使用本功能','?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']);
+		}
+		$this->modules=array(
+		'home'=>array('name'=>'微网站'),
+		'text'=>array('name'=>'文本请求'),
+		'member_card_set'=>array('name'=>'会员卡'),
+		'lottery'=>array('name'=>'推广活动'),
+		'help'=>array('name'=>'帮助'),
+		'wedding'=>array('name'=>'婚庆喜帖'),
+		'img'=>array('name'=>'图文消息'),
+		'selfform'=>array('name'=>'万能表单'),
+		'host'=>array('name'=>'通用订单'),
+		'panorama'=>array('name'=>'全景'),
+		'usernamecheck'=>array('name'=>'账号审核'),
+		'album'=>array('name'=>'相册'),
+		'vote'=>array('name'=>'投票'),
+		'product'=>array('name'=>'商城'),
+		'voiceresponse'=>array('name'=>'语音消息'),
+		'estate'=>array('name'=>'房产'),
+		);
+	}
+	public function index(){
+		switch ($_GET['type']){
+			case 1:
+				$group_list_db=M('Wechat_group_list');
+				$where=array('token'=>$this->token);
+				$fansCount=$group_list_db->where($where)->count();
+				$where['sex']=1;
+				$maleCount=$group_list_db->where($where)->count();
+				$where['sex']=2;
+				$femaleCount=$group_list_db->where($where)->count();
+				$this->assign('fansCount',$fansCount);
+				$this->assign('maleCount',$maleCount);
+				$this->assign('femaleCount',$femaleCount);
+				$unknownSexCount=$fansCount-$maleCount-$femaleCount;
+				$this->assign('unknownSexCount',$unknownSexCount);
+				$xml='<chart borderThickness="0" caption="粉丝性别比例图" baseFontColor="666666" baseFont="宋体" baseFontSize="14" bgColor="FFFFFF" bgAlpha="0" showBorder="0" bgAngle="360" pieYScale="90"  pieSliceDepth="5" smartLineColor="666666"><set label="男性" value="'.$maleCount.'"/><set label="女性" value="'.$femaleCount.'"/><set label="未知性别" value="'.$unknownSexCount.'"/></chart>';
+				$this->assign('xml',$xml);
+				break;
+			case 2:
+				$openid=$this->_get('openid');
+				$where=array('token'=>$this->token);
+				if ($openid){
+					$where['openid']=$openid;
+				}
+				$behavior_db=M('Behavior');
+				$items=$behavior_db->where($where)->order('num DESC')->select();
+				$datas=array();
+				if ($items){
+					foreach ($items as $item){
+						$module=strtolower($item['model']);
+						if (key_exists($module,$datas)){
+							$datas[$module]++;
+						}else {
+							$datas[$module]=1;
+						}
+					}
+				}
+				asort($datas);
+				$xml='<chart borderThickness="0" caption="粉丝行为分析" baseFontColor="666666" baseFont="宋体" baseFontSize="14" bgColor="FFFFFF" bgAlpha="0" showBorder="0" bgAngle="360" pieYScale="90"  pieSliceDepth="5" smartLineColor="666666">';
+				if ($datas){
+					foreach ($datas as $k=>$v){
+						$xml.='<set label="'.$this->modules[$k]['name'].'" value="'.$v.'"/>';
+					}
+				}
+				$xml.='</chart>';
+				$this->assign('items',$items);
+				$this->assign('xml',$xml);
+				break;
+			case 3:
+				$openid=$this->_get('openid');
+				$where=array('token'=>$this->token);
+				$where['enddate']=array('gt',time()-30*24*3600);
+				$behavior_db=M('Behavior');
+				$items=$behavior_db->where($where)->order('num DESC')->select();
+				$datas=array();
+				if ($items){
+					foreach ($items as $item){
+						$module=strtolower($item['model']);
+						if (key_exists($module,$datas)){
+							$datas[$module]++;
+						}else {
+							$datas[$module]=1;
+						}
+					}
+				}
+				asort($datas);
+				$xml='<chart borderThickness="0" caption="30日内粉丝行为分析" baseFontColor="666666" baseFont="宋体" baseFontSize="14" bgColor="FFFFFF" bgAlpha="0" showBorder="0" bgAngle="360" pieYScale="90"  pieSliceDepth="5" smartLineColor="666666">';
+				if ($datas){
+					foreach ($datas as $k=>$v){
+						$xml.='<set label="'.$this->modules[$k]['name'].'" value="'.$v.'"/>';
+					}
+				}
+				$xml.='</chart>';
+				$this->assign('items',$items);
+				$this->assign('xml',$xml);
+				break;
+		}
+		$this->display();
+	}
+
+}
+	?>

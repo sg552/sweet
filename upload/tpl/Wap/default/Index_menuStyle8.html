@@ -7,7 +7,7 @@ ul, li { list-style:none; margin:0; padding:0 }
 .plug-menu { -webkit-appearance:button; display:inline-block; width:36px; height:36px; border-radius:36px; position: absolute; bottom:17px; right: 17px; z-index:999; box-shadow: 0 0 0 4px #FFFFFF, 0 2px 5px 4px rgba(0, 0, 0, 0.25); background-color: #B70000; -webkit-transition: -webkit-transform 200ms; -webkit-transform:rotate(1deg); color:#fff; background-image:url('tpl/Wap/default/common/images/plug.png'); background-repeat: no-repeat; -webkit-background-size: 80% auto; background-size: 80% auto; background-position: center center; }
 .plug-menu:before { font-size:20px; margin:9px 0 0 9px; }
 .plug-menu:checked { -webkit-transform:rotate(135deg); }
-.top_menu { margin-right: 0px; }
+.top_menu { margin-right: -260px; }
 .top_menu>li { min-width: 86px; padding:0; height:32px; margin-bottom: 15px; margin-right: 15px; z-index:900; transition: all 200ms ease-out; -webkit-transition: all 200ms ease-out; }
 .top_menu>li:last-child { margin-bottom: 80px; }
 .top_menu>li a { color:#fff; font-size:20px; display: block; height: 100%; line-height: 33px; text-indent:32px; text-decoration:none; position:relative; font-size:16px; text-overflow:ellipsis; white-space:nowrap; text-align: right; }
@@ -81,8 +81,9 @@ transition: all 100ms ease-out;
  
 <div class="top_bar" style="-webkit-transform:translate3d(0,0,0)">
 <nav>
-      <input type="checkbox" id="plug-btn" class="plug-menu themeStyle" style="background-color:{pigcms:$homeInfo.plugmenucolor};background-image:url('tpl/Wap/default/common/images/plug.png');border:0px;">
-    <ul id="top_menu" class="top_menu" >
+     
+    <ul id="top_menu" class="top_menu">
+	 <input type="checkbox" id="plug-btn" class="plug-menu themeStyle" style="background-color:{pigcms:$homeInfo.plugmenucolor};background-image:url('tpl/Wap/default/common/images/plug.png');border:0px;">
     <volist name="catemenu" id="vo">
           <li class="themeStyle out" style=""> <a href="{pigcms:$vo.url}"><img src="{pigcms:$vo.picurl}"><label class="themeStyle">{pigcms:$vo.name}</label></a></li>
         </volist>  
@@ -95,9 +96,11 @@ $(function(){
         $(".plug-menu").click(function(){
         var li = $(this).parents('nav').find('ul').find('li');
         if(li.attr("class") == "themeStyle on"){
+				$('.top_menu').css('margin-right','-260px');
                 li.removeClass("themeStyle on");
                 li.addClass("themeStyle out");
         }else{
+				$('.top_menu').css('margin-right','0px');
                 li.removeClass("themeStyle out");
                 li.addClass("themeStyle on");
 

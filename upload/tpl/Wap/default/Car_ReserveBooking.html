@@ -17,13 +17,13 @@
 <script type="text/javascript" src="{pigcms::RES}/car/Tabs/js/easyResponsiveTabs.js"></script>
 
 <title>预约列表</title>
-      
+
         <style>
             img{width:100%!important;}
         </style>
     </head>
     <body onselectstart="return true;" ondragstart="return false;">
-        
+
     <body onselectstart="return true;" ondragstart="return false;">
         <div id="bookBody" class="body">
             <header>
@@ -37,7 +37,7 @@
             </a><div class="text"><a href="javascript:;">
                您还没有预约。
                 </div>
-       
+
 </li>
 </if>
 
@@ -68,8 +68,12 @@
                                 <div><a href="tel:{pigcms:$vo['tel']}" style="color:#000;">{pigcms:$vo['tel']}</a></div>
                             </dd>
                             <dd class="tbox">
-                                <div><label>车系/车型：</label></div>
+                                <div><label>品牌/车系：</label></div>
                                 <div><label>{pigcms:$vo['housetype']}</label></div>
+                            </dd>
+                            <dd class="tbox">
+                                <div><label>车型：</label></div>
+                                <div><label>{pigcms:$vo['choose']}</label></div>
                             </dd>
                             <if condition="$vo['type'] eq 'maintain'">
                                 <dd class="tbox">
@@ -93,9 +97,7 @@
                             <div>
                                 <li class="box group_btn">
                                     <div>
-                                    <if  condition="$vo['remate'] neq 1" >
-                                    <a href="{pigcms::U('Car/ReserveBookingEdit',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$vo['id'],'addtype'=>$reser['addtype']))}">修改订单</a>
-                                    </if>
+
                                     </div>
                                     <div><a href="{pigcms::U('Car/delOrder',array('token'=>$vo['token'],'wecha_id'=>$vo['wecha_id'],'id'=>$vo['id'],'addtype'=>$vo['type']))}" onclick="return(confirm('您确定要删除吗?'));return false;" id="showcard2" class="gray">删除订单</a></div>
                                 </li>

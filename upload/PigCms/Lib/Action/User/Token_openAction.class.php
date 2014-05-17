@@ -2,7 +2,12 @@
 class Token_openAction extends UserAction{
 
 	public function add(){
-		$fun=M('Function')->where(array('id'=>$this->_get('id')))->find();
+		if ($this->isAgent){
+			$fun=M('Agent_function')->where(array('id'=>$this->_get('id')))->find();
+		}else {
+			$fun=M('Function')->where(array('id'=>$this->_get('id')))->find();
+		}
+		
 		$openwhere=array('uid'=>session('uid'),'token'=>session('token'));
 		//删除掉重复的token
 		$deleteWhere=array();
@@ -26,7 +31,11 @@ class Token_openAction extends UserAction{
 	
 	}
 	public function del(){
-		$fun=M('Function')->where(array('id'=>$this->_get('id')))->find();
+		if ($this->isAgent){
+			$fun=M('Agent_function')->where(array('id'=>$this->_get('id')))->find();
+		}else {
+			$fun=M('Function')->where(array('id'=>$this->_get('id')))->find();
+		}
 		$openwhere=array('uid'=>session('uid'),'token'=>session('token'));
 		$open=M('Token_open')->where($openwhere)->find();		
 		//删除掉重复的token

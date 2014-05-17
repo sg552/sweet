@@ -27,11 +27,11 @@ items : [
 <div class="content">
 
 <div class="cLineB">
-  <h4> <if condition="$vo['type'] neq 'img'"> 文本<else/>图片</if>投票设置 </h4><a href="{pigcms::U('Vote/index')}" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+  <h4> <if condition="$vo['type'] eq 'img' OR ($type eq 'img')"> 图片<else/>文本</if>投票设置 </h4><a href="{pigcms::U('Vote/index')}" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
  </div>
 
          <div class="msgWrap bgfc">
-<form class="form" method="post" action="" target="_top" enctype="multipart/form-data">	
+<form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
 <if condition="$vo['id'] neq ''">
   <input type="hidden" name="id" value="{pigcms:$vo['id']}">
 </if>
@@ -45,8 +45,12 @@ items : [
 </tr>
 <tr>
 <th>投票图片：</th>
-<td><img class="thumb_img" id="picurl_src" src="{pigcms:$reslist['picurl']|default='http://image.pigcms.com/yicms/2013/12/26/1388041408_1ed0f0591f583869.jpg'}" style="max-height:100px;"><input type="text" name="picurl" value="{pigcms:$vo.picurl|default='http://image.pigcms.com/yicms/2013/12/26/1388041408_1ed0f0591f583869.jpg'}" class="px" onclick="document.getElementById('picurl_src').src=this.value;" id="picurl" style="width:300px;"> 
- <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('picurl',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('picurl')">预览</a>&nbsp;填写图片外链地址，大小为720x400</td>
+<td>
+<if condition="$reslist['picurl'] neq ''">
+<img class="thumb_img" id="picurl_src" src="{pigcms:$reslist['picurl']}" style="max-height:100px;">
+</if>
+<input type="text" name="picurl" value="{pigcms:$vo.picurl}" class="px" onclick="document.getElementById('picurl_src').src=this.value;" id="picurl" style="width:300px;">
+ <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('picurl',700,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('picurl')">预览</a>&nbsp;填写图片外链地址，大小为720x400</td>
 </tr>
 <tr>
 <th>图片显示：</th>
@@ -87,22 +91,13 @@ function addTabody(i) {
 }
 
 function delrow(obj, tbody,objid) {
-  // if($$(tbody).rows.length == 1) {
-  // var trobj = obj.parentNode.parentNode;
-  // trobj.style.display='none';
-  // }else{
+
   $$(tbody).removeChild(obj.parentNode.parentNode);
 
    var obj = {id:objid}
         $.post("{pigcms::U('Vote/del_tab')}", obj,
             function(data) {
-                // if (0 == data.errno) {
-                //     alert(data.msg+data.tid);
-                //     return;
-                // } else {
-                //     alert("失败了。。");
-                //     alert(data.tid);
-                // }
+
             },
         "json");
 }
@@ -112,7 +107,7 @@ function delrow(obj, tbody,objid) {
   </script>
 <tbody>
 <tr>
-   
+
     <td width="260">选项标题</td>
     <td width="50">排序</td>
      <td width="50">票数</td>
@@ -124,8 +119,6 @@ function delrow(obj, tbody,objid) {
 </tr>
 </tbody>
 <if condition="$items neq ''">
-
- 
 <volist name="items" id="ivo">
 <tbody id="div_add_del_{pigcms:$i+50}" name="div_add_del">
 <tr>
@@ -135,12 +128,14 @@ function delrow(obj, tbody,objid) {
     <td width="20"><input type="text" name="add[vcount][]" value="{pigcms:$ivo.vcount}" style="width:20px;" class="px"></td>
     <if condition="$vo['type'] eq 'img' OR $type eq 'img'">
     <td width="200">
-      <img class="thumb_img" id="startpicurl_{pigcms:$i+50}_src" src="{pigcms:$ivo['startpicurl']}" style="max-height:100px;display: none;">
-      <input type="text" name="add[startpicurl][]" value="{pigcms:$ivo.startpicurl}" class="px" onclick="document.getElementById('startpicurl_{pigcms:$i+50}_src').src=this.value;" id="startpicurl_{pigcms:$i+50}" style="width:130px;"> 
-<a href="###" onclick="upyunPicUpload('startpicurl_{pigcms:$i+50}',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('startpicurl_{pigcms:$i+50}')">预览</a>
+<if condition="$ivo['startpicurl'] neq ''">
+<img class="thumb_img" id="startpicurl_{pigcms:$i+50}_src" src="{pigcms:$ivo['startpicurl']}" style="max-height:100px;display: none;">
+</if>
+      <input type="text" name="add[startpicurl][]" value="{pigcms:$ivo.startpicurl}" class="px" onclick="document.getElementById('startpicurl_{pigcms:$i+50}_src').src=this.value;" id="startpicurl_{pigcms:$i+50}" style="width:130px;">
+<a href="###" onclick="upyunPicUpload('startpicurl_{pigcms:$i+50}',700,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('startpicurl_{pigcms:$i+50}')">预览</a>
 </td>
     <td width="260"><input type="text" name="add[tourl][]" value="{pigcms:$ivo.tourl}" style="width:100px;" class="px"></td>
-    </if>   
+    </if>
 
     <td width="50" class="norightborder"><a href="javascript:;" onclick="delrow(this, 'div_add_del_{pigcms:$i+50}',{pigcms:$ivo.id});">删除</a></td>
 </tr>
@@ -149,7 +144,7 @@ function delrow(obj, tbody,objid) {
 
  </if>
 
-<tbody id="div_add_del_1" name="div_add_del">    
+<tbody id="div_add_del_1" name="div_add_del">
     <tr >
      <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:20px;" >
         <td width="120">
@@ -164,11 +159,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_1_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" placeholder="图片外链须加[http://]" value="" class="px" 
-          onclick="document.getElementById('startpicurl_1_src').src=this.value;" id="startpicurl_1" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_1',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" placeholder="图片[http://]" value="" class="px"
+          onclick="document.getElementById('startpicurl_1_src').src=this.value;" id="startpicurl_1" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_1',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_1')">预览</a>
-            <!--input type="text" name="add[startpicurl][]" id="startpicurl_1" value="{pigcms:$ivo.startpicurl}" class="px"  style="width:50px;"--> 
+            <!--input type="text" name="add[startpicurl][]" id="startpicurl_1" value="{pigcms:$ivo.startpicurl}" class="px"  style="width:50px;"-->
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -177,7 +172,7 @@ function delrow(obj, tbody,objid) {
     </tr>
 </tbody>
 
-<tbody id="div_add_del_2" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_2" name="div_add_del" style="display:none">
     <tr >
      <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:20px;" >
         <td width="120">
@@ -192,11 +187,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_2_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_2_src').src=this.value;" id="startpicurl_2" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_2',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value="" placeholder="图片[http://]" class="px"
+          onclick="document.getElementById('startpicurl_2_src').src=this.value;" id="startpicurl_2" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_2',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_2')">预览</a>
-            
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -205,7 +200,7 @@ function delrow(obj, tbody,objid) {
     </tr>
 </tbody>
 
-<tbody id="div_add_del_3" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_3" name="div_add_del" style="display:none">
     <tr >
       <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:50px;" >
         <td width="120">
@@ -220,11 +215,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_3_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_3_src').src=this.value;" id="startpicurl_3" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_3',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px"
+          onclick="document.getElementById('startpicurl_3_src').src=this.value;" id="startpicurl_3" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_3',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_3')">预览</a>
-           
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -234,7 +229,7 @@ function delrow(obj, tbody,objid) {
 </tbody>
 
 
-<tbody id="div_add_del_4" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_4" name="div_add_del" style="display:none">
     <tr >
       <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:50px;" >
         <td width="120">
@@ -249,11 +244,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_4_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value=""  placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_4_src').src=this.value;" id="startpicurl_4" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_4',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value=""  placeholder="图片外链须加[http://]" class="px"
+          onclick="document.getElementById('startpicurl_4_src').src=this.value;" id="startpicurl_4" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_4',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_4')">预览</a>
-            
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -263,7 +258,7 @@ function delrow(obj, tbody,objid) {
 </tbody>
 
 
-<tbody id="div_add_del_5" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_5" name="div_add_del" style="display:none">
     <tr >
      <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:50px;" >
         <td width="120">
@@ -278,11 +273,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_5_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_5_src').src=this.value;" id="startpicurl_5" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_5',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px"
+          onclick="document.getElementById('startpicurl_5_src').src=this.value;" id="startpicurl_5" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_5',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_5')">预览</a>
-            
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -291,7 +286,7 @@ function delrow(obj, tbody,objid) {
     </tr>
 </tbody>
 
-<tbody id="div_add_del_6" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_6" name="div_add_del" style="display:none">
     <tr >
      <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:50px;" >
         <td width="120">
@@ -306,11 +301,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_6_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_6_src').src=this.value;" id="startpicurl_6" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_6',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px"
+          onclick="document.getElementById('startpicurl_6_src').src=this.value;" id="startpicurl_6" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_6',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_6')">预览</a>
-            
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -319,7 +314,7 @@ function delrow(obj, tbody,objid) {
     </tr>
 </tbody>
 
-<tbody id="div_add_del_7" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_7" name="div_add_del" style="display:none">
     <tr >
      <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:50px;" >
         <td width="120">
@@ -334,11 +329,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_7_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_7_src').src=this.value;" id="startpicurl_7" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_7',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px"
+          onclick="document.getElementById('startpicurl_7_src').src=this.value;" id="startpicurl_7" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_7',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_7')">预览</a>
-            
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -346,7 +341,7 @@ function delrow(obj, tbody,objid) {
           <a href="javascript:;" id="add8" onclick="addTabody(8)">添加</a></td>
     </tr>
 </tbody>
-<tbody id="div_add_del_8" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_8" name="div_add_del" style="display:none">
     <tr >
      <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:50px;" >
         <td width="120">
@@ -361,11 +356,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_8_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_8_src').src=this.value;" id="startpicurl_8" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_8',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px"
+          onclick="document.getElementById('startpicurl_8_src').src=this.value;" id="startpicurl_8" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_8',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_8')">预览</a>
-            
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -373,7 +368,7 @@ function delrow(obj, tbody,objid) {
           <a href="javascript:;" id="add9" onclick="addTabody(9)">添加</a></td>
     </tr>
 </tbody>
-<tbody id="div_add_del_9" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_9" name="div_add_del" style="display:none">
     <tr >
      <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:50px;" >
         <td width="120">
@@ -388,11 +383,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_9_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_9_src').src=this.value;" id="startpicurl_9" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_9',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px"
+          onclick="document.getElementById('startpicurl_9_src').src=this.value;" id="startpicurl_9" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_9',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_9')">预览</a>
-            
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -401,7 +396,7 @@ function delrow(obj, tbody,objid) {
     </tr>
 </tbody>
 
-<tbody id="div_add_del_10" name="div_add_del" style="display:none">    
+<tbody id="div_add_del_10" name="div_add_del" style="display:none">
     <tr >
      <input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:50px;" >
         <td width="120">
@@ -416,11 +411,11 @@ function delrow(obj, tbody,objid) {
         <if condition="($vo['type'] eq 'img') OR ($type eq 'img')">
         <td width="200">
           <img class="thumb_img" id="startpicurl_10_src" src="" style="max-height:100px;display: none;">
-          <input type="text" name="add[startpicurl][]" value="" placeholder="图片外链须加[http://]" class="px" 
-          onclick="document.getElementById('startpicurl_10_src').src=this.value;" id="startpicurl_10" style="width:130px;"> 
-          <a href="###" onclick="upyunPicUpload('startpicurl_10',700,400,'{pigcms:$vo.token}')" class="a_upload">上传</a> 
+          <input type="text" name="add[startpicurl][]" value="" placeholder="图片[http://]" class="px"
+          onclick="document.getElementById('startpicurl_10_src').src=this.value;" id="startpicurl_10" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('startpicurl_10',700,400,'{pigcms:$token}')" class="a_upload">上传</a>
           <a href="###" onclick="viewImg('startpicurl_10')">预览</a>
-            
+
         </td>
         <td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>
          </if>
@@ -430,14 +425,14 @@ function delrow(obj, tbody,objid) {
 </tbody>
 <tbody>
         <tr>
-            <td colspan="4" class="norightborder"> 
-              排序默认为1，票数默认为0，图片跳转地址没有可以不填写。
-                
+            <td colspan="4" class="norightborder">
+              排序默认为1，票数默认为0，如果是图片投票必须添加图片,图片跳转地址没有可以不填写。
+
         </tr>
-        
+
   </tbody>
 </table>
-   
+
 </div>
 </div>
 
@@ -451,17 +446,18 @@ function delrow(obj, tbody,objid) {
       <option value="1" <if condition="$vo['cknums'] eq 1">selected</if>>单选</option>
       <option value="2" <if condition="$vo['cknums'] eq 2">selected</if>>多选</option>
     </select>
-    
+
 </p>
 </td>
 </tr>
-                          
+
 <tr>
 <th>截至时间：</th>
 <td><input type="input" class="px" id="statdate" value="<if condition="$vo['statdate'] neq ''">{pigcms:$vo.statdate|date="Y-m-d",###}</if>" onClick="WdatePicker()" name="statdate">
 到
 <input type="input" class="px" id="enddate" value="<if condition="$vo['enddate'] neq ''">{pigcms:$vo.enddate|date="Y-m-d",###}</if>" name="enddate" onClick="WdatePicker()"></td>
 </tr>
+<!--
 <tr>
 <th>投票结果：</th>
 <td>
@@ -477,6 +473,8 @@ function delrow(obj, tbody,objid) {
 
 </td>
 </tr>
+
+-->
 <tr>
 <th>&nbsp;</th>
 <td><button type="submit" name="button" class="btnGreen">保存</button>
@@ -484,12 +482,12 @@ function delrow(obj, tbody,objid) {
 </td>
 </tr>
 </tbody>
-</table>  
+</table>
 
 
 </form>
-  </div> 
- 
-  
+  </div>
+
+
         </div>
 <include file="Public:footer"/>

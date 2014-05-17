@@ -8,6 +8,7 @@
 <meta name="description" content="">
 <title>{pigcms:$Guajiang.title}</title>
 <link href="{pigcms::RES}/css/guajiang/css/activity-style.css?<?php echo date('Y-m-d',time());?>" rel="stylesheet" type="text/css">
+
 <script>
 /* Zepto v1.0-1-ga3cab6c - polyfill zepto detect event ajax form fx - zeptojs.com/license */
 
@@ -1744,7 +1745,9 @@ window.Zepto = Zepto
             }
         };
 </script>
+<pigcmsif where="$wecha_id neq ''">
 <script src="{pigcms::RES}/css/guajiang/js/wScratchPad.js" type="text/javascript"></script>
+</pigcmsif>
 </head>
 
 
@@ -1781,6 +1784,7 @@ window.Zepto = Zepto
 </if>
 <div class="content">
 	<!--zjl start-->
+	<pigcmsif where="$wecha_id neq ''">
 	<div id="zjl" <if condition="$Guajiang['usenums'] neq 2">style="display:none"</if> class="boxcontent boxwhite">
 		<div class="box">
 			<div class="title-red"><span><if condition="$Guajiang['usenums'] neq 2">恭喜你中奖了<else/>您已经中过奖了</if></span></div>
@@ -1811,7 +1815,19 @@ window.Zepto = Zepto
 			</div>
 		</div>
 	</div>
+	</pigcmsif>
 	<!--zjl end-->
+	<pigcmsif where="$wecha_id eq ''">
+<div class="boxcontent boxwhite">
+						<div class="box">
+							<div class="title-brown">友情提醒：</div>
+							<div class="Detail">
+				<p style="color:#f00;line-height:160%">您可能是从朋友圈等分享过的页面打开的链接，无法直接参与此活动，如需参与此活动请按照以下步骤操作：<br>1、关注微信名称“{pigcms:$wxuser.wxname}”或者微信号“{pigcms:$wxuser.weixin}”<br>2、输入关键词：“{pigcms:$Guajiang.keyword}”</p>            
+               </div>
+</div>
+</div>
+			</pigcmsif>
+			
 	<div class="boxcontent boxwhite">
 		<div class="box">
 			<div class="title-brown"><span>奖项说明：</span></div>
@@ -1826,7 +1842,10 @@ window.Zepto = Zepto
 	<div class="boxcontent boxwhite">
 		<div class="box">
 			<div class="title-brown">活动说明：</div>
-			<div class="Detail">{pigcms:$Guajiang.info}
+			
+			<div class="Detail">
+			<?php if ($Guajiang['statdate']>time()){echo '<p style="color:red">活动还没有开始 :(</p>';}?>
+			{pigcms:$Guajiang.info}
 				<p>活动时间:{pigcms:$Guajiang.statdate|date="Y-m-d",###}至{pigcms:$Guajiang.enddate|date="Y-m-d",###}</p>
 				<p>{pigcms:$Guajiang.txt}</p>				
 							
@@ -2005,7 +2024,7 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
 </div>
  
  
-
+<pigcmsif where="$wecha_id neq ''">
 <script type="text/javascript">
 
         //window.prize = "{pigcms:$Guajiang.winprize}";
@@ -2109,4 +2128,16 @@ function () {
 });
 
 </script>
+</pigcmsif>
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Guajiang",
+            "moduleID":"{pigcms:$Guajiang.id}",
+            "imgUrl": "{pigcms:$Guajiang.starpicurl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Guajiang/index',array('token'=>$token,'id'=>$Guajiang['id']))}",
+            "tTitle": "{pigcms:$Guajiang.title}",
+            "tContent": "{pigcms:$Guajiang.info}"
+};
+</script>
+{pigcms:$shareScript}
 </body></html>

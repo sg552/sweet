@@ -2,6 +2,7 @@
 <script src="/tpl/static/jquery-1.4.2.min.js"></script>
 <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
 <script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
 <script language="JavaScript">
 if (window.top != self){
 	window.top.location = self.location;
@@ -55,7 +56,16 @@ function addFee(){
             </TABLE>
             
           </div>
-          
+          <br>
+          <pigcmsif where="$demo eq 1">
+          <div class="alert">
+          <p><b>欢迎试用小猪CMS微信多用户营销系统，为了您测试方便，我们已经自动创建了公众号并填充了各类数据，您只需要按照下面步骤操作即可进行测试：</b></p>
+          <p>1、<a href="{pigcms::U('Index/edit',array('id'=>$wxinfo['id']))}">点击这里修改您的公众号信息</a></p>
+          <p>2、登录您的微信公众平台，按照说明绑定您的微信公众号(<a href="{pigcms::U('Home/Index/help',array('id'=>$wxinfo['id'],'token'=>$wxinfo['token']))}">点击这里查看帮助说明</a>)</p>
+          <p>3、如果您需要测试自定义菜单功能，请<a href="{pigcms::U('Function/index',array('id'=>$wxinfo['id'],'token'=>$wxinfo['token']))}">进入功能管理</a>，然后生成自定义菜单，重新关注公众号就会看到自定义菜单了</p>
+          <p>就这些，如果碰到任何问题，请您给我们留言，QQ：800022936</p>
+          </div>
+          </pigcmsif>
           <div class="cLine">
             <div class="pageNavigator right">
               <div class="pages"></div>

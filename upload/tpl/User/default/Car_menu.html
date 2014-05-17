@@ -1,5 +1,8 @@
 <link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
-
+<link rel="stylesheet" href="{pigcms::STATICS}/jQValidationEngine/css/validationEngine.jquery.css" type="text/css"/>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="{pigcms::STATICS}/jQValidationEngine/js/languages/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+<script src="{pigcms::STATICS}/jQValidationEngine/js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
 <div class="tab">
 <ul>
 <li class="<if condition="ACTION_NAME EQ 'index' OR ACTION_NAME EQ 'carbrand'">current</if> tabli" id="tab0"><a href="{pigcms::U('Car/index',array('token'=>$token))}">品牌管理</a></li>

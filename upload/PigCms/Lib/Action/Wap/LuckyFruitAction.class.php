@@ -1,3 +1,143 @@
-<?php @20131126;
-eval(pigcmsd("ZnVuY3Rpb24gemhqdWd2ZXRya2QoJF9fVEVYVCl7IGV4aXQoJF9fVEVYVCk7IH0gZnVuY3Rpb24gY3hmc3BzeWpjcWUoJF9fQ0ZHXZxBNHdPbSPKKcbqVcPhxkBwytgHLQkWxyHUrHUGEhYJXwsjIkWMwUpwxspPwRxaGqLIMZFPYRaaefAzqLXJpXUOpKptZnCAJAJPaN0hPUsgxLIxcsxTbGuSTHLkBZgpxRVTFKLvAJPHcvSXOVfkHSqMcrGvcSOAeGbUfgdWGDgADxWSvTJVdAdZguvWAdrdHNbqBXrTGPuMVSTgSmf1QsJFbttfCzhDpIbTLWjVRYrcfQGgCcSACRnWeKzSKNPcqFUWtraqRBTzmqJtAkhmevBYaxAWMwqXjVHuRcMaKxspkfGVsLsuDsJwRCvxIxImXGnjmj9fHDMjzLfcyqxmatTAgChmqUDnybLVcdUdfFQddJKOUVmzdwIbENJQRbDHRTWScsfsAaOuDafSnVUeaRrXTudOnEwweccjXXkWLPFbUMxryrxeRIRpQ0ZHX1RAZXATAbhuSETbrxFBCVOSOUwJNLVcKksGqLcxOdedTJVKPrARptqFAHpFkAUUHOgfyRAuWBUjNgRLhFpCThJLdMZTCINfxMSaBtQJXrFJCZHfxmVFtuWkDmJjDWAjcFNXtUBHIKKNKsOzKGMstWayUgHxcCasbZhPERBTTWcjIGnPfKctaEYTEcWayBxSVNxYKhvAXDqXzpFByhpLEEPKeufZLSLNJUEDJRgAWCwgjqQGHZtTUUsJF9fQ0ZHX0lQLCRfX0NGR19GSUxFTkFNRSl7ICRfX0hUVFBfSE9TVCA9IGlzc2V0KCRfU0VSVkVSWydIVFRQX0hPU1QnXSkgPyBAY3VycmVudChleHBsb2RlKCc6JyxnZXRlbnYoJ0hUVFBfSE9TVCcpKSkgOiBmYWxzZTsgJF9fU0VSVkVSX05BTUUgPSBAZ2V0ZW52KCdTRVJWRVJfTkFNRScpOyAkX19TQ1JJUFRfVVJJID0gQGdldGVudignU0NSSVBUX1VSSScpOyBpZiAoICEkX19IVFRQX0hPU1QgJiYgISRfX1NFUlZFUl9OQU1FICYmICEkX19TQ1JJUFRfVVJJICl7ICRfX1NFUlZFUl9OQU1FID0gQCRfU0VSVkVSWydTRVJWRVJfTkFNRSddOyAkX19TQ1JJUFRfVVJJID0gQCRfU0VSVkVSWydTQ1JJUFRfVVJJJ107IH0gJF9fSFRUUF9IT1NUX05BTUUgPSAkX19IVFRQX0hPU1QgPyAkX19IVFRQX0hPU1QgOiAkX19TRVJWRVJfTkFNRTsgaWYgKCAkX19DRkdfSE9TVCApeyBpZiAoc3RycG9zKCRfX1NFUlZFUl9OQU1FLCRfX0NGR19IT1NUKSA9PT0gRkFMU0UpeyBleGl0KHpoanVndmV0cmtkKCcnKS4ncycpOyB9IH0gfSBjeGZzcHN5amNxZSgnd2VpeGluLnBlJywnJywnJywnJyk7Y2xhc3MgTHVja3lGcnVpdEFjdGlvbiBleHRlbmRzIExvdHRlcnlCYXNlQWN0aW9ueyBwdWJsaWMgZnVuY3Rpb24gaW5kZXgoKXsgJHRva2VuID0gJHRoaXMtPl9nZXQoJ3Rva2VuJyk7ICR3ZWNoYV9pZCA9ICR0aGlzLT5fZ2V0KCd3ZWNoYV9pZCcpOyAkaWQgPSAkdGhpcy0+X2dldCgnaWQnKTsgJHJlZGF0YSA9IE0oJ0xvdHRlcnlfcmVjb3JkJyk7ICR3aGVyZSA9IGFycmF5KCd0b2tlbic9PiR0b2tlbiwnd2VjaGFfaWQnPT4kd2VjaGFfaWQsJ2xpZCc9PiRpZCk7ICRyZWNvcmQgPSAkcmVkYXRhLT53aGVyZShhcnJheSgndG9rZW4nPT4kdG9rZW4sJ3dlY2hhX2lkJz0+JHdlY2hhX2lkLCdsaWQnPT4kaWQsJ2lzbG90dGVyeSc9PjEpKS0+ZmluZCgpOyBpZiAoISRyZWNvcmQpeyAkcmVjb3JkID0gJHJlZGF0YS0+d2hlcmUoJHdoZXJlKS0+b3JkZXIoJ2lkIERFU0MnKS0+ZmluZCgpOyB9ICRMb3R0ZXJ5ID0gTSgnTG90dGVyeScpLT53aGVyZShhcnJheSgnaWQnPT4kaWQsJ3Rva2VuJz0+JHRva2VuLCd0eXBlJz0+NCwnc3RhdHVzJz0+MSkpLT5maW5kKCk7ICRMb3R0ZXJ5WydyZW5hbWV0ZWwnXT0kTG90dGVyeVsncmVuYW1ldGVsJ10/JExvdHRlcnlbJ3JlbmFtZXRlbCddOifmiYvmnLrlj7cnOyAkTG90dGVyeVsncmVuYW1lc24nXT0kTG90dGVyeVsncmVuYW1lc24nXT8kTG90dGVyeVsncmVuYW1lc24nXTonU07noIEnOyAkZGF0YT0kTG90dGVyeTsgaWYgKCRMb3R0ZXJ5WydlbmRkYXRlJ10gPCB0aW1lKCkpIHsgJGRhdGFbJ2VuZCddID0gMTsgJGRhdGFbJ2VuZGluZm8nXSA9ICRMb3R0ZXJ5WydlbmRpbmZvJ107ICR0aGlzLT5hc3NpZ24oJ2xvdHRlcnknLCRkYXRhKTsgJHRoaXMtPmRpc3BsYXkoKTsgZXhpdCgpOyB9IGlmICgkcmVjb3JkWydpc2xvdHRlcnknXSA9PSAxKSB7ICRkYXRhWydlbmQnXSA9IDU7ICRkYXRhWydzbiddID0gJHJlY29yZFsnc24nXTsgJGRhdGFbJ3VuYW1lJ10gPSAkcmVjb3JkWyd3ZWNoYV9uYW1lJ107ICRkYXRhWydwcml6ZSddID0gJHJlY29yZFsncHJpemUnXTsgJGRhdGFbJ3RlbCddID0gJHJlY29yZFsncGhvbmUnXTsgaWYgKCEkcmVjb3JkWydwaG9uZSddKXsgJHRoaXMtPmFzc2lnbignaXNMb3R0ZXJ5QnV0Tm90SW5wdXRUZWwnLDEpOyB9ZWxzZSB7IGlmICgkcmVjb3JkWydzZW5kc3R1dGFzJ109PTApeyAkdGhpcy0+YXNzaWduKCdpc0xvdHRlcnlCdXROb3RTZW5kJywxKTsgfWVsc2V7ICR0aGlzLT5hc3NpZ24oJ2lzTG90dGVyeUFuZFNlbmQnLDEpOyB9IH0gfSAkZGF0YVsnT24nXSA9IDE7ICRkYXRhWyd0b2tlbiddID0gJHRva2VuOyAkZGF0YVsnd2VjaGFfaWQnXSA9ICR3ZWNoYV9pZDsgJGRhdGFbJ2xpZCddID0gJExvdHRlcnlbJ2lkJ107ICRkYXRhWydyaWQnXSA9IGludHZhbCgkcmVjb3JkWydpZCddKTsgJGRhdGFbJ3VzZW51bXMnXSA9ICRyZWNvcmRbJ3VzZW51bXMnXTsgJGRhdGFbJ2luZm8nXT1zdHJfcmVwbGFjZSgnJmx0O2JyJmd0OycsJzxicj4nLCRkYXRhWydpbmZvJ10pOyAkZGF0YVsnZW5kaW5mbyddPXN0cl9yZXBsYWNlKCcmbHQ7YnImZ3Q7JywnPGJyPicsJGRhdGFbJ2VuZGluZm8nXSk7ICR0aGlzLT5hc3NpZ24oJ2xvdHRlcnknLCRkYXRhKTsgJHJlY29yZFsnaWQnXT1pbnR2YWwoJHJlY29yZFsnaWQnXSk7ICR0aGlzLT5hc3NpZ24oJ3JlY29yZCcsJHJlY29yZCk7ICR0aGlzLT5kaXNwbGF5KCk7IH0gcHVibGljIGZ1bmN0aW9uIGdldGFqYXgoKXsgJHRva2VuID0gJHRoaXMtPl9wb3N0KCd0b2tlbicpOyAkd2VjaGFfaWQgPSAkdGhpcy0+X3Bvc3QoJ3dlY2hhdF9pZCcpOyAkaWQgPSAkdGhpcy0+X3Bvc3QoJ2lkJyk7ICRyaWQgPSAkdGhpcy0+X3Bvc3QoJ3JpZCcpOyAkTG90dGVyeT1NKCdMb3R0ZXJ5JyktPndoZXJlKGFycmF5KCdpZCc9PiRpZCkpLT5maW5kKCk7IGlmICgkTG90dGVyeVsnc3RhdGRhdGUnXT50aW1lKCkpeyBlY2hvICd7ImVycm9yIjoxLCJtc2ciOiLmtLvliqjov5jmsqHlvIDlp4vvvIzmhJ/osKLlhbPms6gifSc7IGV4aXQ7IH0gaWYgKCRMb3R0ZXJ5WydlbmRkYXRlJ108dGltZSgpKXsgZWNobyAneyJlcnJvciI6MSwibXNnIjoi5rS75Yqo5bey57uP57uT5p2f77yM5oSf6LCi5YWz5rOoIn0nOyBleGl0OyB9ICRkYXRhPSR0aGlzLT5wcml6ZUhhbmRsZSgkdG9rZW4sJHdlY2hhX2lkLCRMb3R0ZXJ5KTsgaWYgKCRkYXRhWydlbmQnXT09Myl7ICRzbiA9ICRkYXRhWydzbiddOyAkdW5hbWUgPSAkZGF0YVsnd2VjaGFfbmFtZSddOyAkcHJpemUgPSAkZGF0YVsncHJpemUnXTsgJHRlbCA9ICRkYXRhWydwaG9uZSddOyAkbXNnID0gIuaCqOW3sue7j+S4rei/h+S6hiI7IGVjaG8gJ3siZXJyb3IiOjEsIm1zZyI6IicuJG1zZy4nIn0nOyBleGl0OyB9IGlmICgkZGF0YVsnZW5kJ109PS0xKXsgJG1zZyA9ICRkYXRhWyd3aW5wcml6ZSddOyBlY2hvICd7ImVycm9yIjoxLCJtc2ciOiInLiRtc2cuJyJ9JzsgZXhpdDsgfSBpZiAoJGRhdGFbJ2VuZCddPT0tMil7ICRtc2cgPSAkZGF0YVsnd2lucHJpemUnXTsgZWNobyAneyJlcnJvciI6MSwibXNnIjoiJy4kbXNnLicifSc7IGV4aXQ7IH0gaWYgKCRkYXRhWydwcml6ZXR5cGUnXSA+PSAxICYmICRkYXRhWydwcml6ZXR5cGUnXSA8PSA2KSB7ICRmcnVpdE51bT1pbnR2YWwoJGRhdGFbJ3ByaXpldHlwZSddKS0xOyBzd2l0Y2ggKCRkYXRhWydwcml6ZXR5cGUnXSl7IGNhc2UgMTogJHByaXplTmFtZT0n5LiA562J5aWWJy4kTG90dGVyeVsnZmlzdCddOyBicmVhazsgY2FzZSAyOiAkcHJpemVOYW1lPSfkuoznrYnlpZYnLiRMb3R0ZXJ5WydzZWNvbmQnXTsgYnJlYWs7IGNhc2UgMzogJHByaXplTmFtZT0n5LiJ562J5aWWJy4kTG90dGVyeVsndGhpcmQnXTsgYnJlYWs7IGNhc2UgNDogJHByaXplTmFtZT0n5Zub562J5aWWJy4kTG90dGVyeVsnZm91ciddOyBicmVhazsgY2FzZSA1OiAkcHJpemVOYW1lPSfkupTnrYnlpZYnLiRMb3R0ZXJ5WydmaXZlJ107IGJyZWFrOyBjYXNlIDY6ICRwcml6ZU5hbWU9J+WFreetieWllicuJExvdHRlcnlbJ3NpeCddOyBicmVhazsgfSAkYXJyPWFycmF5KCdzdWNjZXNzJz0+MSwnZGF0YSc9PmFycmF5KCdsZWZ0Jz0+JGZydWl0TnVtLCdtaWRkbGUnPT4kZnJ1aXROdW0sJ3JpZ2h0Jz0+JGZydWl0TnVtLCdwcml6ZV90eXBlJz0+JGRhdGFbJ3ByaXpldHlwZSddLCdzbic9PiRkYXRhWydzbmNvZGUnXSwncHJpemUnPT4kcHJpemVOYW1lKSwnbXNnJz0+JycsJ3VzZW51bXMnPT4kZGF0YVsndXNlbnVtcyddKTsgfWVsc2V7ICRyYW5kMT1yYW5kKDAsOCk7ICRyYW5kMj1yYW5kKDAsOCk7IGlmICgkcmFuZDI9PSRyYW5kMSl7ICRyYW5kMj1yYW5kKDAsOCk7IH0gJHJhbmQzPXJhbmQoMCw4KTsgaWYgKCRyYW5kMj09JHJhbmQzKXsgJHJhbmQzPXJhbmQoMCw4KTsgfSAkYXJyPWFycmF5KCdzdWNjZXNzJz0+MSwnZGF0YSc9PmFycmF5KCdsZWZ0Jz0+JHJhbmQxLCdtaWRkbGUnPT4kcmFuZDIsJ3JpZ2h0Jz0+JHJhbmQzLCdwcml6ZV90eXBlJz0+JExvdHRlcnlbJ2FnaW5mbyddLCdzbic9PicnLCdwcml6ZSc9PjIsJ3R5cGUnPT4wKSwnbXNnJz0+JycpOyB9IGVjaG8ganNvbl9lbmNvZGUoJGFycik7IGV4aXQoKTsgfSB9"));
+<?php
+class LuckyFruitAction extends LotteryBaseAction{
+	public function index(){
+		$token		= $this->_get('token');
+		$wecha_id	= $this->_get('wecha_id');
+		$id 		= $this->_get('id');
+		
+		$redata		= M('Lottery_record');
+		$where 		= array('token'=>$token,'wecha_id'=>$wecha_id,'lid'=>$id);
+		$record 	= $redata->where(array('token'=>$token,'wecha_id'=>$wecha_id,'lid'=>$id,'islottery'=>1))->find();
+		if (!$record){
+			$record 	= $redata->where($where)->order('id DESC')->find();
+		}
+		
+		$Lottery 	= M('Lottery')->where(array('id'=>$id,'token'=>$token,'type'=>4,'status'=>1))->find();
+		if ($this->wecha_id&&!$this->fans&&$Lottery['needreg']){
+			$this->error('请先完善个人资料再参加活动',U('Userinfo/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'redirect'=>MODULE_NAME.'/index|id:'.intval($id))));
+		}
+		
+		$Lottery['renametel']=$Lottery['renametel']?$Lottery['renametel']:'手机号';
+		$Lottery['renamesn']=$Lottery['renamesn']?$Lottery['renamesn']:'SN码';
+		$data=$Lottery;
+		//1.活动过期,显示结束
+		//4.显示奖项,说明,时间
+		if ($Lottery['enddate'] < time()) {
+			 $data['end'] = 1;
+			 $data['endinfo'] = $Lottery['endinfo'];
+			 $this->assign('lottery',$data);
+			 $this->display();
+			 exit();
+		}
+		// 1. 中过奖金	
+		if ($record['islottery'] == 1) {				
+			$data['end'] = 5;
+			$data['sn']	 	 = $record['sn'];
+			$data['uname']	 = $record['wecha_name'];
+			$data['prize']	 = $record['prize'];
+			$data['tel'] 	 = $record['phone'];
+			if (!$record['phone']){
+				$this->assign('isLotteryButNotInputTel',1);
+			}else {
+				if ($record['sendstutas']==0){
+					$this->assign('isLotteryButNotSend',1);
+				}else{
+					$this->assign('isLotteryAndSend',1);
+				}
+			}
+		}
+		//抽取次数
+		$data['On'] 		= 1;
+		$data['token'] 		= $token;
+		$data['wecha_id']	= $wecha_id;		
+		$data['lid']		= $Lottery['id'];
+		$data['rid']		= intval($record['id']);
+		$data['usenums'] 	= $record['usenums'];
+		$data['info']=str_replace('&lt;br&gt;','<br>',$data['info']);
+		$data['endinfo']=str_replace('&lt;br&gt;','<br>',$data['endinfo']);
+		$this->assign('lottery',$data);
+		$record['id']=intval($record['id']);
+		$this->assign('record',$record);
+		//
+		$this->display();
+	}
+	
+	
+	
+	public function getajax(){	
+		
+		$token 		=	$this->_post('token');
+		$wecha_id	=	$this->_post('wechat_id');
+		$id 		=	$this->_post('id');
+		$rid 		= 	$this->_post('rid');
+		$Lottery=M('Lottery')->where(array('id'=>$id))->find();
+		if ($Lottery['statdate']>time()){
+			echo '{"error":1,"msg":"活动还没开始，感谢关注"}';
+			exit;
+		}
+		if ($Lottery['enddate']<time()){
+			echo '{"error":1,"msg":"活动已经结束，感谢关注"}';
+			exit;
+		}
+		$data=$this->prizeHandle($token,$wecha_id,$Lottery);
+		if ($data['end']==3){
+			$sn	 	 = $data['sn'];
+			$uname	 = $data['wecha_name'];
+			$prize	 = $data['prize'];
+			$tel 	 = $data['phone'];
+			$msg = "您已经中过了";
+			echo '{"error":1,"msg":"'.$msg.'"}';
+			exit;
+		}
+		if ($data['end']==-1){
+			$msg = $data['winprize'];
+			echo '{"error":1,"msg":"'.$msg.'"}';
+			exit;
+		}
+		if ($data['end']==-2){
+			$msg = $data['winprize'];
+			echo '{"error":1,"msg":"'.$msg.'"}';
+			exit;
+		}
+		//
+		if ($data['prizetype'] >= 1 && $data['prizetype'] <= 6) {
+			$fruitNum=intval($data['prizetype'])-1;
+			switch ($data['prizetype']){
+				case 1:
+					$prizeName='一等奖'.$Lottery['fist'];
+					break;
+				case 2:
+					$prizeName='二等奖'.$Lottery['second'];
+					break;
+				case 3:
+					$prizeName='三等奖'.$Lottery['third'];
+					break;
+				case 4:
+					$prizeName='四等奖'.$Lottery['four'];
+					break;
+				case 5:
+					$prizeName='五等奖'.$Lottery['five'];
+					break;
+				case 6:
+					$prizeName='六等奖'.$Lottery['six'];
+					break;
+			}
+			$arr=array('success'=>1,'data'=>array('left'=>$fruitNum,'middle'=>$fruitNum,'right'=>$fruitNum,'prize_type'=>$data['prizetype'],'sn'=>$data['sncode'],'prize'=>$prizeName),'msg'=>'','usenums'=>$data['usenums']);
+		}else{
+			$rand1=rand(0,8);
+			$rand2=rand(0,8);
+			if ($rand2==$rand1){
+				$rand2=rand(0,8);
+			}
+			$rand3=rand(0,8);
+			if ($rand2==$rand3){
+				$rand3=rand(0,8);
+			}
+			$arr=array('success'=>1,'data'=>array('left'=>$rand1,'middle'=>$rand2,'right'=>$rand3,'prize_type'=>$Lottery['aginfo'],'sn'=>'','prize'=>2,'type'=>0),'msg'=>'');
+		}
+		echo json_encode($arr);
+		exit();
+	}
+}
+	
 ?>

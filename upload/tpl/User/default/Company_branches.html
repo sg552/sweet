@@ -49,8 +49,10 @@ function selectall(name) {
 <th class="select" style="display:none"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
 <th width="70">名称</th>
 <th width="80">电话</th>
+<th width="80">状态</th>
 <th width="160">地址</th>
-<th width="150" class="norightborder">操作</th>
+<th width="280">分支登陆地址</th>
+<th width="80" class="norightborder">操作</th>
 </tr>
 </thead>
 <tbody>
@@ -60,7 +62,9 @@ function selectall(name) {
 <td style="display:none"><input type="checkbox" value="{pigcms:$o.id}" class="cbitem" name="id_{pigcms:$i}"></td>
 <td>{pigcms:$c.name}</td>
 <td>{pigcms:$c.tel}</td>
+<td><if condition="$c['display'] eq 1">显示<else />隐藏</if></td>
 <td>{pigcms:$c.address}</td>
+<td>{pigcms:$c.url}</td>
 <td class="norightborder"><a href="{pigcms::U('Company/index',array('token'=>$token,'id'=>$c['id'],'isBranch'=>1))}">修改</a> <a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Company/delete',array('token'=>$token,'id'=>$c['id'],'isBranch'=>1))}');">删除</a></td>
 </tr>
 </volist>

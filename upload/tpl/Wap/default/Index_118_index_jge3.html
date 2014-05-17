@@ -62,55 +62,187 @@
  <section>
         <div>
             <ul class="list_ul">
-            
+
                 <li class="box"> 
-            <volist name="info" id="vo"> 
-                <if condition="$i lt 4">              
-                <dl>
-                    <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
-                    <dd>
-                        <div>
-                            <span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:60px;height:42px;"></span>
-                        </div>
-                    </dd>
-                        <dt>{pigcms:$vo.name}</dt>
-                    </a>
-                </dl>
-                </if>
-            </volist>
-                </li> 
+					<volist name="info" id="vo" offset="0" length="3">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
                 <li class="box"> 
-            <volist name="info" id="vo"> 
-                <if condition="($i gt 3) and ($i lt 6)">              
-                <dl>
-                    <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
-                    <dd>
-                        <div>
-                            <span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:60px;height:42px;"></span>
-                        </div>
-                    </dd>
-                        <dt>{pigcms:$vo.name}</dt>
-                    </a>
-                </dl>
-                </if>
-            </volist>
-                </li> 
-               <li class="box"> 
-            <volist name="info" id="vo"> 
-                <if condition="$i gt 5">              
-                <dl>
-                    <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
-                    <dd>
-                        <div>
-                            <span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:60px;height:42px;"></span>
-                        </div>
-                    </dd>
-                        <dt>{pigcms:$vo.name}</dt>
-                    </a>
-                </dl>
-                </if>
-            </volist>
-                </li> 
+					<volist name="info" id="vo" offset="3" length="2">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+                <li class="box"> 
+					<volist name="info" id="vo" offset="5" length="3">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+                <li class="box"> 
+					<volist name="info" id="vo" offset="8" length="2">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+                <li class="box"> 
+					<volist name="info" id="vo" offset="10" length="3">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+                <li class="box"> 
+					<volist name="info" id="vo" offset="13" length="2">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+                <li class="box"> 
+					<volist name="info" id="vo" offset="15" length="3">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+                <li class="box"> 
+					<volist name="info" id="vo" offset="18" length="2">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+                <li class="box"> 
+					<volist name="info" id="vo" offset="20" length="3">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+                <li class="box"> 
+					<volist name="info" id="vo" offset="23" length="2">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+                <li class="box"> 
+					<volist name="info" id="vo" offset="25" length="3">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+                <li class="box"> 
+					<volist name="info" id="vo" offset="28" length="2">           
+						<dl>
+							<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+							<dd>
+								<div>
+									<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:42px;height:42px;"></span>
+								</div>
+							</dd>
+								<dt>{pigcms:$vo.name}</dt>
+							</a>
+						</dl>
+					</volist>
+                </li>
+	
+				
+
                 </ul>
         </div>
     </section>
@@ -125,6 +257,35 @@
 </div>
 
                     
-    <include file="Index:styleInclude"/>
+    <include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
+		<if condition="ACTION_NAME eq 'index'">
+		<script type="text/javascript">
+			window.shareData = {  
+					"moduleName":"Index",
+					"moduleID": '0',
+					"imgUrl": "{pigcms:$homeInfo.picurl}", 
+					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"weiboLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"tTitle": "{pigcms:$homeInfo.title}",
+					"tContent": "{pigcms:$homeInfo.info}"
+				};
+		</script>
+	<else />
+		<script type="text/javascript">
+			window.shareData = {  
+				"moduleName":"Index",
+				"moduleID": '1',
+				"imgUrl": "{pigcms:$homeInfo.picurl}", 
+				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"tTitle": "{pigcms:$homeInfo.title}",
+				"tContent": "{pigcms:$homeInfo.info}"
+			};
+		</script>	
+	
+	</if>
+{pigcms:$shareScript}
 </body></html>
     

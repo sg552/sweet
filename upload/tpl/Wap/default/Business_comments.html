@@ -1,0 +1,70 @@
+<include file="Business:public_head"/>
+</head>
+<body>
+<!-- website wrapper starts -->
+<div class="websiteWrapper">
+
+  <!-- main menu wrapper starts -->
+   <include file="Business:public_menu"/>
+  <!-- main menu wrapper ends -->
+
+
+  <!-- page wrapper starts -->
+  <div class="pageWrapper faqPageWrapper">
+
+    <!-- page content wrapper starts -->
+    <div class="pageContentWrapper">
+      <!-- page title starts -->
+      <h3 class="pageTitle">顾客点评</h3>
+      <!-- page title ends -->
+      <!-- faqs start -->
+      <!-- accordion wrapper starts -->
+      <div class="accordionWrapper">
+      <volist name="comments" id="vo">
+        <!-- accordion item wrapper starts -->
+        <div class="accordionItemWrapper"> <a href="" class="accordionButton"><span class="accordionButtonIcon"></span><span class="accordionButtonTitle">{pigcms:$vo['title']}</span></a>
+          <div class="accordionContentWrapper">
+            <div class="accordionContent">
+              <!-- comments wrapper starts -->
+                  <div class="commentsWrapper">
+                    <!-- comment wrapper starts -->
+                    <div class="commentWrapper"> <a href="" class="commentAvatar"><img src="{pigcms:$vo['face_picurl']}" alt=""/></a>
+                      <p class="commentInfoWrapper">by <a href="" class="">{pigcms:$vo['name']}</a> &nbsp; 职位: {pigcms:$vo['position']} </p>
+                      <div class="clear"></div>
+                      <div class="comment">
+                        <p>{pigcms:$vo['face_desc']|html_entity_decode|strip_tags}</p>
+                      </div>
+                      <div class="comment">
+                        <p>{pigcms:$vo['comment']|html_entity_decode|strip_tags}</p>
+                      </div>
+                    </div>
+                    <!-- comment wrapper ends -->
+
+            </div>
+          </div>
+        </div>
+        <!-- accordion item wrapper ends -->
+    </volist>
+      </div>
+      <!-- accordion wrapper ends -->
+      <!-- faqs end -->
+      <style>
+    #pagesid p{
+display: inline-grid;
+    }
+</style>
+      <div id="pagesid"><br><br><p>{pigcms:$page}</p></div>
+
+    </div>
+    <!-- page content wrapper ends -->
+
+  </div>
+  <!-- page wrapper ends -->
+
+  <!-- footer wrapper starts -->
+<include file="Business:food_menu"/>
+  <!-- footer wrapper ends -->
+</div>
+<!-- website wrapper ends -->
+</body>
+</html>

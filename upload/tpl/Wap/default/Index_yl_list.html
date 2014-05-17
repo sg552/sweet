@@ -16,13 +16,8 @@ window.onload = function ()
 {
 var oWin = document.getElementById("win");
 var oLay = document.getElementById("overlay");	
-var oBtn = document.getElementById("popmenu");
 var oClose = document.getElementById("close");
-oBtn.onclick = function ()
-{
-oLay.style.display = "block";
-oWin.style.display = "block"	
-};
+
 oLay.onclick = function ()
 {
 oLay.style.display = "none";
@@ -33,34 +28,27 @@ oWin.style.display = "none"
 <body id="listhome1">
 <div id="ui-header">
 <div class="fixed">
-<a class="ui-title" id="popmenu">选择分类</a>
+
 <a class="ui-btn-left_pre" href="javascript:history.go(-1)"></a>
 <a class="ui-btn-right" href="{pigcms::U('Index/index',array('token'=>$tpl['token']))}"></a>
 </div>
 </div>
 <div id="overlay"></div>
-<div id="win">
-<ul class="dropdown"> 
-<volist name="info" id="vo">
-<li><a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>"><span>{pigcms:$vo.name}</span></a></li>
-</volist> 	
-<div class="clr"></div>
-</ul>
-</div>
+
 <div class="Listpage">
 <div class="top46"></div>
     <div id="todayList">
 <ul  class="todayList">
-   <volist name="res" id="so">   
+   <volist name="info" id="vo">   
 <li>
-<if condition="$so['url']">
-<a href="{pigcms:$so.url}">
+<if condition="$vo['url']">
+<a href="{pigcms:$vo.url}">
 <else />
-<a href="{pigcms::U('Index/content',array('id'=>$so['id'],'token'=>$so['token']))}">
+<a href="{pigcms::U('Index/content',array('id'=>$vo['id'],'token'=>$vo['token']))}">
 </if>
-<div class="img"><eq name="so.showpic" value="1"><img src="{pigcms:$so.pic}"></eq></div>
-<h2>{pigcms:$so.title}</h2>
-<p class="onlyheight">{pigcms:$so.text}</p>
+<div class="img"><img src="{pigcms:$vo.pic}"></div>
+<h2>{pigcms:$vo.title}</h2>
+<p class="onlyheight">{pigcms:$vo.text}</p>
 <div class="commentNum"></div>
 </a>
 </li>
@@ -70,35 +58,7 @@ oWin.style.display = "none"
 </div>
 <section id="Page_wrapper">
 <div id="pNavDemo" class="c-pnav-con">
-<section class="c-p-sec">
-<div class='c-p-pre <eq name="p" value="1"> c-p-grey </eq> '><span class="c-p-p"><em></em></span><a <eq name="p" value="1"><else/>href="{pigcms:$f_siteUrl}/index.php?g=Wap&m=Index&a=lists&classid=<php>echo $_GET['classid'];</php>&token={pigcms:$tpl.token}&p=<php>echo $p-1;</php>"</eq>  >上一页</a></div>
-<div class="c-p-cur">
-<div class="c-p-arrow c-p-down"><span>{pigcms:$p}/{pigcms:$page}</span><span></span></div>
-	<select class="c-p-select" onchange="dourl('{pigcms:$f_siteUrl}/index.php?g=Wap&m=Index&a=lists&classid=<php>echo $_GET['classid'];</php>&token={pigcms:$tpl.token}&p='+this.value)">
-		<?php
-			for($i=1;$i<=$page;$i++){
-				if($i==$p){
-					echo '<option value="'.$i.'" selected>第'.$i.'页</option>';
-				}else{
-					echo '<option value="'.$i.'">第'.$i.'页</option>';
-				}
-			}
-		?>
-	</select>
-</div>
-<div class='c-p-next <eq name="p" value="$page"> c-p-grey </eq>'  >
 
-<?php
-	if($p<$page){
-		echo '<a href="'.C('site_url').'/index.php?g=Wap&m=Index&a=lists&classid='.(int)$_GET['classid'].'&token='.$tpl['token'].'&p='.($p+1).'">';
-	}else{
-		echo '<a>';
-	}
-?>
-下一页</a><span class="c-p-p"><em></em></span></div>
-</section>
-</div>
-</section>
 </div>
 <script>
 function dourl(url){
@@ -115,6 +75,35 @@ location.href= url;
 {pigcms:$siteCopyright}
 </if>
 </div> 
-<include file="Index:styleInclude"/> 
+<include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
+	<if condition="ACTION_NAME eq 'index'">
+		<script type="text/javascript">
+			window.shareData = {  
+					"moduleName":"Index",
+					"moduleID": '0',
+					"imgUrl": "{pigcms:$homeInfo.picurl}", 
+					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"weiboLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"tTitle": "{pigcms:$homeInfo.title}",
+					"tContent": "{pigcms:$homeInfo.info}"
+				};
+		</script>
+	<else />
+		<script type="text/javascript">
+			window.shareData = {  
+				"moduleName":"Index",
+				"moduleID": '1',
+				"imgUrl": "{pigcms:$homeInfo.picurl}", 
+				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"tTitle": "{pigcms:$homeInfo.title}",
+				"tContent": "{pigcms:$homeInfo.info}"
+			};
+		</script>	
+	
+	</if>
+{pigcms:$shareScript}
 </body>
 </html>

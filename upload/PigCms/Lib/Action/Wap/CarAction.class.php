@@ -2,7 +2,7 @@
 /*
 3G 汽车
 */
-class CarAction extends BaseAction{
+class CarAction extends WapAction{
     public $token;
     public $wecha_id;
     public $addtype;
@@ -16,17 +16,17 @@ class CarAction extends BaseAction{
         $this->assign('addtype',$addtype);
     }
 
-    
+
     public function index(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
-            echo '此功能只能在微信浏览器中使用';exit;
+            //echo '此功能只能在微信浏览器中使用';exit;
         }
         $this->display();
     }
 
     public function brands(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
         }
@@ -38,7 +38,7 @@ class CarAction extends BaseAction{
     }
 
     public function carseries(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
            // echo '此功能只能在微信浏览器中使用';exit;
         }
@@ -52,27 +52,47 @@ class CarAction extends BaseAction{
         $logo = M('Car')->where(array('id'=>$bid))->getField('logo');
         $this->assign('logo',$logo);
         $this->assign('series',$series);
-        $sid = (int)$this->_get('sid');
-        if($this->_get('getlist') ==1 && !empty($sid)){
-            $where2 = array('s_id'=>$sid,'token'=>$token);
-            $series_info = $t_series->where(array('id'=>$sid))->field('picture,info')->find();
-            
-        }else{
-            $where2 = array('token'=>$token,'s_id'=>$series[0]['id']);
-            $series_info = $t_series->where(array('id'=>$series[0]['id']))->field('picture,info')->find();
-        }
+//var_dump($series);
+        // $sid = (int)$this->_get('sid');
+        // if($this->_get('getlist') ==1 && !empty($sid)){
+        //     $where2 = array('s_id'=>$sid,'token'=>$token);
+        //     $series_info = $t_series->where(array('id'=>$sid))->field('picture,info')->find();
 
+        // }else{
+        //     $where2 = array('token'=>$token,'s_id'=>$series[0]['id']);
+        //     $series_info = $t_series->where(array('id'=>$series[0]['id']))->field('picture,info')->find();
+        // }
+
+        // $model = array();
+        // foreach($series as $key=>$val){
+        //     $model = M('Carmodel')->where(array('token'=>$token,'s_id'=>$val['id']))->order('id DESC')->select();
+        //     $this->assign('model',$model);
+        //     //var_dump($model);
+        // }
+
+
+        //$t_model = M('Carmodel');
+        //$model = $t_model->where($where2)->order('id DESC')->select();
+        //var_dump($model);
+        //$this->assign('model',$model);
+        //$this->assign('series_info',$series_info);
+        $this->display();
+    }
+
+    public function smodelList(){
+        $sid = (int)$this->_get('sid');
+        $token = $this->_get('token');
+        $where2 = array('s_id'=>$sid,'token'=>$token);
         $t_model = M('Carmodel');
         $model = $t_model->where($where2)->order('id DESC')->select();
         $this->assign('model',$model);
-        $this->assign('series_info',$series_info);
         $this->display();
     }
 
     public function salers(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
-            echo '此功能只能在微信浏览器中使用';exit;
+            //echo '此功能只能在微信浏览器中使用';exit;
         }
         $token = $this->_get('token');
         $t_carsaler = M('Carsaler');
@@ -83,9 +103,9 @@ class CarAction extends BaseAction{
 
     //预约保养 预约试驾
     public function CarReserveBook(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
-            echo '此功能只能在微信浏览器中使用';exit;
+            //echo '此功能只能在微信浏览器中使用';exit;
         }
 
         $addtype = $this->_get('addtype');
@@ -106,9 +126,15 @@ class CarAction extends BaseAction{
         }
         $t_res = M('Reservation');
         $reser =  $t_res->where($where)->find();
+        if($reser == null){
+            $reser =  $t_res->where(array('token'=>$token,'addtype'=>'maintain'))->find();
+            if($reser == null){
+                exit('请在管理中心的汽车模块的->预约管理先添预约项.');
+            }
+        }
         $where3 = array('token'=>$token,'wecha_id'=>$wecha_id);
         //$user = M('Userinfo')->where($where3)->field('truename,tel as user_tel')->find();
-        $user = M('Caruser')->where($where3)->field('car_userName as truename,brand_serise,car_no as carnum,user_tel,car_care_mileage as km')->find();
+        $user = M('Caruser')->where($where3)->field('car_userName as truename,brand_serise,car_no as carnum,user_tel,car_care_mileage as km,brand_serise as housetype,carmodel as choose')->find();
 
         if(!empty($user)){
              $reser = array_merge($reser,$user);
@@ -118,14 +144,13 @@ class CarAction extends BaseAction{
         $where4 = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$addtype);
         $count = M('Reservebook')->where($where4)->count();
         $this->assign('count',$count);
-       // var_dump($reser);
         $this->display();
     }
 
      public function add(){
         $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
-            exit('此功能只能在微信浏览器中使用');
+            //exit('此功能只能在微信浏览器中使用');
         }
         $da['token']      = strval($this->_get('token'));
         $da['wecha_id']   = strval($this->_post('wecha_id'));
@@ -137,6 +162,7 @@ class CarAction extends BaseAction{
         $da['tel']        = strval($this->_post("tel"));
         $da['type']       = strval($this->_post('type'));
         $da['housetype']  = $this->_post('housetype');
+        $da['choose']  = $this->_post('choose');
         $da['booktime']   = time();
         $das['id']        = (int)$this->_post('id');
 
@@ -178,7 +204,7 @@ class CarAction extends BaseAction{
     }
 
     public function ReserveBooking(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
         }
@@ -200,43 +226,6 @@ class CarAction extends BaseAction{
         $this->display();
     }
 
-    public function ReserveBookingEdit(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
-        if(!strpos($agent,"icroMessenger")) {
-            //echo '此功能只能在微信浏览器中使用';exit;
-        }
-        $addtype = $this->_get('addtype');
-        $token   = $this->_get('token');
-        $wecha_id = $this->_get('wecha_id');
-        $id = (int)$this->_get('id');
-       // $this->assign('id',$id);
-        if($addtype == 'drive'){//预约试驾
-            $where = array('token'=>$token,'addtype'=>'drive');
-            $this->assign('addtype','drive');
-        }elseif($addtype == 'maintain'){//预约保养
-            $where  =  array('token'=>$token,'addtype'=>'maintain');
-            $this->assign('addtype','maintain');
-        }else{//默认
-            $this->error('Sorry.请求错误！正在带您转到首页',U('Index/index',array('token'=>$token,'wecha_id'=>$wecha_id)));
-            exit;
-            //$where = array('token'=>$token,'addtype'=>'drive');
-            //$this->assign('addtype','drive');
-        }
-        $t_res = M('Reservation');
-        $reser =  $t_res->where($where)->find();
-        $where4 = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$addtype,'id'=>$id);
-        $t_booking = M('Reservebook'); //
-        $booking = $t_booking->where($where4)->field('id as mid,rid as id,truename,tel as user_tel,dateline,timepart,info as user_info,type,housetype,carnum,km')->find();
-        if(!empty($booking)){
-            $reser = array_merge($reser,$booking);
-        }
-        $this->assign('reser',$reser);
-        //var_dump($reser);
-        $where5 = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$addtype);
-        $count = $t_booking->where($where5)->count();
-        $this->assign('count',$count);
-        $this->display();
-    }
 
     public function func_post(){
             //$das['token']      = strval($this->_get('token'));
@@ -249,6 +238,7 @@ class CarAction extends BaseAction{
             $da['info']       = strval($this->_post("info"));
             $da['type']       = strval($this->_post('booktype'));
             $da['housetype']  = $this->_post('housetype');
+            $da['choose']     = $this->_post('choose');
             $da['booktime']   = time();
             $das['id']        = (int)$this->_post('mid');
             if($da['type'] =='maintain'){
@@ -317,7 +307,7 @@ class CarAction extends BaseAction{
 
     //车主关怀
     public function owner(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
         }
@@ -336,7 +326,7 @@ class CarAction extends BaseAction{
 
     //修改车信息
     public function changeCarinfo(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
         }
@@ -345,20 +335,19 @@ class CarAction extends BaseAction{
         $wecha_id = $this->_get('wecha_id');
         $where = array('token'=>$token,'wecha_id'=>$wecha_id);
         $user = $t_caruser->where($where)->find();
-       
+
        if (IS_POST) {
-//var_dump($_POST);exit();
            $data['wecha_id'] = $this->_post('wecha_id');
            $data['token'] = $this->_post('token');
            $data['brand_serise'] = $this->_post('brand_serise'); //如果为空
-           if(empty($data['brand_serise'])){
-               
-                if($this->_post('car_type') == ''){
-                    $this->error('车型车系必须选择或者填写');exit;
+           //if(empty($data['brand_serise'])){
+
+                if($this->_post('carmodel') == ''){
+                    $this->error('车型必须填写');exit;
                  }else{
-                     $data['car_type'] =  $this->_post('car_type');
+                     $data['carmodel'] =  $this->_post('carmodel');
                 }
-           }
+           //}
             $data['car_buyTime'] = $this->_post('car_buyTime');
             $data['car_no'] =  strval($this->_post('car_no'));
             $data['car_userName'] = strval($this->_post('car_userName'));
@@ -384,7 +373,7 @@ class CarAction extends BaseAction{
                      $this->success('保存成功',U('Car/owner',array('token'=>$token,'wecha_id'=>$wecha_id)));exit;
                }else{
                     $this->error('噢，保存出错了。');exit;
-                     
+
                 }
            }
         }
@@ -393,7 +382,7 @@ class CarAction extends BaseAction{
     }
 
      public function get_car_brand(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
         }
@@ -431,9 +420,9 @@ class CarAction extends BaseAction{
         $carnews = $t_carnews->where(array('token'=>$this->_get('token')))->find();
         $photo = $Photo->where(array('token'=>$this->_get('token'),'id'=>$carnews['album_id']))->find();
         $photolist  =$photo_list->where(array('token'=>$this->_get('token'),'pid'=>$photo['id']))->select();
-        $this->assign('photolist',$photolist);
-        $this->assign('caralbum',$photo);
-        $this->display();
+        $this->assign('photo',$photolist);
+        $this->assign('info',$photo);
+        $this->display('Photo:plist');
 
 
     }
@@ -467,7 +456,7 @@ class CarAction extends BaseAction{
     }
 
     public function newlist(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
         }

@@ -57,5 +57,16 @@ body, html,{width: 100%;height: 100%;overflow: hidden;margin:0;}
 
         });
         </script>
+        <script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Company",
+            "moduleID":"{pigcms:$thisCompany.id}",
+            "imgUrl": "{pigcms:$thisCompany.logourl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Company/drive',array('token'=>$token,'latitude'=>$_GET['latitude'],'longitude'=>$_GET['longitude'],'companyid'=>$thisCompany['id']))}",
+            "tTitle": "{pigcms:$thisCompany.name}",
+            "tContent": "{pigcms:$thisCompany.address}"
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

@@ -1,0 +1,96 @@
+<include file="Business:public_head"/>
+</head>
+<body>
+<!-- website wrapper starts -->
+<div class="websiteWrapper">
+
+   <include file="Business:public_menu"/>
+
+  <!-- page wrapper starts -->
+  <div class="pageWrapper">
+
+    <!-- page content wrapper starts -->
+    <div class="pageContentWrapper">
+         <!-- post content wrapper starts -->
+    <div class="singlePostContentWrapper">
+      <!-- page title starts -->
+      <h3 class="pageTitle">{pigcms:$sec_item['name']}</h3>
+      <!-- page title ends -->
+      <div class="pageSpacer"></div>
+      <img src="{pigcms:$sec_item['picurl']}" class="largeImage" alt=""/>
+      <p> {pigcms:$sec_item['second_desc']|html_entity_decode}</p>
+      <div class="textBreak"></div>
+    </div>
+    <!-- post content wrapper ends -->
+
+<style>
+.alertBoxStop{
+background-image: url("{pigcms::STATICS}/public_them/images/common/alertBoxGoBg-x2.png");
+    }
+</style>
+      <h4 class="blockTitle">详细列表:</h4>
+<if condition="$type eq 'fitness'">
+      <div class="alertBox alertBoxStop">
+        <p class="alertBoxContent">健身学时 : &nbsp;<span class="highlight highlightGreen">{pigcms:$sec_item['learntime']}</span></p>
+    </div>
+          <div class="alertBox alertBoxStop">
+        <p class="alertBoxContent">健身用途 : &nbsp;<span class="highlight highlightGreen">{pigcms:$sec_item['datatype']}</span></p>
+    </div>
+          <div class="alertBox alertBoxStop">
+        <p class="alertBoxContent">一口价 : &nbsp;<span class="highlight highlightGreen">{pigcms:$sec_item['oneprice']} RMB</span></p>
+    </div>
+          <div class="alertBox alertBoxStop">
+        <p class="alertBoxContent">我要预约 : &nbsp;<span class="highlight highlightGreen"><a href="{pigcms::U('Business/goCart',array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$busines['type'],'bid'=>$busines['bid'],'sid'=>$sec_item['sid']))}" style="color:#FFF">立即预约</a></span></p>
+    </div>
+<elseif condition="$type eq 'gover'"/>
+                <li class="listCorrect">工作时间：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">所属类型：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'food'"/>
+                <li class="listCorrect">口味：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">重量：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'travel'"/>
+                <li class="listCorrect">景点等级：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">景点特色：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'flower'"/>
+                <li class="listCorrect">套餐：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">花语：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'property'"/>
+                <li class="listCorrect">简要描述：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">服务描述：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'ktv'"/>
+                <li class="listCorrect">简要描述：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">包厢描述：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'bar'"/>
+                <li class="listCorrect">重量：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">包厢描述：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'fitment'"/>
+                <li class="listCorrect">套餐：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">简要描述：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'wedding'"/>
+                <li class="listCorrect">套餐：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">简要描述：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'affections'"/>
+                <li class="listCorrect">用途：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">简要描述：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'housekeeper'"/>
+                <li class="listCorrect">时/价：{pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">服务范围：{pigcms:$sec_item['datatype']}</li>
+<elseif condition="$type eq 'lease'"/>
+                <li class="listCorrect">套餐： {pigcms:$sec_item['learntime']}</li>
+                <li class="listCorrect">服务范围：{pigcms:$sec_item['datatype']}</li>
+</if>
+      <div class="textBreakBottom"></div>
+    </div>
+    <!-- page content wrapper ends -->
+
+  </div>
+  <!-- page wrapper ends -->
+
+  <!-- footer wrapper starts -->
+<include file="Business:food_menu"/>
+  <!-- footer wrapper ends -->
+
+</div>
+<!-- website wrapper ends -->
+</body>
+</html>

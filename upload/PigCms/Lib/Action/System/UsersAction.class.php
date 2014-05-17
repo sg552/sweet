@@ -84,6 +84,7 @@ class UsersAction extends BackAction{
     public function edit(){
          $UserDB = D("Users");
         if(isset($_POST['dosubmit'])) {
+        	S('user_'.intval($_POST['id']),NULL);
             $password = $this->_post('password','trim',0);
             $repassword = $this->_post('repassword','trim',0);
 			$users=M('Users')->field('gid')->find($_POST['id']);
@@ -169,13 +170,13 @@ class UsersAction extends BackAction{
         	}
         	//
 			
-			M('wxuser')->where($where)->delete();
-			M('token_open')->where($where)->delete();
-			M('text')->where($where)->delete();
-			M('img')->where($where)->delete();
-			M('member')->where($where)->delete();
-			M('indent')->where($where)->delete();
-			M('areply')->where($where)->delete();
+			//M('wxuser')->where($where)->delete();
+			//M('token_open')->where($where)->delete();
+			//M('text')->where($where)->delete();
+			//M('img')->where($where)->delete();
+			//M('member')->where($where)->delete();
+			//M('indent')->where($where)->delete();
+			//M('areply')->where($where)->delete();
 			$this->assign("jumpUrl");
 			$this->success('删除成功！');            
         }else{

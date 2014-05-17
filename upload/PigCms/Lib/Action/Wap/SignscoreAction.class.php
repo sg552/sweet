@@ -4,8 +4,11 @@
 *
 */
 
-class SignscoreAction extends BaseAction {
-
+class SignscoreAction extends WapAction {
+	public function __construct(){
+		
+		parent::_initialize();
+	}
     //显示
     public function index(){
         $agent = $_SERVER['HTTP_USER_AGENT']; 

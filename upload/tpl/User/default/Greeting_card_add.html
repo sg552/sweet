@@ -32,7 +32,7 @@
                 <tr>
                   <th width="120"><label for="bjurl">背景图片：</label></th>
                   <td><if condition="$greeting_card['bakcground_url'] eq ''"><else/><img id="suicaipic2" src="{pigcms:$greeting_card['bakcground_url']}" width="200"><br></if>
-                  <input class="px" name="bakcground_url" value="" id="suicai2" style="width:280px;">  
+                  <input class="px" name="bakcground_url" value="{pigcms:$greeting_card['bakcground_url']}" id="suicai2" style="width:280px;">  
 				  <span class="help-inline">
 					<a href="javascript:void(0)" onclick="upyunPicUpload('suicai2',700,420,'{pigcms:$token}')" class="btnGrayS vm">上传</a>
 					<a href="###" onclick="viewImg('suicai2')" class="btnGrayS vm">预览</a>
@@ -44,7 +44,7 @@
      <td>
 	 
 	 <input class="px" name="mp3" value="{pigcms:$greeting_card['mp3']}" id="suicai3" style="width:300px" onchange="document.getElementById('plmp3').src=this.value"> 
-	 <a href="###" onclick="chooseFile('suicai3','music')" class="a_upload">选择</a><br />
+	 <a href="###" onclick="upyunPicUpload('suicai3',0,0,'{pigcms:$token}')" class="a_upload">上传</a>&nbsp;<a href="###" onclick="chooseFile('suicai3','music')" class="a_upload">选择</a><br />
 	 
 	 <audio id="plmp3" src="" preload="none"></audio><font color="#FF0000"></font></td>
     </tr>
@@ -52,10 +52,10 @@
 	 <th>选择背景动画：</th>
 	  <td>
 		<select name="type"> 
-			<option value=""   <if condition="$greeting_card['type'] eq ''">selected</if>>请选择</option>
-			 <option value="1"  <if condition="$greeting_card['type'] eq 1">selected</if>>下落的枫叶</option>
+			<option value="" <if condition="$greeting_card['type'] eq ''">selected</if>>请选择</option>
+			 <option value="1" <if condition="$greeting_card['type'] eq 1">selected</if>>下落的枫叶</option>
 			 <option value="2" <if condition="$greeting_card['type'] eq 2">selected</if>>飘雪</option>
-			 <option value="3" <if condition="$greeting_card['type'] eq 3">selected</if>>驱驴</option
+			 <option style="display:none" value="3" <if condition="$greeting_card['type'] eq 3">selected</if>>驱驴</option
 			 <option value="4" <if condition="$greeting_card['type'] eq 4">selected</if>>飘玫瑰</option
 			</select> 
 		</td>
@@ -81,7 +81,7 @@
                   <td><input class="px" name="zfname" value="{pigcms:$greeting_card['zfname']}" id="zfname" style="width:100px;"> 
                     </td>
                 </tr>
-               <tr>
+               <tr style="display:none">
 				   <th>是否显示转发数：</th>
 				   <td>
 						<select name="status"> 

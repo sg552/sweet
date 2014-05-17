@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8" />
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/car/css/reset.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/car/css/common.css" media="all" />
+<script type="text/javascript" src="{pigcms::RES}/car/js/jQuery.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/car/Tabs/css/easy-responsive-tabs.css" media="all">
+<script type="text/javascript" src="{pigcms::RES}/car/Tabs/js/easyResponsiveTabs.js"></script>
+
+<title>订单列表</title>
+
+        <style>
+            img{width:100%!important;}
+            .aaa {font-size: -webkit-xxx-large;
+            font-size: xx-large;}
+        </style>
+    </head>
+    <body onselectstart="return true;" ondragstart="return false;">
+
+    <body onselectstart="return true;" ondragstart="return false;">
+        <div id="bookBody" class="body">
+            <header>
+                <ul>
+                    <li><img src="{pigcms:$reser['headpic']}" style="width:100%;" /></li>
+                </ul>
+            </header>
+<if condition="$books eq ''">
+
+<li><a href="javascript:;">
+</a><div class="text aaa">您还没有订单哟<a href="javascript:;">
+               </div>
+
+</li>
+</if>
+
+            <section>
+                <div class="p_10">
+                    <form id="form1" action="#" method="post" >
+  <div id="horizontalTab">
+            <ul class="resp-tabs-list">
+
+            <volist name='books' id='vo'>
+                <li><font color="green">{pigcms:$vo['orderid']}</font> 订单详情<a href="javascript:;" style="background-color:#ccc;float:right;margin-right:0px;color:#000;line-height:20px;border-radius:8px;margin-top:3px;padding:0 5px;"> <if condition="$vo['remate'] eq 0"><em class="no">等待商家受理</em><elseif condition="$vo['remate'] eq 1" /><em class="no"><font color="green">商家已受理</font></em><elseif condition="$vo['remate'] eq 2" /><em class="no"><font color="red">该订单被拒绝</font></em></if></a></li>
+             </volist>
+            </ul>
+            <div class="resp-tabs-container">
+             <volist name='books' id='vo'>
+                <div>
+                     <dl class="list_book">
+
+                            <dt class="ofh">
+                                <label style="width:150px;">&nbsp;</label>
+                            </dt>
+                            <dd class="tbox">
+                                <div><label>联系人:</label></div>
+                                <div><label>{pigcms:$vo['truename']}</label></div>
+                            </dd>
+                            <dd class="tbox">
+                                <div><label>联系电话：</label></div>
+                                <div><a  style="color:#000;">{pigcms:$vo['tel']}</a></div>
+                            </dd>
+                            <dd class="tbox">
+                                <div><label>健身房：</label></div>
+                                <div><label>{pigcms:$vo['productName']}</label></div>
+                            </dd>
+
+                                <dd class="tbox">
+                                <div><label>健身项目：</label></div>
+                                <div><label>{pigcms:$vo['orderName']}</label></div>
+                                </dd>
+                            <!-- <dd class="tbox">
+                                <div><label>预约日期：</label></div>
+                                <div><label>{pigcms:$vo['dateline']} {pigcms:$vo['timepart']}</label></div>
+                            </dd> -->
+                            <dd class="tbox">
+                                <div><label>下单时间：</label></div>
+                                <div><label>{pigcms:$vo['booktime']|date='Y年m月d日 H:i:s',###}</label></div>
+                            </dd>
+                            <div>
+                                <li class="box group_btn">
+                                    <div>
+                                    <if  condition="$vo['paid'] eq 1" >
+                                    <a style="background-image: -webkit-gradient(linear,left bottom,left top, color-stop(0, #22805A), color-stop(1, #378611) );">已经付款 {pigcms:$vo['payprice']} RMB</a>
+                                    <else/>
+                                    <a>未付款 {pigcms:$vo['payprice']} RMB</a>
+                                    </if>
+                                    </div>
+                                    <div><a href="{pigcms::U('Business/delOrder',array('token'=>$vo['token'],'wecha_id'=>$vo['wecha_id'],'id'=>$vo['id'],'type'=>$vo['type']))}" onclick="return(confirm('如果付款了,请谨慎操作,否则该订单作废处理.'));return false;" id="showcard2" class="gray">删除订单</a></div>
+                                </li>
+                            </div>
+
+                                <if condition="$vo['remate'] neq 0">
+                                <dd>
+                                    <p>客服回复：<font color="#2c2a24">{pigcms:$vo['kfinfo']}</font></p>
+                                 </dd>
+                                </if>
+
+                        </dl>
+                </div>
+                </volist>
+                <li class="box group_btn"><div>
+                   <p>{pigcms:$page}</p>
+                 </div></li>
+
+            </div>
+        </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'accordion', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true,   // 100% fit in a container
+            closed: 'accordion', // Start closed if in accordion view
+            activate: function(event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#tabInfo');
+                var $name = $('span', $info);
+
+                $name.text($tab.text());
+
+                $info.show();
+            }
+        });
+    });
+</script>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+    </body>             <div mark="stat_code" style="width:0px; height:0px; display:none;">
+                    </div>
+    </body>
+</html>

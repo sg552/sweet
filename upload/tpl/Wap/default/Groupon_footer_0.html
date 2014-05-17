@@ -10,5 +10,17 @@
 <footer>
 <div class="ft-copyright"><span class="ft-copyright-text"> &copy;<?php echo date('Y',time());?> </span></div>
 </footer>
+
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Groupon",
+            "moduleID":"0",
+            "imgUrl": "", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Groupon/grouponIndex',array('token'=>$token))}",
+            "tTitle": "团购",
+            "tContent": ""
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

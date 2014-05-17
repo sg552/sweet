@@ -4,7 +4,8 @@ class CouponAction extends LotteryBaseAction{
 	public $wecha_id;
 	public $lottory_record_db;
 	public $lottory_db;
-	public function __construct(){
+
+	public function index(){
 		$agent = $_SERVER['HTTP_USER_AGENT'];
 		if(!strpos($agent,"icroMessenger")) {
 			//echo '此功能只能在微信浏览器中使用';exit;
@@ -19,8 +20,8 @@ class CouponAction extends LotteryBaseAction{
 		if (!defined('STATICS')){
 			define('STATICS',TMPL_PATH.'static');
 		}
-	}
-	public function index(){
+		
+		
 		$token		= $this->token;
 		$wecha_id	= $this->wecha_id;
 		$id 		= $this->_get('id');
@@ -30,7 +31,12 @@ class CouponAction extends LotteryBaseAction{
 		$this->assign('lottery',$Lottery);
 		//var_dump($Lottery);
 		//0. 判断优惠券是否领完了
-		$data=$this->prizeHandle($token,$wecha_id,$Lottery);
+		if ($Lottery['statdate']>time()){
+			$data['usenums']=0;
+		}else {
+			
+			$data=$this->prizeHandle($token,$wecha_id,$Lottery);
+		}
 	
 		$data['token'] 		= $token;
 		$data['wecha_id']	= $wecha_id;		

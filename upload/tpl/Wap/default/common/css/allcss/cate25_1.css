@@ -1,10 +1,10 @@
-body, .weimob-content{
+body, .pigcms-content{
     background: #ebebeb;
 }
-.weimob-list{
+.pigcms-list{
     overflow: hidden;
 }
-.weimob-list-item{
+.pigcms-list-item{
     width:50%;
     height: auto;
     display: inline-block;
@@ -17,11 +17,11 @@ body, .weimob-content{
     -webkit-box-sizing:border-box;
     max-height:150px;
 }
-.weimob-list-item-bg>div:first-child{
+.pigcms-list-item-bg>div:first-child{
     height:100px;
     overflow:hidden;
 }
-.weimob-list-item-bg{
+.pigcms-list-item-bg{
     min-height: 100%;
     border: 1px solid #C0C0C0;
     border-radius: 20px;
@@ -32,10 +32,10 @@ body, .weimob-content{
     overflow: hidden;
 }
 
-.weimob-list-item-title{
+.pigcms-list-item-title{
     color:#ccc;
 }
-.weimob-list-item-image{
+.pigcms-list-item-image{
     position: relative;
     margin: auto;
     left : 0;
@@ -51,20 +51,20 @@ body, .weimob-content{
     background-size: contain;
 }
 
-.weimob-list-item-box{
+.pigcms-list-item-box{
     position: relative;
     margin: auto;
     display: table;
 }
 
-.weimob-list-item-line{
+.pigcms-list-item-line{
     line-height:30px;
     padding: 0;
     margin: auto;
     text-align: center;
     max-width: 88%;
 }
-.weimob-copyright{ color:#000;}
+.pigcms-copyright{ color:#000;}
 
 
 /************************************************************/

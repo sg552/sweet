@@ -99,7 +99,9 @@ class Wechat {
 		$this->data['ArticleCount'] = count($articles);
 		$this->data['Articles'] = $articles;
 	}
-
+	private function transfer_customer_service($content){
+		$this->data['Content'] = '';
+	}
 	
     private function data2xml($xml, $data, $item = 'item') {
         foreach ($data as $key => $value) {

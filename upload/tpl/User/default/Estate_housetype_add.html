@@ -10,24 +10,24 @@
  </div>
  <!--tab start-->
 
-<!--tab end-->        
+<!--tab end-->
     <div class="msgWrap bgfc" style="margin-top:10px;">
-	  <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">	 
-	  
+	  <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
+
 		<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
 			<tbody>
 				<tr>
 					<th width="120">户型名称：</th>
-					<td> <input type="text" id="name" name="name" value="{pigcms:$housetype['name']}" class="input-large px" data-rule-required="true" data-rule-maxlength="20">
+					<td> <input type="text" id="name" name="name" value="{pigcms:$housetype['name']}" class="input-large px" schoolSet data-rule-maxlength="20">
                                         <span class="maroon">*</span>
                                         <span class="help-inline">尽量简单，不要超过20字</span></td>
 				</tr>
 			   <tr>
 					<th>请选择子楼盘：</th>
-					<td><select id="son_id" name="son_id" class="input-medium" data-rule-required="true">
-                                         
+					<td><select id="son_id" name="son_id" class="input-medium" schoolSet>
+
                                             <option value="0">请选择子楼盘</option>
-                                         
+
                                             <volist name="son_data" id="vo">
                                             <option value="{pigcms:$vo['sid']}" <if condition="$vo['sid'] eq $housetype['son_id']">selected="selected"</if>>{pigcms:$vo['title']}</option>
                                             </volist>
@@ -37,34 +37,34 @@
                   <tr>
                     <th>选择全景相册：</th>
                     <td>
-                        <select id="panorama_id" name="panorama_id" class="input-medium" data-rule-required="true"> 
-                                          <option value="0">请选择360全景相册</option> 
+                        <select id="panorama_id" name="panorama_id" class="input-medium" schoolSet>
+                                          <option value="0">请选择360全景相册</option>
                                             <volist name="panorama" id="vo">
                                                <option value="{pigcms:$vo['pid']}" <if condition="$vo['pid'] eq $housetype['panorama_id']">selected="selected"</if>>{pigcms:$vo['name']}</option>
                                             </volist>
                                         </select>
                                         <span class="maroon">*</span>
-                                        <span class="help-inline">如果没有，请先到 <a href="{pigcms::U('Panorama/add',array('token'=>$token))}" class="btn"><strong><font color='red'>360°全景</strong></font></a>添加</span>
+                                        <span class="help-inline">如果没有留空，或者到 <a href="{pigcms::U('Panorama/add',array('token'=>$token))}" class="btn"><strong><font color='red'>360°全景</strong></font></a>添加</span>
                     </td>
                 </tr>
 
 				<tr>
 					<th width="120">楼层：</th>
-					<td> <input type="text" id="floor_num" name="floor_num" value="{pigcms:$housetype['floor_num']}" class="input-large px" data-rule-required="true">
+					<td> <input type="text" id="floor_num" name="floor_num" value="{pigcms:$housetype['floor_num']}" class="input-large px" schoolSet>
                                         <span class="maroon">*</span>
                                         <span class="help-inline">如：1-10</span></td>
 				</tr>
 				<tr>
 					<th width="120">建筑面积：</th>
-					<td> <input type="text" id="area" name="area" value="{pigcms:$housetype['area']}" class="input-large px" data-rule-required="true">
+					<td> <input type="text" id="area" name="area" value="{pigcms:$housetype['area']}" class="input-large px" schoolSet>
                                         <span class="maroon">*</span>
                                         <span class="help-inline">如：约120平方米</span></td>
 				</tr>
 				<tr>
 					<th>房屋户型：</th>
-					<td> 
-							 <select id="fang" name="fang" class="input-mini" data-rule-required="true"> 
-                                            <option value="1" <if condition="$housetype['fang'] eq 1">selected="selected"</if>>1</option>                       
+					<td>
+							 <select id="fang" name="fang" class="input-mini" schoolSet>
+                                            <option value="1" <if condition="$housetype['fang'] eq 1">selected="selected"</if>>1</option>
                                             <option value="2" <if condition="$housetype['fang'] eq 2">selected="selected"</if>>2</option>
                                             <option value="3" <if condition="$housetype['fang'] eq 3">selected="selected"</if>>3</option>
                                             <option value="4" <if condition="$housetype['fang'] eq 4">selected="selected"</if>>4</option>
@@ -73,26 +73,26 @@
                                             <option value="7" <if condition="$housetype['fang'] eq 7">selected="selected"</if>>7</option>
                                         </select>
                                         房
-                                        <select id="ting" name="ting" class="input-mini" data-rule-required="true">     
-                                            <option value="1" <if condition="$housetype['ting'] eq 1">selected="selected"</if>>1</option>                           
+                                        <select id="ting" name="ting" class="input-mini" schoolSet>
+                                            <option value="1" <if condition="$housetype['ting'] eq 1">selected="selected"</if>>1</option>
                                             <option value="2" <if condition="$housetype['ting'] eq 2">selected="selected"</if>>2</option>
                                             <option value="3" <if condition="$housetype['ting'] eq 3">selected="selected"</if>>3</option>
                                             <option value="4" <if condition="$housetype['ting'] eq 4">selected="selected"</if>>4</option>
                                             <option value="5" <if condition="$housetype['ting'] eq 5">selected="selected"</if>>5</option>
                                             <option value="6" <if condition="$housetype['ting'] eq 6">selected="selected"</if>>6</option>
                                         </select>
-                                        厅	
+                                        厅
 					</td>
 				</tr>
 				<tr>
 					<th width="120">显示顺序：</th>
-					<td>  <input type="text" id="sort" name="sort" value="{pigcms:$housetype['sort']|default=1}" class="input-mini px" data-rule-required="true" data-rule-number="true">
+					<td>  <input type="text" id="sort" name="sort" value="{pigcms:$housetype['sort']|default=1}" class="input-mini px" schoolSet data-rule-number="true">
                                         <span class="maroon">*</span>
                                         <span class="help-inline">数值越大越靠前</span></td>
 				</tr>
 				<tr>
 					<th width="120">户型介绍：</th>
-					<td>  <textarea id="description" name="description" class='input-xxlarge'  placeholder="户型介绍简单明了就好" style="width:100%;height:125px">{pigcms:$housetype['description']}</textarea></td>
+					<td>  <textarea id="description" name="description" class='input-xxlarge'  placeholder="户型介绍简单明了就好" style="width:100%;height:125px;border: 1px solid #9B9A9A;">{pigcms:$housetype['description']}</textarea></td>
 				</tr>
 				<tr>
 					<th width="120">户型图片:</th>
@@ -100,7 +100,7 @@
                                         <p>
                                             <img class="thumb_img" id="type1_src" src="{pigcms:$housetype['type1']}" style="max-height:100px;">
                                             <input type="input" class="px" id="type1" value="{pigcms:$housetype['type1']}" name="type1" >
-                                     
+
                                             <span class="help-inline">
                                                  <script src="{pigcms::STATICS}/upyun.js"></script><a href="###" onclick="upyunPicUpload('type1',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('type1')">预览</a>
                                                 <span class="help-inline">建议尺寸：宽720像素，高400像素</span>
@@ -110,7 +110,7 @@
                                         <p>
                                             <img class="thumb_img" id="type2_src" src="{pigcms:$housetype['type2']}" style="max-height:100px;">
                                             <input type="input" class="px" id="type2" value="{pigcms:$housetype['type2']}" name="type2" >
-                                     
+
                                             <span class="help-inline">
                                                  <a href="###" onclick="upyunPicUpload('type2',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('type2')">预览</a>
                                                 <span class="help-inline">建议尺寸：宽720像素，高400像素</span>
@@ -120,7 +120,7 @@
                                         <p>
                                             <img class="thumb_img" id="type3_src" src="{pigcms:$housetype['type3']}" style="max-height:100px;">
                                             <input type="input" class="px" id="type3" value="{pigcms:$housetype['type3']}" name="type3" >
-                                     
+
                                             <span class="help-inline">
                                                  <a href="###" onclick="upyunPicUpload('type3',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('type3')">预览</a>
                                                 <span class="help-inline">建议尺寸：宽720像素，高400像素</span>
@@ -130,7 +130,7 @@
                                         <p>
                                             <img class="thumb_img" id="type4_src" src="{pigcms:$housetype['type4']}" style="max-height:100px;">
                                             <input type="input" class="px"  id="type4" value="{pigcms:$housetype['type4']}" name="type4" >
-                                     
+
                                             <span class="help-inline">
                                                  <a href="###" onclick="upyunPicUpload('type4',720,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('type4')">预览</a>
                                                 <span class="help-inline">建议尺寸：宽720像素，高400像素</span>
@@ -152,8 +152,8 @@
 			</tbody>
 		</table>
 	</form>
-  </div> 
- 
-  
+  </div>
+
+
         </div>
 <include file="Public:footer"/>

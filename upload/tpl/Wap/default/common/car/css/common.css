@@ -7,7 +7,7 @@ ol{
 }
 
 .body{
-	max-width:640px;
+	/*max-width:640px;*/
 	margin:auto;
 	font-family: Microsoft YaHei,Helvitica,Verdana,Tohoma,Arial,san-serif;
 }
@@ -575,7 +575,7 @@ ol{
 }
 
 body{
-	max-width:640px;
+	/*max-width:640px;*/
 	margin:auto;
 	color:#555;
 }
@@ -643,7 +643,7 @@ float: left;
 }
 /******************************************************/
 .list_ul_common{
-	
+
 }
 
 .list_ul_common li{

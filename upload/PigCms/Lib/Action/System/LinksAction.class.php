@@ -7,9 +7,9 @@ class LinksAction extends BackAction{
 			$where=array('agentid'=>0);
 		}
 		$db=D('Links');
-		F('links',null);
+		S('links',null);
 		$links=M('Links')->where($where)->select();
-		F('links',$links);
+		S('links',$links);
 		$count=$db->where($where)->count();
 		$page=new Page($count,25);
 		$info=$db->where($where)->limit($page->firstRow.','.$page->listRows)->select();
@@ -40,6 +40,7 @@ class LinksAction extends BackAction{
 	
 	public function del(){
 		$id=$this->_get('id','intval');
+		$db=D('Links');
 		if($db->delete($id)){
 			$this->success('操作成功',U(MODULE_NAME.'/index'));
 		}else{

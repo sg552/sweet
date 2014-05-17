@@ -1,0 +1,55 @@
+<include file="Business:public_head"/>
+</head>
+<body>
+<!-- website wrapper starts -->
+<div class="websiteWrapper">
+
+  <!-- main menu wrapper starts -->
+  <include file="Business:public_menu"/>
+  <!-- main menu wrapper ends -->
+
+
+  <!-- page wrapper starts -->
+  <div class="pageWrapper portfolioOnePageWrapper">
+
+    <!-- portfolio wrapper starts -->
+    <div class="portfolioOneWrapper">
+    <volist name="classify" id="vo">
+      <!-- portfolio item starts  -->
+      <div class="portfolioOneItemWrapper"> <a href="{pigcms::U('Business/classify_item',array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$vo['type'],'bid'=>$vo['bid_id'],'mid'=>$vo['mid']))}" class="portfolioOneItemImageWrapper"><img src="{pigcms:$vo['desc_pic']}" alt=""/></a>
+        <div class="portfolioOneItemInfoWrapper">
+          <h4 class="portfolioOneItemTitle">{pigcms:$vo['name']}</h4>
+          <p>{pigcms:$vo['main_desc']|html_entity_decode|strip_tags|mb_substr=0,89,'utf-8'}...</p>
+        </div>
+        <div class="portfolioOneItemButtonsWrapper"><!-- <a href="images/content/large-3.jpg" class="portfolioOneExpandButton">expand</a> --><a href="{pigcms::U('Business/classify_item',array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$vo['type'],'bid'=>$vo['bid_id'],'mid'=>$vo['mid']))}" class="portfolioOneDetailsButton">详细</a></div>
+      </div>
+      <!-- portfolio item ends -->
+  </volist>
+    </div>
+    <!-- portfolio wrapper ends -->
+
+  </div>
+  <!-- page wrapper ends -->
+
+  <div class="sectionBreak"></div>
+<style>
+    #pagesid p{
+display: inline-grid;
+color:#fff;
+    }
+    #pagesid a{
+      color:#29FF00;
+    }
+</style>
+  <!-- page numbers start -->
+  <div class="pageNumbersWrapper" id="pagesid"><p>{pigcms:$page}</p></div>
+  <!-- page numbers end -->
+
+  <!-- footer wrapper starts -->
+<include file="Business:food_menu"/>
+  <!-- footer wrapper ends -->
+
+</div>
+<!-- website wrapper ends -->
+</body>
+</html>

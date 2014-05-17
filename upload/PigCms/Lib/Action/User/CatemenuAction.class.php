@@ -40,6 +40,10 @@ class CatemenuAction extends UserAction {
     public function del(){
         $where['id']=$this->_get('id','intval');
         $where['token']=session('token');
+		
+					
+		S("bottomMenus_".$where['token'],NULL);
+		
         if(D(MODULE_NAME)->where($where)->delete()){
             $fidwhere['fid']=intval($where['id']);
             D(MODULE_NAME)->where($fidwhere)->delete();
@@ -49,7 +53,8 @@ class CatemenuAction extends UserAction {
         }
     }
     public function insert(){
-        //var_dump($_POST);EXIT;
+        $token = $this->_post('token',htmlspecialchars);
+		S("bottomMenus_".$token,NULL);
         $name='Catemenu';
         $db=D($name);
         if($db->create()===false){
@@ -64,12 +69,16 @@ class CatemenuAction extends UserAction {
         }
     }
     public function upsave(){
+		$token = session('token');
+		S("bottomMenus_".$token,NULL);
+
         $this->all_save();
     }
     public function styleSet(){
         $db=M('home');
         $RadioGroup1=$db->where(array('token'=>$this->token))->getfield("RadioGroup");
         //var_dump($RadioGroup1);
+
         $this->assign('RadioGroup1',$RadioGroup1);
         $this->assign('radiogroup',$RadioGroup1);
         $this->display();
@@ -79,6 +88,8 @@ class CatemenuAction extends UserAction {
         $info=$db->where(array('token'=>$this->token))->find();
         $radiogroup=$this->_get('radiogroup');
         //echo $RadioGroup1;exit;
+		$token = $this->token;
+		S("homeinfo_".$token,NULL);
         $data['radiogroup']=$radiogroup;
         if($info==false){
             $res=$db->add($data);

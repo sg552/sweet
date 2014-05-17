@@ -7,11 +7,11 @@
               <h4 class="left">品牌管理</h4>
               <div class="clr"></div>
           </div>
-          
+
           <div class="cLine">
-   
+
 </div>
-          
+
           <div class="cLine">
             <div class="pageNavigator left">
                 <a href="{pigcms::U('Car/carbrand',array('token'=>$token))}" class="btnGrayS vm bigbtn">
@@ -27,19 +27,19 @@
             <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
               <thead>
                 <tr>
-                    
+
                      <th>名称</th>
                     <th>LOGO</th>
                     <th>网站</th>
                     <th>显示顺序</th>
                     <th>操作</th>
-                    
+
                 </tr>
               </thead>
               <tbody>
               <volist name="brands" id="vo">
                     <tr>
-                     
+
                     <td>{pigcms:$vo['name']}</td>
                     <td><img type="img" src="{pigcms:$vo['logo']}" style="max-height:50px;"/></td>
                     <td><a href="{pigcms:$vo['www']}" target="_blank">{pigcms:$vo['www']}</a></td>
@@ -54,7 +54,7 @@
                 </tr>
               </tbody>
             </table>
-           </form> 
+           </form>
           </div>
           <div class="cLine">
             <div class="pageNavigator right">
@@ -62,5 +62,5 @@
             </div>
             <div class="clr"></div>
           </div>
-        </div>  
+        </div>
 <include file="Public:footer"/>

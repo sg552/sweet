@@ -1,12 +1,9 @@
 <?php
-/**
- *用户案例
-**/
 class CaseAction extends BackAction{
 	public function index(){
 		$db=D('Case');
 		$where='';
-		F('case',null);
+		S('case',null);
 		if (!C('agent_version')){
 			$case=$db->where('status=1')->limit(32)->select();
 		}else {
@@ -14,7 +11,7 @@ class CaseAction extends BackAction{
 			$where=array('agentid'=>0);
 		}
 		
-		F('case',$case);
+		S('case',$case);
 		$count=$db->where($where)->count();
 		$page=new Page($count,25);
 		$info=$db->where($where)->limit($page->firstRow.','.$page->listRows)->select();

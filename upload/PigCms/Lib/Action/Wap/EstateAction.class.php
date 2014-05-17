@@ -15,7 +15,7 @@ class EstateAction extends BaseAction{
     }
 
     public function index(){
-        $agent = $_SERVER['HTTP_USER_AGENT']; 
+        $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
         }
@@ -39,7 +39,7 @@ class EstateAction extends BaseAction{
         }
         $t_img = M('Img');
         $where = array('classid'=>$classify['id'],'token'=>$this->_get('token'));
-        $imgtxt = $t_img->where($where)->field('id as mid,title,pic,createtime')->select();
+        $imgtxt = $t_img->where($where)->field('id as mid,title,pic,createtime')->order('createtime desc,uptatetime desc')->select();
 
         $this->assign('imgtxt',$imgtxt);
         $this->assign('classify',$classify);
@@ -85,17 +85,14 @@ class EstateAction extends BaseAction{
 
     public function album(){
         $Photo = M("Photo");
-        $photo_list = M('Photo_list');
         $t_album = M('Estate_album');
         $album = $t_album->where(array('token'=>$this->_get('token')))->field('id,poid')->select();
+        $list_photo = array();
         foreach ($album as $k => $v) {
-             $list_photo = $Photo->where(array('token'=>$this->_get('token'),'id'=>$v['poid']))->field('id')->find();
-             $photolist[]=$photo_list->where(array('token'=>$this->_get('token'),'pid'=>$list_photo['id']))->select();
-
+             $list_photo[] = $Photo->where(array('token'=>$this->_get('token'),'id'=>$v['poid']))->find();
         }
-        $this->assign('photolist',$photolist);
-        $this->assign('album',$list_photo);
-        $this->display();
+        $this->assign('photo',$list_photo);
+        $this->display('Photo:index');
     }
 
     public function show_album(){
@@ -118,44 +115,54 @@ class EstateAction extends BaseAction{
 
     public function impress(){
         $t_impress = M('Estate_impress');
-       // $impress = $t_impress->where('token'=>$this->_get('token'),'is_show'=>1)->order('sort desc')->select(); 
-         $impress = $t_impress->where('is_show=1')->order('sort desc')->select(); 
+        $where     = array('token'=>$this->_get('token'));
+        $where2    = array('token'=>$this->_get('token'),'is_show'=>1);
+        $impress   = $t_impress->where($where2)->order('sort desc')->select();
+        $count2    = $t_impress->where($where2)->count();
+        $Page2     = new Page($count2,18);
+        $show2     = $Page2->show();
+        $impress   = $t_impress->where($where2)->limit($Page2->firstRow.','.$Page2->listRows)->order('sort desc')->select();
         $this->assign('impress',$impress);
+        $this->assign('page2',$show2);
 
-        $t_expert = M('Estate_expert'); 
-        $expert = $t_expert->where(array('token'=>$this->_get('token')))->order('sort desc')->select();
+        $t_expert = M('Estate_expert');
+        $count      = $t_expert->where($where)->count();
+        $Page       = new Page($count,5);
+        $show       = $Page->show();
+        $expert     = $t_expert->where($where)->order('sort desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('page',$show);
         $this->assign('expert',$expert);
 
         $this->display();
     }
 
     public function impress_add(){
-        $t_impress = M('Estate_impress'); //comment 统计数
-        $t_imp_add = M("Estate_impress_add");
-        $imp_id = (int)$this->_post('imp_id');
-        $token = $this->_post('token');
-        $wecha_id = $this->_post('wecha_id');
-        $where =  array('imp_id'=>$imp_id,'wecha_id');
-        $check = $t_imp_add->where($where)->find();
+        $t_impress  = M('Estate_impress'); //comment 统计数
+        $t_imp_add  = M("Estate_impress_add");
+        $imp_id     = (int)$this->_post('imp_id');
+        $token      = $this->_post('token');
+        $wecha_id   = $this->_post('wecha_id');
+        $where      =  array('wecha_id'=>$wecha_id,'token'=>$token);
+        $check      = $t_imp_add->where($where)->find();
 
-         $data=array('imp_id'=>$imp_id,'msg'=>$wecha_id);
-         echo json_encode($data);
-         exit;
+         //$data=array('imp_id'=>$imp_id,'msg'=>$wecha_id);
+         //echo json_encode($data);
+         //exit;
 
 
         if($check != null){
-            $data=array('success'=>1,'msg'=>"谢谢您的赞。");
+            $data=array('errno'=>2,'msg'=>"您已经点过赞了哦");
             echo json_encode($data);
             exit;
         }
 
          if($id=$t_imp_add->add($_POST)){
-            $t_impress->where(array('id'=>$imp_id))->setInc('comment');
-             $data=array('success'=>1,'msg'=>"谢谢您的赞。");
+            $t_impress->where(array('id'=>$imp_id,'token'=>$token))->setInc('comment');
+             $data=array('errno'=>1,'msg'=>"谢谢您的赞。");
               echo json_encode($data);
              exit;
          }else{
-            $data=array('success'=>0,'msg'=>"点赞失败，请再来一次吧。");
+            $data=array('errno'=>0,'msg'=>"点赞失败，请再来一次吧。");
             echo json_encode($data);
             exit;
          }
@@ -165,7 +172,7 @@ class EstateAction extends BaseAction{
     public function  aboutus(){
         $company = M('Company');
         $token=$this->_get('token');
-        $about = $company->where(array('token'=>$token,'shortname'=>'loupan'))->find();
+        $about = $company->where(array('token'=>$token,'shortname'=>'loupan','isbranch'=>1))->find();
         $this->assign('about',$about);
 
         $this->display();

@@ -1,0 +1,81 @@
+<include file="Business:public_head"/>
+</head>
+<body>
+<!-- website wrapper starts -->
+<div class="websiteWrapper">
+
+  <!-- main menu wrapper starts -->
+  <include file="Business:public_menu"/>
+  <!-- main menu wrapper ends -->
+
+
+
+  <!-- page wrapper starts -->
+  <div class="pageWrapper">
+
+    <!-- page content wrapper starts -->
+    <div class="pageContentWrapper">
+
+    <!-- post content wrapper starts -->
+    <div class="singlePostContentWrapper">
+      <!-- page title starts -->
+      <h3 class="pageTitle">{pigcms:$classify['name']}</h3>
+      <!-- page title ends -->
+      <div class="pageSpacer"></div>
+      <img src="{pigcms:$classify['desc_pic']}" class="largeImage" alt=""/>
+      <p>{pigcms:$classify['main_desc']|html_entity_decode}</p>
+      <div class="textBreak"></div>
+    </div>
+    <!-- post content wrapper ends -->
+
+      <h4 class="blockTitle">所有健身项目:</h4>
+
+
+      <!-- table starts -->
+      <table>
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>健身项目</th>
+            <th>健身目的</th>
+            <th>是否可预约</th>
+          </tr>
+        </thead>
+        <tbody>
+         <volist name="sec_item" id="vo">
+          <tr>
+            <td>{pigcms:$i}</td>
+            <td><a href="{pigcms::U('Business/project',array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$vo['type'],'bid'=>$bid,'sid'=>$vo['sid']))}">{pigcms:$vo['name']}</a></td>
+            <td>{pigcms:$vo['datatype']}</td>
+            <if condition="$vo['googsnumber'] neq 0">
+            <td><span class="singleIconWrapper iconCheckmarkDark"></span></td>
+            <else/>
+            <td><span class="singleIconWrapper iconNoDark"></span></td>
+            </if>
+          </tr>
+      </volist>
+        </tbody>
+      </table>
+<style>
+    #pagesid p{
+display: inline-grid;
+    }
+</style>
+      <div id="pagesid"><p>{pigcms:$page}</p></div>
+      <!-- table ends -->
+      <div class="textBreakBottom"></div>
+
+    </div>
+    <!-- page content wrapper ends -->
+
+  </div>
+  <!-- page wrapper ends -->
+
+  <!-- footer wrapper starts -->
+<include file="Business:food_menu"/>
+  <!-- footer wrapper ends -->
+
+</div>
+<!-- website wrapper ends -->
+</body>
+</html>

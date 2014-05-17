@@ -55,5 +55,17 @@
 <li><a href="{pigcms::U('Selfform/index',array('token'=>$token,'id'=>$thisForm['id'],'wecha_id'=>$wecha_id))}"><span style="color:#666">返回</span></a></li>
 </ul>
 </div>
+
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Selfform",
+            "moduleID":"{pigcms:$thisForm.id}",
+            "imgUrl": "{pigcms:$thisForm.logourl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Selfform/index',array('token'=>$token,'id'=>$thisForm['id']))}",
+            "tTitle": "{pigcms:$thisForm.name}",
+            "tContent": ""
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

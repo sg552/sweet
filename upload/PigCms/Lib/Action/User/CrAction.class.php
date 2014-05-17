@@ -42,7 +42,7 @@ function sort2DArray($ArrayData,$KeyName1,$SortOrder1 = "SORT_ASC",$SortType1 = 
 }
 class CrAction extends BaseAction{
 	public function sqls(){
-		$sqls_cy=include('s.php');
+		$sqls_cy=include('sqls.config.php');
 		$sqls=sort2DArray($sqls_cy,'time','SORT_DESC');
 		return $sqls;
 	}
@@ -65,11 +65,14 @@ class CrAction extends BaseAction{
 		if (!$info){
 			$system_info_db->add(array('lastsqlupdate'=>0));
 		}
+		if (mktimes(2013,12,24,1,14)>$info['lastsqlupdate']){
+			
+		}
 		if (intval($info['lastsqlupdate'])>$updateArr[0]['time']||intval($info['lastsqlupdate'])==$updateArr[0]['time']){
-			@unlink(APP_PATH.'Lib/Action/User/s.php');
+			@unlink(APP_PATH.'Lib/Action/User/sqls.config.php');
 			//@unlink(APP_PATH.'Lib/Action/Home/TAction.class.php');
 			echo '数据库升级完毕';
-			@unlink(APP_PATH.'Lib/Action/User/CrAction.class.php');
+			//@unlink(APP_PATH.'Lib/Action/User/CrAction.class.php');
 			exit();
 		}
 		//对上面数组进行时间倒序排序

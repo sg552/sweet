@@ -24,14 +24,37 @@ class ClassifyAction extends UserAction{
 		$this->assign('info',$info);
 		$this->display();
 	}
-	
+	//	
 	public function add(){
+		include('./PigCms/Lib/ORG/index.Tpl.php');
+		include('./PigCms/Lib/ORG/cont.Tpl.php');
+
+		$this->assign('tpl',$tpl);
+		$this->assign('contTpl',$contTpl);
 		$this->display();
 	}
-	
+	//
 	public function edit(){
 		$id=$this->_get('id','intval');
 		$info=M('Classify')->find($id);
+		include('./PigCms/Lib/ORG/index.Tpl.php');
+		include('./PigCms/Lib/ORG/cont.Tpl.php');
+		
+		foreach($tpl as $k=>$v){
+			if($v['tpltypeid'] == $info['tpid']){
+				$info['tplview'] = $v['tplview'];
+			}
+		}
+
+				
+		foreach($contTpl as $key=>$val){
+			if($val['tpltypeid'] == $info['conttpid']){
+				$info['tplview2'] = $val['tplview'];
+			}
+		}
+
+		$this->assign('contTpl',$contTpl);
+		$this->assign('tpl',$tpl);
 		$this->assign('info',$info);
 		$this->display();
 	}
@@ -47,9 +70,16 @@ class ClassifyAction extends UserAction{
 			$this->error('操作失败',U(MODULE_NAME.'/index',array('fid'=>$_GET['fid'])));
 		}
 	}
+	//
 	public function insert(){
 	     $name='Classify';
 		$db=D($name);
+		$fid = $this->_post('fid','intval');
+		if($fid != ''){
+			$f = $db->field('path')->where("id = $fid")->find();
+			$_POST['path'] = $f['path'].'-'.$fid;
+				
+		}
 		if($db->create()===false){
 			$this->error($db->getError());
 		}else{
@@ -62,7 +92,51 @@ class ClassifyAction extends UserAction{
 		}
 	}
 	public function upsave(){
-		$this->all_save();
+		$fid = $this->_post('fid','intval');
+		if($fid == ''){
+			$this->all_save();
+		}else{
+			$this->all_save('','/index?fid='.$fid);
+		}
 	}
+	
+	
+	public function chooseTpl(){
+	
+		include('./PigCms/Lib/ORG/index.Tpl.php');
+		include('./PigCms/Lib/ORG/cont.Tpl.php');
+		$tpl = array_reverse($tpl);
+		$contTpl = array_reverse($contTpl);
+		$tpid = $this->_get('tpid','intval');
+
+				foreach($tpl as $k=>$v){
+					$sort[$k] = $v['sort'];
+					$tpltypeid[$k] = $v['tpltypeid'];
+					
+					if($v['tpltypeid'] == $tpid){
+						$info['tplview'] = $v['tplview'];
+					}
+				}
+			//array_multisort($sort, SORT_DESC , $tpltypeid , SORT_DESC ,$tpl);
+				
+			foreach($contTpl as $key=>$val){
+				if($val['tpltypeid'] == $tpid){
+					$info['tplview2'] = $val['tplview'];
+				}
+			}
+				$this->assign('info',$info);
+		
+
+		
+		
+		$this->assign('contTpl',$contTpl);
+		$this->assign('tpl',$tpl);
+
+		$this->display();
+	}
+	
+	
+	
+	
 }
 ?>

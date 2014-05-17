@@ -33,6 +33,7 @@ class GroupAction extends BackAction{
 	public function edit(){
 		$RoleDB = D("Role");
         if(isset($_POST['dosubmit'])) {
+        	S('group_'.$_POST['id']);
             //根据表单提交的POST数据创建数据对象
             if($RoleDB->create()){
                 if($RoleDB->save()){

@@ -92,6 +92,23 @@ function setlatlng(longitude,latitude){
         <th><span class="red">*</span>手机：</th> 
         <td><input type="text" id="mp" name="mp" value="{pigcms:$set.mp}" class="px require" style="width:400px;" /></td> 
        </tr> 
+       <if condition="$isBranch eq 1">
+       <tr> 
+        <th><span class="red">*</span>分支登陆账号：</th> 
+        <td><input type="text" id="username" name="username" value="{pigcms:$set.username}" class="px require" style="width:200px;" /></td> 
+       </tr> 
+       <tr> 
+        <th><span class="red">*</span>分支登陆密码：</th> 
+        <td><input type="password" id="password" name="password" value="" class="px require" style="width:200px;" />(修改时如果不想修改密码请留空)</td> 
+       </tr> 
+       <tr> 
+        <th><span class="red"></span>状态：</th> 
+        <td>
+        <input id="radio1" class="radio" type="radio" name="display" value="1"  <if condition="$set.display eq 1">checked="checked" </if> > <label for="radio1">显示</label>
+        <input class="radio" id="radio2" type="radio" name="display" value="0"  <if condition="$set.display eq 0">checked="checked" </if> > <label for="radio2">隐藏</label>
+        </td>
+       </tr>
+       </if>
        <tr> 
         <th><span class="red">*</span>地址：</th> 
         <td><input type="text" id="address" name="address" value="{pigcms:$set.address}" class="px require" style="width:400px;" /></td> 

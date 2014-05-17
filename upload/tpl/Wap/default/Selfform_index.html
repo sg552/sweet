@@ -97,7 +97,7 @@ $(function() {
 <else/>
 <ul class="round">
 <li class="title mb"><span class="none">您提交的信息</span></li>
-<div style="margin:10px 0; text-align:center;line-height:26px;">您的二维码信息<br><img src="{pigcms::$imgSrc}" /></div>
+
 <volist name="submitInfo" id="item">
 <li class="nob" style="height:35px;line-height:35px;">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
@@ -143,5 +143,17 @@ function tgSubmit(){
 }
 	</script>
 </div>
+
+   <script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Selfform",
+            "moduleID":"{pigcms:$thisForm.id}",
+            "imgUrl": "{pigcms:$thisForm.logourl}", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Selfform/index',array('token'=>$token,'id'=>$thisForm['id']))}",
+            "tTitle": "{pigcms:$thisForm.name}",
+            "tContent": ""
+};
+</script>
+{pigcms:$shareScript}
 </body>
 </html>

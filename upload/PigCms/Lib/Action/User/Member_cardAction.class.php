@@ -6,7 +6,7 @@ class Member_cardAction extends UserAction{
 		parent::_initialize();
 		$this->assign('token',$this->token);
 		//
-		$this->canUseFunction('huiyuanka');
+		//$this->canUseFunction('huiyuanka');
 		//权限
 		if ($this->token!=$_GET['token']){
 			//$this->error('非法操作');
@@ -643,10 +643,10 @@ class Member_cardAction extends UserAction{
 			}
 		}
 		$count=$card_create_db->where($where)->count();
-		$Page       = new Page($count,15);
+		$Page       = new Page($count,35);
 		$show       = $Page->show();
 		$list = $card_create_db->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
-		$members=$card_create_db->where($where)->select();
+		$members=$list;
 		
 		$wecha_ids=array();
 		if ($members){

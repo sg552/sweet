@@ -1,5 +1,5 @@
 <?php
-define ("DEBUG_MODE", true);
+define ("DEBUG_MODE", false);
  // $searchArray = catchEntitiesFromLocation("gh_3c1a25652daa", "银行", 39.915, 116.404, 2000);
  // var_dump( $searchArray);
 class baiduMap
@@ -22,7 +22,7 @@ class baiduMap
 	}
 	public function echoJson(){
 		$searchArray = $this->catchEntitiesFromLocation($this->keyword,$this->x,$this->y,2000);
-		echo json_encode( $searchArray);
+		return json_encode( $searchArray);
 	}
 	public function catchEntitiesFromLocation( $entity, $x, $y, $radius)
 	{
@@ -89,6 +89,8 @@ class baiduMap
     	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		//curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
      	$data = curl_exec($ch);
+     	//S('mapData',$data);
+     	//$data=S('mapData');
     	curl_close($ch);    
 		$result = null;
 		if (!empty($data)){

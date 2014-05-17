@@ -21,11 +21,18 @@ class SiteAction extends BackAction{
 	public function upfile(){
 		$this->display();
 	}
+	public function sms(){
+		$total=M('Sms_expendrecord')->sum('count');
+		$this->assign('total',$total);
+		$this->display();
+	}
 	public function insert(){
 		$file=$this->_post('files');
 		unset($_POST['files']);
 		unset($_POST[C('TOKEN_NAME')]);
+		if (isset($_POST['countsz'])){
 		$_POST['countsz']=base64_encode($_POST['countsz']);
+		}
 		if($this->update_config($_POST,CONF_PATH.$file)){
 			$this->success('操作成功',U('Site/index',array('pid'=>6,'level'=>3)));
 		}else{

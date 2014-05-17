@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="{pigcms::STATICS}/vhouse/online_booking.css" media="all">
+<link rel="stylesheet" type="text/css" href="{pigcms::STATICS}/vhouse/wap/common.css" media="all">
+<link rel="stylesheet" type="text/css" href="{pigcms::STATICS}/vhouse/wap/datepicker_car.css" media="all">
+
+<script type="text/javascript" src="{pigcms::STATICS}/vhouse/jQuery.js"></script>
+<script type="text/javascript" src="{pigcms::STATICS}/vhouse/jquery-ui.js"></script>
+<script type="text/javascript" src="{pigcms::STATICS}/vhouse/wap/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="{pigcms::STATICS}/jQValidationEngine/css/validationEngine.jquery.css" type="text/css"/>
+<script src="{pigcms::STATICS}/jQValidationEngine/js/languages/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+<script src="{pigcms::STATICS}/jQValidationEngine/js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+<title>{pigcms:$reslist['title']}</title>
+
+        <style>
+            img{width:100%!important;}
+        </style>
+<script>
+
+
+    jQuery(document).ready(function(){
+      jQuery("#formID").validationEngine();
+    });
+    function checkTel(field,rules,i,options){
+         var regex = /^(13[0123456789]{1}\d{8}$|^15[1235689]{1}\d{8}$|^18[26789]{1}\d{8})|(0[0-9]{1,3}\-?[0-9]{7,8})$/;
+        if(field.val() == null || !regex.test(field.val())){
+            return "手机号码格式不对!正确格式:18619998888";
+        }
+    }
+</script>
+    </head>
+    <body onselectstart="return true;" ondragstart="return false;" id="onlinebooking">
+
+    <div class="qiandaobanner">
+
+        <img src="{pigcms:$oput['roompicurl']}" style="height:255px;">
+
+    </div>
+    <div class="cardexplain">
+    <!--普通用户登录时显示-->
+    <ul class="round">
+        <li>
+            <a href="{pigcms::U('Business/mylist',array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$oput['type']))}"><span>我的预约订单<em class="ok"><if condition="$count neq ''">{pigcms:$count}<else/>0</if></em></span></a>
+        </li>
+    </ul>
+<style>
+#ro li span{
+  display:-webkit-inline-box;
+}
+#userinfos p {
+  color:blue;
+}
+</style>
+    <ul class="round" id="ro">
+        <li>
+        <h2>预约说明</h2>
+        <div class="text">{pigcms:$oput['orderInfo']|html_entity_decode}</div>
+        </li>
+    </ul>
+
+
+    <ul class="round">
+        <li class="addr"><span>地址： {pigcms:$oput['address']}</span></li>
+        <li class="tel"><a href="tel:{pigcms:$oput['compyphone']}"><span>预约电话： {pigcms:$oput['compyphone']}</span></a></li>
+    </ul>
+
+    <ul class="round roundyellow" >
+    <li class="addr"><span>请认真核对您购买的商品,确认之后再付款.</span></li>
+        <li class="userinfo" id="userinfos">
+          <p style="border: solid 1px rgb(201, 197, 197);margin: 5px;padding:4px;">预约健身房: <strong>{pigcms:$oput['title']}</strong></p>
+          <p style="border: solid 1px rgb(201, 197, 197);margin: 5px;padding:4px;">预约健身项目:  <strong>{pigcms:$oput['name']}</strong></p>
+          <p style="border: solid 1px rgb(201, 197, 197);margin: 5px;padding:4px;">所需学时: <strong>{pigcms:$oput['learntime']}</strong></p>
+          <p style="border: solid 1px rgb(201, 197, 197);margin: 5px;padding:4px;">达到效果:<strong>{pigcms:$oput['datatype']}}</strong></p>
+          <p style="border: solid 1px rgb(201, 197, 197);margin: 5px;padding:4px;">价 格: <strong>{pigcms:$oput['oneprice']} RMB}</strong></p>
+        </li>
+    </ul>
+
+
+    <ul class="round">
+<form action="" method="post" id="formID">
+        <div class="cardexplain">
+  <ul class="round">
+    <li class="title mb"><span class="none">请认真填写在线预约信息！以方便核对.</span></li>
+    <input type="hidden" name="type" value="{pigcms:$oput['type']}">
+    <input type="hidden" name="bid" value="{pigcms:$oput['bid']}">
+    <input type="hidden" name="sid" value="{pigcms:$oput['sid']}">
+    <input type="hidden" name="token" value="{pigcms:$token}">
+    <input type="hidden" name="wecha_id" value="{pigcms:$wecha_id}">
+    <input type="hidden" name="productName" value="{pigcms:$oput['title']}">
+
+
+    <li class="nob" id="namea">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
+        <tbody><tr>
+          <th>姓名</th>
+          <td><input name="truename" type="text" class="px" id="truename" value="" placeholder="请输入您的真实姓名" data-validation-engine="validate[required,minSize[2],maxSize[8]]" data-errormessage-value-missing="必填项"></td>
+        </tr>
+      </tbody></table>
+    </li>
+    <li class="nob" id="sexa">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
+        <tbody><tr>
+          <th>性别</th>
+          <td><select name="sex" id="sex" data-validation-engine="validate[required]" data-errormessage-value-missing="必填项">
+              <option value="1">男</option>
+              <option value="2">女</option>
+          </select></td>
+        </tr>
+      </tbody></table>
+    </li>
+
+    <li class="nob" id="phonea">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
+        <tbody><tr>
+          <th>联系电话</th>
+          <td><input name="tel" type="text" class="px" id="tel" value="" placeholder="请输入您的电话" data-validation-engine="validate[required,funcCall[checkTel]]"  class="px"placeholder="请输入联系人手机"></td>
+        </tr>
+      </tbody></table>
+    </li>
+
+<!--     <li class="nob" id="scheduled_datea">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
+        <tbody><tr>
+          <th>预约时间</th>
+          <td> <input type="text" class="px hasDatepicker" name="dateline" placeholder="" value="{pigcms:$reslist['dateline']}"  readonly="readonly" id="dateline" >
+          </td>
+        </tr>
+      </tbody></table>
+    </li> -->
+
+    <li class="nob" id="addressa">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
+        <tbody><tr>
+          <th>地址</th>
+          <td><input name="address" type="text" class="px" id="address" value="" placeholder="请输入您的地址"></td>
+        </tr>
+      </tbody></table>
+    </li>
+
+    <li class="nob" id="diseasea">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
+        <tbody><tr>
+          <th>备注</th>
+          <td><input name="info" type="text" class="px" id="info" value="" placeholder="以上如有不足或有其它要求，请在此填写！"></td>
+        </tr>
+      </tbody></table>
+    </li>
+
+  </ul>
+
+
+</div>
+
+    </ul>
+    <div class="footReturn">
+        <input id="showcard" class="submit" value="确认并提交订单" type="submit" style="width: 100%">
+        <div class="window" id="windowcenter">
+            <div id="title" class="wtitle">操作提示<span class="close" id="alertclose"></span></div>
+            <div class="content">
+                <div id="txt"></div>
+            </div>
+        </div>
+    </div>
+  </form>
+    </div>
+
+
+<script type="text/javascript">
+
+// $(document).ready(function () {
+//         var nowTemp = new Date();
+//                 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+//                 var ndate = $('#dateline').datepicker({
+//                         format:"yyyy-mm-dd",
+//                         onRender: function(date) {
+//                            return date.valueOf() < now.valueOf() ? 'disabled' : '';
+//                         }
+//                 }).on("changeDate", function(date){
+//                         ndate.datepicker('hide');
+//                 });
+// });
+</script>
+<p><br/></p>
+<div mark="stat_code" style="width:0px; height:0px; display:none;">
+</div>
+
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body></html>

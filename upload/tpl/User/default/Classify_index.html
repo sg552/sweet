@@ -3,7 +3,7 @@
 
 <div class="cLineB">
   <h4>文章分类管理<if condition="$fid neq 0">({pigcms:$thisClassify.name}子分类)</if>  <span class="FAQ">设置好分类，在图文编辑的时候就可以选择分类，系统会自动生成一个3G网站。</span></h4>
-  
+ <if condition="$_GET['fid'] neq ''"> <a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a></if>
  </div>
          <div class="cLineC" style="line-height: 32px;">
  <a href="<if condition="$fid neq 0">{pigcms::U('Classify/add',array('fid'=>$fid))}<else/>{pigcms::U('Classify/add')}</if>" class="btnGrayS vm bigbtn">添加<if condition="$fid neq 0">{pigcms:$thisClassify.name}子</if>分类</a>　 
@@ -19,7 +19,7 @@
                     <th style=" width:120px;">分类名称</th>
                    <th style=" width:120px;">分类描述</th>
 <th style=" width:70px;">显示顺序</th>
-<th>分类图片外链地址(宽720高400) <a target="999" class="tooltips" ><img src="{pigcms::RES}/images/price_help.png" align="absmiddle" /><span>
+<th>分类图片 <a target="999" class="tooltips" ><img src="{pigcms::RES}/images/price_help.png" align="absmiddle" /><span>
 <p>分类图片最佳尺寸：宽720高400</p>
 <p>不支持上传图片，请把图片上传到腾讯微博，再这里填写图片的外链地址。</p>
 <p>如果不填写分类图片地址系统将随机分配默认图片。</p>
@@ -30,7 +30,7 @@
 <p>直接填写活动外链地址：<a class="red">大转盘387</a></p>
 </span></span></th>
 <th style=" width:80px;"  >首页显示</th>
-                        <th style=" width:100px;" class="norightborder">操作</th>
+                        <th class="norightborder">操作</th>
 </tr>
 </thead>
 <volist name="info" id="vo">
@@ -41,11 +41,12 @@
 <td><div class="cateimg"><img src="{pigcms:$vo.img}" class="cateimg_small"  /><img src="{pigcms:$vo.img}" class="cateimg_big"  /></div></td>
 <td>{pigcms:$vo.url}</td>
 <td><eq name="vo.status" value="1">显示<else/>不显示</eq></td>
-<td class="norightborder">
-	<!--a target="ddd" href="{pigcms::U('Wap/Index/classify',array('token'=>$_SESSION['token']))}">查看</a-->
-	<?php if ($vo['fid']==0){?><a href="{pigcms::U('Classify/index',array('fid'=>$vo['id']))}">子分类</a><?php }?>
+<td class="norightborder" width="120">
+	<nobr><!--a target="ddd" href="{pigcms::U('Wap/Index/classify',array('token'=>$_SESSION['token']))}">查看</a-->
+	<a href="{pigcms::U('Classify/index',array('fid'=>$vo['id']))}">子分类</a>
 	<a href="<?php if ($vo['fid']==0){?>{pigcms::U('Classify/edit',array('id'=>$vo['id']))}<?php }else{?>{pigcms::U('Classify/edit',array('id'=>$vo['id'],'fid'=>$vo['fid']))}<?php }?>">编辑</a>
 	<a href="<?php if ($vo['fid']==0){?>{pigcms::U('Classify/del',array('id'=>$vo['id']))}<?php }else{?>{pigcms::U('Classify/del',array('id'=>$vo['id'],'fid'=>$vo['fid']))}<?php }?>">删除</a>
+	</nobr>
 </td>
 </tr>
 </volist>

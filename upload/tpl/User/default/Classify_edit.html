@@ -21,6 +21,11 @@
   <TD>&nbsp;</TD>
 </TR>
                             </THEAD>
+							
+							
+							
+					
+							
   <TBODY><input type="hidden" name="id" value="{pigcms:$info.id}"/>
 <TR>
   <TH valign="top"><label for="keyword">分类描述：</label></TH>
@@ -52,6 +57,56 @@
                    </TD>
   <TD>&nbsp;</TD>
 </TR>
+
+
+  
+<TR>
+  <TH valign="top"><label for="keyword">分类页模板：</label></TH>
+  <TD>
+	<input type="text" id="selecttpl" class="px" value="已选择模板{pigcms:$info.tpid}" disabled size="40"  />
+	<a class="a_upload" onclick="chooseTpl('tpid','selecttpl',1)">选择模板</a>
+	<a class="a_upload" onclick="viewTpl()">预览</a>
+	<script>
+		function viewTpl(){
+			var tid = $('#tpid').val();
+			chooseTpl(tid,'',2);
+		}
+	</script>
+	<input type="hidden" class="px" id="tpid" value="{pigcms:$info.tpid}" name="tpid" style="width:250px">
+	
+  </TD>
+  <TD>
+	&nbsp;
+  </TD>
+</TR>
+
+
+<tr>
+  <TH valign="top"><label for="keyword">内容页模板：</label></TH>
+  <TD>
+
+	<input type="text" id="selectconttpl" class="px" value="已选择模板{pigcms:$info.conttpid}" disabled size="40"  />
+	<a class="a_upload" onclick="chooseTpl('conttpid','selectconttpl',3)">选择模板</a>
+	<a class="a_upload" onclick="viewTpl2()">预览</a>
+	<input type="hidden" class="px" value="{pigcms:$info.conttpid}" id="conttpid" name="conttpid" style="width:250px">
+	<script>
+		function viewTpl2(){
+			var tid = $('#conttpid').val();
+			chooseTpl(tid,'',4);
+		}
+	</script>
+  </TD>
+  <TD>
+	&nbsp;
+  </TD>
+</tr>
+<tr>
+	<td colspan="3" align="center">
+	
+
+	</td>
+</tr>
+
 <TR>
   <TH></TH>
   <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>

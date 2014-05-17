@@ -13,5 +13,15 @@
 	</dl>
 	</volist> 
 		</section>
+		
+		
+		<div class="copyright">
+<if condition="$iscopyright eq 1">
+{pigcms:$homeInfo.copyright}
+<else/>
+{pigcms:$siteCopyright}
+</if>
+</div>
+<include file="Index:styleInclude"/><include file="$cateMenuFileName"/> 
 </body>
 </html>

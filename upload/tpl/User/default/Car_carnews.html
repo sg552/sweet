@@ -37,7 +37,7 @@
                 <tr>
                     <th width="120">最新优惠：</th>
                     <td>
-                        
+
                           <select class="input-medium valid" name="pre_id">
                           <volist  name="classify" id="vo">
                               <option value="{pigcms:$vo['id']}"<if condition="$carnews['pre_id'] eq $vo['id']">selected='selected' </if>>{pigcms:$vo['name']}</option>
@@ -48,7 +48,7 @@
                 </tr>
                 <tr>
                     <th width="120">尊享二手车</th>
-                    <td>   
+                    <td>
                     <select class="input-medium valid" name="usedcar_id">
                           <volist  name="classify" id="vo">
                               <option value="{pigcms:$vo['id']}"<if condition="$carnews['usedcar_id'] eq $vo['id']">selected='selected' </if>>{pigcms:$vo['name']}</option>
@@ -59,9 +59,9 @@
                 </tr>
                 <tr>
                     <th>品牌相册：</th>
-                    <td> 
-                         <select id="album_id" name="album_id" class="input-medium valid" data-rule-required="true"> 
-                            <option value="0">请选择相册</option> 
+                    <td>
+                         <select id="album_id" name="album_id" class="input-medium valid" schoolSet>
+                            <option value="0">请选择相册</option>
                                 <volist name="photo" id="vo">
                                     <option value="{pigcms:$vo['id']}" <if condition="$vo['id'] eq $carnews['album_id']">selected="selected"</if>>{pigcms:$vo['title']}</option>
                                 </volist>
@@ -72,9 +72,9 @@
                 </tr>
                 <tr>
                     <th>店铺LBS：</th>
-                    <td> 
-                         <select id="company_id" name="company_id" class="input-medium valid" data-rule-required="true"> 
-                            <option value="0">请选择店铺LBS</option> 
+                    <td>
+                         <select id="company_id" name="company_id" class="input-medium valid" schoolSet>
+                            <option value="0">请选择店铺LBS</option>
                                 <volist name="company" id="vo">
                                     <option value="{pigcms:$vo['id']}" <if condition="$vo['id'] eq $carnews['company_id']">selected="selected"</if>>{pigcms:$vo['name']}</option>
                                 </volist>
@@ -96,7 +96,7 @@
             </tbody>
         </table>
     </form>
-  </div> 
+  </div>
 
         </div>
 <include file="Public:footer"/>

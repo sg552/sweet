@@ -21,9 +21,9 @@ class EstateAction extends UserAction{
                 $this->error('表单提交错误！,请检查是否有项为空！');exit();
             }
 
-           if($es_data == null){          
-                 
-                    if($id=$data->add($_POST)){                     
+           if($es_data == null){
+
+                    if($id=$data->add($_POST)){
                         $data1['pid']=$id;
                         $data1['module']='Estate';
                         $data1['token']=session('token');
@@ -35,14 +35,14 @@ class EstateAction extends UserAction{
                     }else{
                         $this->error('服务器繁忙,请稍候再试');exit;
                     }
-                 
-           }else{            
+
+           }else{
             $wh = array('token'=>session('token'),'id'=>$this->_post('id'));
-            
+
              if($data->where($wh)->save($_POST)){
                     $data1['pid']=(int)$this->_post('id');
                     $data1['module']='Estate';
-                    $data1['token']=session('token');                    
+                    $data1['token']=session('token');
                     $da['keyword']=trim($this->_post('keyword'));
                     M('Keyword')->where($data1)->save($da);
 
@@ -51,20 +51,20 @@ class EstateAction extends UserAction{
                     $this->error('操作失败');exit;
                 }
            }
-        }else{           
-          $this->assign('es_data',$es_data); 
-           $this->display();         
+        }else{
+          $this->assign('es_data',$es_data);
+           $this->display();
         }
-       
-        
-       
+
+
+
 	}
 
     public function son(){
-        
+
         $where = array('token'=>session('token'));
         $this->assign('pid',M("Estate")->where($where)->getField('id'));
-         
+
         $estate_son = M('Estate_son');
         $where = array('token'=>session('token'));
         $son_data = $estate_son->where($where)->order('sort desc')->select();
@@ -87,17 +87,17 @@ class EstateAction extends UserAction{
             if(!D('Estate_son')->create()){
                 $this->error('表单提交错误！,请检查是否有项为空！');exit();
             }
-            if($check == null){     
+            if($check == null){
                     $_POST['token']= session('token');
-                    if($t_son->add($_POST)){                     
+                    if($t_son->add($_POST)){
                         $this->success('添加成功',U('Estate/son',array('token'=>session('token'))));
                          exit;
                     }else{
                         $this->error('服务器繁忙,请稍候再试');exit;
-                    }                 
-           }else{            
-             $wh = array('token'=>session('token'),'id'=>$this->_post('id'));            
-             if($t_son->where($wh)->save($_POST)){ 
+                    }
+           }else{
+             $wh = array('token'=>session('token'),'id'=>$this->_post('id'));
+             if($t_son->where($wh)->save($_POST)){
                     $this->success('修改成功',U('Estate/son',array('token'=>session('token'))));
                     exit;
                 }else{
@@ -105,10 +105,10 @@ class EstateAction extends UserAction{
                     exit;
                 }
            }
-        } 
+        }
 
-        $this->display();      
-       
+        $this->display();
+
     }
 
     public function son_del(){
@@ -127,28 +127,28 @@ class EstateAction extends UserAction{
                 $this->error('删除失败',U('Estate/son',array('token'=>session('token'))));exit();
            }
         }
-         
+
     }
 
 
     public function housetype(){
-        
+
         $t_housetype = M('Estate_housetype');
         $where = array('token'=>session('token'));
         $housetype = $t_housetype->where($where)->order('sort desc')->select();
-         
-        foreach ($housetype as $k => $v) { 
+
+        foreach ($housetype as $k => $v) {
             $son_type[] = M("Estate_son")->where(array('id'=>$v['son_id']))->field('id as sid,title')->find();
-        } 
-         
-        
-        foreach ($son_type as $key => $value) { 
+        }
+
+
+        foreach ($son_type as $key => $value) {
              foreach ($value as $k => $v) {
                   $housetype[$key][$k] = $v;
              }
 
         }
-        
+
         $this->assign('housetype',$housetype);
         $this->display();
     }
@@ -171,25 +171,25 @@ class EstateAction extends UserAction{
             if(!D('Estate_housetype')->create()){
                 $this->error('表单提交错误！,请检查是否有项为空！');exit();
             }
-            if($check == null){     
+            if($check == null){
                     $_POST['token']= session('token');
-                    if($t_housetype->add($_POST)){                     
+                    if($t_housetype->add($_POST)){
                         $this->success('添加成功',U('Estate/housetype',array('token'=>session('token'))));
                          exit;
                     }else{
                         $this->error('服务器繁忙,请稍候再试');exit;
-                    }                 
-           }else{            
-             $wh = array('token'=>session('token'),'id'=>$this->_post('id')); 
+                    }
+           }else{
+             $wh = array('token'=>session('token'),'id'=>$this->_post('id'));
 
-             if($t_housetype->where($wh)->save($_POST)){ 
+             if($t_housetype->where($wh)->save($_POST)){
                     $this->success('修改成功',U('Estate/housetype',array('token'=>session('token'))));
                     exit;
                 }else{
                     $this->error('操作失败');exit;
                 }
            }
-        } 
+        }
 
         $this->display();
     }
@@ -219,7 +219,7 @@ class EstateAction extends UserAction{
         foreach ($album as $k => $v) {
 
              $list_photo[] = $Photo->where(array('token'=>session('token'),'id'=>$v['poid']))->order('id desc')->find();
-             
+
 
         }
         foreach ($album as $key => &$value) {
@@ -231,8 +231,8 @@ class EstateAction extends UserAction{
 
     public function album_add(){
         $po_data=M('Photo');
-        $list = $po_data->where(array('token'=>session('token')))->field('id,title')->select();  
-        $this->assign('photo',$list); 
+        $list = $po_data->where(array('token'=>session('token')))->field('id,title')->select();
+        $this->assign('photo',$list);
         $t_album = M('Estate_album');
         $poid = (int)$this->_get('poid');
 
@@ -240,45 +240,39 @@ class EstateAction extends UserAction{
         $this->assign('album',$check);
 
         if(IS_POST){
-            if($check == NULL){  
-                $check_ex = $t_album->where(array('token'=>session('token'),'poid'=>$this->_post('poid')))->find();  
+            if($check == NULL){
+                $check_ex = $t_album->where(array('token'=>session('token'),'poid'=>$this->_post('poid')))->find();
                 if($check_ex){
                      $this->error('您已经添加过改相册，请勿重复添加。');
                     exit;
                 }
-                   
-                    
+
                     $_POST['token']= session('token');
-                    if($t_album->add($_POST)){                     
+                    if($t_album->add($_POST)){
                         $this->success('添加成功',U('Estate/album',array('token'=>session('token'))));
                          exit;
                     }else{
                         $this->error('服务器繁忙,请稍候再试');exit;
-                    }                 
-           }else{            
-             $wh = array('token'=>session('token'),'id'=>$this->_post('id')); 
+                    }
+           }else{
+             $wh = array('token'=>session('token'),'id'=>$this->_post('id'));
 
-             if($t_album->where($wh)->save($_POST)){ 
+             if($t_album->where($wh)->save($_POST)){
                     $this->success('修改成功',U('Estate/album',array('token'=>session('token'))));
                     exit;
                 }else{
                     $this->error('操作失败');exit;
                 }
            }
-        } 
-
-
-
+        }
         $this->display();
-         
+
     }
 
     public function impress(){
-        
-        $t_impress = M('Estate_impress'); 
+
+        $t_impress = M('Estate_impress');
         $impress = $t_impress->where(array('token'=>session('token')))->order('sort desc')->select();
-         
-        
         $this->assign('impress',$impress);
         $this->display();
     }
@@ -286,35 +280,35 @@ class EstateAction extends UserAction{
     public function impress_add(){
         $t_impress = M('Estate_impress');
         $id = $this->_get("id");
-         
+
         $where =  array('id'=>$id);
         $check = $t_impress->where($where)->find();
-         
+
         if($check != null){
              $this->assign('impress',$check);
         }
 
         if(IS_POST){
              $_POST['token'] = session('token');
-            if($check == null){     
-                    
-                    if($t_impress->add($_POST)){                     
+            if($check == null){
+
+                    if($t_impress->add($_POST)){
                         $this->success('添加成功',U('Estate/impress',array('token'=>session('token'))));
                         exit;
                     }else{
                         $this->error('服务器繁忙,请稍候再试');exit;
-                    }                 
-           }else{            
-             $wh = array('id'=>$this->_post('id')); 
+                    }
+           }else{
+             $wh = array('id'=>$this->_post('id'));
 
-             if($t_impress->where($wh)->save($_POST)){ 
+             if($t_impress->where($wh)->save($_POST)){
                     $this->success('修改成功',U('Estate/impress',array('token'=>session('token'))));
                     exit;
                 }else{
                     $this->error('操作失败');exit;
                 }
            }
-        } 
+        }
 
         $this->display();
     }
@@ -337,25 +331,25 @@ class EstateAction extends UserAction{
     }
 
     public function expert(){
-        
-          
+
+
         $t_expert = M('Estate_expert');
-       
+
         $expert = $t_expert->where(array('token'=>session('token')))->order('sort desc')->select();
-         
-        
+
+
         $this->assign('expert',$expert);
         $this->display();
     }
 
     public function expert_add(){
-        
+
        $t_expert = M('Estate_expert');
         $id = $this->_get("id");
-         
+
         $where =  array('id'=>$id);
         $check = $t_expert->where($where)->find();
-         
+
         if($check != null){
              $this->assign('expert',$check);
         }
@@ -365,31 +359,31 @@ class EstateAction extends UserAction{
              if(!D('Estate_expert')->create()){
                 $this->error('表单提交错误！,请检查是否有项为空！');exit();
              }
-            if($check == null){     
-                    
-                    if($t_expert->add($_POST)){                     
+            if($check == null){
+
+                    if($t_expert->add($_POST)){
                         $this->success('添加成功',U('Estate/expert',array('token'=>session('token'))));
                         exit;
                     }else{
                         $this->error('服务器繁忙,请稍候再试');exit();
-                    }                 
-           }else{            
-             $wh = array('id'=>$this->_post('id')); 
+                    }
+           }else{
+             $wh = array('id'=>$this->_post('id'));
 
-             if($t_expert->where($wh)->save($_POST)){ 
+             if($t_expert->where($wh)->save($_POST)){
                     $this->success('修改成功',U('Estate/expert',array('token'=>session('token'))));
                     exit;
                 }else{
                     $this->error('操作失败');exit();
                 }
            }
-        } 
+        }
 
         $this->display();
     }
 
     public function expert_del(){
-        
+
        $expert = M('Estate_expert');
         $id = $this->_get('id');
         $where = array('id'=>$id);
@@ -399,7 +393,7 @@ class EstateAction extends UserAction{
         }else{
             $isok = $expert->where($where)->delete();
             if($isok){
-               $this->success('删除成功',U('Estate/expert',array('token'=>session('token'))));exit; 
+               $this->success('删除成功',U('Estate/expert',array('token'=>session('token'))));exit;
            }else{
                 $this->error('删除失败',U('Estate/expert',array('token'=>session('token'))));exit();
            }
@@ -413,7 +407,7 @@ class EstateAction extends UserAction{
         $count      = $data->where($where)->count();
         $Page       = new Page($count,12);
         $show       = $Page->show();
-        $reslist = $data->where($where)->limit($Page->firstRow.','.$Page->listRows)->select(); 
+        $reslist = $data->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('count',$count);
         $this->assign('page',$show);
         $this->assign('reslist',$reslist);
@@ -476,7 +470,7 @@ class EstateAction extends UserAction{
             if(empty($check)){
             $this->error('非法操作');
             }
-                
+
             if($data->create()){
                 $_POST['addtype'] = 'house_book';
                 $_POST['token'] = session('token');
@@ -513,7 +507,7 @@ class EstateAction extends UserAction{
         $count      = $t_reservebook->where($where)->count();
         $Page       = new Page($count,12);
         $show       = $Page->show();
-        $books = $t_reservebook->where($where)->limit($Page->firstRow.','.$Page->listRows)->order('id DESC')->select(); 
+        $books = $t_reservebook->where($where)->limit($Page->firstRow.','.$Page->listRows)->order('id DESC')->select();
         $this->assign('page',$show);
         //var_dump($books);
         $this->assign('books',$books);
@@ -546,38 +540,37 @@ class EstateAction extends UserAction{
         $token = session('token');
         $where =  array('token'=>$token,'isbranch'=>1,'shortname'=>'loupan');
         $check = $t_company->where($where)->find();
-         
+
         if($check != null){
              $this->assign('set',$check);
         }
 
         if(IS_POST){
-            
-            if($check == null){     
-                    
-                    if($t_company->add($_POST)){                     
+
+            if($check == null){
+                    if($t_company->add($_POST)){
                         $this->success('添加成功',U('Estate/aboutus',array('token'=>session('token'))));
                         exit;
                     }else{
                         $this->error('服务器繁忙,请稍候再试');exit;
-                    }                 
-           }else{            
-             $wh = array('id'=>$this->_post('id')); 
+                    }
+           }else{
+             $wh = array('id'=>$this->_post('id'),'token'=>session('token'));
 
-             if($t_company->where($wh)->save($_POST)){ 
+             if($t_company->where($wh)->save($_POST)){
                     $this->success('修改成功',U('Estate/aboutus',array('token'=>session('token'))));
                     exit;
                 }else{
                     $this->error('操作失败');exit;
                 }
            }
-        } 
+        }
 
         $this->display();
     }
 
 
-   
+
 
 }
 

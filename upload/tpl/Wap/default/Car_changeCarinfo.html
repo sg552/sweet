@@ -24,14 +24,14 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 
-      
+
         <style>
             img{width:100%!important;}
             .spanfont{color: #000;font-weight: bold;}
         </style>
     </head>
     <body onselectstart="return true;" ondragstart="return false;">
-        
+
         <script>
             $().ready(function(){
                 var now = new Date();
@@ -57,7 +57,7 @@
                 var obj = {
                     car_model: form.car_model.value,
                     car_series: form.car_series.value,
-                    car_type: trim(form.car_type.value),
+                    carmodel: trim(form.carmodel.value),
 
                     car_no: trim(form.car_no.value),
                     car_userName: trim(form.car_userName.value),
@@ -73,11 +73,11 @@
                     // car_care_lastCost: trim(form.car_care_lastCost.value)
                 }
 
-                if('0' == obj.car_model){
-                    if(obj.car_type.length <= 0){
-                        alert("请选择车型或直接输入");return false;
-                    }
-                }
+                // if('0' == obj.car_model){
+                //     if(obj.car_type.length <= 0){
+                //         alert("请选择车型");return false;
+                //     }
+                // }
                 if(obj.car_no.length<=0){
                     alert("请输入车牌号码");return false;
                 }
@@ -136,7 +136,7 @@
     var opts = {
             select: '#car_model',
             url: "{pigcms::U('Car/get_car_brand',array('token'=>$token))}",
-            head:'请选择您的车型！',
+            head:'请选择您的品牌车系！',
             autoHide:true
 
     };
@@ -157,9 +157,9 @@
     });
 
 </script>
-                            <dd>
-                                <div><input type="text" name="car_type" placeholder="或者您也可以直接输入" maxlength="30" <if condition="$user['car_type'] eq ''" >value="{pigcms:$user['brand_serise']}"<else/>value="{pigcms:$user['car_type']}"</if>/></div>
-                            </dd>
+                    <dd>
+                       <div><input type="text" name="carmodel" placeholder="请输入您的车型." maxlength="30" value="{pigcms:$user['carmodel']}"/></div>
+              </dd>
                         </dl>
                     </div>
                     <!--dd-->
@@ -248,7 +248,7 @@
             </section>
             <include file="Car:menu"/>
         </div>
-   
+
     </body>
     </body>
 </html>

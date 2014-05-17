@@ -3,8 +3,89 @@ class UsersAction extends BaseAction{
 	public function index(){
 		header("Location: /");
 	}
+	public function companylogin() {
+		$dbcom = D('Company');
+		$where['username'] = $this->_post('username','trim');
+		$cid = $where['id'] = $this->_post('cid', 'intval');
+		$k = $this->_post('k','trim, htmlspecialchars');
+		if (empty($k) || $k != md5($where['id'] . $where['username'])) {
+			$this->error('帐号密码错误',U('Home/Index/clogin', array('cid' => $cid, 'k' => $k)));
+		}
+		
+		$pwd = $this->_post('password','trim,md5');
+		$company = $dbcom->where($where)->find();
+		if($company && ($pwd === $company['password'])){
+			if ($wxuser = D('Wxuser')->where(array('token' => $company['token']))->find()) {
+				$uid = $wxuser['uid'];
+				$db = D('Users');
+				$res = $db->where(array('id' => $uid))->find();
+			} else {
+				$this->error('帐号密码错误',U('Home/Index/clogin', array('cid' => $cid, 'k' => $k)));
+			}
+			session('companyk', $k);
+			session('companyLogin', 1);
+			session('companyid', $company['id']);
+			session('token', $company['token']);
+			session('uid',$res['id']);
+			session('gid',$res['gid']);
+			session('uname',$res['username']);
+			$info=M('user_group')->find($res['gid']);
+			session('diynum',$res['diynum']);
+			session('connectnum',$res['connectnum']);
+			session('activitynum',$res['activitynum']);
+			session('viptime',$res['viptime']);
+			session('gname',$info['name']);
+			//每个月第一次登陆数据清零
+			$now=time();
+			$month=date('m',$now);
+			if($month!=$res['lastloginmonth']&&$res['lastloginmonth']!=0){
+				$data['id']=$res['id'];
+				$data['imgcount']=0;
+				$data['diynum']=0;
+				$data['textcount']=0;
+				$data['musiccount']=0;
+				$data['connectnum']=0;
+				$data['activitynum']=0;
+				$db->save($data);
+				//
+				session('diynum',0);
+				session('connectnum',0);
+				session('activitynum',0);
+			}
+			//登陆成功，记录本月的值到数据库
+			
+			//
+			$db->where(array('id'=>$res['id']))->save(array('lasttime'=>$now,'lastloginmonth'=>$month,'lastip'=>$_SERVER['REMOTE_ADDR']));//最后登录时间
+			$this->success('登录成功',U('User/Repast/index',array('cid' => $cid)));
+		} else{
+			$this->error('帐号密码错误',U('Home/Index/clogin', array('cid' => $cid, 'k' => $k)));
+		}
+	}
 
+	public function companyLogout()
+	{
+		$cid = session('companyid');
+		$k = session('companyk');
+		session(null);
+		session_destroy();
+		unset($_SESSION);
+        if(session('?'.C('USER_AUTH_KEY'))) {
+            session(C('USER_AUTH_KEY'),null);
+           
+            redirect(U('Home/Index/clogin', array('cid' => $cid, 'k' => $k)));
+        } else {
+            $this->success('已经登出！', U('Home/Index/clogin', array('cid' => $cid, 'k' => $k)));
+        }
+    
+		
+	}
 	public function checklogin(){
+		$verifycode=$this->_post('verifycode2','intval,md5',0);
+		if (isset($_POST['verifycode2'])){
+			if($verifycode != $_SESSION['loginverify']){
+				$this->error('验证码错误',U('Index/login'));
+			}
+		}
 		$db=D('Users');
 		$where['username']=$this->_post('username','trim');
 		
@@ -46,7 +127,7 @@ class UsersAction extends BaseAction{
 			//登陆成功，记录本月的值到数据库
 			
 			//
-			$db->where(array('id'=>$res['id']))->save(array('lasttime'=>$now,'lastloginmonth'=>$month,'lastip'=>$_SERVER['REMOTE_ADDR']));//最后登录时间
+			$db->where(array('id'=>$res['id']))->save(array('lasttime'=>$now,'lastloginmonth'=>$month,'lastip'=>htmlspecialchars(trim(get_client_ip()))));//最后登录时间
 			$this->success('登录成功',U('User/Index/index'));
 		}else{
 			$this->error('帐号密码错误',U('Index/login'));
@@ -65,6 +146,12 @@ class UsersAction extends BaseAction{
 	public function checkreg(){
 		$db=D('Users');
 		$info=M('User_group')->find(1);
+		$verifycode=$this->_post('verifycode','intval,md5',0);
+		if (isset($_POST['verifycode'])){
+			if($verifycode != $_SESSION['verify']){
+				$this->error('验证码错误',U('Index/login'));
+			}
+		}
 		if (isset($_POST['mp'])){
 			if (!preg_match('/^13[0-9]{9}$|^15[0-9]{9}$|^18[0-9]{9}$/',trim($_POST['mp']))){
 				$this->error('手机号填写不正确',U('Index/login'));
@@ -88,8 +175,10 @@ class UsersAction extends BaseAction{
 		if($db->create()){
 			$id=$db->add();
 			if($id){
+				Sms::sendSms('admin','有新用户注册了',$this->adminMp);
 				if ($this->isAgent){
-					M('Agent')->where(array('id'=>$this->thisAgent['id']))->setInc('usercount');
+				    $usercount=M('Users')->where(array('agentid'=>$this->thisAgent['id']))->count();
+				    M('Agent')->where(array('id'=>$this->thisAgent['id']))->save(array('usercount'=>$usercount));
 				}
 				if($this->reg_needCheck){
 					$gid=$this->minGroupid;
@@ -130,10 +219,10 @@ class UsersAction extends BaseAction{
 			    
 				$this->success('注册成功',U('User/Index/index'));
 			}else{
-				$this->error('注册失败',U('Index/reg'));
+				$this->error('注册失败',U('Index/login'));
 			}
 		}else{
-			$this->error($db->getError(),U('Index/reg'));
+			$this->error($db->getError(),U('Index/login'));
 		}
 	}
 	

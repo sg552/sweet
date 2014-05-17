@@ -46,7 +46,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,dd,figure,textarea,input,button,select{margin:
             <div class="ml-des">
                 <h4 class="ell"><a href="{pigcms::U('Groupon/orderDetail',array('token'=>$token,'id'=>$o['id'],'wecha_id'=>$wecha_id))}" style="color:#333">{pigcms:$o.productName}</a></h4>
                 <em class="ml-info">数量：{pigcms:$o.total}&nbsp;&nbsp;总价：{pigcms:$o.price} 元</em>
-                <p class="ml-desc"><pigcmsif where="$o.needPay eq '1'"><a class="btn btn-strong mj-link" href="?g=Wap&m=Alipay&a=pay&price={pigcms:$o.price}&from=groupon&orderName={pigcms:$o.name}&single_orderid={pigcms:$o.id}&token={pigcms:$token}">付款</a>&nbsp;&nbsp;</pigcmsif><pigcmsif where="$o.handled eq 0"><a class="btn btn-weak" href="javascript:if(confirm('确定删除该页内容吗？')){location.href='{pigcms::U('Groupon/deleteOrder',array('token'=>$token,'id'=>$o['id'],'wecha_id'=>$wecha_id))}'}">删除</a></pigcmsif></p>
+                <p class="ml-desc"><pigcmsif where="$o.needPay eq '1'"><a class="btn btn-strong mj-link" href="?g=Wap&m=Alipay&a=pay&price={pigcms:$o.price}&from=groupon&orderName={pigcms:$o.name}&single_orderid={pigcms:$o.orderid}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">付款</a>&nbsp;&nbsp;</pigcmsif><pigcmsif where="$o.handled eq 0"><a class="btn btn-weak" href="javascript:if(confirm('确定删除该页内容吗？')){location.href='{pigcms::U('Groupon/deleteOrder',array('token'=>$token,'id'=>$o['id'],'wecha_id'=>$wecha_id))}'}">删除</a></pigcmsif></p>
             </div>
         </li>
         </volist>

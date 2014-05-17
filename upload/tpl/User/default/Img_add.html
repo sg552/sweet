@@ -54,17 +54,12 @@ items : [
 </TD>
                 </TR>
                 <TR>
-                  <TH valign="top"><label for="classid">文章所属类别：</label></TH>
+                  <TH valign="top"><span class="red">*</span><label for="classid">文章所属类别：</label></TH>
                   <TD>
-                  <select name="classid">
-                      <volist name="info" id="vo">
-                     <option   value="{pigcms:$vo.id},{pigcms:$vo.name}">{pigcms:$vo.name}</option>
-                        <volist name="vo['vo']" id="va">
-                          <option   value="{pigcms:$va.id},{pigcms:$va.name}" style="color:#aaa">- {pigcms:$va.name}</option>
-                      
-                        </volist>  
-                      </volist>  
-                    </select> <a href="{pigcms::U('Classify/add')}"  target="ddd" >添加分类</a>
+					<div id="classname" style="padding:5px;"></div>
+					<input type="hidden" id="classid" value="" name="classid" />
+					<a href="###" onclick="editClass('classid','classname',0)" class="a_upload">选择所属分类</a>
+					<a href="{pigcms::U('Classify/add')}" class="a_upload" style="margin-left:10px;" target="ddd" >添加分类</a>
                   </TD>
                 </TR>
                 <TR style="display:none">

@@ -1,8 +1,10 @@
 <?php
-class PanoramaAction extends BaseAction{
+class PanoramaAction extends WapAction{
 	public $panorama_model;
 	public $token;
 	public function __construct(){
+
+		parent::_initialize();
 		$this->panorama_model=M('Panorama');
 		$this->token=$this->_get('token');
 	}

@@ -30,7 +30,7 @@
                 padding-bottom:10px!important;
             }
         </style>
-        
+
         <script>
             $().ready(function(){
                 var nowTemp = new Date();
@@ -47,7 +47,7 @@
 
             function submit(){
         var form = document.getElementById("form1");
-        var obj = {truename:'',tel:'',dateline:'',wecha_id:'',rid:'',type:'',field1:'',timepart:'',info:'',housetype:'',carnum:'',km:''};
+        var obj = {truename:'',tel:'',dateline:'',wecha_id:'',rid:'',type:'',timepart:'',info:'',housetype:'',carnum:'',km:'',choose:''};
 
                 if('undefined' !== typeof(form.truename)){
                     obj.truename = form.truename.value;
@@ -80,9 +80,9 @@
                 if('undefined' !== typeof(form.type)){
                     obj.type = form.type.value;
                 }
-                if('undefined' !== typeof(form.field1)){
-                    obj.field1 = form.field1.value;
-                }
+                // if('undefined' !== typeof(form.field1)){
+                //     obj.field1 = form.field1.value;
+                // }
 
                 if('undefined' !== typeof(form.timepart)){
                     obj.timepart = form.timepart.value;
@@ -106,9 +106,10 @@
                  type: form.type.value,
                  carnum:form.carnum.value,
                  km:form.km.value,
-                 field1: form.field1.value,
+                 //field1: form.field1.value,
                  timepart: form.timepart.value,
-                 info: form.info.value
+                 info: form.info.value,
+                 choose:form.choose.value,
              }
 
         $.post("{pigcms::U('Car/add',array('token'=>$token,'wecha_id'=>$wecha_id,'addtype'=>$addtype))}", obj,
@@ -155,7 +156,7 @@ function jumpurl(url){
                     <dl class="list_book list_book_des">
                         <dd>
                             <div><label>订单说明</label></div>
-                            <div style="word-break:break-all;word-wrap:nowrap;white-space:normal;padding: 15px 0;">{pigcms:$reser['info']}</div>
+                            <div style="word-break:break-all;word-wrap:nowrap;white-space:normal;padding: 15px 0;">{pigcms:$reser['info']|html_entity_decode}</div>
                         </dd>
                     </dl>
                 </div>
@@ -199,47 +200,17 @@ function jumpurl(url){
                             </dd>
 
                             <dd class="tbox">
-                                <div><label>车系/车型</label></div>
+                                <div><label>品牌/车系</label></div>
                                 <div>
-                                 <select name="field1" id="field1" class="input-medium" data-rule-required="true"></select>
-                                 <input type="hidden" name="housetype" id="housetype" value="{pigcms:$reser['housetype']}" />
+                                 <input type="text" name="housetype" id="housetype" value="{pigcms:$reser['housetype']}" />
                                 </div>
                             </dd>
-                           
-
-<script>
-    var opts = {
-            select: '#field1',
-            url: "{pigcms::U('Car/get_car_brand',array('token'=>$token))}",
-            head:'请选择！',
-            // /head: false,
-            autoLink:true,
-            autoBind:true,
-            autoHide:true,
-            level:2,
-            autoHide:false,
-            hideWidth:false,
-            minWidth:160,
-            maxWidth:498,
-            selClass:"input-medium"
-
-    };
-
-    var linkageSel = new LinkageSel(opts);
-    linkageSel.onChange(function(){
-        var input = $("#housetype"),
-        d = this.getSelectedDataArr('name'),
-        //s_id = linkageSel.getSelectedData('s_id'),
-        arr = [];
-        for (var i = 0, len = d.length; i < len; i++) {
-            arr.push(d[i]);
-        }
-        input.val(arr.join('/'));
-        //$("#s_id").val(s_id);
-
-    });
-
-</script>
+                            <dd class="tbox">
+                                <div><label>车型</label></div>
+                                <div>
+                                 <input type="text" name="choose" id="choose" value="{pigcms:$reser['choose']}" />
+                                </div>
+                            </dd>
 
                             <if condition="$addtype eq 'maintain'">
                             <dd class="tbox">
@@ -283,6 +254,6 @@ function jumpurl(url){
             <include file="Car:menu"/>
         </div>
 
-    </body>             
-   
+    </body>
+
 </html>

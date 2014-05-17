@@ -19,7 +19,11 @@ class FunctionAction extends BackAction{
 		if(IS_POST){
 			$this->all_insert();
 		}else{
-			$group=D('User_group')->getAllGroup('status=1');
+			$map=array('status'=>1);
+			if (C('agent_version')){
+				$map['agentid']=array('lt',1);
+			}
+			$group=D('User_group')->getAllGroup($map);
 			$this->assign('group',$group);
 			$this->display();
 		}
@@ -28,12 +32,16 @@ class FunctionAction extends BackAction{
 		if(IS_POST){
 			$this->all_save();
 		}else{
+			$map=array('status'=>1);
+			if (C('agent_version')){
+				$map['agentid']=array('lt',1);
+			}
 			$id=$this->_get('id','intval',0);
 			if($id==0)$this->error('非法操作');
 			$this->assign('tpltitle','编辑');
 			$fun=M('Function')->where(array('id'=>$id))->find();
 			$this->assign('info',$fun);
-			$group=D('User_group')->getAllGroup('status=1');
+			$group=D('User_group')->getAllGroup($map);
 			$this->assign('group',$group);
 			$this->display('add');
 		}

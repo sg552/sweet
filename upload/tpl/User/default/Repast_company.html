@@ -1,0 +1,92 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+<div class="cLineB">
+<h4 class="left">订单管理({pigcms:$page}) </h4>
+<div class="searchbar right">
+</div>
+<div class="clr"></div>
+</div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">此处只显示总店信息，连锁店订单及菜品请进入相应平台进行管理，连锁店登录账号密码及登录地址请在LBS里设置查看</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="current tabli" id="tab0"><a href="{pigcms::U('Repast/company', array('token' => $token,'cid' => $cid))}">餐厅管理</a></li>
+<li class="tabli" id="tab1"><a href="{pigcms::U('Repast/index', array('token' => $token,'cid' => $cid))}">餐台管理</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('Repast/detail', array('token' => $token,'cid' => $cid))}">餐台预定情况</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('Repast/sort', array('token' => $token,'cid' => $cid))}">分类管理</a></li>
+<li class="tabli" id="tab3"><a href="{pigcms::U('Repast/dish', array('token' => $token,'cid' => $cid))}">菜品管理</a></li>
+<li class="tabli" id="tab4"><a href="{pigcms::U('Repast/orders', array('token' => $token,'cid' => $cid))}">订单管理</a></li>
+<if condition="$ischild neq 1" >
+<li class="tabli" id="tab5"><a href="{pigcms::U('Reply_info/set', array('token'=>$token,'infotype'=>'Dining'))}">订餐回复配置</a></li>
+</if>
+</ul>
+</div>
+<!--tab end-->
+<form method="post" action="" id="formID">
+<input type="hidden" name="id" value="{pigcms:$company.id}" />
+<input type="hidden" name="cid" value="{pigcms:$cid}" />
+    <div class="msgWrap bgfc"> 
+     <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
+      <tbody> 
+       <tr> 
+        <th><span class="red">*</span>是否支持外卖：</th> 
+        <td>
+        <select name="istakeaway">
+        <option value="0"  <if condition="0 eq $company['istakeaway']">selected</if> >不支持</option>
+        <option value="1"  <if condition="1 eq $company['istakeaway']">selected</if> >支持</option>
+        </select>
+        </td> 
+       </tr>
+       <tr> 
+        <th>外卖费：</th>
+        <td><input type="text" name="price" value="{pigcms:$company.price}" class="px" id="pic" style="width:80px;" /> 元</td> 
+       </tr>
+       <tr> 
+        <th>是否在线支付：</th>
+        <td>
+	        <select name="payonline">
+	        <option value="0"  <if condition="0 eq $company['payonline']">selected</if> >不要</option>
+	        <option value="1"  <if condition="1 eq $company['payonline']">selected</if> >需要</option>
+	        </select>
+        </td> 
+       </tr>
+       <tr>
+       <th>&nbsp;</th>
+       <td>
+       <button type="submit" name="submit" class="btnGreen" id="save">保存</button></td> 
+       </tr> 
+      </tbody> 
+     </table> 
+     </div>
+</form>
+<div class="cLine">
+<div class="clr"></div>
+</div>
+</div>
+
+<script>
+function selectall(name) {
+	var checkItems=$('.cbitem');
+	if ($("#check_box").attr('checked')==false) {
+		$.each(checkItems, function(i,val){
+			val.checked=false;
+		});
+		
+	} else {
+		$.each(checkItems, function(i,val){
+			val.checked=true;
+		});
+	}
+}
+function change(obj) {
+	location.href = "{pigcms::U('Repast/orders',array('token' => $token, 'cid' => $cid))}&status=" + $(obj).val();
+}
+</script>
+<include file="Public:footer"/>

@@ -16,15 +16,15 @@ class UsersModel extends Model{
 		array('repassword','md5',self::MODEL_BOTH,'function'),
 		array('createtime','time',self::MODEL_INSERT,'function'),
 		array('createip','getip',self::MODEL_INSERT,'callback'),
-		array('viptime','time',self::MODEL_BOTH,'function'),
+		//array('viptime','time',self::MODEL_BOTH,'function'),
 		array('lasttime','time',self::MODEL_BOTH,'function'),
 		array('lastip','getip',self::MODEL_BOTH,'callback'),
 		array('status','getstatus',self::MODEL_BOTH,'callback'),
-		array('gid','getgid',self::MODEL_INSERT,'callback'),
+		//array('gid','getgid',self::MODEL_INSERT,'callback'),
 	);
 	
 	public function getip(){
-		return $_SERVER['REMOTE_ADDR'];
+		return htmlspecialchars(trim(get_client_ip()));
 	}
 	
 	public function getstatus(){

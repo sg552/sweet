@@ -38,34 +38,24 @@
     <section>
         <div class="box_title">
             <hgroup>
-               <!--  <h1>尚城国际</h1>
-                <h3>业精于勤 荒于嬉</h3> -->
+              <h1>{pigcms:$homeInfo.title}</h1>
+                <h3>{pigcms:$homeInfo.info}</h3>
             </hgroup>
         </div>
         <ul class="list_ul">
-            
-            <li class="box"> 
             <volist name="info" id="vo">
-            <if condition="$i lt 4">                                   
-            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
-                                    <label><small>{pigcms:$vo.name}</small></label>
-                    <span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:60px;height:42px;position:relative;right:-16px;"></span>
-                </a>
-            </if>
-            </volist>
-                                                
-            </li>
-            <li class="box"> 
-            <volist name="info" id="vo">
-            <if condition="($i gt 3) and ($i lt 7)">                                   
-            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
-                                    <label><small>{pigcms:$vo.name}</small></label>
-                    <span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:60px;height:42px;position:relative;right:-16px;"></span>
-                </a>
-            </if>
-            </volist>
-                                                
-            </li>
+				<if condition="$i%3 == 1"><li class="box"></if>
+				
+				                                
+				<a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$vo['token']))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+										<label><small>{pigcms:$vo.name}</small></label>
+						<span ><img src="{pigcms:$vo.img}" class="icon-smile" style="width:60px;position:relative;right:-16px;"></span>
+					</a>
+				
+			   
+													
+				<if condition="$i%3 == 0"></li></if>
+			</volist>
   
              </ul>
     </section>
@@ -113,7 +103,7 @@ document.getElementById("thelist").getElementsByTagName("img").item(i).style.css
 
 </script>
 
-                    <div class="copyright">
+                    <div class="copyright" style="text-align:center">
 <if condition="$iscopyright eq 1">
 {pigcms:$homeInfo.copyright}
 <else/>
@@ -122,6 +112,36 @@ document.getElementById("thelist").getElementsByTagName("img").item(i).style.css
 </div>
 </div>
 
-
-    <include file="Index:styleInclude"/>
+    <include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
+	
+	
+	<if condition="ACTION_NAME eq 'index'">
+		<script type="text/javascript">
+			window.shareData = {  
+					"moduleName":"Index",
+					"moduleID": '0',
+					"imgUrl": "{pigcms:$homeInfo.picurl}", 
+					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"weiboLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
+					"tTitle": "{pigcms:$homeInfo.title}",
+					"tContent": "{pigcms:$homeInfo.info}"
+				};
+		</script>
+	<else />
+		<script type="text/javascript">
+			window.shareData = {  
+				"moduleName":"Index",
+				"moduleID": '1',
+				"imgUrl": "{pigcms:$homeInfo.picurl}", 
+				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+				"tTitle": "{pigcms:$homeInfo.title}",
+				"tContent": "{pigcms:$homeInfo.info}"
+			};
+		</script>	
+	
+	</if>
+{pigcms:$shareScript}
 </body></html>

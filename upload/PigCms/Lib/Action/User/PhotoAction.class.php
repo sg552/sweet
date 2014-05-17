@@ -60,7 +60,7 @@ class PhotoAction extends UserAction{
 		$check=M('Photo_list')->field('id,pid')->where(array('token'=>$_SESSION['token'],'id'=>$this->_post('id')))->find();
 		if($check==false){$this->error('照片不存在');}
 		if(IS_POST){
-			$this->all_save('Photo_list','/list_add');		
+			$this->all_save('Photo_list','/list_add?id='.$check['pid']);		
 		}else{
 			$this->error('非法操作');
 		}
@@ -84,7 +84,7 @@ class PhotoAction extends UserAction{
 		if($checkdata==false){$this->error('相册不存在');}
 		if(IS_POST){			
 			M('Photo')->where(array('token'=>session('token'),'id'=>$this->_post('pid')))->setInc('num');
-			$this->all_insert('Photo_list');			
+			$this->all_insert('Photo_list','/list_add?id='.$_POST['pid']);						
 		}else{
 			$data=M('Photo_list');
 			$count      = $data->where(array('token'=>$_SESSION['token'],'pid'=>$this->_get('pid')))->count();
