@@ -645,3 +645,33 @@ footer a:hover {
   margin-left: auto;
   margin-right: auto;
 }
+
+
+.chanpin_wrapper{
+  clear:both;
+  width: 960px;
+  margin: 30px auto 10px auto;
+  padding-top: 20px;
+  font-size: 18px; color: #333333; line-height: 30px;
+  /*border-top: 2px solid #ececec;*/
+}
+
+.chanpin_wrapper .text_area {
+  height: 130px;
+}
+
+.chanpin_wrapper .right_part{
+  float: left; width: 680px; padding-left: 10px;
+}
+.chanpin_wrapper .hero_title{
+  font-size: 55px; line-height: 55px; font-weight: bold;
+}
+.chanpin_wrapper .sub_title{
+  font-size: 18px; line-height: 18px;
+}
+.chanpin_wrapper .left_text{
+   float: left; width: 259px;
+}
+.chanpin_wrapper .right_text{
+  float:left; font-size: 18px; color: #7d7d7d; width: 420px
+}
