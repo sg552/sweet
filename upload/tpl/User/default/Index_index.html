@@ -36,15 +36,15 @@ function addFee(){
                 </TR>
               </THEAD>
               <TBODY>
-                <TR></TR>                
-                 <volist name="info" id="vo"> 
+                <TR></TR>
+                 <volist name="info" id="vo">
 					<TR>
 					  <TD><p><a href="{pigcms::U('Function/index',array('id'=>$vo['id'],'token'=>$vo['token']))}" title="点击进入功能管理"><img src="{pigcms:$vo.headerpic}" width="40" height="40"></a></p><p>{pigcms:$vo.wxname}</p></TD>
 					  <TD align="center">{pigcms:$thisGroup.name}</TD>
 					  <TD><p>创建时间:{pigcms:$vo.createtime|date="Y-m-d",###}</p><p>到期时间:{pigcms:$viptime|date="Y-m-d",###}</p><p><a href="###" onclick="addFee()" id="smemberss" class="green"><em>升降级vip续费</em></a></p></Td>
 					  <TD><p>图文：<php>echo $_SESSION['diynum'].'/'.$group[$_SESSION['gid']]['did'];</php></p></TD>
 					   <TD><p>总请求数:<php>echo $_SESSION['connectnum']</php></p><p> 本月请求数:<php>echo $group[$_SESSION['gid']]['cid'];</php></p></TD>
-					  
+
 					  <TD class="norightborder">　<a href="{pigcms::U('Index/edit',array('id'=>$vo['id']))}">编辑</a>　<a  href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Index/del',array('id'=>$vo['id']))}');">删除</a>　
 					  <a href="{pigcms::U('Function/index',array('id'=>$vo['id'],'token'=>$vo['token']))}" class="btnGreens" >功能管理</a>
 					  <a href="{pigcms::U('Home/Index/help',array('id'=>$vo['id'],'token'=>$vo['token']))}" class="btnGreens" >API接口</a>
@@ -54,12 +54,12 @@ function addFee(){
 
               </TBODY>
             </TABLE>
-            
+
           </div>
           <br>
           <pigcmsif where="$demo eq 1">
           <div class="alert">
-          <p><b>欢迎试用小猪CMS微信多用户营销系统，为了您测试方便，我们已经自动创建了公众号并填充了各类数据，您只需要按照下面步骤操作即可进行测试：</b></p>
+          <p><b>欢迎试用飞达CMS微信多用户营销系统，为了您测试方便，我们已经自动创建了公众号并填充了各类数据，您只需要按照下面步骤操作即可进行测试：</b></p>
           <p>1、<a href="{pigcms::U('Index/edit',array('id'=>$wxinfo['id']))}">点击这里修改您的公众号信息</a></p>
           <p>2、登录您的微信公众平台，按照说明绑定您的微信公众号(<a href="{pigcms::U('Home/Index/help',array('id'=>$wxinfo['id'],'token'=>$wxinfo['token']))}">点击这里查看帮助说明</a>)</p>
           <p>3、如果您需要测试自定义菜单功能，请<a href="{pigcms::U('Function/index',array('id'=>$wxinfo['id'],'token'=>$wxinfo['token']))}">进入功能管理</a>，然后生成自定义菜单，重新关注公众号就会看到自定义菜单了</p>
@@ -73,11 +73,11 @@ function addFee(){
             <div class="clr"></div>
           </div>
         </div>
-        
+
         <div class="clr"></div>
       </div>
     </div>
   </div>
   <!--底部-->
   	</div>
-<include file="Public:footer"/>	
+<include file="Public:footer"/>

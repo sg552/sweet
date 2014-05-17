@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>微信公众平台源码,微信机器人源码,微信自动回复源码 PigCms多用户微信营销系统</title>
+<title>微信公众平台源码,微信机器人源码,微信自动回复源码 飞达多用户微信营销系统</title>
 <meta http-equiv="MSThemeCompatible" content="Yes" />
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/style_2_common.css?BPm" />
 <script src="{pigcms::RES}/js/common.js" type="text/javascript"></script>
@@ -54,13 +54,13 @@ function returnHomepage(id,title,pic,info){
 	imgCount=imgidsdom.value.split(',').length-1;
 	//
 	dom.innerHTML='<div class="mediaPanel"><div class="mediaHead"><span class="title" id="zbt">'+title+'</span><span class="time"><?php echo date('Y-m-d',time());?></span><div class="clr"></div></div><div class="mediaImg"><img id="suicaipic1" src="'+pic+'"></div><div class="mediaContent mediaContentP"><p id="zinfo">'+info+'</p></div><div class="mediaFooter"><span class="mesgIcon right"></span><span style="line-height:50px;" class="left">查看全文</span><div class="clr"></div></div></div>';
-	
+
 	if(multione.innerHTML==''){
 		singlenews.style.display="";
 		multinews.style.display="none";
-		
+
 		multione.innerHTML=' <h4 class="appmsg_title"><a href="javascript:void(0);" onClick="return false;" target="_blank">'+title+'</a></h4><div class="appmsg_thumb_wrp"><img style="border:1px solid #ddd" class="js_appmsg_thumb appmsg_thumb" src="'+pic+'"><i class="appmsg_thumb default" style="background:url('+pic+');background-size:100% 100%">&nbsp;</i></div>';
-		
+
 	}else{
 		singlenews.style.display="none";
 		multinews.style.display="";
