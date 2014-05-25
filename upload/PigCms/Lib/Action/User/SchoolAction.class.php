@@ -11,21 +11,42 @@ class SchoolAction extends UserAction{
 
 
     public  function getage($birthday){
-            $now = date_create("now");
-            $birthday = date_create($birthday);
-            if($now < $birthday){
-                return "* 岁";
-            }else{
-                $interval = date_diff($now,$birthday);
-                return $interval->format("%y")." 岁";
-            }
 
+                if(function_exists('date_diff')){
+                     $now = date_create("now");
+                     $birthday = date_create($birthday);
+                    if($now < $birthday){
+                        return "* 岁";
+                    }else{
+                      $interval = date_diff($now,$birthday);
+                      return $interval->format("%y")." 岁";
+                    }
+
+                }else{
+                    $year_diff = '';
+                    $time      = strtotime($birthday);
+                    if(FALSE === $time){
+                      return '*';
+                    }
+                    $birthday   = date('Y-m-d', $time);
+                    list($year,$month,$day) = explode("-",$birthday);
+                    $year_diff  = date("Y") - $year;
+                    $month_diff = date("m") - $month;
+                    $day_diff   = date("d") - $day;
+                    if ($day_diff < 0 || $month_diff < 0) $year_diff--;
+                    return $year_diff.' 岁';
+                }
     }
 
     public function index(){
-        $type = trim($this->_get("type"));
+        $arrType = array('semester','theclass','score','subject','timeframe','week');
+        $type = trim(filter_var($this->_get('type'),FILTER_SANITIZE_STRING));
+        if(!in_array($type,$arrType)){
+            exit($this->error('参数非法',U('Function/index',array('token'=>session('token')))));
+        }
         $t_s_classify = M("school_classify");
         if(IS_POST){
+
             $items = empty($_REQUEST['add']['sname'][0]) ? $this->error('选项至少填写一项') : $_REQUEST['add'];
             $new_item = array();
             foreach($items as $key=>$value){
@@ -36,10 +57,11 @@ class SchoolAction extends UserAction{
                 }
             }
             foreach ($new_item as $k => $v) {
-                $data['sname']  =   filter_var(trim($v['sname']),FILTER_SANITIZE_STRING) ? $v['sname'] :$this->error('检查是否有特殊符号或者留空项,请不要重复提交',U('School/index',array('token'=>session('token'),'type'=>$this->_get('type'))));
-                $data['ssort']  = filter_var($v['ssort'],FILTER_VALIDATE_INT) ? $v['ssort'] : $this->error('检查是否是整数',U('School/index',array('token'=>session('token'),'type'=>$this->_get('type'))));
+                $data['sname']  =   filter_var(trim($v['sname']),FILTER_SANITIZE_STRING) ? $v['sname'] :$this->error('检查是否有特殊符号或者留空项,请不要重复提交',U('School/index',array('token'=>session('token'),'type'=>$type)));
+                $data['ssort']  = filter_var($v['ssort'],FILTER_VALIDATE_INT) ? $v['ssort'] : $this->error('检查是否是整数',U('School/index',array('token'=>session('token'),'type'=>$type)));
                 if(empty($data['ssort'])){$data['ssort'] = 1;}
-                $data['type']   = filter_var($this->_get('type'),FILTER_SANITIZE_STRING) ? $this->_get('type') : $this->error('参数错误',U('School/index',array('token'=>session('token'),'type'=>$this->_get('type'))));
+
+                $data['type']   = $type;
                 $data['token']  = session('token');
                 $chang['sid']   = filter_var($v['sid'],FILTER_VALIDATE_INT) ? $v['sid'] : '';
                 if(isset($chang['sid']) && !empty($chang['sid'])){
@@ -51,10 +73,10 @@ class SchoolAction extends UserAction{
             }
             unset($_REQUEST);
             if($ok){
-                $this->success('添加成功',U('School/index',array('token'=>session('token'),'type'=>$this->_get('type'))));
+                $this->success('添加成功',U('School/index',array('token'=>session('token'),'type'=>$type)));
                 exit;
             }else{
-                $this->error('添加失败',U('School/index',array('token'=>session('token'),'type'=>$this->_get('type'))));
+                $this->error('添加失败',U('School/index',array('token'=>session('token'),'type'=>$type)));
                 exit;
             }
         }
@@ -66,15 +88,20 @@ class SchoolAction extends UserAction{
     }
 
     public function del_item(){
+        $arrType = array('students','assess','curriculum','scoresearch','semester','theclass','score','subject','timeframe','week');
+        $type = trim(filter_var($this->_get('deltype'),FILTER_SANITIZE_STRING));
+        if(!in_array($type,$arrType)){
+            exit($this->error('参数非法',U('Function/index',array('token'=>session('token')))));
+        }
          if(IS_POST){
             $sid    = trim(filter_var($this->_post('sid'),FILTER_VALIDATE_INT));
-            $type   = trim(filter_var($this->_get('deltype'),FILTER_SANITIZE_STRING));
+            //$type   = trim(filter_var($this->_get('deltype'),FILTER_SANITIZE_STRING));
             M('school_classify')->where(array('token'=>session('token'),'sid'=>$sid,'type'=>$type))->delete();
             echo  json_encode(array('errno'=>1));exit;
             //$this->success('删除成功',U("School/index",array('token'=>session('token'))));exit;
          }
          $id     =   trim(filter_var($this->_get('id'),FILTER_VALIDATE_INT));
-         $type   = filter_var($this->_get('deltype'),FILTER_SANITIZE_STRING);
+         //$type   = filter_var($this->_get('deltype'),FILTER_SANITIZE_STRING);
           if($type == 'students'){
              M('school_students')->where(array('token'=>session('token'),'id'=>$id))->delete();
              M('school_score')->where(array('token'=>session('token'),'sid'=>$id))->delete();
@@ -94,23 +121,33 @@ class SchoolAction extends UserAction{
 
     public function student_score(){
         $t_s_classify = M('school_classify');
-        $where1 = array('token'=>session('token'),'type'=>'score');
-        $li_score = $t_s_classify->where($where1)->order('ssort DESC')->select();
-        $where2 = array('token'=>session('token'),'type'=>'subject');
+        $t_s_score   = M('school_score');
+        $type   =   trim(filter_var($this->_get('type'),FILTER_SANITIZE_STRING));
+        $scid   =   intval(trim(filter_var($this->_get('scid'),FILTER_VALIDATE_INT)));
+        if('edit' == $type && '' != $scid){
+            $swhere    = array('token'=>session('token'),'id'=>$scid);
+            $scores    = $t_s_score->where($swhere)->find();
+            $this->assign('scores',$scores);
+        }
+
+        $where1     = array('token'=>session('token'),'type'=>'score');
+        $li_score   = $t_s_classify->where($where1)->order('ssort DESC')->select();
+        $where2     = array('token'=>session('token'),'type'=>'subject');
         $li_subject = $t_s_classify->where($where2)->order('ssort DESC')->select();
-        $_sid =filter_var($this->_get('id'),FILTER_VALIDATE_INT);
+        $_sid       = intval(trim(filter_var($this->_get('id'),FILTER_VALIDATE_INT)));
         $t_s_students = M('school_students');
-        $where4 = array('token'=>session('token'),'id'=>$_sid);
-        $student = $t_s_students->where($where4)->field('id sid,s_name,xq_id')->find();
-        $t_s_score = M('school_score');
+        $where4     = array('token'=>session('token'),'id'=>$_sid);
+        $student    = $t_s_students->where($where4)->field('id sid,s_name,xq_id,token')->find();
+
         if(IS_POST){
             $_POST['token'] = session('token');
-            $_id =filter_var($this->_post('id'),FILTER_VALIDATE_INT);
+            $_id     = intval(filter_var($this->_post('id'),FILTER_VALIDATE_INT));
+            $istoken = trim(filter_var($this->_post('istoken'),FILTER_SANITIZE_STRING));
             if($t_s_score->create()!=false){
-                if(isset($_id) && $_id != ''){
+                if(session('token') == $istoken && $_id != ''){
                     $where5 = array('token'=>session('token'),'id'=>$_id);
                     if($t_s_score->where($where5)->save($_POST)){
-                        $this->success('修改成功',U('School/students',array('token'=>session('token'))));exit;
+                        $this->success('修改成功',U('School/scoresearch',array('token'=>session('token'))));exit;
                     }else{
                         $this->error('服务器繁忙,修改失败,请稍候再试');exit;
                     }
@@ -606,42 +643,6 @@ class SchoolAction extends UserAction{
                 $this->assign('teachers',$teachers);
                 $this->display('assess');exit;
               }
-                //elseif($key == 'scoresearch'){
-            //     $t_s_score = M('school_score');
-            //     $bjname       = trim(filter_var($_REQUEST['searchkey']['bjname'],FILTER_SANITIZE_STRING));
-            //     $kmname      = trim(filter_var($_REQUEST['searchkey']['kmname'],FILTER_SANITIZE_STRING));
-            //     $qhname      = trim(filter_var($_REQUEST['searchkey']['qhname'],FILTER_SANITIZE_STRING));
-            //     if(isset($name) && $name != ''){
-            //         $where['tname'] = array('like',array("%{$name}%"));
-            //     }
-            //     if(isset($bjname) && $bjname != ''){
-
-            //     }
-            //     $count      = $t_s_score->where($where)->count();
-            //     $Page       = new Page($count,20);
-            //     $show       = $Page->show();
-            //     $arrids = $t_s_score->where($where)->order('my_score DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
-            //     $this->assign('page',$show);
-            //     $t_s_students = M('school_students');
-            //     $t_s_classify = M('school_classify');
-            //     $market = array();
-            //     foreach($arrids as $k=>$val){
-            //         $market[$k]['id']      = $val['id'];
-            //         $market[$k]['sid']     = $val['sid'];
-            //         $market[$k]['my_score']     = $val['my_score'];
-            //         $market[$k]['s_name']   = $t_s_students->where(array('id'=>$val['sid'],'token'=>session('token')))->getField('s_name');
-            //         $market[$k]['age']   = $this->getage($t_s_students->where(array('id'=>$val['sid'],'token'=>session('token')))->getField('birthdate'));
-            //         $market[$k]['sex']   = $t_s_students->where(array('id'=>$val['sid'],'token'=>session('token')))->getField('sex');
-            //         $market[$k]['bj_name'] = $t_s_classify->where(array('sid'=>$t_s_students->where(array('id'=>$val['sid'],'token'=>session('token')))->getField('bj_id'),'token'=>session('token')))->getField('sname');
-            //         $market[$k]['km_name'] = $t_s_classify->where(array('sid'=>$val['km_id'],'token'=>session('token')))->getField('sname');
-            //         $market[$k]['qh_name'] = $t_s_classify->where(array('sid'=>$val['qh_id'],'token'=>session('token')))->getField('sname');
-            //         // $market[$k]['sd_name'] = $t_s_classify->where(array('sid'=>$val['sd_id'],'token'=>session('token')))->getField('sname');
-            //     }
-            //     //var_dump($market);
-            //     $this->assign('market',$market);
-            //     $this->display();
-            // }
-
 
         }
     }
@@ -698,11 +699,6 @@ class SchoolAction extends UserAction{
         $this->display();
     }
 
-    // public function student_edit(){
-    //     $id = filter_var($this->_get('id'),FILTER_VALIDATE_INT);
-    //      $t_s_students = M('school_students');
-    //      $this->display("student_add");
-    // }
 
     public function semester(){
         $this->display();

@@ -6,8 +6,8 @@
       jQuery("#formID").validationEngine();
     });
     </script>
-    
-<style> 
+
+<style>
 .maroon{color: red;}
 </style>
 <div class="content">
@@ -39,11 +39,11 @@
 
                  <tr>
                     <th width="120">录入期号:</th>
-                    <td> 
+                    <td>
                      <select name="qh_id" id="qh_id" data-validation-engine="validate[required]"  data-errormessage-value-missing="必须选择所属期号">
                     <option value="">请选择期号</option>
                       <volist name="li_score" id="vo">
-                        <option value="{pigcms:$vo['sid']}">{pigcms:$vo['sname']}</option>
+                      <option value="{pigcms:$vo['sid']}" <if condition="$scores['qh_id'] eq $vo['sid']">selected="selected"</if> >{pigcms:$vo['sname']}</option>
                       </volist>
                     </select>
                     <span class="maroon">*</span>
@@ -52,11 +52,11 @@
 
                  <tr>
                     <th width="120">录入科目:</th>
-                    <td> 
+                    <td>
                      <select name="km_id" id="km_id" data-validation-engine="validate[required]"  data-errormessage-value-missing="必须选择所属科目">
                     <option value="">请选择科目</option>
                       <volist name="li_subject" id="vo">
-                        <option value="{pigcms:$vo['sid']}">{pigcms:$vo['sname']}</option>
+                        <option value="{pigcms:$vo['sid']}" <if condition="$scores['km_id'] eq $vo['sid']">selected="selected"</if>>{pigcms:$vo['sname']}</option>
                       </volist>
                     </select>
                     <span class="maroon">*</span>
@@ -65,28 +65,31 @@
 
                  <tr>
                     <th width="120">录入成绩:</th>
-                    <td> 
-                    <input type="text" name="my_score" value=""  data-validation-engine="validate[required,custom[number],min[0],max[100]]" class="px" placeholder="请输入成绩">
+                    <td>
+                    <input type="text" name="my_score" value="{pigcms:$scores['my_score']}"  data-validation-engine="validate[required,custom[number],min[0],max[100]]" class="px" placeholder="请输入成绩">
                     <span class="maroon">*</span>
                     </td>
                 </tr>
 
                 <tr>
                 <th><input type="text" hidden name="sid" value="{pigcms:$student['sid']}"></th>
-                <if condition="$student['id'] neq ''"><input type="text" hidden name="id" value="{pigcms:$student['id']}"></if>
-                    <td> 
+                <if condition="$scores['id'] neq ''">
+                <input type="text" hidden name="id" value="{pigcms:$scores['id']}">
+                <input type="text" hidden name="istoken" value="{pigcms:$student['token']}">
+                </if>
+                    <td>
                   <input   type="submit"  class="btnGreen" value="保存"/>
                     </td>
                      <th></th>
                     <td>
                      <a href="{pigcms::U('School/students',array('token'=>session('token')))}" class="btnGray vm">取消</a>
-                     
+
                     </td>
                 </tr>
             </tbody>
         </table>
     </form>
-  </div> 
+  </div>
 </div>
 
 <script src="{pigcms::RES}/js/select/js/comm.js"></script>

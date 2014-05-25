@@ -65,8 +65,21 @@
 <ul class="m-uc-order-v-infobox">
 <li><span class="tit">支付与配送</span></li>
 <li id="shipping_zfhps">
-<p>支付方式： 手机支付宝</p>
+<if condition="$cartData['paymode'] eq 1">
+<p>支付方式： 微信支付</p>
+<elseif condition="$cartData['paymode'] eq 2" />
+<p>支付方式： 财付通支付</p>
+<elseif condition="$cartData['paymode'] eq 3" />
+<p>支付方式： 货到付款</p>
+<else />
+<p>支付方式： 其他方式支付</p>
+</if>
+<if condition="$cartData['sent'] eq 1">
+<p>快递公司：{pigcms:$cartData.logistics}</p>
+<p>快递单号：{pigcms:$cartData.logisticsid}</p>
+<else />
 <p>配送方式：普通快递</p>
+</if>
 <p>商品金额：{pigcms:$totalFee}元</p>
 <p>　　运费：{pigcms:$mailprice}元　</p>
 <p>应付金额：<php>{echo $cartData['price'];}</php>元</p>

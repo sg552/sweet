@@ -95,7 +95,7 @@ afterBlur: function(){this.sync();}
 					<if condition="($productDetailData neq null) ">
 					<tr><th width="130">产品外观</th><th width="130">产品规格</th><th width="130">价格</th><th width="130">会员价</th><th width="130">数量</th></tr>
 			        <volist name="productDetailData" id="detail">
-			           <input type="hidden" class="editselect" value="{pigcms:$detail.id},{pigcms:$detail.color},{pigcms:$detail.colorName},{pigcms:$detail.format},{pigcms:$detail.formatName},{pigcms:$detail.price},{pigcms:$detail.num}"/>
+			           <input type="hidden" class="editselect" value="{pigcms:$detail.id},{pigcms:$detail.color},{pigcms:$detail.colorName},{pigcms:$detail.format},{pigcms:$detail.formatName},{pigcms:$detail.price},{pigcms:$detail.vprice},{pigcms:$detail.num}"/>
 				       <tr class="tnorms">
 					       <td width="130">{pigcms:$detail.colorName}<input type="hidden" value="{pigcms:$detail.color}"/></td>
 					       <td width="130">{pigcms:$detail.formatName}<input type="hidden" value="{pigcms:$detail.format}"/></td>
@@ -168,6 +168,10 @@ afterBlur: function(){this.sync();}
        <tr> 
         <th>展示图片六：</th>
         <td><input type="text" name="image6" value="{pigcms:$imageList[5].image}" imageid="{pigcms:$imageList[5].id}" class="px" id="image6" style="width:400px;" />  <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('image6',700,700,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('image6')">预览</a></td> 
+       </tr>
+       <tr> 
+        <th>排序：</th> 
+        <td><input type="text" id="sort" name="sort" value="{pigcms:$set.sort}" class="px" style="width:50px;" />  数字越小排再越前（大于等于0的整数）</td> 
        </tr>
        <TR>
           <TH valign="top"><label for="info">图文详细页内容：</label></TH>
@@ -246,7 +250,7 @@ $(document).ready(function(){
 	$(".norms").click(function(){
 		var selectValue = [];
 		var html = '';
-		var header = '<tr><th width="130">产品外观</th><th width="130">产品规格</th><th width="130">价格</th><th width="130">数量</th></tr>';
+		var header = '<tr><th width="130">产品外观</th><th width="130">产品规格</th><th width="130">价格</th><th width="130">会员价</th><th width="130">数量</th></tr>';
 		if ($(".color").html() == null) {
 			$(".norms").each(function(){
 				if ($(this).attr('checked')) {
@@ -325,7 +329,7 @@ $(document).ready(function(){
 		var i = 0;
 		var tnum = 0;
 		$(".tnorms").each(function(){
-			tnum += parseInt($(this).children('td').eq(3).children('input').val());
+			tnum += parseInt($(this).children('td').eq(4).children('input').val());
 			norms[i]= {'color':$(this).children('td').eq(0).children('input').val(), 'format':$(this).children('td').eq(1).children('input').val(), 'price':$(this).children('td').eq(2).children('input').val(), 'vprice':$(this).children('td').eq(3).children('input').val(), 'num':$(this).children('td').eq(4).children('input').val(), 'id':$(this).children('td').eq(5).children('input').val()};
 			i ++;
 		});
@@ -366,7 +370,8 @@ $(document).ready(function(){
 					norms:JSON.stringify(norms),
 					images:JSON.stringify(images),
 					token:'{pigcms:$token}',
-					catid:'{pigcms:$catid}'
+					catid:'{pigcms:$catid}',
+					sort:$("#sort").val()
 					};
 		$.post('index.php?g=User&m=Store&a=productSave', data, function(response){
 			if (response.error_code == false) {

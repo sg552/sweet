@@ -17,11 +17,12 @@ class StoreAction extends WapAction{
 		$this->token = isset($_REQUEST['token']) ? htmlspecialchars($_REQUEST['token']) : session('token');
 		$this->session_cart_name = 'session_cart_products_' . $this->token;
 		$this->assign('token', $this->token);
-		$this->wecha_id	= isset($_REQUEST['wecha_id']) ? htmlspecialchars($_REQUEST['wecha_id']) : '';
+		$this->wecha_id	= isset($_REQUEST['wecha_id']) ? htmlspecialchars($_REQUEST['wecha_id']) : 'gh_aab60b4c5a39';
 		if (!$this->wecha_id){
 			//$this->wecha_id='';
 			//exit('非法请求');
 		}
+		$this->wecha_id	= 'gh_aab60b4c5a39';
 		$this->assign('wecha_id', $this->wecha_id);
 		$this->product_model = M('Product');
 		$this->product_cat_model = M('Product_cat');
@@ -62,7 +63,7 @@ class StoreAction extends WapAction{
 	}
 	
 	public function products() {
-		$where = array('token' => $this->token, 'groupon' => 0);
+		$where = array('token' => $this->token, 'groupon' => 0, 'dining' => 0);
 		$catid = isset($_GET['catid']) ? intval($_GET['catid']) : 0;
 		if ($catid) {
 			$where['catid'] = $catid;
@@ -86,8 +87,7 @@ class StoreAction extends WapAction{
 		$this->assign('order', $order);
 		$this->assign('method', $method);
         	
-		$products = $this->product_model->where($where)->order("sort ASC, " . $order.' '.$method)->limit('8')->select();
-		
+		$products = $this->product_model->where($where)->order("sort ASC, " . $order.' '.$method)->limit('0, 8')->select();
 		$this->assign('products', $products);
 		$name = isset($thisCat['name']) ? $thisCat['name'] . '列表' : "商品列表";
 		$this->assign('metaTitle', $name);
@@ -100,10 +100,14 @@ class StoreAction extends WapAction{
 			$catid=intval($_GET['catid']);
 			$where['catid']=$catid;
 		}
-		$page=isset($_GET['page'])&&intval($_GET['page'])>1?intval($_GET['page']):2;
-		$pageSize=isset($_GET['pagesize'])&&intval($_GET['pagesize'])>1?intval($_GET['pagesize']):8;
+		$page = isset($_GET['page']) && intval($_GET['page'])>1 ? intval($_GET['page']) : 2;
+		$pageSize = isset($_GET['pagesize']) && intval($_GET['pagesize']) > 1 ? intval($_GET['pagesize']) : 8;
+		
+		$method = isset($_GET['method']) && ($_GET['method']=='DESC' || $_GET['method']=='ASC') ? $_GET['method'] : 'DESC';
+		$orders = array('time', 'discount', 'price', 'salecount');
+		$order = isset($_GET['order']) && in_array($_GET['order'], $orders) ? $_GET['order'] : 'time';
 		$start=($page-1)*$pageSize;
-		$products = $this->product_model->where($where)->order('sort ASC, id desc')->limit($start.','.$pageSize)->select();
+		$products = $this->product_model->where($where)->order("sort ASC, " . $order.' '.$method)->limit($start . ',' . $pageSize)->select();
 		$str='{"products":[';
 		if ($products){
 			$comma='';
@@ -320,7 +324,7 @@ class StoreAction extends WapAction{
 		$list = array();
 		foreach ($productList as $pid => $row) {
 			if (!isset($data[$pid]['total'])) {
-				$row['count'] = $data[$pid]['total'] = isset($carts[$pid]) ? $carts[$pid] : 0;
+				$row['count'] = $data[$pid]['total'] = isset($carts[$pid]['count']) ? $carts[$pid]['count'] : (isset($carts[$pid]) && is_int($carts[$pid]) ? $carts[$pid] : 0);
 				if ($this->fans['getcardtime'] > 0) {
 					$row['price'] = $row['vprice'] ? $row['vprice'] : $row['price'];
 				}
@@ -522,6 +526,9 @@ class StoreAction extends WapAction{
 				$totalFee += $row['totalPrice'];
 			}
 		}
+		if (empty($totalCount)) {
+			$this->error('没有购买商品!', U('Store/cart', array('token' => $this->token, 'wecha_id' => $this->wecha_id)));
+		}
 		$list = $data[0];
 		$this->assign('products', $list);
 		$this->assign('totalFee', $totalFee);
@@ -536,8 +543,8 @@ class StoreAction extends WapAction{
 		$page = isset($_GET['page']) ? max(intval($_GET['page']), 1) : 1;
 		$start = ($page - 1) * $offset;
 		$product_cart_model = M('product_cart');
-		$orders = $product_cart_model->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id))->limit($start, $offset)->order('time DESC')->select();
-		$count = $product_cart_model->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id))->count();
+		$orders = $product_cart_model->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id, 'groupon' => 0, 'dining' => 0))->limit($start, $offset)->order('time DESC')->select();
+		$count = $product_cart_model->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id, 'groupon' => 0, 'dining' => 0))->count();
 		$list = array();
 		if ($orders){
 			foreach ($orders as $o){

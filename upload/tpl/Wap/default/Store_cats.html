@@ -29,12 +29,11 @@
 <volist name="cats" id="hostlist" key="i"> 
 	<php>if ($i > 6) {$k = $i % 6 + 1;} else {$k = $i;}</php>
 	<div class="m-floor">
-	<ul>
+	<ul onclick="location.href='{pigcms::U('Store/products',array('token' => $_GET['token'], 'catid' => $hostlist['id'], 'wecha_id' => $wecha_id))}'" >
 	<li class="tit bgf{pigcms:$k}">
 	<i>{pigcms:$i}F</i>{pigcms:$hostlist.name}
 	</li>
-	<li class="img"><a href="{pigcms::U('Store/products',array('token' => $_GET['token'], 'catid' => $hostlist['id'], 'wecha_id' => $wecha_id))}"><img src="{pigcms:$hostlist.logourl}"/></a></li>
-	<!-- <li class="ad"><a href="/index.php/touch/goods/goodslist/keyword/NEO%09"><img src="style/images/f1-2.jpg"/></a></li> -->
+	<li class="img"><a href="{pigcms::U('Store/products',array('token' => $_GET['token'], 'catid' => $hostlist['id'], 'wecha_id' => $wecha_id))}"><img src="{pigcms:$hostlist.logourl}" style="max-width: 400px;height:180px;"/></a></li>
 	</ul>
 	</div>
 </volist> 

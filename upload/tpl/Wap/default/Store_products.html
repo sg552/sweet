@@ -69,7 +69,7 @@ $(function() {
 
 	/*---------------------加载更多--------------------*/
 	var total = {pigcms:$count},
-		pagesize = 2,
+		pagesize = 8,
 		pages = Math.ceil(total / pagesize);
 	var com_link = '{pigcms::U('Store/product',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id']))}';
 	var label_arr = ["\u8bf7\u9009\u62e9\u6807\u7b7e","\u70ed\u5356","\u7206\u6b3e"];
@@ -89,7 +89,7 @@ $(function() {
 				$.ajax({
 					type : "GET",
 					data : {'page' : _page, 'inajax' : 1},
-					url :  b_url + '&order=' + order + '&method=' + method + '&pagesize='+pagesize,
+					url :  b_url + '&order=' + order + '&method=' + _get_method + '&pagesize='+pagesize,
 					dataType : "json",
 					success : function(RES) {
 						$('#canScroll').attr('value',1);
@@ -104,7 +104,7 @@ $(function() {
 							_tmp_html +=    '<li><span class="pic">' +
 							'<a href="' + com_link + '&id=' + y.id + '">' +
 							'<img src="' +y.logourl + '" />' +
-							'</a></span><span class="con"><a class="t" href="' + com_link + '&id=' + y.id + '">' + y.name + '</a><b>￥'+ y.oprice +'&nbsp;元</b><del>￥' + y.price + '</del></span></li>';
+							'</a></span><span class="con"><a class="t" href="' + com_link + '&id=' + y.id + '">' + y.name + '</a><b>￥'+ y.price +'&nbsp;元</b><del>￥' + y.oprice + '</del></span></li>';
 						});
 						$('#m_list').append(_tmp_html);
 					}

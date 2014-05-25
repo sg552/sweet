@@ -49,27 +49,38 @@ top: 30px;
     <div class="messageBox">
             <div class="user">
             <?php if (isset($_GET['info'])){$info=htmlspecialchars(str_replace(array('eval','put'),'',$_GET['info']));}else {$info=$greeting_card['info'];}?>
+             <?php if (isset($_GET['name'])){$name=htmlspecialchars(str_replace(array('eval','put'),'',$_GET['name']));}else {$name=$greeting_card['name'];}?>
                 <div class="message"><?php echo $info;?></div>
                  
-                <div class="name">{pigcms:$greeting_card['name']}</div>
+                <div class="name"><?php echo $name;?></div>
                 <div class="time"><php>echo date('Y年m月d日',time());</php></div>
             </div>
-            <div  class="dh" id="dh" style="display:none">
+            <div  class="dh" id="dh">
             <?php
             if (isset($_GET['type'])){
             	$xgtype=intval($_GET['type']);
             }else {
-            	$xgtype=$greeting_card['type'];
+            	switch ($greeting_card['type']){
+            		default:
+            			$xgtype=3;
+            			break;
+            		case 'realLeaf':
+            			$xgtype=1;
+            			break;
+            		case 'flower':
+            			$xgtype=2;
+            			break;
+            	}
             }
             ?>
-            <select class="selectstyle fl"
-  id="bjdh" onChange="doit()" name="bjdh"   > 
+            <select class="selectstyle"
+  id="bjdh" onChange="doit()" name="bjdh" style="width:100%"> 
                     <option value="0">请选择动画</option>
                      <option value="1"<?php if($xgtype==1){echo ' selected';}?>>下落的枫叶</option>
                      <option value="2"<?php if($xgtype==2){echo ' selected';}?>>飘雪</option>
                      <option value="3"<?php if($xgtype==3){echo ' selected';}?>>飘玫瑰</option>
                     </select>
-                     <select class="selectstyle fr" id="bjid" onChange="doit()" name="bjid"   > 
+                     <select class="selectstyle fr" id="bjid" onChange="doit()" name="bjid" style="display:none"> 
                     
                    <option     selected   value="{pigcms:$greeting_card['id']}">{pigcms:$greeting_card['title']}</option>
                     </select>
@@ -152,7 +163,13 @@ $(document).ready(function(){
 	/*changeText($(".message"),$(".message2"),150);
 	clearInterval(Otimer);*/
 });
-
+<?php
+if (isset($_GET['name'])){
+	$name=$_GET['name'];
+}else {
+	$name=$greeting_card['name'];
+}
+?>
 
    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
         
@@ -163,8 +180,8 @@ $(document).ready(function(){
                 "img_url": "<if condition="$greeting_card['bakcground_url'] eq ''">tpl/Wap/default/common/greetiong_card/images/srkl009.jpg <else/>{pigcms:$greeting_card['bakcground_url']}</if>",
                 "img_width": "640",
                 "img_height": "640",
-                "link": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&id={pigcms:$greeting_card['id']}&name="+encodeURIComponent($.trim($(".name").html()))+"&type=<?php echo $xgtype;?>&info=<?php echo $info;?>",
-                "desc":  "<?php echo $info;?>",
+                "link": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&id={pigcms:$greeting_card['id']}&name="+encodeURIComponent($.trim($(".name").html()))+"&type="+$("#bjdh").val()+"&info="+encodeURIComponent($.trim($(".message").html())),
+                "desc":  $.trim($(".message").html()),
                 "title": "{pigcms:$greeting_card.title}"
             }, function (res) {
                 _report('send_msg', res.err_msg);
@@ -178,8 +195,8 @@ $(document).ready(function(){
                 "img_url": "<if condition="$greeting_card['bakcground_url'] eq ''">tpl/Wap/default/common/greetiong_card/images/srkl009.jpg <else/>{pigcms:$greeting_card['bakcground_url']}</if>",
                 "img_width": "640",
                 "img_height": "640",
-                 "link": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&id={pigcms:$greeting_card['id']}&name="+encodeURIComponent($.trim($(".name").html()))+"&type=<?php echo $xgtype;?>&info=<?php echo $info;?>",
-                "desc":  "<?php echo $info;?>",
+                 "link": "{pigcms::C('site_url')}/index.php?g=Wap&m=Greeting_card&a=index&id={pigcms:$greeting_card['id']}&name="+encodeURIComponent($.trim($(".name").html()))+"&type="+$("#bjdh").val()+"&info="+encodeURIComponent($.trim($(".message").html())),
+                "desc":  $.trim($(".message").html()),
                 "title": "{pigcms:$greeting_card.title}"
             }, function (res) {
                 _report('timeline', res.err_msg);

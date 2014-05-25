@@ -27,7 +27,6 @@ class SchoolAction extends  WapAction{
         $setSchool  = $t_school->where($where)->find();
         $photolist  = M('photo_list')->where(array('token'=>$token,'pid'=>$setSchool['album_id']))->select();
         $this->assign('info',$setSchool);
-       // var_dump($setSchool);
         $this->assign('flash',$photolist);
         $this->display();
     }
@@ -35,10 +34,6 @@ class SchoolAction extends  WapAction{
     public function public_list(){
         $cid        = filter_var($this->_get('cid'),FILTER_VALIDATE_INT);
         $token      = filter_var($this->_get('token'),FILTER_SANITIZE_STRING);
-        //$t_classify = M('classify');
-        //$where      = array('token'=>$token,'id'=>$cid);
-        //$classid    = $t_classify->where($where)->getField('id');
-        //echo $classid;
         $type      = trim(filter_var($this->_get('type'),FILTER_SANITIZE_STRING));
         if(isset($type) && $type == 'school'){
           $t_recipe= M('recipe');
@@ -263,14 +258,14 @@ class SchoolAction extends  WapAction{
         $t_s_classify = M('school_classify');
         $market = array();
         foreach($arrids as $k=>$val){
-            $market[$k]['id']      = $val['id'];
-            $market[$k]['sid']     = $val['sid'];
-            $market[$k]['my_score']     = $val['my_score'];
-            $market[$k]['s_name']   = $t_s_students->where(array('id'=>$val['sid'],'token'=>session('token')))->getField('s_name');
-            $market[$k]['sex']   = $t_s_students->where(array('id'=>$val['sid'],'token'=>session('token')))->getField('sex');
-            $market[$k]['bj_name'] = $t_s_classify->where(array('sid'=>$t_s_students->where(array('id'=>$val['sid'],'token'=>session('token')))->getField('bj_id'),'token'=>session('token')))->getField('sname');
-            $market[$k]['km_name'] = $t_s_classify->where(array('sid'=>$val['km_id'],'token'=>session('token')))->getField('sname');
-            $market[$k]['qh_name'] = $t_s_classify->where(array('sid'=>$val['qh_id'],'token'=>session('token')))->getField('sname');
+            $market[$k]['id']       = $val['id'];
+            $market[$k]['sid']      = $val['sid'];
+            $market[$k]['my_score'] = $val['my_score'];
+            $market[$k]['s_name']   = $t_s_students->where(array('id'=>$val['sid'],'token'=>$token))->getField('s_name');
+            $market[$k]['sex']      = $t_s_students->where(array('id'=>$val['sid'],'token'=>$token))->getField('sex');
+            $market[$k]['bj_name']  = $t_s_classify->where(array('sid'=>$t_s_students->where(array('id'=>$val['sid'],'token'=>$token))->getField('bj_id'),'token'=>$token))->getField('sname');
+            $market[$k]['km_name']  = $t_s_classify->where(array('sid'=>$val['km_id'],'token'=>$token))->getField('sname');
+            $market[$k]['qh_name']  = $t_s_classify->where(array('sid'=>$val['qh_id'],'token'=>$token))->getField('sname');
         }
         $this->assign('countshow',$count);
         $this->assign('market',$market);

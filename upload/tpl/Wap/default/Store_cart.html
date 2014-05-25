@@ -75,7 +75,7 @@ function full_update(rowid,price) {
     var _this = $('#qty'+rowid);
     var this_val = parseInt($(_this).val());
     if (this_val < 1 || isNaN(this_val)) {
-        alert('购买数量不能小于0！');
+        alert('购买数量不能小于1！');
         $(_this).focus();
         return false;
     }

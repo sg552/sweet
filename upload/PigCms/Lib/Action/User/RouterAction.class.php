@@ -5,9 +5,12 @@ class RouterAction extends UserAction{
 	public function _initialize() {
 		parent::_initialize();
 		$this->tokenWhere=array('token'=>$this->token);
-		$this->server='http://wifi.pigcms.cn/';
+		//$this->server='http://wifi.pigcms.cn/';
+		$this->server='http://ap.9466.com/';
 	}
 	public function index(){
+		$routerUrl=Router::login($this->token,'wechaid');
+		//
 		$db=D('Router');
 		$where=array('token'=>$this->token);
 		$count=$db->where($where)->count();
@@ -21,7 +24,6 @@ class RouterAction extends UserAction{
 	public function lists(){
 		$record=M('Router')->where(array('id'=>intval($_GET['id'])))->find();
 		$wxuser=M('Wxuser')->where(array('token'=>$this->token))->find();
-		//?page=1&id=0017A500075D&a=sBqqfBqEsBqqfBqE&b=WVqq2IqXgW9qqpqP
 		$this->assign('tab','list');
 		$page=intval($_GET['page'])?intval($_GET['page']):1;
 		$data=array(
@@ -32,7 +34,7 @@ class RouterAction extends UserAction{
 		'b'=>substr($wxuser['routerid'],0,16)
 		);
 
-		$rt=$this->curlPost($this->server.'api/node/client?page='.$page.'&id='.$record['time'].'&gw_id='.$record['time'].'&a='.substr(trim(C('router_key')),0,16).'&b='.substr($wxuser['routerid'],0,16),$data);
+		$rt=$this->curlPost($this->server.'api/node/client?page='.$page.'&id='.$record['gw_id'].'&gw_id='.$record['gw_id'].'&a='.substr(trim(C('router_key')),0,16).'&b='.substr($wxuser['routerid'],0,16),$data);
 		$rt=str_replace('callback(','',$rt);
 
 		$rt=substr($rt,0,-1);
@@ -53,12 +55,18 @@ class RouterAction extends UserAction{
 		$where=array();
 		$where['token']=$this->token;
 		$where['id']=intval($_GET['id']);
+		//
+		$wxuser=M('Wxuser')->where(array('token'=>$this->token))->find();
+		$record=M('Router')->where(array('token'=>$this->token,'id'=>intval($_GET['id'])))->find();
+
+		$rt=$this->curlPost($this->server.'api/node/delete?id='.$record['gw_id'].'&a='.substr(trim(C('router_key')),0,16).'&b='.substr($wxuser['routerid'],0,16));
+		
+		//
 		M('Router')->where($where)->delete();
 		$this->success('设置成功',U('Router/index'));
 	}
 	public function set(){
 		$this->assign('tab','list');
-		//$record=M('Router')->where($this->tokenWhere)->find();
 		$wxuser=M('Wxuser')->where($this->tokenWhere)->find();
 		if (!$wxuser['routerid']){
 			$this->error('请先设置商家信息',U('Router/config'));
@@ -77,7 +85,6 @@ class RouterAction extends UserAction{
 				);
 				$rt=$this->curlPost($this->server.'api/node/create',$data);
 				$rt=str_replace('callback(','',$rt);
-				
 				$rt=substr($rt,0,-1);
 				$arr=json_decode($rt,1);
 
@@ -86,10 +93,10 @@ class RouterAction extends UserAction{
 					'name'=>$this->_post('gw_name'),
 					'wechat'=>$this->_post('public_wechat_id'),
 					'qrcode'=>$this->_post('qrcode_url'),
-					'time'=>$this->_post('gw_id'),
+					'time'=>time(),
 					'token'=>$this->token
 					);
-					$row['gw_id']=$arr['data']['id'];
+					$row['gw_id']=$this->_post('gw_id');
 					M('Router')->add($row);
 					$this->success('设置成功',U('Router/index'));
 				}else {
@@ -114,9 +121,7 @@ class RouterAction extends UserAction{
 		
 		//M('Router_config')->where($this->tokenWhere)->delete();
 		
-		
-		
-		
+
 		$thisCompay=M('Company')->where(array('token'=>$this->token,'isbranch'=>0))->find();
 		if (!$thisCompay){
 			$this->error('请先在lbs里设置公司信息',U('Company/index'));
@@ -149,7 +154,7 @@ class RouterAction extends UserAction{
 				//
 				M('Keyword')->where(array('token'=>$this->token,'module'=>'Router_config'))->save(array('keyword'=>$this->_post('keyword')));
 				//
-				$data['bussiness_id']=$wxuser['routerid'];
+				$data['b']=substr($wxuser['routerid'],0,16);
 				$this->curlPost($this->server.'api/business/edit',$data);
 				//
 				$this->success('设置成功');
@@ -179,19 +184,7 @@ class RouterAction extends UserAction{
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 	function curlPost($url, $data,$showError=1){

@@ -58,7 +58,7 @@ float:none;
 #indicator > li.active {
 background: #cccccc;
 }
-#cate19 .mainbg{ 
+#cate19 .mainbg{
 	width:100%;
 	position:fixed;
 	z-index:1
@@ -116,7 +116,6 @@ overflow: hidden;
 margin-bottom: 18px;
 }
 .title {
-  font-size: 12px;
   margin-top:3px;
   overflow: hidden;
 	text-overflow: ellipsis;
@@ -141,5 +140,5 @@ margin-bottom: 18px;
   cursor: pointer;
 }
 .swiper-active-switch {
-  background: #fff;
+  background:rgba(255, 255, 255, 0);
 }

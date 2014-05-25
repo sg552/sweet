@@ -233,7 +233,7 @@ h2{
             <div>
             <h2>{pigcms:$vote.title}</h2>
               <span class="date">{pigcms:$vote.statdate|date="Y-m-d",###} / {pigcms:$vote.enddate|date="Y-m-d",###}</span>
-               <p class="modus">{pigcms:$vote['info']|html_entity_decode}</p><p>
+               <p class="modus">{pigcms:$vote['info']|htmlspecialchars_decode|htmlspecialchars_decode}</p><p>
          <br/>
                <if condition="($vote['picurl'] neq '') AND ($vote['showpic'] eq 1) ">
                <p><img src="{pigcms:$vote.picurl}" style="width:100%;" /></p>
@@ -256,7 +256,7 @@ h2{
                 <span style="width:{pigcms:$li.per|default=0}%;background-color:#<?php echo rand(100000,999999);?>" class="vote_progress"></span>
                 </div>
                   </div>
-                  
+
               </li>
           <else/> <!--单选 图片投票开始-->
                 <li>
@@ -276,7 +276,7 @@ h2{
 <else/><!--多选 投票开始-->
                     <if condition="$vote['type'] eq 'text'"><!--多选 文字投票开始-->
               <li>
-                
+
                 <input tabindex="{pigcms:$i}" type="checkbox" name="vid" value="{pigcms:$li['id']}"  id="line-checkbox-{pigcms:$i}">
                 <label for="line-checkbox-{pigcms:$i}">{pigcms:$li.item}</label>
                 <div class="progress-bar orange shine">
@@ -285,12 +285,12 @@ h2{
                 <span style="width:{pigcms:$li.per|default=0}%;background-color:#<?php echo rand(100000,999999);?>" class="vote_progress"></span>
                 </div>
                 </div>
-                
+
              </li>
           <else/> <!--多选 图片投票开始-->
                 <li>
                 <span><a href="{pigcms:$li.tourl}"><img src="{pigcms:$li.startpicurl}" heigth="260" style="width:100%;max-height:720px;" ></a></span>
-               
+
                   <input tabindex="{pigcms:$i}" type="checkbox" name="vid" value="{pigcms:$li.id}"  id="line-checkbox-{pigcms:$i}">
                 <label for="line-checkbox-{pigcms:$i}">{pigcms:$li.item}</label>
                 <div class="progress-bar orange shine">
@@ -313,9 +313,9 @@ h2{
                     </volist></p>
                    <br/> 活动已经过结束<br/>
          <?php   }else{
-               echo "活动已经过结束"; 
+               echo "活动已经过结束";
             }
-            
+
         }elseif($vote['statdate'] > time()){
             echo "活动还没正式开始";
         }else{

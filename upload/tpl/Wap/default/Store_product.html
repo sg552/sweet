@@ -1,5 +1,10 @@
 <include file="Store:header"/>
-<style>#content{display:none;width:100%;overflow:hidden;position:absolute;top:0}#imgs{-webkit-transition-property:-webkit-transform;-webkit-transition-duration:0.5s;-webkit-transition-timing-function:ease-out;-webkit-transform:translate3d(0px,0px,0px);height:100%}#imgs li{float:left;text-align:center;height:100%;padding-top:65px}#imgs img{width:94%;-webkit-transform:translate3d(0px,0px,0px)}.bg{width:100%;top:0;left:0;background:#000;opacity:0.8;position:absolute;display:none}.close{display:none;position:absolute;z-index:10;right:3%;top:20px;color:#fff;cursor:pointer;background:#999;border-radius:3px;padding:5px 8px}.s_count{display:none;position:absolute;z-index:10;right:3%;top:25px;color:#fff;margin-right:60px}</style>
+<style>
+#content{display:none;width:100%;overflow:hidden;position:absolute;top:0}#imgs{-webkit-transition-property:-webkit-transform;-webkit-transition-duration:0.5s;-webkit-transition-timing-function:ease-out;-webkit-transform:translate3d(0px,0px,0px);height:100%}#imgs li{float:left;text-align:center;height:100%;padding-top:65px}#imgs img{width:94%;-webkit-transform:translate3d(0px,0px,0px)}.bg{width:100%;top:0;left:0;background:#000;opacity:0.8;position:absolute;display:none}.close{display:none;position:absolute;z-index:10;right:3%;top:20px;color:#fff;cursor:pointer;background:#999;border-radius:3px;padding:5px 8px}.s_count{display:none;position:absolute;z-index:10;right:3%;top:25px;color:#fff;margin-right:60px}
+.infodetail img{
+    max-width: 300px;
+}
+</style>
 <!--轮播--->
 <div class="focusPic">
 	<div class="views">
@@ -90,7 +95,6 @@ var focusPic = new Swiper('.focusPic .views',{pagination: '.focusPic .tabs',auto
 </div>
 </form>
 </div>
-
 <div class="d-info">
 	<div class="detailinfo">
 		<ul class="tabs"><li>详情</li></ul>
@@ -98,11 +102,11 @@ var focusPic = new Swiper('.focusPic .views',{pagination: '.focusPic .tabs',auto
 			<div class="warp">
 				<div class="li">
 					<ul class="detail-list">
-					<li>{pigcms:$product.name}</li>
+<!-- <li>{pigcms:$product.name}</li> -->
 					<volist name="attributeData" id="attribute">
 					<li><label>{pigcms:$attribute.name}：</label><span>{pigcms:$attribute.value}</span></li>
 					</volist>
-					<li>{pigcms:$product.intro}</li>
+<div class="infodetail">{pigcms:$product.intro}</div>
 					</ul>
 					<!-- <div class="m-page more_detailinfo">
 						<div class="pg-num"><a href="{pigcms::U('Store/productDetail',array('token'=>$_GET['token'],'id'=>$product['id'],'wecha_id'=>$_GET['wecha_id']))}">查看图文详情</a></div>

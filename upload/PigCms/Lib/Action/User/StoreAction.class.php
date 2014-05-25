@@ -308,7 +308,7 @@ class StoreAction extends UserAction{
 		$catid = intval($_GET['catid']);
 		$product_model = M('Product');
 		$product_cat_model = M('Product_cat');
-		$where = array('token' => session('token'), 'groupon' => 0);
+		$where = array('token' => session('token'), 'groupon' => 0, 'dining' => 0);
 		if ($catid){
 			$where['catid'] = $catid;
 		}
@@ -523,7 +523,7 @@ class StoreAction extends UserAction{
 	
 	public function orders(){
 		$product_cart_model=M('product_cart');
-		if (IS_POST){
+		if (IS_POST) {
 			if ($_POST['token']!=$this->_session('token')){
 				exit();
 			}
@@ -538,17 +538,9 @@ class StoreAction extends UserAction{
 				}
 			}
 			$this->success('操作成功',U('Store/orders',array('token'=>session('token'),'dining'=>$this->isDining)));
-		}else{
-			
-
-			$where=array('token'=>$this->_session('token'));
-			if ($this->isDining){
-				$where['dining']=1;
-			}else {
-				$where['dining']=0;
-			}
-			$where['groupon']=array('neq',1);
-			if(IS_POST){
+		} else {
+			$where = array('token'=>$this->_session('token'), 'groupon' => 0, 'dining' => 0);
+			if (IS_POST) {
 				$key = $this->_post('searchkey');
 				if(empty($key)){
 					$this->error("关键词不能为空");
@@ -559,9 +551,9 @@ class StoreAction extends UserAction{
 				$count      = $product_cart_model->where($where)->limit($Page->firstRow.','.$Page->listRows)->count();
 				$Page       = new Page($count,20);
 				$show       = $Page->show();
-			}else {
+			} else {
 				if (isset($_GET['handled'])){
-					$where['handled']=intval($_GET['handled']);
+					$where['handled'] = intval($_GET['handled']);
 				}
 				$count      = $product_cart_model->where($where)->count();
 				$Page       = new Page($count,20);
@@ -731,7 +723,8 @@ class StoreAction extends UserAction{
 		$list = array();
 		foreach ($productList as $pid => $row) {
 			if (!isset($data[$pid]['total'])) {
-				$row['count'] = $data[$pid]['total'] = isset($carts[$pid]) ? $carts[$pid] : 0;
+				$data[$pid] = array();
+				$row['count'] = $data[$pid]['total'] = isset($carts[$pid]['count']) ? $carts[$pid]['count'] : (isset($carts[$pid]) && is_int($carts[$pid]) ? $carts[$pid] : 0);
 				$data[$pid]['totalPrice'] = $data[$pid]['total'] * $row['price'];
 			}
 			$row['formatTitle'] =  isset($catlist[$row['catid']]['norms']) ? $catlist[$row['catid']]['norms'] : '';

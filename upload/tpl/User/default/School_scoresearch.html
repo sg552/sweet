@@ -58,7 +58,7 @@
 
                   <TD>{pigcms:$list['qh_name']}</TD>
                  <TD>
-                 <a href="{pigcms::U('School/assess_course',array('token'=>$token,'id'=>$list['id'],'tid'=>$list['tid'],'type'=>'edit'))}"><font color="red">编辑</font></a> &nbsp;&nbsp;
+                 <a href="{pigcms::U('School/student_score',array('token'=>$token,'scid'=>$list['id'],'id'=>$list['sid'],'type'=>'edit'))}"><font color="red">编辑</font></a> &nbsp;&nbsp;
 <a class="btn" href="{pigcms::U('School/del_item',array('token'=>$token,'id'=>$list['id'],'deltype'=>'scoresearch'))}" onclick="return(confirm('确定要删除吗？'))"  title="删除"><font color="#CCC7C7">删除</font></a>
 </TD>
                 </TR>

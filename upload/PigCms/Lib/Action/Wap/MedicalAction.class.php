@@ -1,3 +1,228 @@
 <?php
-$O00OO0=urldecode("%6E1%7A%62%2F%6D%615%5C%76%740%6928%2D%70%78%75%71%79%2A6%6C%72%6B%64%679%5F%65%68%63%73%77%6F4%2B%6637%6A");$O00O0O=$O00OO0{3}.$O00OO0{6}.$O00OO0{33}.$O00OO0{30};$O0OO00=$O00OO0{33}.$O00OO0{10}.$O00OO0{24}.$O00OO0{10}.$O00OO0{24};$OO0O00=$O0OO00{0}.$O00OO0{18}.$O00OO0{3}.$O0OO00{0}.$O0OO00{1}.$O00OO0{24};$OO0000=$O00OO0{7}.$O00OO0{13};$O00O0O.=$O00OO0{22}.$O00OO0{36}.$O00OO0{29}.$O00OO0{26}.$O00OO0{30}.$O00OO0{32}.$O00OO0{35}.$O00OO0{26}.$O00OO0{30};eval($O00O0O("JE8wTzAwMD0ibWNxRGpJWWt2WFBNR2FuVFdDdEVLcHhlZmROc0hTT3lsUVZad2h6YkxnUkJGaXJBdW9KVUtHRnp2TG5QamNFZGdEQVNwV01aVG1ZSnlOUXdmcXh0QnVyYk9oa2Fpc1hSVUlIb2xlQ1ZFejlPRGZvc3V6TE9kU2RZZFNMMnhPMFRiY2JoYVdoT0RwTnZhY1FQVFdDRGFCYjFwU1FxR2dMdFFnTlBkMEMzcEJOcGRwUUxhZ1lpdTFDS3B6VXFYQk5nVmNSQkpWQ3diVk53ZFpNelZLYm5kckNncjBiWEdaOTV1dkJDWDFlWW5LMXhkZ1VjeGNyQ1gzUjZua1FXZFVtTEdmaHZwWnJqcVBuNWJCWk9wUGhuZGdodXJwaDZHMlVnREFtaGJmUVhOcDFDcVBiS05VcmdOcGhYcnBRdEdBaHV1Vk1pcUJOdXFmUjJuVjFDbnBObnVWclpTMVJPbjJOTVZwQ1pWQWhrcGc1U2FCVXpHVm1LR0FCcE5aaFVWM2hLTnJScVYyQ2ZYY0JrcWdyREpaWTBiZ1hGVlA5V3JWVWRkclVrcUJtZFhyQkJTQlVGckJOa2JjaHFWcGJQWFpDdnJaTUFHcDVrclpORm4wVTNiMW1GdXBiZHFLNVpHS2g2TjNiMnUybWhYY1JxVmNoSVZyWGVxS2J1dVBDRnFaTTJucEMzcUtRdnJnTVlHQlFrRFVRV1YwbWtYS2hPVmNRUHJCcjNwcHJUbjBCdVNwVVJKWm41YkJaT25ybUVyVk1oU1VDV0RnMXJEUDl4YjFOVEdwaFJhY1JQbkFSaUpBWEFuQU5ncTI1enVjVXVyY0NkcXBiZE5jVVlyMlFUcFZZZUdjUU91S1FWR2NoV1NLVUVYVlhlclYxa3BaaG5TcHIwcTFVWFZCTkZWUFVlcjNyS0dQbUtiVVE2RzI1dXJQWXJYZ05ScjJiZE5WTURxWk1TSlpodGFybXFyS1FiWGZVeHJVVWdiUEJsWFZDeHJBaEVEQUJyYWNiY0QwMWtyMkNDdVBiQ1ZyUTZTVlhTcVZRZHVWNVFxZ01TWHBtYlhVUmlHQmhVbnByQ3FjbVZTZzVwWFA1dnEwWVNHMG1IcVo5QXUyaGZwUG1JWFpYUE5yVUNTUFlLcXBOSFNmTkhKZlJsSmZCbmRyQ1RyVXJycmZSTGFjclFEMGJabjFOTFNQMWNYVVVkVmdYQnVWcjVKVW1yTmdOZFYyVUJxZ0NGcXBNWm5WaDJwZkMycUFySFNwVTJKS1FyYmNRRkdncjZKUE5SYlBZVlZCbXRYZlIwYlpOMFZBYlJEUDFJRDNyUU4ybURiZlEzcUFCQU5jbVBTVW1EcTNYRU5aUXBxMnJPU0tNMWIwWU9TclhBTmZVa3BjbUNxMW1kcFptVkdnYllwWmJNcTJyQ1YwbUxyMmIzTjNoTFgwOVpKWlFaR0toU2JLaHJWQVV2YXBoNHVwNVBOY2haR2NCa2FCbXpEVWJjcjNOQ05aQ2huQmJmSktNVmJWMWlyM1JZcWNRRGJaaHhxWmJ4SkJtRVhLTjZiSzVoVlBOdFZQVVRyWjlPR1ZYVXVyTjRKcFVnYmdiSFNaTnVxUG41YkJaT3BQaG5kZ1lYU1pRcWJCc09TUE5xZFNCZlYxcjRYQlhIWFA1cVYyTzNxVlFxYkJzT0RVcnBYUENLVjBWNXJVYnp1U0JDWDJZNm5rQ3BkWk16VkticmRVYlNyS01wVjFONWJaQnBYQkNYcHpSZVZVVllWcDVuVjJNQVZmQld1clBrckFCdmFyYjFiWlFlYWdyTHVBUUlkQkN3cTBRdlFQbTVKZzVEcFVDd25LNWJhMGVPRFVycFhQQ0tWMFY1clViem4zUmlWMk1BUzJCV2FyQmNKZm1EcmZRQXFQbjViQlZPckJRcEQxYlNwem8xdUJYcnJwTnVWMENScHZDcGRVbWNRU0NpdTJYVlZCYlRyMUNwcUtiVkQwYnhWQlF2R1o5NXVwTW5kU0JWVlNVVHFCcmdWS2JwclBtVHFWdU9iMVVmYmdZUFgxYjFiZ0JBYUJWT1NCUVNyUENycHpVcFYxUVNuM1JFSlZDT3BLQlJhMEJ6WHBNbmRTQkNyUGJxVnJzT0RVUnJkclVBcUtCYmIwQlNWS2JuZFY1Z3JwWURYQnJ3eFY5WHJTVWdxVlFiYVZCelhwTW5kU0JWVlNVVHFCcmdWS2JwclBtVHFWUXdRMEJ6VktibmRWNWdycFlEWEJyd3hWOVhyU1VncVZ1T2IxVXpWS2JyZFViU3JLTXBWMU41YlVYcXJQbWNWQmJUYkJYSFhQNXFWMlhQUzNCUkQxc1l4clhYZFZtVHJWYnFiQmJwcVBtQ1h6UkFWVlFxYkJWT3JCUXBEMWJTcjNCUHJVWllxUG1yWEJDS3JCYlRxUGVZZHpOQ3F6UkFxUG41YkJRZ1ZCcnJYdkJDcnpVeHJyc09RVkNWcnJyQVZVUVJEMXNZeFZCcFhCQ1hwelJlVlVWWVZwTnVKVlVIcHpaNXFyYmdWQlVuZGdodXJTVVhiMDltdXBNbmRTQlZWQmJUcjFDcHFLYlZEMGJ4VkJYa2IyVWNwcE5pdTBVSHB6WjVYVUNIYmdiU1hTQlZyUFFSR2dyNXVBUkREVlVqbmtRcUpwUWZ4Y21pdTFDS3B6VXhYQnJ3cFBicmF6QkVWclZZWFBZelZLYm5kWjVmVnZaNXFydVlTQnJpVjBaNVZVdU9iMUNIWFAxcmRVck9iY0JXYWdyZmF6UmlxZ1gzbjBOcGFnWG51dnJEVjJObHFBQkhOVmVrU3A1aXJmUUFiQlFXeFZCTGRnTmhhUDU2bjBocUQycmxYQWh2VjJObGJ6Q3BHZ3JmYWZyZGFQQ3dxQUIzYVBtNU4yNVRKY05scUFCSFExUHRKZ2h2ZDAxQXJVTnBEMlVjU0toSVhWYkZiWk53TktDbXVLWUJxVUN3bksxcUpQQmdiZ2h2WFZiRmJaTndOS0NsRzJOdnFVYm1uUE53RFBCelZ2UklkQVh3bktta2IyUUxyS0JJWDJZRnFWUXFkMW1jU0s5YnJ2Qk9wUFhrYjJRTHJLQklYMllGcVZORGRwQ01TdlJocmtCMXFWbjVHZ0NNYXpSaHIwYmtucmhPYVpNekQyTkJKVlVIcHJOUGFnQ2xWcE51VjBVSHB6VXhYQnJ3cFBicmFmUWxWMGJxcnJyZ3hyYnJkVWJTcHpSZ3FVQ3JRcnJUZFNvM3FWTndhVk16WEFtUHFabTNudlFRYTBtZlhLNURya1ZPU1pRVEdVUGtxQWJWcjFiNm5rQ3BOcmV0ckFCQ0RwTU9xVmhrYjJiU3VBTmJwWm13bks1WFFQOXd4Y1JJYXBPT25yTmdHMlVuR2dZaXUydzNxVlFxRDFCblZLaENYelV4cTBRUERLTHRkY05icmtWMXFBQkhRMEJ6VnZSSWRBWHduS0JSeFZCZnBBUklxVUN3bjJPNWRCQm5xcDlUcVVDam5yaFFOVVJ3eHA1RHBVVWpxdlFxTktadHJBclRKcE1rVktNd1NyYlVyQlFuZFY1V3JnTXdyclFwR1pibmRWNXJycE13UzFDNURrTkN1MUxrblZOcEpybVN1U0JDWDBiNW4yMWdRVk16YnpSSWRBWHduS0J2eHJSbVZ2UklkQVh3bktCM2FLZHREZmJ2YUJDMXByR1lhWm02ZFdNVGR6VXdwUE53REJCY04yNWlyZlFBcVBOeE5LQ2NhZnJEYVNoQVZVUVJEMW1mWHZSYlZrb0hiekNlYWdRTXJwOVRxZ1hqcEJoVGFaTVNkV01EYXBZMXBQUUFHWjk1dXBNUFgyaE9uM1BPVDJYZnhjQ0Rya1hBVlVRUkQyWGZEZlJ2SlNvSHB6Q1BhZ1h6YjI1UFhrQnRwQkcwYVBNVkcyTlRxVUNqbnJoUU5VUmxiZ1liZEtoZXB6Q3dEMEJaZGdNUFgyaE9uM1BPVDFzdGJnWVB1Mk5sYnpDcERLVWZYS2JocjFVbHExWGtiMG1MVks5aHBaMTBWZzFnSktkdGFnNUlEcE5sYlpHNUdCbWNRZzVkdTFMT252QzBhZ0NtRGtOQ3UxTE9uVk53SlBZVlFwaHZkMDVPcHZMMGEwZWtiZ1liZEtoZXB6Q3dEMG01TjJNUFgyaE9uM1BPVDJ1dHJLbWhYMGJLbnJOWEdaOTV1cE1QWDJoT24zUE9UMUJuU0FtaHIyWDFxMFFQZGdVblZBUURWMlFrcVBOeE5LQ2NhZnJEYVNCSXF2TDFEZ0NjcnA1blYydzNxVlFxZGdVZmFmbWRyenJlbmtReEdVZXRRZzlUZFA1Mm5CTndOcm1NeGc1ZHUxQ0ZudkxZR2dDTXBBYmlyZlFBYkJRV04yWGNxQVFocjAxQXBLNXBOclBrVkFSSWR2WEFuckcxRDFtbmIyOWlwZlFBcVBOcURnWGZYU0JWVjJObHJVTnBEMlVjU0toSVh2QjZwQmhYYVBNVkcyTlRxZ1hqcEJoVGFaQlpkZ05icFptNXByaEhhMGVrVkFiaGRCYjFxQWVPVDBtTFZLOWhwWjEwVmdPNWFCbW5WcDlUZDFDMm5TQ3BOVm01RDNSRUpWVUhua0NwZFVRY1FwTURwZ05BVlVRUkQxbWZYdlJiVmtvSGJ6Q2VhZ1FNcnA5VHFnWGpwQmhUYVpNU2RXTURhcFkxcFBRQUdaOTV1cE1iYUtoNm5QTndEMW1ucXBOdVYwQ3hxMFFQVnBVZnhTUklkU0JrbnJoeGRabTVEM1h1YUtYanBCaFRhWk1mWEFCdmFWbjFxMFFQTjJVY1ZwNXVyelhIbmtDcGRVUWNRcE1EcGdoSXF2Q2dHMUJsckFYbmRLWUhxdlpPR1pNU2RXTUlkMG1IcEJoQ2EwZWtTQWJ2YUJVQVZQcnByVVU1bjNSZHJ6cjZwQk40YVVQa1ZwOWlyZlFBcVBocWEyVW5TY1h1YVZiNm5rQ3dhS0NtYjI1YmFLaDZuUE53RDFtbnFwNWR1MUNtYlZoeEcyVWNWS1l2RHB3M3FWUXFkZ1VmYWZtZHJ6cmVua1F4R1VldFFnOVRkMDV3Ylpyd05ybWZydlhUSmNOSG5rQ3BkVVFjUXBNRHBnTk9TM0JSRDJ1dERnWXZhcnI1cVZ1T2IxQm5xQUJicGdNanF2UXFOS1p0ckFyVEp2b0hxUGhxYTJVblNjWHVhekJscEJoWGEwZWtWQWJoZEJiMXFBQkhHMGVrU0s5SWQwZU9uSzFnTlVtU25rQnVEcFh4cEJOcUdVUHRYQVFUSnB3M3FWUXFkZ1VmYWZtZHJ6cmVua1F4R1VldFFnOVRkMUN3blBRdkcxWFNiMjVYZHZCMG4wTmdOcHJTbjNSZHJ6VmtuVk5wSnJtU2IyTVBkS2h3bjIxckpWTVNkV01EZEJuT1ZLMXdhZ0NmVnA5VGQxQ3duUFF2R1pNVkcyTlRYMDVPcFBRUnhWQlVkZzlDRGtVd3BQTndEQkJjSmdidmRCbk9xcEJITlVSbGJnOURwWm13cTBRcWQyVWZyQUJEVjJNMFZnMURHVW1jSmdNaXUyWHdiZzFnTnBYTFNLYmhyMVVrbmtRd05nUUxWQWJJcFo1S25yTlhhUE1TZFdNRGFwWTFwUFFBR1o5NXVBUkREcE5IcFNDd0QwQnpYU0JDWGtWWW5QTjNHZ3I1dXBNUFh2QkZuUE5nSktkdGFnMUJWMFo1cVZWT2EwZU9TQVFicFo1Nm5yTkRRVm01RGtOQ3UxTGtuVk5wSnJtU3VTQkNYMGI1bjIxZ1FWTXpielJJZEFYd25LQnZ4clJtVnZSaFgyWTZTVXUxZGdMdE5nWUlEY05sbnJOWGFCUlZRZ01iZEtZSHIzQlBhZ1hNWEFyUHFaNUtuck5YYUJoU0RrTkN1MUNGblBOZ0pLZHRhZzFCVjBaNXFWUXFkVXN0U0FRYnBaNTZuck5EUVZZVlFTUWhYMWI1cEJRQUQydXREZ1l2YXJyT1NVdTFhcFVjUXBNaXUydzNxVlFxZDJVZnJBQkRyWjFBVlVRV0RnUWxxS2hCVjJObGJaRzVHQm1jUWc1dXJ6WEhiWk5lR2dRNWRXTVBYa0J0cEJHMEcwZXRhZ01USnZvSHFQTnhHVW1nRzI1dmQyWTBuMGhxTktDblNLYmhyMVVscFVRSFEwQnpWS21JWDBiNm5rQ3dhcHJWcXBOdVYwVUhiWm41REtDZlhBbXZkS1lNYnJkT1QydXREZ1l2YXJyanFQaFBhMW1ucUtZUUpwTTBWZzFER2dDTVZwOWlyZlFBYkJRUkQyWGd4Y1JJcjJRQVZVUVdTUE16YlptSXIyUWxxMVhrYjBtTGJnOURwWm13cVZ1T2IxQm5xQUJicGdNanF2Q3hHMUJuU0FtaHIxVWxWVXUwRDFQdEpnaHZkMDVPcEs1d25QZXRhZ01UZFNSa3F2UXFOS1p0ckFyVEp2b0hxUGhxYTJVblNjWHVhekJscEJoWGEwZWtWQWJoZEJiMXFBQkhHWjk1dXBNaHJrVWxiWmhlZFpCWmRnTlRxVUNLbnJHWWFQWVZRU1FoWDFiNXBCUUFEMnV0RGdZdmFyck9TVXUxYXBVY3JBUUR1Mk5sbnJOWEcyWGZhelJJWDFya24wTndEUFlmU0FCRHIwbk9wQmhxR2dDY3JwNWlWa29IbmtDcEcxbWNTdlJpdTJ3M3FWUXFkMlVmckFCRHJVVUFWVVFXRGdRbHFLaEJWMk5scFNDNERnZGtTQVJEdTJkNVZnQnFES0NmWEFtdmRLWU1iclhUblBldGFnTVRkU1JrcXZRcU5LWnRyQXJUSnZvSHFQaHFhMlVuU2NYdWF6QmxwQmhYYTBla1ZBYmhkQmIxcUFCSEdaOTV1cE1ocmtVbGJaaGVkWjFtdVNCQ3UxTE9wekN3TlVtNWRXTVBkS2h3bjIxcmEwbUxiZzlEcFptd1NQUUhOVVJNcEFSRHIzaEhxMFFQR1Vtekp6UmhwVUNrcEJRNE4yVWNTY1FiZDBtd3ByaHFhZ1hmYWZYRFYyUU9TVXUxSkJtY0pnWWJkMVVqcTFYa2IwbUxWSzlocFoxMFZnMWdKS2R0YWc1SURwTmxuckdZYUtYTER6UlRKY05IbnJHWWFLWExEelJpcmZRQXFQaHFhMlVuU2NYdWFWYjZua0N3YUtDbWIyNWJkQWhlbmtReEdVbWxEMjVkdTFDRm5QTmdKS2R0YWcxQlYydzNxVlFxZGdVZmFmbWRyenJlbmtReEdVZXRRZzlUZEtZMHB2UXFRZ1hacXA1ZHUxQ09uQk5QZGdyTFZjQmlyZlFBcVBocWEyVW5TY1h1YVZiNm5rQ3dhS0NtYjI1YmRBaGVua1F4R1VtbEQzQlRKY05IcFNDNERnZGtTQVJEYUtNNXExWGtiMG1MVks5aHBaMTBWZzFxR2dka3VBUWJwZ01qcTFYa2IyYlN1QU5QcjBta25yTlFiMW1sckFyYmQxQ09udkwwYjFRY1FTUnZhU0JIYlVOeGRnVWN4Y3JpdTJPM3FWUXFES0x0ZGNOYnJrVjFxVnVPYjFYU2IyNVhkdkIwbjBOZ05wclNuM1JFSlZVSGJaRzVHQm1jUXpCVHFVQ2pucmhRTlVSd3hwNURwVVVqcXZRcU5LWnRyQXJUSnB3M3FWUXFEVUJNeFNVUHUwWjVxVlFxREtMdGRjTmJya1YxU1V1MWQyVWZyQUJEVjJoZW4yNVREZ3JTYjI1UFhrQnRwQkcwYUJSVlFnTVBYa0J0cEJHMEcwZWtTSzlJZDBlT25LMWdOVW1TbmtCdURwWHhwQk5xR1VQdFhBUVRKcE1PU1V1MWFwVWNRcE1pdTJ3M3FWUXFkZ1VmYWZtZHJ6cmVua1F4R1VldFFnOVRkUGJtbnZRcGRabTVOMk1icjBtMmJVaFhHWjk1dXBNUFgyaE9uM1BPVDFtZmFmbXZYM2hlYnJRQUdaOTV1dkJDcVpMWXBwMTRHVUI1dUsxUHJrckZiWk53TktDbXVQNURwWjU2cHJOUGFnUTViM1JCSlZVSGJaTmVHZ1E1ZFdNRFgyWTZuME40RGdyU2IzUkVKVkw1cVZoV2RyQk1KZlJiSlZDTWJVRzFES1hmYWZiSURWQzNiVU5URzJVY1NQMWhwWjRPclBHWU4wTXphek5DdTFDSHByaHFEWkJaZGdOVlYyTm1yVU5wRDJVY1NLaElYdkI2cEJoWERWTVZHMk5UcVVDam5yaFFOVVJsVkFiaGRCYjFWVVFxZGdVZmFmbWRyenJLcHZDcGRaTXpielJJZEFYd25LQnZHWjk1dXBNUGRLaHduMjFyYjFSU3VLaHZhUG1lYnJRQWFLWGZ4Y0NEcmtYbFZVdTBEMlhmRGZSdkpTb0hiWkc1R0JtY1FmUkVKVlVIYlpod04xbVN1U0JDcVo0T24yNUREZ0N6YjJNUFgyaE9uM1BPVDFzdGJnWVB1Mk5sYlpod04xbVNuM1JpcmZRQW5yTmJhMG1MVnZydlgxckFWVXVPYjBldERmYlBYMW0ycFNRcEpQbTVhek5DdTFDRm5yTlhiMVJTdXBNRFgwbk9wcmRPVDJ1dERnWXZhcnJqcVBoUGExbW5xS1lpVmtvSHB2Q3BkVUNNYWdZSVgxVWpxdkNlTktYZnBBYmJkMWI2cHpDd0QwbTVEa05DcXpVd25QaHhhZ1VjcHA5VHFVTDFuME5yYjFSVmRnTlRkQm4wbjBOcEpwWExTcDVpcGZRQXFQTnhHVW16dVNCQ3UxQ0hwcmhxRFpZVlFTUWhYMWI1cEJRQUQydXREZ1l2YXJyT1NVdTFhQm1uVlBOaHIxYmtwUFFBYUJtbkRmTkRwWmVPbmtaNUdVbXpuM1JFSlZMNXBCTjRKQm1jYWcxaXUxTE9icmhXYVpCWmR6QkN1Mlh3bjFocEdnUWZkcFlJYUJVbHExaGtiMG1mU0FSRHUwWjVxVlFxRDFCblZLaGRyelZrblZOcEpybVNiMk1QZEtod24yMXJHWllWUXA1RHBVQ2Zuck5wRzFtemIyNWJkQmJ3bkJuNUdVbXpuM1JFSlZMNXBCTjRKQm1jYWcxaXUxTE9icmhXYVpCWmR6QkN1Mlg1cFNDZ0pCbVNuM1JCSlZVSHBTQ3dEMEJaZGdOVFgxQ2ViWk5VTlVSbGJnOURwWm13cTBRcWQyVWZyQUJEVjJNMFZnMVBhZ1hVcEFSRHIzaEhxMFFQVjFQdFhBbURydkJPcFBRdkdaOTV1dkJEcjNoNnBCTndhVk16VnZSQnBaQ3dxVnVPeFZCemJ6UkRyMDVqbkswNUcyTHRienJUSnBPM3FWUXFES1VjVnBOdVYwVUhwUE5nZFVCU2RXTVBkS2h3bjIxcmEwbUxiZzlEcFptd3ExZE9UMWV0cnZScWFwWXduUE5YYTBla1ZLWWJkS2gxbnZDNE5CZWthZ2JocjFVbHExWGtiMmJjckFRdmRCYk9wS0JBRDJYTGFmTkRWMFo1VlVRUmFCbUxxdlVESnBRT2JjQlJEMVB0YWdNQ1h6UkFxUE5xRGdYZlhjWHVhS1hqcEJoVGFaTXpWdlFoWDFiNXBCUUhOVVJNYmdZUFhybU9wQk40RDBNemJnTXZhQmJscHpDd0QwbTVEa05DcXpSQW5yTmJhMG1mU0FSRHUwVWVWVVFXTnBYY0pmUWlwZlFBcVBocWJCUHRKZ2h2ZDA1T3BLNUhiMVJTdVA1aXUyWFpuUE5nSktkdGFnMUJWMlFPUzNCUkQydXREZ1l2YXJyQVZVUVdEZ1FscUtoQlYyTmxiWkc1R0JtY1FnNXVyelhIYlpOZUdnUTVkV01QWGtCdHBCRzBHMGV0YWdNVEp2b0hxUE54R1VtekRrTkN1MUNGblBOZ0pLZHRhZzFCVjBaNXFWUXFkVXN0U0FRYnBaNTZuck5EUVZZVlFTUWhYMWI1cEJRQUQydXREZ1l2YXJyT1NVdTFhcFVjUXBNaXUydzNxVnNPYjBtTFZLYmhya1VscVZ1T2IxWFNiMjVTcmtVbHFBQkhRMEJ6VnZRaFgxYjVwQlFSeFZCZlhBQnZhVm4xcTBRUERLQ2ZYQW12ZEtZSHFBZU9UMG1mU0FRYnBaNTZuck5EUXJONWJmUkR1MlhQU1pRUGRnTHROZ1lJRHBkNVZnQnFkZ1VmYWZtZHJ6cktwdkNwZFpNemJ6UklkQVh3bktCdkdaTVZHMk5UWDJZMHB2UXFRZ1h6dVNCQ3UxTE9wekN3TlVtNWRXTVBkS2h3bjIxcmEwbUxiZzlEcFptd3ExZE9UMW1NYWdZSVgxVWpxdkN3RDBZTFZBUlBYM2h3U1poV0dVQjVKZ212YXJiZWJaTnBkZ1VjZHBZVEpwTTBWZzV4YWdDZnJLbVB1Mk5PUzNCUkQyWGZEZlJ2SlNvSHByaHhKS1VjYmZyaXUyWE9uQk5QZGdyTFZwNWR1MUNPbkJOUGRnckxWY1JFSlZVSGJaTmVHZ1E1ZFdNYnBaNTZuck5QTlZNemJnbUlYMGI2bmtDd2FwclNuM1FUWDA1a3ByaHhKS1VjcHZyaXJmUUFxUGhxYTJVblNjWHVhckNPbmtRV0cxQm5EMjlpcmZRQWJCUVdOMlhjcUFRaHIwMUFwSzVwTnJQa1ZBUklkdlhBbksxcGQyUU1yS2hEdTJOT2JjQlJEMlhmeGNDRHJrWEFWVVFSRDJYZkRmUnZKU29IcHpDUGFnWHpiMjVQWGtCdHBCRzBhUE1WRzJOVFgyWUhxVnVPYjBNZmFmclB1Mk1IYlpOZUdnUTVkV01uZEtYd2JaUUFhS1VjVnA1aXJmUUFxUGhxYktVY2RwNUNYelJBclVRQWFCUWNkcDVUSnB3M3FWUXFkMlVmckFCRFYwWjVxVk5nSnBRTVh2cml1MlhPcFBRdnhyUm1WQVJEdTNObGJaRzVHQm1jUWc1dXJ6WEhiWkc1R0JtY1FmUkVKVlVIbnJHWWFLWExEelJDWHpSQXFQaHFiS1VjZHA1ZHJ6VmtuVk5wSnJtU2IyTVBkS2h3bjIxckdaWVZRcDFocmtySHEwUUhRMEJ6VnZSaFgyWTZTVXUxRGdka1NBUkRkdlhqcXZDd05VZWtWdlhQdTJRa3FQTndOVWVrVnZYUHUydzNxVlFxZGdVZmFmbWRyenJIbnJoeE4yQ2ZYdnJpdTJ3M3FWc09iMlFMcktCSVgyWUZxVk5EZHBDTVN2Umhya0IxcVZoVGFVZXRhZm1QWDFiNXBCTlhhME1uRzJOVFgxQ2ViWk5VeHJYU2IyNXJhcmI2cEJoVGRCQm5WQVJJZHZYbHExWGtiMG1MYmc5RHBabXdxVnVPYjFCbnFBQmJwZ01qcXZRcU5LWnRyQXJUSnZvSHFQaHFhMlVuU2NYdWF6QmxwQmhYYTBla1ZBYmhkQmIxcUFCSEcwZXRYS01EcVVMMW4wTnJhQlJWUWc1SXIxYkhuck54RGdDem4zUkVKVlVIbjIxcEpCbW5xcE51VjBVSHBQTmdkVUJTZFdNUGRLaHduMjFyYTBtTGJnOURwWm13cTFkT1QxbU1hZnJEdTJOT1MzQlJEMkNjVnZSbmQxYjZwQmhDYjFSU3VQNWl1Mlh4cEJOcUdVUHRYQVFuZDFiNnBCaENhUE1WRzJOVHFnWGpwQmhUYVoxbXVTQkNYMGI1bjIxZ1FWTXpielJJZEFYd25LQnZ4clJtVnZSaFgyWTZTVXUxYkJldHJ2Uml1MnVPbnZDMGFnQ21uM1JkdTJ1a3BCTnhhMUJweGNSRHUyZDVWZ0JxZGdVZmFmbWRyenJLcHZDcGRaTXpielFEcjA1anBybjVHVW16bjNSaXJmUUFxUGhwSkJtbnFwTnVWMFVIbkJOcWRVc2tyQW1EcFpCMFZnNVBhMW1ucUtZaXUxTGtuVk5wSnJtVnFjUmRyenJNbnJHMUQwTXpEa05DdTFDRm52UXBOcFh6dVNCQ1hTUmpxdm9ZYVVtZmFnbWJyM2hLYlVoeGFnUW1uM1JkcnpWa25WTnBKcm1TYjJNUGRLaHduMjFySlZNU2RXTWJkdlBZbks1WGEwTVZHMk5UcVVDam5yaFFOVVJNWEFtdmRLWWxuS0JBYUJQdHhTVUlhQlVsU1pRcURLTGtyQXJQdTJ3M3FWTndhVk16WEtZSXBaTE9iclFBRDJYblNLWXZEcE1PYmNCUkQyUU1yQW1EcFpCQVZVUVdEZ1FscUtoQnJ2QjBwQmhUYUJtU2IyTXZhcmI2cEJoQ0cwbUxyQW1EcFpCT1MzQlJEMlhmRGZSdkpTb0hwcmh4SktVY2Jmcml1Mlg1cEJoeGFnUW1uM1FUcVptd25rQ3BKVk1WRzJOS3IxYmtua0NwUTBCelZ2UmhYMlk2U1V1MURnZGtTQVJEZHZYanF2UVRhZ2R0ckFCVEpjTkhuMjFwSkJtbnFjUkVKVkw1cVZRcUpLWE1YQVFQcjFyNHFWdU9iMW1uRGZOSVhrQkhwQlFBYUtiem4zUUNxVUM1bnJHT2EwbUxxS1l2ZEJiNXIzQlBKS1hNWEFRUHIxcjRxdlpPRzBla04yNWlWMnczcVZRcUpLWE1YQVFQcjFyNXFWdU9iMW1uRGZOSVhrQkhwQlFBYUtiem4zUUNxVUM1bnJHT2EwbUxxS1l2ZEJiNXIzQlBKS1hNWEFRUHIxcjVxdlpPRzBla04yNWlWMnczcVZRcUpLWE1YQVFQcjFyNnFWdU9iMW1uRGZOSVhrQkhwQlFBYUtiem4zUUNxVUM1bnJHT2EwbUxxS1l2ZEJiNXIzQlBKS1hNWEFRUHIxcjZxdlpPRzBla04yNWlWMnczcVZRcUpLWE1YQVFQcjFWT3FWdU9iMW1uRGZOSVhrQkhwQlFBYUtiem4zUUNxVUM1bnJHT2EwbUxxS1l2ZEJiNXIzQlBKS1hNWEFRUHIxVk9xdlpPRzBla04yNWlWMnczcVZRcUpLWE1YQVFQcjFWWXFWdU9iMW1uRGZOSVhrQkhwQlFBYUtiem4zUUNxVUM1bnJHT2EwbUxxS1l2ZEJiNXIzQlBKS1hNWEFRUHIxVllxdlpPRzBla04yNWlWMnczcVZRcWRnVWZhZm1kcnpyZW5rUXhHVWV0UWc5VGQwNHRwck40ZHJtVlhwNWR1MUM2YmcxZ0cyWGNyY2hpcmZRQXFQaHFhMlVuU2NYdWFWYjZua0N3YUtDbWIyNXZkMW1lblBocGFaMW1uM1FUcVo0dHByTjRkcm1WcWNSRUpWVUhiWk5lR2dRNWRXTWJwWjU2bnJOUE5WTXpiZm1QYVZia2JVTnJKUG01TjJNdmQxbWVuUGhwYVoxNURrTkN1MUxPblZOd0pQWVZRcGh2ZDA1T3B2TDBhMGVrU3ZDYnIzc1lwQlhYYVBZelZBbVBhVmJrYlVOcmRaTVZHMk5UcVVDam5yaFFOVVJNWEFtdmRLWWxuS0JBYUtka3BLaElxVWJ3U0JRdkcwbUxTdkNicjNzWXBCWHJHWjk1dXBNUFgyaE9uM1BPVDFtZmFmbXZYM2hlYnJRQUdaOTV1dkJDcVpMWXBwMTRHVUI1dUsxUHJrckZiWk53TktDbXVLaERYMVVqcTFoa2IyVWNwcDlTclA1S3JWVjVyVWJ6YXpOQ3UxQ0hwcmJrYUtYZnhjQ0Rya1hscFVRUnhWQkxTdlJ2YUJtZW5QUUFEMlhmRGZSdkpTb0hwekNQYWdYemIyNVBYa0J0cEJHMGFQTVNEa05DdTFDSHByYmthS3V0ckttaFgwYktuck5YYUJoU3VTQkNxWjRPbjI1RERnQ3piMk1QWDJoT24zUE9UMXNrdUFidmQxVWpxdlFQYVVQdERnaG5kS1lIcUFCSEdaOTV1cE1EWDBiSXF2UVRHVW16YmdYQ1h6UkFuckcxZGdYTVhBUWl1MUxPblZOd0pQWVZRcGJ2WGtCNmJaUUFhS1FNYWdNVEpwTU9TM0JSRDFtZlhLQ1RkMUM1YlVOcE5yQmNkcFlUZFNSQVZVUVdKS1hMcXZDYnIzTmpxUGhxYTJVblNjWHVhekIzbnZReGRaTXpxdlJ2YUJid25LMWdOVW1TcWNSaXJmUUFxUE5xRFVONWJnTWJwVUN3blBOd05ybVNiZ1hDWHpSQW5rUXFKcFhNWEFRaXUxTE9uVk53SlBZVlFwYnZYa0I2YlpRQURybWZYdlJEcjNoT25LMXJEVk1TRGtOQ3UxQ0hwcmJrYUtYY2FmckRhU2hscFVRUnhWQkxTdlJ2YUJtZW5QUUFEMlhmRGZSdkpTb0hwelFXTktka1ZwOUNhQmJPbksxRE5QQm1EM1JFSlZVSHBQTmduUGVrcnZSRHIzTmxwVVFSeFZCTFN2UnZhQm1lblBRQUQyWGZEZlJ2SlNvSHB6UVdOS2RrVnA5Q2FCbk9wQk4zRFZNU0RrTkN1MUNIcHJia2FLWExhZk5EVjJYUHFWdU9iMmRrVkFCUGFWYmtxMFFxZGdVZmFmbWRyenJLbjBHNUpLWHpiMjVQcWdZM3BCUXZHWk1WRzJOVFgxQ2VyM0JQSkJtbmIyNW5WMFo1cVZOd05wWExwS2hJdTJOSGJaTmVHZ1E1ZFdNbmQwQzJua1FYYTBla1NLWUJ1MlFPcTFYa2IwbWZWS2hjSnBYZXB2Q3JhQmhTdVNCQ1gyWTFiWmhERGdDemIyTVBYMmhPbjNQT1Qxc2t1QWJ2ZDFVanF2Q2dhQm1TbjNSaXJmUUFxUE5xRFVONWJ6UkJxVVU2U2NCUGJaQlpkZ052ZDFDNWJnMWdHME16VnZSaFgyWTZTVXUxYktRZnhjbVB1Mk5sYlpoZWRaMTZTcDVpVjJ3M3FWUXFEMUJwRzI1UHFnc09TUFhYYUJoU3VTQkNxWjRPbjI1RERnQ3piMk1QWDJoT24zUE9UMXNrdUFidmQxVWpxdlFxUWdYWlZTUlRKcE1PUzNCUkQxbWZYS0NUZDFMMGJaWFhkWmVZZGdOdVYwQzZiWmhUZEJCY04yOVRxVUNqbnJoUU5VUnd4Y05JZDA0T3EwUVBkZ3JMVlNSeHUyUU9xMVhrYjBtZlZLaGNKcHUxYnJOMEpQZVlkZ051VjBDNmJaaFRkQkJjTjI5VHFVQ2pucmhRTlVSd3hjTklkMDRPcTBRUFFwcmNOZm1USnBNT1MzQlJEMW1mWEtDVGQyTzFicDFqYUJoU3VTQkNxWjRPbjI1RERnQ3piMk1QWDJoT24zUE9UMXNrdUFidmQxVWpxdlF3UXByTWEyNWlWMnczcVZRcUQxQnBHMjVCcGdZbWJwQlBiWkJaZGdOdmQxQzViZzFnRzBNelZ2UmhYMlk2U1V1MWJLUWZ4Y21QdTJObGJyaHdEcHJtbjNSaXJmUUFxUE5xRFVONWJ6ckJyVVVscFVRUnhWQkxTdlJ2YUJtZW5QUUFEMlhmRGZSdkpTb0hwelFXTktka1ZwOVRkMk8xU1BRdkdaTVZHMk5UWDFDZXIzQlBRcHJWcnA1blYwWjVxVmh4ZGdRbHBLaEl1Mk5IYlpOZUdnUTVkV01uZDBDMm5rUVhhMGVrYXpyeFYyUU9xMVhrYjBtZlZLaGNKcFhtbnZMNUdLWGZhZlhEVjJYUHFWdU9iMlhmYWZYRFYyTk9TM0JSRDFCTXhjYmhKVlo1cVZWT2EwZU9kcFlEWDJZRnByTjRiS1huU0tZdkRwUU9TM0JSRDJYZnhjQ0Rya1hBVlVRV0pLWExxdkNicjNOanFQaHFhMlVuU2NYdWF6QmxwQmhYYTBla1ZBYmhkQmIxcUFCSEdaOTV1cE1QZEJiRm5WTmdiS1VjVnBOdVYwQzZiWmhUZEJCY04yOVRxVUNqbnJoUU5VUnd4cDVEcFVVanF2UVBhVVB0RGdobmRLWUhxQUJIR1o5NXVwTVBwWm1rcVZ1T2FLVUxWdlJ2WGc5MlNmQnZOVm1neHJYcXJQbWNWQmJUblBlT0RVcnBYUENLVjBWNXJVYnpiZ1hFSlZVSGJVaFRHMEJ6UXpCQ1hCcmpxdm9ZYVVtZmFnbWJyM04ycnAxcEpCbW5xdkNEclZtMm52QzBHZ0NNbjI1ZFgwYjVuMjFnUVZNemJ6UklkQVh3bktCdnhyUm1WdlJJZEFYd25LQjNhS3V0ckttaFgwYktuck5YYUJSVlFnTVBkQmJGblZOZ2JLVWNWY1JpcmZRQXFQRzVHUEJaZGdOVFgwbTJudkNrTlVSTVZLaFBYMHJqcVBOcURaTVNkV01icjFDSHEwUUhRMEJmYWcxaXUwYnduQmhXZGdyU2IyTUlkQVFPcTFoa2IwbWZYQUJ2RHZVZW4yNVREZ3JTYjI1RHBabTVuSzA0YUJSVlFmTmR1MlgwbmtDdmFCUlZRZzQxYTBOMFFybWhua2JocTBWMVEzVU1RcDltVlNyYkdwYlRKY05sYlpHNUdCbWNRZzV1cnpYSGJaRzVHQm1jUWZRVGQyWHdwU0NlRFVzdGFnTVRKdm9IcVBoUGFVUHREZ2huZEtZSFNaUVBkcFFNTjI1dXJ6WEhiVWhURzBNVkcyTkRyMDVqbkFCV0dwZHR4Y3JuZEJiMXBTTDVEMW1TYjJNYnBabTVxMVhrYjFtbkRmUlBYZlFBYkJOcEcyZHRydk5DdTFDZW4yNUN4ckJucUFCYnBnTWpxdkNwSnBRTVFjYlRKdm9IU3JRM2FLQ25TSzVUSnZvSHFJTU1EcGhFYlNiT05yTkhHMnJtZGZSQlRraEZTMkIyTldNTXFnbUJuck5rUzIxbURaOUJRQVJtbjNRVGQxQzJuU0NwTlZtNmRXTVRxVUMyblNDcE5WWXpielFEcjA1anBybjVHVW16bmtCdURyTGtwQk54YTFCcHhjUkR1M05sYlVoVEcwbTZkV01UcVViNW5QUUhRMEJmckttaFhraEFucDV4TktDd3hwWUlhVjUycFBOcmEwbWZYQUJ2RHB3M3FWTnBRZ1VuVlNOQ3F6UkFiQk5wRzJkdHJ2TkN1MUNlbjI1Q3hyQm5xQUJicGdNanF2Q3BKcFFNUWNiVEp2b0hTclEzYUtDblNLNVRKdm9IcUlNTURwaEViU2JPTnJOSEcycm1kZlJCVGtoRlMyQjJOV01NcWdtQm5yTmtTMjFtRFo5QlFBUm1uM1FUZDFDMm5TQ3BOVm02ZFdNVHFVQzJuU0NwTlZZemJ6UURyMDVqcHJuNUdVbXpua0J1RHJMa3BCTnhhMUJweGNSRHUzTmxiVWhURzBtNmRXTVRxVWI1blBRSFEwQmZyS21oWGtoQW5wNXhOS0N3eHBZSWFWNTJwUE5yYTBtZlhBQnZEcHczcVZOcFFnVW5WU05DcXpSQWJCUVdOMlhjcUFRaHIwMUFwSzVwTnJQa1ZBUklkdlhBcnAxcEpCbW5xdkNEclZtMm52QzBHZ0NNbjI5aXBmUUFxUGhxTktadHJBckNYelJBcVBocWEyVW5TY1h1YXpCbHBCaFhhMGVrVkFiaGRCYjFxQUJIUTBCelZ2UURyMDVqcHJuNUdVbXp1U0JDdTFMT25WTndKUFlWUXBiRGRCbk9xMFFQZDFtY1NLOWJydkJPcFBRdkdaOTV1cE1QWDJoT24zUE9UMUJuU0FtaHIyWDFxMFFQZGdMdE5nWUlEcFFrcVBocU5LWnRyQXJpcmZRQXFQaHFhMlVuU2NYdWFWYjZua0N3YUtDbWIyNVBkQmJGblZOZ2JLVWNWcDVkdTFMa3BCTnhhMUJweGNSRHUydzNxVlFxRHBMdHhjQ0NYelJBclVRQWFCWGNyS01ocjA1ZW5QbjVkcGR0ckFCVEpwdzNxVlFxZDJVZnJBQkRWMFo1cVZOZ0pwUU1YdnJpdTJ1T252QzBhZ0NtbmtCdURyTE9udkMwYWdDbU4yNVBkQmJGblZOZ2JLVWNWcDV1cnpYSGJ6Q3BES1VmWEtiaHIxVWtxdlFxUXBRZnJwNXVyelhsbkJOcEQyVWNTS2hJdTJRT1MzQlJEMUJNeGNiaGQwMUFWVVFSRDFCTXhjYmhKU29IYnpDZWFnUU1ycDlUcWdYanBCaFRhWk1TZFdNSWQwbUhwQmhDYTBldGFmUkR1MENVVkJieFhabTVEM1h1YVA1d25QTnBES1h6YjNSRUpWVUhiWk5lR2dRNWRXTWJwWjU2bnJOUE5WTXpiZ0JJZHZCdG4zQnZHMG1mcUFiSWRBWDZxMVhrYjBtTFZLOWhwWjEwVmcxcUdnZGt1QVFicGdNanExWGtiMmJTdUsxUHJrckZiWk53TktDbXVLTURyM05qcTFoa2IwbWZhZlJEdTBaNXFWUWVHZ0NsVmNSVHFVQ2pucmhRTlVSd3hwNURwVVVqcXZDd0dVbXpuM1JFSlZDT3BLQkFEZ1VuU0tiaHJrVk9xMFFxR2dVY1ZjUmlwZlFBcEJoZUdnWHpiMjQycXR3a1FjQ2Z1a1YzWGtHMXB2YmRRQm1TcHZiaVQzYmREcFFPUzNCV3hWQnpWdlJJZEFYd25LQlJ4VkJ6VnZSaFgyWTZTVXUxYkJldHJ2Uml1MnVPbnZDMGFnQ21uM1JFSlZVSGJ6Q3BES1VmWEtiaHIxVUFWVVFSRDJYZkRmUnZKU29IcHpDUGFnWHpiMjVQZEJiRm5WTmdiS1VjVnA1aXJmUUFxUGhxYkJCTXhjYmhKVlo1cVZWT2EwZU9kcFlEWDJZRnByTjRiS1huU0tZdkRwUU9TM0JSRDFQdERnWWJkQVFBVlVRUkQyWGd4cEJJZHZCdFNVdTFkMlVmckFCRFYyaGVuMjVURGdyU2IyNWhyMllIcUFlT1QwbWZhZlJEdTNObGJ6Q3BES1VmWEtiaHIxVWxWVXUwRDJ1dHJLbWhYMGJLbnJOWEdaTVNkV01EYXBZMXBQUUFHWjk1dUFSRERwTkhwU0NlYVVQdEczUkJKVlVIYlpuNURwTHR4Y0NkcnpWa25WTnBKcm1TRGdodmFQbWViclFBYUtVY2FnTVRKdm9IcVBOeGExbWNTQUNjSnBYT25yTlhhQmhTRDNSZHJ6ckhwQk40YWdYZnJwOWlyZlFBcVBocWEyVW5TY1h1YVA0WXBTQ3hhZ2RrU3A5VFQxTkNhMDlNcEFSRW5WQkhTMU5pYUFCdkcxYlNiMjVWcjFiSG5yTnhEZ0N6eHJRRHBaNXduMjVEYVVVTXhjYmhkS1kxcEFCdkcxQm5xQUJicGdNanF2UXFOS1p0ckFyVEp2b0hxUGhxTktadHJBcmR1MnVrcEJOeGExQnB4Y1JEdTJkNVZnQnFkMW1jU0s5YnJ2Qk9wUFEzYUJCY1ZLTVBxZ1kzcEJRdnhyUm1WdlJoWDJZNlNVdTFiQmV0cnZSaXUyWGVwUE5xZGdybnVLWVRKcE1PcTFRSFEwQmZydlhocFVaM3FWc1lhZ0NMU0tZQkpWVUhiWk5lR2dRNWRXTURwWm01bnZRQ2EwZUhhcFhsTnBVNmFncmhyZ21CVmtCbFN0dzRiMVF2R1o5NXVLWUJYMk9PUzNCV3hWQkxkZ05LVlMwOUxJUG14TzBURWs0PSI7ZXZhbCgnPz4nLiRPMDBPME8oJE8wT08wMCgkT08wTzAwKCRPME8wMDAsJE9PMDAwMCoyKSwkT08wTzAwKCRPME8wMDAsJE9PMDAwMCwkT08wMDAwKSwkT08wTzAwKCRPME8wMDAsMCwkT08wMDAwKSkpKTs="));
-?>
+/*
+3G 医疗
+*/
+class MedicalAction extends WapAction{
+    public $token;
+    public $wecha_id;
+    public function _initialize() {
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        if(!strpos($agent,"icroMessenger")) {
+            //echo '此功能只能在微信浏览器中使用';exit;
+        }
+        parent::_initialize();
+        $data    =M('company');
+        $token    = filter_var($this->_get('token'),FILTER_SANITIZE_STRING);
+        $where   = array('token'=>$token,'shortname'=>'Medical');
+        $cominfo = $data->where($where)->find();
+        $this->token = $this->_get('token');
+        $this->wecha_id =$this->_get('wecha_id');
+        $this->assign('token',$token);
+        $this->assign('wecha_id',$this->wecha_id);
+        $this->assign('title',$cominfo['name']);
+        $this->assign('cominfo',$cominfo);
+    }
+
+
+    public function index(){
+        $data=M('Medical_set');
+        $where = array('token'=>$this->_get('token'));
+        $setIndex = $data->where($where)->find();
+        $bxslider = M('Photo_list')->where(array('pid'=>$setIndex['album_id'],'token'=>$this->_get('token')))->order('sort DESC')->select();
+        $this->assign('bxslider',$bxslider);
+        $this->assign('setIndex',$setIndex);
+        $where2 =  array('token'=>$this->_get('token'),'shortname'=>'Medical');
+        $this->assign('tel',M('Company')->where($where2)->getField('tel'));
+
+        $cid = M("Medical_set")->where($where)->field('evants_id,symptoms_id')->find();
+        if($cid != null){
+            $t_classify = M('Classify');
+            $where = array('token'=>$this->token,'id'=>$cid['evants_id']);
+            $classify = $t_classify->where($where)->find();
+            $where3 = array('token'=>$this->token,'id'=>$cid['symptoms_id']);
+            $classify2 = $t_classify->where($where3)->find();
+        }
+        $t_img = M('Img');
+        $where = array('classid'=>$classify['id'],'token'=>$this->_get('token'));
+        $imgtxt = $t_img->where($where)->field('id,title,pic,createtime')->select();
+
+        $where4 = array('classid'=>$classify2['id'],'token'=>$this->_get('token'));
+        $imgtxt2 = $t_img->where($where4)->field('id,title,pic,createtime')->select();
+
+        $this->assign('imgtxt',$imgtxt);
+        $this->assign('classify',$classify);
+        $this->assign('imgtxt2',$imgtxt2);
+        $this->assign('classify2',$classify2);
+
+        $this->display();
+    }
+
+    public function Introduction(){
+        $company = M('Company');
+        $token=$this->_get('token');
+        $about = $company->where(array('token'=>$token,'shortname'=>'Medical'))->find();
+        //var_dump($about);
+        $this->assign('about',$about);
+        $this->display();
+    }
+
+    public function Messages(){
+        $this->display();
+    }
+
+    public function publicListTmp(){
+        $data = M("Medical_set");
+        $this->token=$this->_get('token');
+        $where = array('token'=>$this->token);
+        $type = strval($this->_get('type'));
+        if($type == 'hotfocus'){
+            $cid = $data->where($where)->getField('hotfocus_id');
+        }elseif($type == 'experts'){
+            $cid = $data->where($where)->getField('experts_id');
+        }elseif($type == 'equipment'){
+            $cid = $data->where($where)->getField('ceem_id');
+        }elseif($type == 'rcase'){
+            $cid = $data->where($where)->getField('Rcase_id');
+        }elseif($type == 'technology'){
+            $cid = $data->where($where)->getField('technology_id');
+        }elseif($type == 'drug'){
+            $cid = $data->where($where)->getField('drug_id');
+        }
+        if($cid != null){
+            $t_classify = M('Classify');
+            $where = array('token'=>$this->token,'id'=>$cid);
+            $classify = $t_classify->where($where)->find();
+        }
+        $t_img = M('Img');
+        $where = array('classid'=>$classify['id'],'token'=>$this->_get('token'));
+        $imgtxt = $t_img->where($where)->field('id,title,pic,createtime')->select();
+
+        $this->assign('imgtxt',$imgtxt);
+        $this->assign('classify',$classify);
+        $this->display();
+    }
+
+     public function  newread(){
+        $token = $this->_get('token');
+        $id = (int)$this->_get('id');
+        $t_img = M('Img');
+        $where = array('id'=>$id,'token'=>$token);
+        $imgtxt = $t_img->where($where)->find();
+        $this->assign('imgtxt',$imgtxt);
+        $this->display();
+    }
+
+    public function registered(){
+        $data=M('Reservation');
+        $where = array('token'=>$this->_get('token'),'addtype'=>'medical');
+        $reser = $data->where($where)->find();
+
+        $mdt_user = M('Medical_user');
+        $where2  =  array('token'=>$this->_get('token'),'wecha_id'=>$this->_get('wecha_id'));
+        $user = $mdt_user->where($where2)->find();
+
+        //$where3  =  array('token'=>$this->_get('token'),'wecha_id'=>$this->_get('wecha_id'));
+        $count = M('Medical_user')->where($where2)->count();
+        $this->assign('count',$count);
+
+       if(!empty($user)){
+            $reser = array_merge($reser,$user);
+            $this->assign('reser',$reser);
+       }else{
+         $this->assign('reser',$reser);
+
+       }
+        $svalue1 = explode('|', trim($reser['svalue1'],'|'));
+        $svalue2 = explode('|', trim($reser['svalue2'],'|'));
+        $svalue3 = explode('|', trim($reser['svalue3'],'|'));
+        $svalue4 = explode('|', trim($reser['svalue4'],'|'));
+        $svalue5 = explode('|', trim($reser['svalue5'],'|'));
+        $this->assign('svalue1',$svalue1);
+        $this->assign('svalue2',$svalue2);
+        $this->assign('svalue3',$svalue3);
+        $this->assign('svalue4',$svalue4);
+        $this->assign('svalue5',$svalue5);
+        $this->display();
+    }
+
+    public function add(){
+       if(IS_POST){
+        $da['token']      = strval($this->_get('token'));
+        $da['wecha_id']   = strval($this->_post('wecha_id'));
+        $da['rid']        = intval($this->_post('rid'));
+        $da['truename']   = strval($this->_post("truename"));
+        $da['dateline']   = strval($this->_post("dateline"));
+        $da['uinfo']      = strval($this->_post("uinfo"));
+        $da['utel']       = strval($this->_post("utel"));
+        $da['type']       = strval($this->_post('type'));
+        $da['sex']       = intval($this->_post('sex'));
+        $da['age']       = intval($this->_post('age'));
+        $da['txt33']     = strval($this->_post('txt33'));
+        $da['txt44']     = strval($this->_post('txt44'));
+        $da['txt44']     = strval($this->_post('txt44'));
+        $da['yyks']      = strval($this->_post('yyks'));
+        $da['yyzj']      = strval($this->_post('yyzj'));
+        $da['yybz']      = strval($this->_post('yybz'));
+        $da['yy4']       = strval($this->_post('yy4'));
+        $da['yy5']       = strval($this->_post('yy5'));
+        $da['booktime']   = time();
+
+        $book   =   M('Medical_user');
+         $token = strval($this->_get('token'));
+         $wecha_id = strval($this->_get('wecha_id'));
+         $url ='http://'.$_SERVER['HTTP_HOST'];
+         $url .= U('Medical/ReserveBooking',array('token'=>$token,'wecha_id'=>$wecha_id));
+
+
+        $ok = $book->data($da)->add();
+        if(!empty($ok)){
+            $arr=array('errno'=>0,'msg'=>'恭喜预约成功','token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);
+            echo json_encode($arr);
+            exit;
+        }else{
+             $arr=array('errno'=>1,'msg'=>'预约失败，请重新预约','token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);
+            echo json_encode($arr);
+            exit;
+        }
+       }else{
+            $arr=array('errno'=>1,'msg'=>'预约失败，请重新预约','token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);
+            echo json_encode($arr);
+            exit;
+       }
+    }
+
+    public function ReserveBooking(){
+        $token      = $this->_get('token');
+        $wecha_id   = $this->_get('wecha_id');
+        $this->assign('token',$token);
+        $this->assign('wecha_id',$wecha_id);
+        $book   =   M('Medical_user');
+        $where = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>'medical');
+        $books  = $book->where($where)->order('iid DESC')->select();
+        $this->assign('books',$books);
+
+        $this->display();
+    }
+
+    function del(){
+        $iid = (int)$this->_get('iid');
+        if(!is_int($iid)){
+            exit('请求类型错误.');
+        }
+        $token = $this->_get('token');
+        $wecha_id = $this->_get('wecha_id');
+        $t_book   =   M('Medical_user');
+        $check = $t_book->where(array('iid'=>$iid,'wecha_id'=>$wecha_id))->find();
+        if($check){
+            $t_book->where(array('iid'=>$check['iid']))->delete();
+            $this->success('删除成功',U('Medical/ReserveBooking',array('token'=>$token,'wecha_id'=>$wecha_id,'addtype'=>$this->_get('addtype'))));
+             exit;
+         }else{
+            $this->error('非法操作！');
+             exit;
+         }
+    }
+
+
+}
+
