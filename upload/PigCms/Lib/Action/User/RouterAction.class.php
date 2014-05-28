@@ -5,8 +5,8 @@ class RouterAction extends UserAction{
 	public function _initialize() {
 		parent::_initialize();
 		$this->tokenWhere=array('token'=>$this->token);
-		//$this->server='http://wifi.pigcms.cn/';
-		$this->server='http://ap.9466.com/';
+		$this->server='http://wifi.pigcms.cn/';
+		//$this->server='http://ap.9466.com/';
 	}
 	public function index(){
 		$routerUrl=Router::login($this->token,'wechaid');
@@ -60,7 +60,7 @@ class RouterAction extends UserAction{
 		$record=M('Router')->where(array('token'=>$this->token,'id'=>intval($_GET['id'])))->find();
 
 		$rt=$this->curlPost($this->server.'api/node/delete?id='.$record['gw_id'].'&a='.substr(trim(C('router_key')),0,16).'&b='.substr($wxuser['routerid'],0,16));
-		
+		//exit($this->server.'api/node/delete?id='.$record['gw_id'].'&a='.substr(trim(C('router_key')),0,16).'&b='.substr($wxuser['routerid'],0,16));
 		//
 		M('Router')->where($where)->delete();
 		$this->success('设置成功',U('Router/index'));
@@ -137,7 +137,8 @@ class RouterAction extends UserAction{
 			'contact_phone'=>$thisCompay['tel'],
 			'welcome_img'=>$this->_post('welcome_img'),
 			'other_img'=>$this->_post('other_img'),
-			'a'=>substr(trim(C('router_key')),0,16)
+			'a'=>substr(trim(C('router_key')),0,16),
+			'reply_content'=>trim($_POST['keyword'])
 			);
 			$data1=array(
 			'token'=>$this->token,
@@ -150,6 +151,15 @@ class RouterAction extends UserAction{
 			'keyword'=>$this->_post('keyword')
 			);
 			if ($record){
+				//
+				if (strlen(trim($_POST['password']))>0&&strlen(trim($_POST['password']))!=6){
+					$this->error('请设置六位数字或字符的密码');
+				}
+				if (strlen(trim($_POST['password']))==6){
+					$data1['password']=md5(trim($_POST['password']));
+					$data['password']=trim($_POST['password']);
+				}
+				//
 				$db->where($this->tokenWhere)->save($data1);
 				//
 				M('Keyword')->where(array('token'=>$this->token,'module'=>'Router_config'))->save(array('keyword'=>$this->_post('keyword')));
@@ -159,8 +169,18 @@ class RouterAction extends UserAction{
 				//
 				$this->success('设置成功');
 			}else {
-				$id=$db->add($data1);
+				//
+				if (strlen(trim($_POST['password']))!=6){
+					$this->error('请设置六位数字或字符的密码');
+				}
+				$data1['password']=md5(trim($_POST['password']));
+				$data['password']=trim($_POST['password']);
+				//
+				
 				$rt=$this->curlPost($this->server.'api/business/create',$data);
+				
+				
+				$id=$db->add($data1);
 				$rt=str_replace('callback(','',$rt);
 				$rt=substr($rt,0,-1);
 				$arr=json_decode($rt,1);

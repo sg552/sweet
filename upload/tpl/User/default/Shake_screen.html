@@ -326,6 +326,7 @@ function closeFinal(){
 	$('#final').css('display','none');
 }
 function showFinal(){
+	if($("#ranking div:eq(0)").children('span').width()<800){alert('还没有人摇到规定次数，无法显示结果');return false;}
 	$("#final").show("fast");
 }
 </script>

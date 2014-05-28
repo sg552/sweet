@@ -63,6 +63,11 @@
   function addImgMessage(){
 	art.dialog.data('titledom', 'titledom');
 	art.dialog.data('imgids', 'imgids');
+	art.dialog.data('multione', 'multione');
+	
+	art.dialog.data('multinews', 'multinews');
+	art.dialog.data('singlenews', 'singlenews');
+	
 	art.dialog.open('?g=User&m=Message&a=img',{lock:true,title:'选择图文消息',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});
 }
  function clearMessage(){
@@ -70,7 +75,8 @@
  	document.getElementById('imgids').value='';
 }
   </script>
-  
+  <div class="media_preview_area" id="multinews" style="display:none"></div>
+  <div class="media_preview_area" id="singlenews" style="display:none"></div>
   <style>
   html, body {
 	/*position:relative;
@@ -582,7 +588,7 @@ a {
 </div>
 
 <div style="clear:both"></div>
-
+<div class="cover_appmsg_item" id="multione" style="display:none"></div>
  <input type="hidden" class="px" id="imgids" value="" name="imgids" style="width:300px" >  <br>
  <a href="###" onclick="addImgMessage()" class="a_choose">选择图文消息</a>&nbsp;&nbsp;<a style="display:none" href="###" onclick="clearMessage()" class="a_clear">清空重选</a>
  

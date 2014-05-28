@@ -436,7 +436,11 @@ class StoreAction extends UserAction{
 		if (empty($pid)) {
 			exit(json_encode(array('error_code' => false, 'msg' => '商品添加出错了')));
 		}
-		
+		if ($keys = M('Keyword')->where(array('pid' => $pid, 'token' => $token, 'module' => 'Product'))->find()) {
+			M('Keyword')->where(array('pid' => $pid, 'token' => $token, 'id' => $keys['id']))->save(array('keyword' => $keyword));
+		} else {
+			M('Keyword')->add(array('token' => $token, 'pid' => $pid, 'keyword' => $keyword, 'module' => 'Product'));
+		}
 		if (!empty($attribute)) {
 			$product_attribute = M('Product_attribute');
 			$attribute = json_decode($attribute, true);

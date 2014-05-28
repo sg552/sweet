@@ -20,7 +20,7 @@ final class Router {
 		$str='source_id='.$openid.'&target_id='.$wxuser['weixin'].'&type=1';
 		$enstr=Router::ecryptdString($str,substr(trim(C('router_key')),0,16));
 		//return 'http://verify.pigcms.cn/login/?gw_address=192.168.1.1&gw_port=2060&gw_id='.$thisRouter['gw_id'].'&mac=f8:2f:a8:f8:0e:39&url=wwws.pigcms.cn/index.html?a='.$enstr.'&b='.substr(trim(C('router_key')),0,16);
-		return 'http://verify.pigcms.cn/index.html?a='.$enstr.'&b='.substr(trim(C('router_key')),0,16);
+		return 'http://vvvv.pigcms.cn/verify.wifi?a='.$enstr.'&b='.substr(trim(C('router_key')),0,16);
 	}
 	protected function ecryptdString($str,$keys="6461772803150152",$iv="8105547186756005",$cipher_alg=MCRYPT_RIJNDAEL_128){
 		//

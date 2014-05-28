@@ -56,14 +56,17 @@
 	        
 	    </div>
 	  </div>
-	  <div class="ft">
-	    <div class="fl">
-	      <img src="{pigcms:$sort['image']}">
-	    </div>
-	    <div class="fr">
-	      <p>{pigcms:$sort['note']}</p>
-	    </div>
-	  </div>
+		  <volist name="sort['houses']" id="house">
+		  <div class="ft">
+		    <div class="fl">
+		      <img src="{pigcms:$house['image']}" height="150">
+		    </div>
+		    <div class="fr">
+		      <p>{pigcms:$house['name']}</p>
+		      <p>{pigcms:$house['note']}</p>
+		    </div>
+		  </div>
+		  </volist>
 	</div>
 	</volist>
   </div>

@@ -68,9 +68,9 @@ window.shareData = {
             "moduleName":"Photo",
             "moduleID":"{pigcms:$info.id}",
             "imgUrl": "{pigcms:$info.picurl}", 
-            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Photo/plist',array('token'=>$token,'id'=>$info['id']))}",
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Photo/plist',array('token'=>$token,'id'=>intval($_GET['id'])))}",
             "tTitle": "{pigcms:$info.title}",
-            "tContent": "{pigcms:$info.info}"
+            "tContent": ""
 };
 </script>
 {pigcms:$shareScript}

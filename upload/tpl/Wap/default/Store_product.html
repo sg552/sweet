@@ -39,7 +39,7 @@ var focusPic = new Swiper('.focusPic .views',{pagination: '.focusPic .tabs',auto
 <h1>{pigcms:$product.name}</h1>
 <div class="price">
 <span class="okp">销售价：<em id="xsprice">￥{pigcms:$product.price}</em></span>
-<span class="okp">会员价：<em id="vprice">￥<php>if ($product['vprice'] > 0) {echo $product['vprice'];} else {echo $product['price'];}</php></em></span>
+<span class="okp">会员价：<em id="vprice">￥{pigcms:$product.vprice}</em></span>
 <span>市场价：<i>￥{pigcms:$product.oprice}</i></span>
 </div>
 <div style="display:none;" class="price">促销：<font color="red">新春热卖~~~</font></div>
@@ -69,10 +69,11 @@ var focusPic = new Swiper('.focusPic .views',{pagination: '.focusPic .tabs',auto
 </div>
 </div>
 </if>
-
+<if condition="empty($catData['norms']) neq true OR empty($catData['color']) neq true">
 <volist name="productDetail" id="pro">
-<input type="hidden" id="color_{pigcms:$pro.color}_norms_{pigcms:$pro.format}" value="{pigcms:$pro.num}" did="{pigcms:$pro.id}" price="{pigcms:$pro.price}" class="hidden"/>
+<input type="hidden" id="color_{pigcms:$pro.color}_norms_{pigcms:$pro.format}" value="{pigcms:$pro.num}" did="{pigcms:$pro.id}" price="{pigcms:$pro.price}" vprice="{pigcms:$pro.vprice}" class="hidden"/>
 </volist>
+</if>
 <div class="i-row">
 <div class="t">数量：</div>
 <div class="c buynum">
@@ -142,6 +143,7 @@ $(document).ready(function() {
 				buyDetailId = id + "_" + nextid;
 				$("#stock").text($("#" + id + "_" + nextid).val());
 				$("#xsprice").text('￥' + $("#" + id + "_" + nextid).attr('price'));
+				$("#vprice").text('￥' + $("#" + id + "_" + nextid).attr('vprice'));
 			} else {
 				$("#stock").text(0);
 			}
@@ -163,6 +165,7 @@ $(document).ready(function() {
 				buyDetailId = nextid + "_" + id;
 				$("#stock").text($("#" + nextid + "_" + id).val());
 				$("#xsprice").text('￥' + $("#" + nextid + "_" + id).attr('price'));
+				$("#vprice").text('￥' + $("#" + nextid + "_" + id).attr('vprice'));
 			} else {
 				$("#stock").text(0);
 			}
@@ -204,7 +207,7 @@ function add_cart() {
 	var did = parseInt($("#" + buyDetailId).attr('did'));
 	if ($('.hidden').eq(0).val() != null && $('.hidden').eq(0).val() != '' && $('.hidden').eq(0).val() != 'undefined') {
 		if (isNaN(did)) {
-	        return floatNotify.simple('请选择颜色与尺码');
+	        return floatNotify.simple('请选择相应属性的产品');
 		}
 	} else {
 		did = 0;

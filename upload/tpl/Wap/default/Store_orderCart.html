@@ -16,23 +16,27 @@
 			<ul class="rd">
 				<li>
 					<label><input type="checkbox" value="1" name="saveinfo" id="saveinfo" style="width: 16px;" checked="true"/></label>
-				</li>
+				</li>    
 			</ul>
 		</li>
 	</ul>
 	</div>
+	<if condition="$alipayConfig['open'] eq 1 OR $setting['paymode'] eq 1">
 	<div class="m-ck-module">
 		<h1>付款方式</h1>
 		<ul id="payment_mode" class="rd">
 			<li>
+				<if condition="$alipayConfig['open'] eq 1">
 				<label><input name="paymode" value="1" type="radio" checked>在线支付</label>
+				</if>
 				<!-- <label><input name="paymode" value="2" type="radio">财付通</label> -->
 				<if condition="$setting['paymode'] eq 1">
 				<label><input name="paymode" value="3" type="radio">货到付款</label>
 				</if>
-			</li>
+			</li>    
 		</ul>
 	</div>
+	</if>
 	<!-- <div class="m-ck-module">
 		<h1>送货方式</h1>
 		<ul id="shipping" class="rd"><input id="delivery" type="hidden" name="delivery" value="">
@@ -86,19 +90,13 @@
 </div>
 </form>
 <script>
-  /*
-  {pigcms:$setting}
-  */
-//var scale = "{pigcms:$setting['score']}";
 var scale = "{pigcms:$setting['score']}";
 var totalscore = "{pigcms:$fans['total_score']}";
 $(document).ready(function(){
 	var total = parseInt($("#totalmoney").html());
 	$("#score").keyup(function(){
 		var num = parseInt($(this).val());
-    console.info("==== num: " + num);
 		if (isNaN(num)) {
-      console.info("== not  a number" + num);
 			num = 0;
 		}
 		if (num > totalscore) {
@@ -106,9 +104,7 @@ $(document).ready(function(){
 			return floatNotify.simple('您填写的积分超过了您的可用积分');
 			return false;
 		}
-    console.info("== total"+total +", num/scale" + num/scale);
 		var t = total - num/scale;
-    console.info("=== t:"+ t);
 		if (t <= 0) {
 			$(this).val(total * scale);
 			t = 0;
@@ -147,7 +143,7 @@ $(document).ready(function(){
 				token:"{pigcms:$_GET['token']}",
 				wecha_id:"{pigcms:$_GET['wecha_id']}"
 		}
-
+		
 		$("#sub_order").html('提交中...').unbind();
 		$.get('index.php?g=Wap&m=Store&a=ordersave', data, function(response){
 			if (response.error_code == false) {
@@ -160,7 +156,7 @@ $(document).ready(function(){
 				$("#sub_order").html('确认，提交订单').bind('click');
 				return floatNotify.simple(response.msg);
 			}
-
+			
 		}, 'json');
 		return true;
 	});
@@ -168,10 +164,10 @@ $(document).ready(function(){
 </script>
 </body>
 <script type="text/javascript">
-window.shareData = {
+window.shareData = {  
             "moduleName":"Store",
             "moduleID":"0",
-            "imgUrl": "{pigcms::C('site_url') .  U('Store/orderCart',array('token' => $_GET['token']))}",
+            "imgUrl": "{pigcms::C('site_url') .  U('Store/orderCart',array('token' => $_GET['token']))}", 
             "timeLineLink": "{pigcms::C('site_url') .  U('Store/orderCart',array('token' => $_GET['token']))}",
             "sendFriendLink": "{pigcms::C('site_url') .  U('Store/orderCart',array('token' => $_GET['token']))}",
             "weiboLink": "{pigcms::C('site_url') .  U('Store/orderCart',array('token' => $_GET['token']))}",

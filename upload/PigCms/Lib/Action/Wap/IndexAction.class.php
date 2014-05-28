@@ -50,6 +50,8 @@ class IndexAction extends WapAction{
 			}
 		}
 		$homeInfo=$this->homeInfo;
+		$homeInfo['info'] = str_replace(array("\r\n","\"","&quot;"),array(' ','',''),$homeInfo['info']);
+		$this->homeInfo['info'] = $homeInfo['info'];
 		$this->info=$info;
 		$tpl['color_id']=intval($tpl['color_id']);
 		$this->tpl=$tpl;
@@ -158,14 +160,15 @@ class IndexAction extends WapAction{
 
 		$token = $this->token;
 		$classid = $this->_get('classid','intval');	
-
+		
+		$classid = (int)$classid;
 
 		$where['token'] = $this->_get('token','trim');
 		$classify = M('classify');
 		//本分类信息		
 		$info = $classify->where("id = $classid AND token = '$token'")->find();		
 		//是否有子类
-		$sub = $classify->where("fid = $classid AND token = '$token'")->select();
+		$sub = $classify->where("fid = $classid AND token = '$token'")->order('sorts desc')->select();
 		$sub = $this->convertLinks($sub);
 		$tpldata=D('Wxuser')->where($where)->find();
 		$tpldata['color_id']=intval($tpldata['color_id']);
@@ -242,6 +245,7 @@ class IndexAction extends WapAction{
 				$this->assign('num',$count);
 				$this->assign('flashbgcount',count($flashbg));
 				$this->assign('info',$sub);
+				$this->assign('thisClassInfo',$info);
 				$this->assign('tpl',$tpldata);
 				$this->assign('copyright',$this->copyright);
 				$this->display($tpldata['tpltypename']);
@@ -313,11 +317,7 @@ class IndexAction extends WapAction{
 				$this->assign('info',$res);
 				$this->assign('tpl',$tpldata);
 				$this->assign('copyright',$this->copyright);
-				//
-				if ($listNum==1){
-					$this->content($res[0]['id']);
-					exit();
-				}
+				$this->assign('thisClassInfo',$info);
 				
 				$this->display($tpldata['tpltypename']);	
 
@@ -336,12 +336,17 @@ class IndexAction extends WapAction{
 			$id = $this->_get('id','intval');
 			$classid = $this->_get('classid','intval');
 			
+			$id = intval($id);
+			$classid = intval($classid);
 		}else{
 		
-			$id = $contid;
-			$classid = $cid;
+			$id = intval($contid);
+			$classid = intval($cid);
 
 		}
+		
+		
+		
 		$res = $img->where("id = ".intval($id)." AND token = '$token'")->find();
 
 		if($classid == ''){
@@ -350,9 +355,10 @@ class IndexAction extends WapAction{
 
 		
 		//增加浏览量
-		$img->where("token = '$token' AND id = ".intval($id)."")->setInc('click');
+		
+		$img->where("token = '$token' AND id = ".intval($id))->setInc('click');
 
-		$classinfo = $class->where("id = $classid AND token = '$token'")->field('conttpid')->find();
+		$classinfo = $class->where("id = ".intval($classid)." AND token = '$token'")->field('conttpid')->find();
 		$tplinfo = D('Wxuser')->where("token = '$token'")->find();
 		//获取模板
 			include('./PigCms/Lib/ORG/cont.Tpl.php');
@@ -366,8 +372,10 @@ class IndexAction extends WapAction{
 			$tplinfo['tpltypename'] = $tpldata['tpltypename'];
 			
 
-		$lists=$img->where("classid = $classid AND token = '$token' AND id != $id")->limit(5)->order('uptatetime')->select();
-
+		$lists=$img->where("classid = ".intval($classid)." AND token = '$token' AND id != ".intval($id))->limit(5)->order('uptatetime')->select();
+		$lists = $this->convertLinks($lists);
+		
+		
 		$this->assign('info',$this->info);			//分类信息
 		$this->assign('copyright',$this->copyright);	//版权是否显示		
 		$this->assign('res',$res);

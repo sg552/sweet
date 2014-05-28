@@ -80,20 +80,7 @@ $(function(){
 </if>
 </div> 
 <include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
-
-		<script type="text/javascript">
-			window.shareData = {  
-				"moduleName":"Index",
-				"moduleID": '3',
-				"imgUrl": "{pigcms:$homeInfo.picurl}", 
-				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid'],'id'=>intval($_GET['id'])))}",
-				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid'],'id'=>intval($_GET['id'])))}",
-				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid'],'id'=>intval($_GET['id'])))}",
-				"tTitle": "{pigcms:$homeInfo.title}",
-				"tContent": "{pigcms:$homeInfo.info}"
-			};
-		</script>	
-
-{pigcms:$shareScript}
+<!-- share -->
+<include file="Index:content_share" />
   </body>
 </html>

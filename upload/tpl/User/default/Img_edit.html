@@ -65,7 +65,7 @@ items : [
                 </TR> 
 				<TR>
                   <TH valign="top"><label for="pic">封面图片地址：</label></TH>
-                  <TD><input class="px" id="pic"  name="pic" value="{pigcms:$info.pic}" style="width:580px;"  />  <script src="/tpl/static/upyun.js?2013"></script><a href="###" onclick="upyunPicUpload('pic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>
+                  <TD><input class="px" id="pic"  name="pic" value="{pigcms:$info.pic}" style="width:580px;"  />  <script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script><a href="###" onclick="upyunPicUpload('pic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>
 </TD>
                 </TR>
 				<input type="hidden" name="id" value="{pigcms:$info.id}" />

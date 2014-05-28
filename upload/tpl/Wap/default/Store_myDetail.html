@@ -77,8 +77,6 @@
 <if condition="$cartData['sent'] eq 1">
 <p>快递公司：{pigcms:$cartData.logistics}</p>
 <p>快递单号：{pigcms:$cartData.logisticsid}</p>
-<else />
-<p>配送方式：普通快递</p>
 </if>
 <p>商品金额：{pigcms:$totalFee}元</p>
 <p>　　运费：{pigcms:$mailprice}元　</p>

@@ -22,7 +22,7 @@ class StoreAction extends WapAction{
 			//$this->wecha_id='';
 			//exit('非法请求');
 		}
-		$this->wecha_id	= 'gh_aab60b4c5a39';
+
 		$this->assign('wecha_id', $this->wecha_id);
 		$this->product_model = M('Product');
 		$this->product_cat_model = M('Product_cat');

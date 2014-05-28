@@ -15,7 +15,9 @@
 		<div class="bd box-txt">
 			<p><span>入住日期</span><b>{pigcms:$order['startdate']}</b></p>
 			<p><span>离店日期</span><b>{pigcms:$order['enddate']} </b></p>
-			<p><span>订单状态</span><if condition="$order['status'] eq 1"><b>完成入住</b><else /><b>未完成</b></if></p>
+			<p><span>订单状态</span><if condition="$order['status'] eq 1"><em>完成入住</em><elseif condition="$order['paid'] eq 1" /><em>已付款</em><else /><i>已预定</i></if></p>
+			<p><span>操作</span><if condition="$order['status'] eq 1"><a class="btn btn-small to_book" onclick="javascript:cancel('{pigcms:$order['id']}', 3);">删除记录</a><else /><a class="btn btn-small to_book" onclick="javascript:cancel('{pigcms:$order['id']}', 2);">取消订单</a></if></p>
+			
 		</div>
 		<div class="ft box-txt">
 			<p><span>联系人电话：</span><b>{pigcms:$order['tel']}</b></p>
@@ -29,6 +31,16 @@
 </body>
 
 <script type="text/javascript">
+function cancel(oid, status)
+{
+	$.get("{pigcms::U('Hotels/cancel',array('token' => $_GET['token'], 'wecha_id' => $wecha_id))}&oid=" + oid + "&status=" + status, function(response){
+		if (response.error_code == true) {
+			alert(response.msg);
+		} else {
+			location.href = "{pigcms::U('Hotels/my',array('token' => $_GET['token'], 'wecha_id' => $wecha_id))}"
+		}
+	}, 'json');
+}
 window.shareData = {  
             "moduleName":"Hotels",
             "moduleID":"{pigcms:$company[0]['id']}",

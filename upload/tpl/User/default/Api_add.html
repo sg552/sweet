@@ -27,13 +27,19 @@
 	<tr>
 	  <th valign="top">接口类型：</th>
 	  <td>
-		<input class="radio" type="radio" name="type" value="1" <if condition="$api['type'] eq 1">checked</if>>微信标准接口（标准xml）<br>  
-		<input class="radio" type="radio" name="type" value="2" <if condition="$api['type'] eq 2">checked</if>>  文本类型接口  <br>
+		<input class="radio" type="radio" name="type" value="1" <if condition="$api['type'] eq 1">checked</if>>&nbsp;微信标准接口（标准xml）&nbsp;&nbsp;<input class="radio" type="radio" name="type" value="2" <if condition="$api['type'] eq 2">checked</if>>&nbsp;文本类型接口  <br>
 		我们会post 参数到本接口 Content=用户消息&amp;fromUsername=用户加密id&amp;toUsername=你的公众号token 
 	  </td>
 	</tr>
   </thead>
-
+<thead>
+	<tr>
+	  <th valign="top">触发时机：</th>
+	  <td>
+		<input class="radio" type="radio" name="noanswer" value="0" <if condition="$api['noanswer'] eq 0">checked</if>>&nbsp;优先于所有关键词触发&nbsp;&nbsp;<input class="radio" type="radio" name="noanswer" value="1" <if condition="$api['noanswer'] eq 1">checked</if>>&nbsp;系统回答不上来的时候触发 
+	  </td>
+	</tr>
+  </thead>
   <tbody>
 <tr>
   <th valign="top"><label for="text">融合的第三方微信api地址：</label></th>

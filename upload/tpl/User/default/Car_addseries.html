@@ -66,8 +66,8 @@ items : [
                 <tr>
                     <th width="120">车系简称：</th>
                     <td>
-                      <input type="text" name="shortname" id="shortname" class="px" data-validation-engine="validate[required,minSize[1],maxSize[4]]"
-                    data-errormessage-value-missing="必填项!"  data-rule-maxlength="4" value="{pigcms:$series['shortname']}"/>
+                      <input type="text" name="shortname" id="shortname" class="px" data-validation-engine="validate[required,minSize[1],maxSize[10]]"
+                    data-errormessage-value-missing="必填项!"  value="{pigcms:$series['shortname']}"/>
                       <span class="maroon">*</span>
                       <span class="help-inline">请添加车系的简称,如“A级”；手机端显示的是车系简称</span>
                     </td>

@@ -15,7 +15,9 @@
 		<b>在线预订客房{pigcms:$company['name']}</b>
 		<p><span>入住日期</span><b>{pigcms:$order['startdate']}</b></p>
 		<p><span>离店日期</span><b>{pigcms:$order['enddate']}</b></p>
-		<p><span>状态</span><if condition="$order['status'] eq 1"><b>完成入住</b><else /><b>未完成</b></if></p>
+		<p><span>状态</span>
+		<if condition="$order['status'] eq 1"><em>完成入住</em><elseif condition="$order['paid'] eq 1" /><em>已付款</em><else /><i>已预定</i></if>
+		</p>
 	</div>
 	<div class="bd">
 		<span class="arrow arr-small"><em>￥{pigcms:$order['price']}</em><br><i>{pigcms:$order['day']}晚</i></span>

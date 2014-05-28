@@ -449,13 +449,13 @@ class UpyunAction extends UserAction{
 		}else{// 上传成功 获取上传文件信息
 			$error=0;
 			$info =  $upload->getUploadFileInfo();
-			
+			$this->siteUrl=$this->siteUrl?$this->siteUrl:C('site_url');
 			if ($thumb==1){
 				$paths=explode('/',$info[0]['savename']);
 				$fileName=$paths[count($paths)-1];
-				$msg=C('site_url').substr($upload->savePath,1).str_replace($fileName,'thumb_'.$fileName,$info[0]['savename']);
+				$msg=$this->siteUrl.substr($upload->savePath,1).str_replace($fileName,'thumb_'.$fileName,$info[0]['savename']);
 			}else {
-				$msg=C('site_url').substr($upload->savePath,1).$info[0]['savename'];
+				$msg=$this->siteUrl.substr($upload->savePath,1).$info[0]['savename'];
 			}
 			M('Users')->where(array('id'=>$this->user['id']))->setInc('attachmentsize',intval($info[0]['size']));
 			M('Files')->add(array('token'=>$this->token,'size'=>intval($info[0]['size']),'time'=>time(),'type'=>$info[0]['extension'],'url'=>$msg));

@@ -437,9 +437,9 @@ window.shareData = {
             "moduleName":"Coupon",
             "moduleID":"{pigcms:$Coupon.id}",
             "imgUrl": "{pigcms:$Coupon.starpicurl}", 
-            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Coupon/index',array('token'=>$token,'id'=>$Coupon['id']))}",
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Coupon/index',array('token'=>$token,'id'=>intval($_GET['id'])))}",
             "tTitle": "{pigcms:$Coupon.title}",
-            "tContent": "{pigcms:$Coupon.info}"
+            "tContent": ""
 };
 </script>
 {pigcms:$shareScript}

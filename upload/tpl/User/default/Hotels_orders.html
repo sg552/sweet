@@ -53,6 +53,7 @@ function selectall(name) {
 <!-- <div class="pageNavigator left"> <a href="###" onclick="$('#info').submit()" title="" class="btnGrayS vm bigbtn"><img src="{pigcms::RES}/images/product/arrow_switch.png" class="vm">处理订单</a></div> -->
 查看当天的预定情况：
 <select onchange="change(this);">
+	<option value="0">全部预定情况</option>
 	<volist name="dates" id="date">
 	<if condition="$date['k'] eq $status">
 	<option value="{pigcms:$date['k']}" selected>{pigcms:$date['v']}</option>
@@ -92,7 +93,11 @@ function selectall(name) {
 <td>{pigcms:$o.price}</td>
 <td>{pigcms:$o.startdate}</td>
 <td>{pigcms:$o.enddate}</td>
-<td><if condition="$o.paid eq 1"><span style="color:green">已付款</span><else/><span style="color:red">未付款</span></if> / <if condition="$o.status eq 1"><span style="color:green">已入住</span><else/><span style="color:red">未入住</span></if></td>
+<td><if condition="$o.paid eq 1"><span style="color:green">已付款</span><else/><span style="color:red">未付款</span></if> / 
+<if condition="$o.status eq 0"><span style="color:red">已预定</span>
+<elseif condition="$o.status eq 1" /><span style="color:green">已入住</span>
+<elseif condition="$o.status eq 2" /><span style="color:red">客户取消订单</span>
+<elseif condition="$o.status eq 3" /><span style="color:red">客户删除订单</span></if></td>
 <td class="norightborder"><a href="javascript:void(0);" onclick="showIntroDetail({pigcms:$o.id})">详细</a> 
 <a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Hotels/deleteOrder',array('token'=>$token,'id'=>$o['id']))}');">删除</a> 
 </td>
