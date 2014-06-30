@@ -41,7 +41,7 @@ ul, li { list-style:none; margin:0; padding:0 }
 <div class="top_bar" style="-webkit-transform:translate3d(0,0,0)">
   <nav>
     <ul id="top_menu" class="top_menu">
-<li class="home"><a href="?g=Wap&m=Index&a=index&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}"></a></li>
+<li class="home"><a href="/index.php?g=Wap&m=Index&a=index&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}"></a></li>
     <volist name="catemenu" id="vo">
         <li> <a <?php if($vo['vo']){echo 'onclick="javascript:displayit('.$vo['k'].')"';}else{echo 'href="'.$vo['url'].'"';}?>><img src="{pigcms:$vo.picurl}"><label>{pigcms:$vo.name}</label></a>
         <?php if ($vo['vo']){
@@ -55,7 +55,7 @@ ul, li { list-style:none; margin:0; padding:0 }
         }
         ?>
         </li>
-      </volist> 
+      </volist>
     </ul>
   </nav>
 </div>
