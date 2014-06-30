@@ -6,9 +6,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
-<link href="{pigcms::RES}/css/userinfo/fans.css" rel="stylesheet" type="text/css"> 
+<link href="{pigcms::RES}/css/userinfo/fans.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="{pigcms::RES}/css/guajiang/js/jquery.js">\x3C/script>')</script>
 
 
@@ -143,7 +143,7 @@ function() {
         alert("请认真输入手机号");
         return
     }
-    
+
     if (nickname == '') {
         alert("请认真输入昵称");
         return
@@ -152,7 +152,7 @@ function() {
         alert("请选择头像");
         return
     }
-   
+
     var submitData = {
         nickname : nickname,
         mp 	  : mp,
@@ -161,16 +161,16 @@ function() {
     };
     $.post('/index.php?g=Wap&m=Wall&a=index&token={pigcms:$Think.get.token}&wecha_id={pigcms:$Think.get.wecha_id}', submitData,
     function(data) {
-        if(data==1){			 
+        if(data==1){
 			alert('设置成功，进入微信对话框便可参与活动了');
-		}else{  
+		}else{
 			alert('稍后再试.');
 		}
     },
     "json")
 });
 
-function check1(obj){	 
+function check1(obj){
 	if(obj.value == ''){
 		alert("请输入您的昵称.");
 		document.getElementById(obj.id).style.background="red";
@@ -178,8 +178,8 @@ function check1(obj){
 	}
 }
 
-function check2(obj){   
-  	document.getElementById(obj.id).style.background="white";  
+function check2(obj){
+  	document.getElementById(obj.id).style.background="white";
 }
 function check3(obj){
 	if(obj.value == ''){
@@ -188,7 +188,7 @@ function check3(obj){
 		return;
 	}
 	reg=/^0{0,1}(13[0-9]|145|15[0-9]|18[0-9])[0-9]{8}$/i;
-	  if(!reg.test(obj.value)){   
+	  if(!reg.test(obj.value)){
 			alert("错误,请输入11位的手机号！");
 			document.getElementById(obj.id).style.background="red";
 			return;
@@ -198,10 +198,10 @@ function check3(obj){
 </script>
 </div>
 <script type="text/javascript">
-window.shareData = {  
+window.shareData = {
             "moduleName":"Wall",
             "moduleID":"0",
-            "imgUrl": "", 
+            "imgUrl": "",
             "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Wall/index',array('token'=>$token))}",
             "tTitle": "微信墙",
             "tContent": ""

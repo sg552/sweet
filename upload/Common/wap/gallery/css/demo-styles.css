@@ -2,8 +2,6 @@
 * Demo Styles
 */
 
-@import url(http://fonts.googleapis.com/css?family=Lato:400,100,300);
-
 body {
   background-color: #111;
   font: normal 100%/1.5 "Lato", sans-serif;

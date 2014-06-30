@@ -6,9 +6,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
-<link href="{pigcms::RES}/css/userinfo/fans.css" rel="stylesheet" type="text/css"> 
+<link href="{pigcms::RES}/css/userinfo/fans.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/js/jquery.js"></script> 
 <script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="{pigcms::RES}/css/guajiang/js/jquery.js">\x3C/script>')</script>
 
 
@@ -148,7 +148,7 @@ function() {
 	var truename  = $("#truename").val();
 	var qq 		  = $("#qq").val();
 	var sex 	  = $("#sex").val();
-	var birthday  = $("#birthday").val();	
+	var birthday  = $("#birthday").val();
 	var address   = $("#address").val();
 	var info  	  = $("#info").val();
 	var age       = $("#age").val();
@@ -156,12 +156,12 @@ function() {
         alert("请认真输入手机号");
         return
     }
-    
+
     if (wechaname == '') {
         alert("请认真输入微信号");
         return
     }
-   
+
     var submitData = {
         wechaname : wechaname,
         tel 	  : tel,
@@ -176,24 +176,24 @@ function() {
     };
     $.post('index.php?g=Wap&m=Userinfo&a=index&token={pigcms:$Think.get.token}&wecha_id={pigcms:$Think.get.wecha_id}', submitData,
     function(data) {
-        if(data==1){			 
+        if(data==1){
 			alert('更新成功');
 		}else if(data==2){
-			 
+
 			alert('成功领取了会员卡');
 			location.href = "{pigcms::U('Card/vip',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id']))}";
 		}else if(data==3){
-			 
+
 			alert('该商家会员卡缺货了');
-		}else{  
-			 
+		}else{
+
 			alert('稍后再试.');
 		}
     },
     "json")
 });
 
-function check1(obj){	 
+function check1(obj){
 	if(obj.value == ''){
 		alert("请输入您的微信名称.");
 		document.getElementById(obj.id).style.background="red";
@@ -201,8 +201,8 @@ function check1(obj){
 	}
 }
 
-function check2(obj){   
-  	document.getElementById(obj.id).style.background="white";  
+function check2(obj){
+  	document.getElementById(obj.id).style.background="white";
 }
 function check3(obj){
 	if(obj.value == ''){
@@ -211,7 +211,7 @@ function check3(obj){
 		return;
 	}
 	reg=/^0{0,1}(13[0-9]|145|15[7-9]|153|156|18[0-9])[0-9]{8}$/i;
-	  if(!reg.test(obj.value)){   
+	  if(!reg.test(obj.value)){
 			alert("错误,请输入11位的手机号！");
 			document.getElementById(obj.id).style.background="red";
 			return;
@@ -221,10 +221,10 @@ function check3(obj){
 </script>
 </div>
 <script type="text/javascript">
-window.shareData = {  
+window.shareData = {
             "moduleName":"Index",
             "moduleID":"0",
-            "imgUrl": "", 
+            "imgUrl": "",
             "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Index/index',array('token'=>$token))}",
             "tTitle": "",
             "tContent": ""

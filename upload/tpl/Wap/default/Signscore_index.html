@@ -51,12 +51,12 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
   background-color: #EEE;
 }
 </style>
-</head> 
+</head>
 
 <body data-role="page" >
 
-<script type="text/javascript" src="{pigcms::RES}/css/guajiang/js/jquery.js"></script> 
-<script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">\x3C/script>')</script>
+<script type="text/javascript" src="{pigcms::RES}/css/guajiang/js/jquery.js"></script>
+<script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="/js/jquery.js">\x3C/script>')</script>
 
 <div class="main">
 <div class="cover">
@@ -71,13 +71,13 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
   <if condition="$signined eq 1">
     <img src="{pigcms::RES}/images/cart_info/qiandaook.png">
   <else/>
- <form action="" method="post" accept-charset="utf-8">   
+ <form action="" method="post" accept-charset="utf-8">
      <input class="pxbtn" name="sign-btn"  id="sign-btn" type="submit" value="点击这里签到赚积分">
- </form> 
+ </form>
   </if>
- 
+
 </div>
-<div class="content"> 
+<div class="content">
   <div class="boxcontent boxwhite">
     <div class="box">
       <table border="0"  align="center" cellSpacing="0" cellPadding="0" width="100%" >
@@ -111,7 +111,7 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
           </tr>
         </thead>
         <tbody>
-          <volist name="sign" id="list"> 
+          <volist name="sign" id="list">
             <tr align="middle">
               <td><if condition="$list.sign_time neq false">{pigcms:$list.sign_time|date="Y-m-d",###}<else/>无</if></td>
               <td><if condition="$list.is_sign eq 1"><img src="{pigcms::RES}/images/cart_info/signed.png"><else/>未签</if></td>
@@ -119,14 +119,14 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
             </tr>
           </volist>
         </tbody>
-      </table>      
-              
+      </table>
+
       </div>
     </div>
   </div>
 </div>
 <div style="clear:both;"></div>
-</div>  
+</div>
 
 <div style="height:20px;"></div>
 <div class="footFix" id="footReturn"><a href="javascript:void(0)" onClick="location.href='{pigcms::U('Wap/Index/index',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id']))}';"><span>返回3G网站</span></a></div>
@@ -152,7 +152,7 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
   font:14px/1.5 Microsoft YaHei,Helvitica,Verdana,Arial,san-serif;
 }
 .window .title {
-  
+
   background-color: #A3A2A1;
   line-height: 26px;
     padding: 5px 5px 5px 10px;
@@ -167,7 +167,7 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
   background-image:     -ms-linear-gradient(#585858, #565656); /* IE10 */
   background-image:      -o-linear-gradient(#585858, #565656); /* Opera 11.10+ */
   background-image:         linear-gradient(#585858, #565656);
-  
+
 }
 .window .content {
   /*min-height:100px;*/
@@ -184,7 +184,7 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
   min-height:30px;font-size:16px; line-height:22px;
 }
 .window .txtbtn {
-  
+
   background: #f1f1f1;
   background-image: -webkit-gradient(linear, left top, left bottom, from( #DCDCDC ), to( #f1f1f1 )); /* Saf4+, Chrome */
   background-image: -webkit-linear-gradient( #ffffff , #DCDCDC ); /* Chrome 10+, Saf5.1+ */
@@ -243,31 +243,31 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACTSURBVEhL7dNtCoAgDAZgb60nsGN1tPLVCVNHmg76kQ8E1mwv+GG27cestQ4PvTZ69SFocBGpWa8+zHt/Up+IN+MhgLlUmnIE1CpBQB2COZibfpnXhHFaIZkYph0SOeeK/QJ8o7KOek84fkCWSBtfL+Ny2MPpCkPFMH6PWEhWhKncIyEk69VfiUuVhqJefds+YcwNbEwxGqGIFWYAAAAASUVORK5CYII=");
   width:26px;
   height:26px;
-  display:block;  
+  display:block;
 }
 </style>
 <div class="window" id="windowcenter">
   <div id="title" class="title">消息提醒<span class="close" id="alertclose"></span></div>
   <div class="content">
    <div id="txt"></div>
-   <input type="button" value="确定" id="windowclosebutton" name="确定" class="txtbtn"> 
+   <input type="button" value="确定" id="windowclosebutton" name="确定" class="txtbtn">
   </div>
 </div>
- 
- 
+
+
 
 <script type="text/javascript">
 
 $("#sign-btn").bind("click",
   function() {
    var  token ="{pigcms:$Think.get.token}";
-   var wecha_id ="{pigcms:$Think.get.wecha_id}";    
-   var btn   = $(this);    
-   
+   var wecha_id ="{pigcms:$Think.get.wecha_id}";
+   var btn   = $(this);
 
-    var submitData = { 
+
+    var submitData = {
       token   : token,
-      wecha_id : wecha_id,     
+      wecha_id : wecha_id,
       action  : "signin"
     };
     $.post('index.php?g=Wap&m=Signscore&a=signin&token={pigcms:$Think.get.token}&wecha_id={pigcms:$Think.get.wecha_id}', submitData,
@@ -276,12 +276,12 @@ $("#sign-btn").bind("click",
           alert(data.msg);
           $("#zjl").hide("slow");
           return
-        } else { 
+        } else {
           alert('失败'+data);
           return
         }
       },"json")
-    
+
 });
 
 </script>
