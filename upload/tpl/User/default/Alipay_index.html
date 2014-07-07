@@ -74,7 +74,7 @@ function checkcz(){
 </script>
 <div class="usercontent">
 <ul>
-<form action="{pigcms::U('Alipay/recharge')}" method="post" onsubmit="return checkcz()">
+<form action="<pigcmsif where="C('pay_type') eq 'tenpay'">{pigcms::U('Tenpay/recharge')}<else/>{pigcms::U('Alipay/recharge')}</pigcmsif>" method="post" onsubmit="return checkcz()">
 	<li style="display:none"> <b>充值用户名: </b><input type="text" name="uname" value="{pigcms:$Think.session.uname}" size="60" > <b>充值帐号,默认即可请勿修改</b></li>
 	<li> <b>账户余额: </b><input type="text" style="border:none;width:30px;" name="moneybalance" value="{pigcms:$thisUser.moneybalance}" id="needmoneybalanceprice" size="10" disabled> 元<b></b></li>
 	<li> <b>充值金额: </b><input type="text" name="price" style="width:50px;" value="{pigcms:$user.price}" id="price" size="10"> 元 <b></b></li>

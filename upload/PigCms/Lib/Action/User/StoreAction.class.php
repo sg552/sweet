@@ -110,7 +110,7 @@ class StoreAction extends UserAction{
             if (count($productsOfCat)){
             	$this->error('本分类下有商品，请删除商品后再删除分类',U('Store/index',array('token'=>session('token'),'dining'=>$this->isDining)));
             }
-            $back=$data->where($wehre)->delete();
+            $back=$data->where($where)->delete();
             if($back==true){
             	if (!$this->isDining){
                 $this->success('操作成功',U('Store/index',array('token'=>session('token'),'parentid'=>$check['parentid'])));
@@ -207,7 +207,7 @@ class StoreAction extends UserAction{
             $data = M('Norms');
             $check = $data->where($where)->find();
             if($check == false) $this->error('非法操作');
-            if ($back = $data->where($wehre)->delete()) {
+            if ($back = $data->where($where)->delete()) {
             	$this->success('操作成功',U('Store/norms', array('type' => $type, 'catid' => $check['catid'])));
             } else {
 				$this->error('服务器繁忙,请稍后再试',U('Store/norms', array('type' => $type, 'catid' => $check['catid'])));
@@ -293,7 +293,7 @@ class StoreAction extends UserAction{
             $data = M('Attribute');
             $check = $data->where($where)->find();
             if($check == false) $this->error('非法操作');
-            if ($back = $data->where($wehre)->delete()) {
+            if ($back = $data->where($where)->delete()) {
             	$this->success('操作成功',U('Store/attributes', array('token' => session('token'), 'catid' => $catid)));
             } else {
 				$this->error('服务器繁忙,请稍后再试',U('Store/attributes', array('token' => session('token'), 'catid' => $catid)));
@@ -359,6 +359,7 @@ class StoreAction extends UserAction{
         	}
         	$normsList[$row['id']] = $row['value'];
         }
+        $attributeData = array();
         if ($id && ($product = M('Product')->where(array('catid' => $catid, 'token' => session('token'), 'id' => $id))->find())) {
         	$attributeData = M("Product_attribute")->where(array('pid' => $id))->select();
         	$productDetailData = M("Product_detail")->where(array('pid' => $id))->select();
@@ -376,16 +377,42 @@ class StoreAction extends UserAction{
         	$this->assign('colorList', $colorList);
         	$this->assign('imageList', $productimage);
         	//print_r($productimage);die;
-        } else {
+        }// else {
 	        //分类产品的属性
-	        $data = M("Attribute")->where(array('catid' => $catid))->select();
-	        $attributeData = array();
-	        foreach ($data as $row) {
+//	        $data = M("Attribute")->where(array('catid' => $catid))->select();
+//	        $temp = array();
+//	        foreach ($data as $row) {
+//	        	$row['aid'] = $row['id'];
+//	        	$row['id'] = 0;
+//	        	$temp[$row['id']] = $row;
+//	        }
+        //}
+        $array = array();
+        if ($attributeData) {
+	        foreach ($attributeData as $row) {
+	        	$array[$row['aid']] = $row;
+	        }
+        }
+		$data = M("Attribute")->where(array('catid' => $catid))->select();
+        $attributeData = array();
+        foreach ($data as $row) {
+        	if (isset($array[$row['id']])) {
+        		$attributeData[] = $array[$row['id']];
+        		unset($array[$row['id']]);
+        	} else {
 	        	$row['aid'] = $row['id'];
 	        	$row['id'] = 0;
 	        	$attributeData[] = $row;
-	        }
+        	}
         }
+        if ($array) {
+        	$ids = array();
+        	foreach ($array as $v) {
+        		$ids[] = $v['id'];
+        	}
+        	M('Product_attribute')->where(array('id' => array('in', $ids)))->delete();
+        }
+        
 		$this->assign('color', $this->color);
 		$this->assign('attributeData', $attributeData);
 		$this->assign('normsData', $normsData);
@@ -404,6 +431,7 @@ class StoreAction extends UserAction{
 		$token = isset($_POST['token']) ? htmlspecialchars($_POST['token']) : '';
 		$catid = isset($_POST['catid']) ? intval($_POST['catid']) : 0;
 		$num = isset($_POST['num']) ? intval($_POST['num']) : 0;
+		$salecount = isset($_POST['salecount']) ? intval($_POST['salecount']) : 0;
 		$pid = isset($_POST['pid']) ? intval($_POST['pid']) : 0;
 		$name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
 		$keyword = isset($_POST['keyword']) ? htmlspecialchars($_POST['keyword']) : '';
@@ -426,7 +454,8 @@ class StoreAction extends UserAction{
 		if (empty($catid)) {
 			exit(json_encode(array('error_code' => true, 'msg' => '商品分类不能为空')));
 		}
-		$data = array('token' => $token, 'num' => $num, 'sort' => $sort, 'catid' => $catid, 'name' => $name, 'price' => $price, 'mailprice' => $mailprice, 'vprice' => $vprice, 'oprice' => $oprice, 'intro' => $intro, 'logourl' => $pic, 'keyword' => $keyword, 'time' => time());
+		$data = array('token' => $token, 'num' => $num, 'salecount' => $salecount, 'sort' => $sort, 'catid' => $catid, 'name' => $name, 'price' => $price, 'mailprice' => $mailprice, 'vprice' => $vprice, 'oprice' => $oprice, 'intro' => $intro, 'logourl' => $pic, 'keyword' => $keyword, 'time' => time());
+		$data['discount'] = number_format($price / $oprice, 2, '.', '') * 10;
 		$product = M('Product');
 		if ($pid && $obj = $product->where(array('id' => $pid, 'token' => $token))->find()) {
 			$product->where(array('id' => $pid, 'token' => $token))->save($data);
@@ -514,7 +543,7 @@ class StoreAction extends UserAction{
             $check=$product_model->where($where)->find();
             if($check==false)   $this->error('非法操作');
 
-            $back=$product_model->where($wehre)->delete();
+            $back=$product_model->where($where)->delete();
             if($back==true){
             	$keyword_model=M('Keyword');
             	$keyword_model->where(array('token'=>session('token'),'pid'=>$id,'module'=>'Product'))->delete();
@@ -525,56 +554,44 @@ class StoreAction extends UserAction{
         }        
 	}
 	
-	public function orders(){
-		$product_cart_model=M('product_cart');
+	public function orders()
+	{
+		$product_cart_model = M('product_cart');
+		$where = array('token' => $this->_session('token'), 'groupon' => 0, 'dining' => 0);
 		if (IS_POST) {
-			if ($_POST['token']!=$this->_session('token')){
+			if ($_POST['token'] != $this->_session('token')) {
 				exit();
 			}
-			for ($i=0;$i<40;$i++){
-				if (isset($_POST['id_'.$i])){
-					$thiCartInfo=$product_cart_model->where(array('id'=>intval($_POST['id_'.$i])))->find();
-					if ($thiCartInfo['handled']){
-					$product_cart_model->where(array('id'=>intval($_POST['id_'.$i])))->save(array('handled'=>0));
-					}else {
-						$product_cart_model->where(array('id'=>intval($_POST['id_'.$i])))->save(array('handled'=>1));
+			$key = $this->_post('searchkey');
+			if ($key) {
+				$where['truename|address'] = array('like', "%$key%");
+			} else {
+				for ($i=0;$i<40;$i++){
+					if (isset($_POST['id_'.$i])){
+						$thiCartInfo=$product_cart_model->where(array('id'=>intval($_POST['id_'.$i])))->find();
+						if ($thiCartInfo['handled']){
+							$product_cart_model->where(array('id'=>intval($_POST['id_'.$i])))->save(array('handled'=>0));
+						} else {
+							$product_cart_model->where(array('id'=>intval($_POST['id_'.$i])))->save(array('handled'=>1));
+						}
 					}
 				}
+				$this->success('操作成功',U('Store/orders',array('token' => session('token'))));
+				die;
 			}
-			$this->success('操作成功',U('Store/orders',array('token'=>session('token'),'dining'=>$this->isDining)));
-		} else {
-			$where = array('token'=>$this->_session('token'), 'groupon' => 0, 'dining' => 0);
-			if (IS_POST) {
-				$key = $this->_post('searchkey');
-				if(empty($key)){
-					$this->error("关键词不能为空");
-				}
-
-				$where['truename|address'] = array('like',"%$key%");
-				$orders = $product_cart_model->where($where)->select();
-				$count      = $product_cart_model->where($where)->limit($Page->firstRow.','.$Page->listRows)->count();
-				$Page       = new Page($count,20);
-				$show       = $Page->show();
-			} else {
-				if (isset($_GET['handled'])){
-					$where['handled'] = intval($_GET['handled']);
-				}
-				$count      = $product_cart_model->where($where)->count();
-				$Page       = new Page($count,20);
-				$show       = $Page->show();
-				$orders=$product_cart_model->where($where)->order('time DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
-			}
-
-
-			$unHandledCount=$product_cart_model->where(array('token'=>$this->_session('token'),'handled'=>0))->count();
-			$this->assign('unhandledCount',$unHandledCount);
-
-
-			$this->assign('orders',$orders);
-
-			$this->assign('page',$show);
-			$this->display();
 		}
+		if (isset($_GET['handled'])) {
+			$where['handled'] = intval($_GET['handled']);
+		}
+		$count      = $product_cart_model->where($where)->count();
+		$Page       = new Page($count,20);
+		$show       = $Page->show();
+		$orders		= $product_cart_model->where($where)->order('time DESC')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+		$unHandledCount = $product_cart_model->where(array('token' => $this->_session('token'), 'handled' => 0))->count();
+		$this->assign('unhandledCount', $unHandledCount);
+		$this->assign('orders', $orders);
+		$this->assign('page', $show);
+		$this->display();
 	}
 	
 	public function orderInfo() {
@@ -930,6 +947,40 @@ class StoreAction extends UserAction{
 			$this->assign('setting', $obj);
 			$this->display();	
 		}
+	}
+	
+	public function comment()
+	{
+		$catid = intval($_GET['catid']);
+		$pid = intval($_GET['pid']);
+		$product_model = M('Product_comment');
+		
+		$where = array('token' => $this->token, 'pid' => $pid, 'isdelete' => 0);
+		$count      = $product_model->where($where)->count();
+		$Page       = new Page($count,20);
+		$show       = $Page->show();
+		$list = $product_model->where($where)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+		$this->assign('page',$show);		
+		$this->assign('list',$list);
+		$this->assign('pid',$pid);
+		$this->assign('catid', $catid);
+		$this->display();	
+		
+	}
+	
+	/**
+	 * 删除商品
+	 */
+	public function commentdel()
+	{
+		$catid = intval($_GET['catid']);
+		$pid = intval($_GET['pid']);
+		if($this->_get('token')!= session('token')){$this->error('非法操作');}
+        $id = $this->_get('id');
+        if (IS_GET) {
+        	M('Product_comment')->where(array('id' => $id,'token' => session('token')))->save(array('isdelete' => 1));
+			$this->success('操作成功', U('Store/comment',array('token'=>session('token'),'catid' => $catid,'pid' => $pid)));
+        }        
 	}
 }
 ?>

@@ -302,7 +302,7 @@ class GrouponAction extends ProductAction{
 
 			$product_model=M('product');
 			$product_cart_list_model=M('product_cart_list');
-			$product_model->where(array('id'=>intval($_POST['productid'])))->setInc('salecount',$_POST['quantity']);
+			$product_model->where(array('id'=>intval($_POST['productid'])))->setInc('salecount',intval($_POST['quantity']));
 			//保存个人信息
 			if ($_POST['saveinfo']){
 				$userRow=array('tel'=>$row['tel'],'truename'=>$row['truename'],'address'=>$row['address']);
@@ -328,10 +328,10 @@ class GrouponAction extends ProductAction{
 					$userinfo_model->add($userRow);
 				}
 			}
+			Sms::sendSms($this->token,'您在微信上有新的团购订单');
 			if ($alipayConfig['open']){
 				$this->success('提交成功，转向支付页面',U('Alipay/pay',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'success'=>1,'price'=>$row['price'],'from'=>'Groupon','orderName'=>$orderName,'orderid'=>$orderid)));
 			}else {
-				Sms::sendSms($this->token,'您在微信上有新的团购订单');
 				$this->redirect(U('Groupon/my',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'],'success'=>1)));
 			}
 		}else {

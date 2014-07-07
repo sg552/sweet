@@ -13,7 +13,7 @@
  <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
 <script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
 <if condition="$type eq 'music'">
-<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.jplayer.min.js"></script>
     <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.mb.miniPlayer.js"></script>
     <link rel="stylesheet" type="text/css" href="/tpl/static/audioplayer/css/miniplayer.css" title="style" media="screen"/>
@@ -49,7 +49,7 @@ input{border: 1px solid #DDDDDD;height:30px;width:200px;margin-left:10px;}
     background-image: url("{pigcms::RES}/images/img/new-btn-fixed.png");
     border: medium none;
 	border:1px solid red;
-
+	
 }
 .new-btn-login{
     background-position: 0 -198px;
@@ -59,7 +59,7 @@ input{border: 1px solid #DDDDDD;height:30px;width:200px;margin-left:10px;}
     height: 28px;
     line-height: 28px;
     padding: 0 10px 3px;
-
+	
 }
 .new-btn-login:hover{
 	background-position: 0 -167px;
@@ -106,7 +106,7 @@ function checkcz(){
 <div class="usercontent" style="margin:30px auto;width:85%">
 <ul>
 <form action="{pigcms::U('Alipay/vip_post')}" method="post" onsubmit="return checkcz()">
-	<li>
+	<li> 
 		<b>充值选项: </b>
 		<select name="gid" style="margin-left:10px;" id="group">
 		<option value="0" selected>请选择</option>
@@ -126,7 +126,7 @@ function checkcz(){
 			<option value="9">9个月</option>
 			<option value="10">10个月</option>
 			<option value="11">11个月</option>
-			<option value="12">12个月</option>
+			<option value="12">12个月</option>		
 		</select>
     </li>
 	<li style="display:none"> <b>充值用户名: </b><input type="text" name="uname" value="{pigcms:$Think.session.uname}" size="60" > <b>充值帐号,默认即可请勿修改</b></li>
@@ -151,7 +151,7 @@ function returnHomepage(url){
 	if(origin.document.getElementById(domsrcid)){
 	origin.document.getElementById(domsrcid).src=url;
 	}
-
+	
 	dom.value=url;
 	setTimeout("art.dialog.close()", 100 )
 }

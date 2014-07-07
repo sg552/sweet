@@ -8,9 +8,9 @@ class ShareAction extends WapAction{
 		 	$row=array();
 		 	$row['token']=$this->token;
 		 	$row['wecha_id']=$this->wecha_id;
-		 	$row['to']=$this->_post('to');
-		 	$row['module']=$this->_post('module');
-		 	$row['moduleid']=intval($this->_post('moduleid'));
+		 	$row['to']=$this->_post('to')?$this->_post('to'):$this->_get('to');
+		 	$row['module']=$this->_post('module')?$this->_post('module'):$this->_get('module');
+		 	$row['moduleid']=intval($this->_post('moduleid'))?intval($this->_post('moduleid')):intval($this->_get('moduleid'));
 		 	$row['time']=time();
 		 	$row['url']=$this->_post('url');
 		 	M('share')->add($row);

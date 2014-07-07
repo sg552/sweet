@@ -4,7 +4,7 @@ class HotelsAction extends UserAction
 	public $_cid = 0;
 	public function _initialize() {
 		parent::_initialize();
-		//$this->canUseFunction('hotel');
+		$this->canUseFunction('hotel');
 		
 		$this->_cid = isset($_GET['cid']) ? intval($_GET['cid']) : session('companyid');
 		if (empty($this->token)) {

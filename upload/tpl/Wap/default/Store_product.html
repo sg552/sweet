@@ -2,7 +2,7 @@
 <style>
 #content{display:none;width:100%;overflow:hidden;position:absolute;top:0}#imgs{-webkit-transition-property:-webkit-transform;-webkit-transition-duration:0.5s;-webkit-transition-timing-function:ease-out;-webkit-transform:translate3d(0px,0px,0px);height:100%}#imgs li{float:left;text-align:center;height:100%;padding-top:65px}#imgs img{width:94%;-webkit-transform:translate3d(0px,0px,0px)}.bg{width:100%;top:0;left:0;background:#000;opacity:0.8;position:absolute;display:none}.close{display:none;position:absolute;z-index:10;right:3%;top:20px;color:#fff;cursor:pointer;background:#999;border-radius:3px;padding:5px 8px}.s_count{display:none;position:absolute;z-index:10;right:3%;top:25px;color:#fff;margin-right:60px}
 .infodetail img{
-    max-width: 300px;
+    max-width: 100%;
 }
 </style>
 <!--轮播--->
@@ -234,7 +234,7 @@ function QuickBuy() {
 	var did = parseInt($("#" + buyDetailId).attr('did'));
 	if ($('.hidden').eq(0).val() != null && $('.hidden').eq(0).val() != '' && $('.hidden').eq(0).val() != 'undefined') {
 		if (isNaN(did)) {
-			return floatNotify.simple('请选择颜色与尺码');
+			return floatNotify.simple('请选择相应属性的产品');
 			return false;
 		}
 	} else {

@@ -108,7 +108,7 @@ class MessageAction extends UserAction{
 					//$postMedia['media']=$_SERVER['DOCUMENT_ROOT'].str_replace('http://'.$_SERVER['HTTP_HOST'],'',$img['pic']);
 					//$postMedia['media']=$_SERVER['DOCUMENT_ROOT'].str_replace('./','/',CONF_PATH.'img_'.$img['id'].'.jpg');
 					$postMedia['media']=CONF_PATH.'img_'.$img['id'].'.jpg';
-					
+					$postMedia['media']=$_SERVER['DOCUMENT_ROOT'].str_replace(array('./'),array('/'),$postMedia['media']);
 					$rt=$this->curlPost('http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token='.$postMedia['access_token'].'&type='.$postMedia['type'],array('media'=>'@'.$postMedia['media']));
 					
 					if($rt['rt']==false){
@@ -164,7 +164,7 @@ class MessageAction extends UserAction{
 							//$url=C('site_url').U('Wap/Index/content',array('token'=>$this->token,'wecha_id'=>$fan['openid'],'id'=>$thisNews['id']));
 						}
 						
-						$str.=$comma.'{"thumb_media_id":"'.$mediaids[$i].'","author":"","title":"'.$img['title'].'","content_source_url":"","content":"'.html_entity_decode($img['info']).'","digest":"'.$img['text'].'"}';
+						$str.=$comma.'{"thumb_media_id":"'.$mediaids[$i].'","author":"","title":"'.$img['title'].'","content_source_url":"","content":"'.str_replace(array('"','"/upload'),array('\"','"'.C('site_url').'/upload'),html_entity_decode($img['info'])).'","digest":"'.$img['text'].'"}';
 						$comma=',';
 						$i++;
 					}

@@ -6,7 +6,6 @@ class RouterAction extends UserAction{
 		parent::_initialize();
 		$this->tokenWhere=array('token'=>$this->token);
 		$this->server='http://wifi.pigcms.cn/';
-		//$this->server='http://ap.9466.com/';
 	}
 	public function index(){
 		$routerUrl=Router::login($this->token,'wechaid');
@@ -74,11 +73,12 @@ class RouterAction extends UserAction{
 		if (IS_POST){
 			if (isset($_GET['id'])){
 			}else {
+				$rt=$this->curlPost($this->server.'api/node/delete?id='.trim($this->_post('gw_id')).'&a='.substr(trim(C('router_key')),0,16).'&b='.substr($wxuser['routerid'],0,16));
 				$data=array(
 				'gw_id'=>$this->_post('gw_id'),
 				'gw_name'=>$this->_post('gw_name'),
 				'wx_bind_type'=>1,
-				'public_wechat_id'=>$this->_post('public_wechat_id'),
+				'public_wechat_id'=>$wxuser['weixin'],
 				'qrcode_url'=>$this->_post('qrcode_url'),
 				'a'=>substr(trim(C('router_key')),0,16),
 				'b'=>substr($wxuser['routerid'],0,16)
@@ -91,12 +91,13 @@ class RouterAction extends UserAction{
 				if (intval($arr['ret'])==0){
 					$row=array(
 					'name'=>$this->_post('gw_name'),
-					'wechat'=>$this->_post('public_wechat_id'),
+					'wechat'=>$wxuser['weixin'],
 					'qrcode'=>$this->_post('qrcode_url'),
 					'time'=>time(),
 					'token'=>$this->token
 					);
 					$row['gw_id']=$this->_post('gw_id');
+					
 					M('Router')->add($row);
 					$this->success('设置成功',U('Router/index'));
 				}else {
@@ -118,9 +119,10 @@ class RouterAction extends UserAction{
 		$wxuser=M('Wxuser')->where($this->tokenWhere)->find();
 		
 		
-		
-		//M('Router_config')->where($this->tokenWhere)->delete();
-		
+		if (!$wxuser['routerid']){
+			M('Router_config')->where($this->tokenWhere)->delete();
+		}
+
 
 		$thisCompay=M('Company')->where(array('token'=>$this->token,'isbranch'=>0))->find();
 		if (!$thisCompay){
@@ -165,6 +167,7 @@ class RouterAction extends UserAction{
 				M('Keyword')->where(array('token'=>$this->token,'module'=>'Router_config'))->save(array('keyword'=>$this->_post('keyword')));
 				//
 				$data['b']=substr($wxuser['routerid'],0,16);
+				
 				$this->curlPost($this->server.'api/business/edit',$data);
 				//
 				$this->success('设置成功');
@@ -180,19 +183,25 @@ class RouterAction extends UserAction{
 				$rt=$this->curlPost($this->server.'api/business/create',$data);
 				
 				
-				$id=$db->add($data1);
+				
 				$rt=str_replace('callback(','',$rt);
 				$rt=substr($rt,0,-1);
 				$arr=json_decode($rt,1);
+				if (!$arr['data']['business_id']){
+					exit($rt);
+				}
+				$id=$db->add($data1);
 				//
 				M('Keyword')->add(array('keyword'=>$this->_post('keyword'),'pid'=>$id,'token'=>$this->token,'module'=>'Router_config'));
 				//
 				if (intval($arr['ret'])==0){
 
-					
 					$rt=M('Wxuser')->where($this->tokenWhere)->save(array('routerid'=>$arr['data']['business_id']));
-					
+					if ($rt){
 					$this->success('设置成功');
+					}else {
+						$this->error('设置失败，wxuser表可能缺少字段');
+					}
 				}else {
 					$this->error('发生错误：'.$arr['msg'].'，错误代码：'.$arr['ret']);
 				}

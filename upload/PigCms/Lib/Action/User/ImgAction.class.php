@@ -92,11 +92,9 @@ class ImgAction extends UserAction{
 		}
 	}
 	public function insert(){
-		//$pat = "/<(\/?)(script|i?frame|style|html|body|title|font|strong|span|div|marquee|link|meta|\?|\%)([^>]*?)>/isU";
-		//$_POST['info'] = preg_replace($pat,"",$_POST['info']);
-		//$_POST['info']=strip_tags($this->_post('info'),'<a> <p> <br>'); 
+		$lastid = M("Img")->where(array('token'=>session('token')))->order('id DESC')->limit(1)->getField('id');
+		$_POST['usort'] = $lastid+1;
 		$_POST['info']=str_replace('\'','&apos;',$_POST['info']);
-		//dump($_POST['info']);
 		$usersdata=M('Users');
 		$usersdata->where(array('id'=>$this->user['id']))->setInc('diynum');
 		$this->all_insert();

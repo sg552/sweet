@@ -77,11 +77,11 @@ $(function() {
 		var _page = $('#show_more').attr('page');
 		$(window).bind("scroll",function() {
 			if ($(document).scrollTop() + $(window).height() >= $(document).height()) {
+				$('#show_more').show().html('加载中...');
 				if (_page > pages) {
 					$('#show_more').show().html('没有更多了').delay(2300).slideUp(1600);
 					return;
 				}
-				$('#show_more').show().html('加载中...');
 				if($('#canScroll').val()==0){//不要重复加载
 					return;
 				}

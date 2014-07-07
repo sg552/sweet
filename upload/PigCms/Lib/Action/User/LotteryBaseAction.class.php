@@ -34,6 +34,9 @@ class LotteryBaseAction extends UserAction{
 			case 5:
 				$activeType='GoldenEgg';
 				break;
+			case 6:
+				$activeType='Research';
+				break;
 		}
 		if(IS_POST){
 			$data=D('lottery');
@@ -55,7 +58,9 @@ class LotteryBaseAction extends UserAction{
 						if ($_POST['statdate']<time()){
 							$this->_start($id);
 						}
-						
+						//微调研
+						$rid = isset($_POST['researchid']) ? intval($_POST['researchid']) : 0;
+						if ($type == 6 && $rid) M('Research')->where(array('id' => $rid))->save(array('lid' => $id));
 						$this->success('活动创建成功，请在列表中让活动“开始”',U($activeType.'/index'));
 					}else{
 						$this->error('服务器繁忙,请稍候再试');
@@ -90,6 +95,9 @@ class LotteryBaseAction extends UserAction{
 			case 5:
 				$activeType='GoldenEgg';
 				break;
+			case 6:
+				$activeType='Research';
+				break;
 		}
 		if(IS_POST){
 			$data=D('Lottery');
@@ -102,6 +110,8 @@ class LotteryBaseAction extends UserAction{
 			}else{
 				$where=array('id'=>$_POST['id'],'token'=>$_POST['token'],'type'=>$type);
 				$check=$data->where($where)->find();
+				//echo $data->getLastSql();
+				//print_r($where);die;
 				if($check==false)$this->error('非法操作');
 					if($data->where($where)->save($_POST)){
 						$data1['pid']=$_POST['id'];
@@ -273,6 +283,8 @@ class LotteryBaseAction extends UserAction{
 		if($check==false)$this->error('非法操作');
 		$back=$data->where($wehre)->delete();
 		if($back==true){
+			$type = isset($_GET['type']) ? intval($_GET['type']) : 0;
+			$type == 6 && M('Research')->where(array('lid' => $id,'token' => $this->token))->save(array('lid' => 0));
 			M('Keyword')->where(array('pid'=>$id,'token'=>$this->token,'module'=>'Lottery'))->delete();
 			$this->success('删除成功');
 		}else{

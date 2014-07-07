@@ -55,8 +55,9 @@ final class Sms {
 			$thisUser=array('id'=>0);
 			$thisWxUser=array('uid'=>0,'token'=>$this->token);
 		}
-		if ($thisUser['smscount']<1||$token!='admin'){
-				
+		if (intval($thisUser['smscount'])<1&&$token!='admin'){
+			return '已用完或者未购买短信包';
+			exit();
 		}else {
 			//
 			//短信发送状态
@@ -67,10 +68,11 @@ final class Sms {
 			$content = Sms::_safe_replace($content);
 			$data = array(
 			'topdomain' => C('server_topdomain'),
-			'key' => C('sms_key'),
+			'key' => trim(C('sms_key')),
 			'token' => $token,
 			'content' => $content,
 			'mobile'=>$mobile,
+			'sign'=>trim(C('sms_sign'))
 			);
 			$post = '';
 			foreach($data as $k=>$v) {
@@ -83,13 +85,15 @@ final class Sms {
 			$arr = explode('#',$return);
 			$this->statuscode = $arr[0];
 			//增加到本地数据库
+			if ($mobile){
 			$row=array('uid'=>$thisUser['id'],'token'=>$thisWxUser['token'],'time'=>time(),'mp'=>$mobile,'text'=>$content,'status'=>$this->statuscode,'price'=>C('sms_price'));
 			M('Sms_record')->add($row);
 			if (intval($this->statuscode)==0&&$token!='admin'){
 				M('Users')->where(array('id'=>$thisWxUser['uid']))->setDec('smscount');
 			}
+			}
 			//end
-			return $this->statuscode;
+			return $return;
 		}
 	}
 		
@@ -161,8 +165,7 @@ final class Sms {
 			}
 		}
 		@fclose($fp);
-		var_export($return);
-		exit();
+
 		//部分虚拟主机返回数值有误，暂不确定原因，过滤返回数据格式
 		$return_arr = explode("\n", $return);
 		if(isset($return_arr[1])) {

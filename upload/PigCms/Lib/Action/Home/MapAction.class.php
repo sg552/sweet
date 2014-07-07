@@ -19,7 +19,8 @@ class MapAction extends Action{
 		$companies=$company_model->where($where)->order('taxis ASC')->select();
 		//
 		$return=array();
-		$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=640&height=320&zoom=11&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&markerStyles=l,1';
+		//$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=640&height=320&zoom=11&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&markerStyles=l,1&t=gdf.png';
+		$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'];
 		$titleStr=$thisCompany['name'].'地图';
 		if ($companies){
 			$titleStr='1.'.$titleStr;
@@ -31,6 +32,7 @@ class MapAction extends Action{
 			$sep='';
 			foreach ($companies as $thisCompany){
 			    $imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=80&height=80&zoom=11&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&markerStyles=l,'.$i;
+			    //$imgUrl=$thisCompany['logourl'];
 				$return[]=array($i.'.'.$thisCompany['name'].'地图',"电话：".$thisCompany['tel']."\r\n地址：".$thisCompany['address']."\r\n点击查看详细",$imgUrl,C('site_url').'/index.php?g=Wap&m=Company&a=map&companyid='.$thisCompany['id'].'&token='.$this->token);
 				$i++;
 			}
@@ -49,11 +51,13 @@ class MapAction extends Action{
 		$i=intval($companyid)-1;
 		$thisCompany=$companies[$i];
 		//
-		$rt=json_decode(file_get_contents('http://api.map.baidu.com/direction/v1?mode=walking&origin='.$x.','.$y.'&destination='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&region=&output=json&ak='.$this->apikey),1);
+		$rt=json_decode(file_get_contents('http://api.map.baidu.com/direction/v1?region=&mode=walking&origin='.$x.','.$y.'&destination='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&output=json&ak='.$this->apikey),1);
+		
 		if (is_array($rt)){
 			$return=array();
 			//
-			$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=640&height=320&zoom=13&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'];
+			//$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=640&height=320&zoom=13&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'];
+			$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'];
 			//长度
 			$distance=$rt['result']['routes'][0]['distance'];
 			if ($distance>1000){
@@ -99,7 +103,8 @@ class MapAction extends Action{
 		if (is_array($rt)){
 			$return=array();
 			//
-			$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=640&height=320&zoom=13&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'];
+			//$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=640&height=320&zoom=13&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'];
+			$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'];
 			//长度
 			$distance=$rt['result']['routes'][0]['distance'];
 			if ($distance>1000){
@@ -151,13 +156,14 @@ class MapAction extends Action{
 			return array('起点和终点不在同一城市，不支持公共交通查询','text');
 		}
 		//
-		$url='http://api.map.baidu.com/direction/v1?mode=transit&type=2&origin='.$x.','.$y.'&destination='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&region='.$ocityName.'&output=json&ak='.$this->apikey;
+		$url='http://api.map.baidu.com/direction/v1?region='.$ocityName.'&mode=transit&type=2&origin='.$x.','.$y.'&destination='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&output=json&ak='.$this->apikey;
 		$rt=json_decode(file_get_contents($url),1);
 
 		if (is_array($rt)){
 			$return=array();
 			//
-			$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=640&height=320&zoom=13&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'];
+			//$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'].'&width=640&height=320&zoom=13&markers='.$thisCompany['longitude'].','.$thisCompany['latitude'];
+			$imgUrl='http://api.map.baidu.com/staticimage?center='.$thisCompany['longitude'].','.$thisCompany['latitude'];
 			//路书
 			$schemeStr="";
 			$schemes=$rt['result']['routes'][0]['scheme'];
@@ -197,7 +203,13 @@ class MapAction extends Action{
 		$j=0;
 		if ($companies){
 			foreach ($companies as $c){
-				$rt=json_decode(file_get_contents('http://api.map.baidu.com/direction/v1?mode=walking&origin='.$x.','.$y.'&destination='.$c['latitude'].','.$c['longitude'].'&region=&output=json&ak='.$this->apikey),1);
+				$furl='http://api.map.baidu.com/direction/v1?region=&mode=driving&origin='.$x.','.$y.'&destination='.$c['latitude'].','.$c['longitude'].'&output=json&ak='.$this->apikey;
+				//file_put_contents('s.html',$furl."\r\n".file_get_contents('s.html'));
+			
+				$json=file_get_contents($furl);
+				$rt=json_decode($json,true);
+		
+
 				if (is_array($rt)){
 					//长度
 					$distance=$rt['result']['routes'][0]['distance'];
@@ -220,7 +232,8 @@ class MapAction extends Action{
 			}
 			//
 			$distanceStr=$this->_getDistance($ldistance);
-			$imgUrl='http://api.map.baidu.com/staticimage?center='.$nearestCompany['longitude'].','.$nearestCompany['latitude'].'&width=640&height=320&zoom=13&markers='.$nearestCompany['longitude'].','.$nearestCompany['latitude'];
+			//$imgUrl='http://api.map.baidu.com/staticimage?center='.$nearestCompany['longitude'].','.$nearestCompany['latitude'].'&width=640&height=320&zoom=13&markers='.$nearestCompany['longitude'].','.$nearestCompany['latitude'];
+			$imgUrl='http://api.map.baidu.com/staticimage?center='.$nearestCompany['longitude'].','.$nearestCompany['latitude'];
 			$return[]=array('最近的是'.$nearestCompany['name'].'，大约'.$distanceStr,"回复“步行去".$index."”“坐公交".$index."”或“开车去".$index."”获取详细路线图",$imgUrl,C('site_url').'/index.php?g=Wap&m=Company&a=map&companyid='.$nearestCompany['id'].'&token='.$this->token);
 			return array($return,'news');
 		}else {

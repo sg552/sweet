@@ -34,7 +34,7 @@
 </TR>
 <TR>
   <TH valign="top"><label for="keyword">分类图片：</label></TH>
-  <TD><input type="input" class="px" id="img" value="" name="img" id="img" style="width:500px" >  <script src="/tpl/static/upyun.js?2013"></script><a href="###" onclick="chooseFile('img','icon')" class="a_upload">选择</a> <a href="###" onclick="upyunPicUpload('img',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img')">预览</a></TD>
+  <TD><input type="input" class="px" id="img" value="" name="img" id="img" style="width:500px" >  <script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script><a href="###" onclick="chooseFile('img','icon')" class="a_upload">选择</a> <a href="###" onclick="upyunPicUpload('img',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img')">预览</a></TD>
   <TD>&nbsp;</TD>
 </TR>
 <TR>
@@ -72,7 +72,7 @@
 			chooseTpl(tid,'',2);
 		}
 	</script>
-	<input type="hidden" class="px" id="tpid" value="38" name="tpid" style="width:250px">
+	<input type="hidden" class="px" id="tpid" value="1" name="tpid" style="width:250px">
   </TD>
   <TD>
 	&nbsp;

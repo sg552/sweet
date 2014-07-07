@@ -39,7 +39,12 @@ class SiteAction extends BackAction{
 			$this->success('操作失败',U('Site/index',array('pid'=>6,'level'=>3)));
 		}
 	}
-	
+	public function smssendtest(){
+		if (strlen($_GET['mp'])!=11){
+			$this->error('请输入正确的手机号');
+		}
+		$this->error(Sms::sendSms('admin','hello,你好',$_GET['mp']));
+	}
 	private function update_config($config, $config_file = '') {
 		!is_file($config_file) && $config_file = CONF_PATH . 'web.php';
 		if (is_writable($config_file)) {

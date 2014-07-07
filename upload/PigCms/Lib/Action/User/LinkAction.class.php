@@ -6,6 +6,7 @@ class LinkAction extends UserAction{
 		parent::_initialize();
 		$this->where=array('token'=>$this->token);
 		$this->modules=array(
+		'WorldCup'=>'<font color="red">巴西世界杯</span>',
 		'Home'=>'首页',
 		'Classify'=>'网站分类',
 		'Img'=>'图文回复',
@@ -76,6 +77,7 @@ class LinkAction extends UserAction{
 	}
 	public function modules(){
 		return array(
+		array('module'=>'WorldCup','linkcode'=>'{siteUrl}/tpl/static/worldcup/index.html','name'=>'<span style="color:red">世界杯</span>','sub'=>0,'canselected'=>1,'linkurl'=>'{siteUrl}/tpl/static/worldcup/index.html','keyword'=>'','askeyword'=>0),
 		array('module'=>'Home','linkcode'=>'{siteUrl}/index.php?g=Wap&m=Index&a=index&token='.$this->token.'&wecha_id={wechat_id}','name'=>'微站首页','sub'=>0,'canselected'=>1,'linkurl'=>'','keyword'=>$this->modules['Home'],'askeyword'=>1),
 		array('module'=>'Classify','linkcode'=>'{siteUrl}/index.php?g=Wap&m=Index&a=lists&token='.$this->token.'&wecha_id={wechat_id}','name'=>$this->modules['Classify'],'sub'=>1,'canselected'=>0,'linkurl'=>'','keyword'=>'','askeyword'=>0),
 		array('module'=>'Img','linkcode'=>'{siteUrl}/index.php?g=Wap&m=Index&a=content&token='.$this->token.'&wecha_id={wechat_id}','name'=>$this->modules['Img'],'sub'=>1,'canselected'=>0,'linkurl'=>'','keyword'=>'','askeyword'=>1),

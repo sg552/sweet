@@ -45,7 +45,7 @@
 	      <p><span>会员价格</span><em>￥{pigcms:$sort['vprice']}</em></p>
 	    </div>
 	    <div class="bd td">
-	      <span>{pigcms:$sort['name']}</span>
+	      <span>{pigcms:$sort['name']} (容纳人数:{pigcms:$sort['num']})</span>
 	    </div>
 	    <div class="bd2 td">
 	    	<if condition="$sort['houses'] gt $sort['useHouse']">
@@ -56,14 +56,14 @@
 	        
 	    </div>
 	  </div>
-		  <volist name="sort['houses']" id="house">
+		  <volist name="sort['houseslist']" id="house">
 		  <div class="ft">
 		    <div class="fl">
 		      <img src="{pigcms:$house['image']}" height="150">
 		    </div>
 		    <div class="fr">
-		      <p>{pigcms:$house['name']}</p>
-		      <p>{pigcms:$house['note']}</p>
+		      <p>房间号：{pigcms:$house['name']}</p>
+		      <p>房间介绍：{pigcms:$house['note']}</p>
 		    </div>
 		  </div>
 		  </volist>

@@ -95,7 +95,9 @@ class CardAction extends WapAction{
 		$this->assign('thisCompany',$thisCompany);
 		$infoType='companyDetail';
 		$this->assign('infoType',$infoType);
-		$this->display();
+		//
+		header('Location:http://api.map.baidu.com/marker?location='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&title='.$thisCompany['name'].'&content='.$thisCompany['address'].'&output=html&src=yourComponyName|yourAppName');
+		//$this->display();
     }
     public function companyDetail(){
     	$member_card_set_db=M('Member_card_set');

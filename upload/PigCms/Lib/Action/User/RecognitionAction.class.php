@@ -29,10 +29,11 @@ class RecognitionAction extends UserAction{
 			$recognition=$GetDb->where($where)->field('id')->find();
 			if($recognition == false) $this->error('非法操作');
 			//查询appid appkey是否存在
-			$api=M('Diymen_set')->where(array('token'=>session('token')))->find();
+			$api=M('Diymen_set')->where(array('token'=>$this->token))->find();
 			//dump($api);
 			if($api['appid']==false||$api['appsecret']==false){$this->error('必须先填写【AppId】【 AppSecret】');exit;}
 			//获取微信认证
+
 			$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$api['appid'].'&secret='.$api['appsecret'];
 			$json=json_decode($this->curlGet($url_get));
 			$qrcode_url='https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token='.$json->access_token;
@@ -78,7 +79,6 @@ class RecognitionAction extends UserAction{
 			$this->success('操作成功');
 		}
 	}
-
 	function api_notice_increment($url, $data){
 		$ch = curl_init();
 		$header = "Accept-Charset: utf-8";
@@ -93,13 +93,19 @@ class RecognitionAction extends UserAction{
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$tmpInfo = curl_exec($ch);
+		$errorno=curl_errno($ch);
 		if ($errorno) {
-			return array('rt'=>false,'errorno'=>$errorno);
-		}else{
-			//dump($tmpInfo);
+			$this->error('发生错误：curl error'.$errorno);
 			
+		}else{
+
 			$js=json_decode($tmpInfo,1);
-			return $js['ticket'];
+			
+			if (!$js['errcode']){
+				return $js['ticket'];
+			}else {
+				$this->error('发生错误：错误代码'.$js['errcode'].',微信返回错误信息：'.$js['errmsg']);
+			}
 		}
 	}
 	function curlGet($url){

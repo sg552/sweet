@@ -75,6 +75,7 @@ class ClassifyAction extends UserAction{
 	     $name='Classify';
 		$db=D($name);
 		$fid = $this->_post('fid','intval');
+		$_POST['info'] = str_replace('&quot;','',$_POST['info']);
 		if($fid != ''){
 			$f = $db->field('path')->where("id = $fid")->find();
 			$_POST['path'] = $f['path'].'-'.$fid;
@@ -92,6 +93,7 @@ class ClassifyAction extends UserAction{
 		}
 	}
 	public function upsave(){
+		$_POST['info'] = str_replace('&quot;','',$_POST['info']);
 		$fid = $this->_post('fid','intval');
 		if($fid == ''){
 			$this->all_save();

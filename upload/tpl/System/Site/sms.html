@@ -15,6 +15,11 @@
 #set_top_li_bg{background:url('{pigcms::RES}/images/set_top_li_hover.png');}
 </style>
 <include file="Site:public" />
+<script>
+function sendtest(){
+	location.href="{pigcms::U('Site/smssendtest')}&mp="+document.getElementById('sms_mp').value;
+}
+</script>
 <div id="artlist">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" id="addn">
  <form id="myform" action="{pigcms::U('Site/insert')}" method="post">
@@ -30,12 +35,20 @@
     </tr>
 	 <tr> 
       <td  height="48" align="right"><strong>key：</strong></td>
-      <td><input type="text" name="sms_key" value="{pigcms::C('sms_key')}" class="ipt" size="45" /><span>&nbsp;&nbsp;</span>
-	  
+      <td><input type="text" name="sms_key" value="{pigcms::C('sms_key')}" class="ipt" size="45" /><span>&nbsp;&nbsp;联系pigcms获取</span>
     </tr>
      <tr> 
       <td  height="48" align="right"><strong>价格：</strong></td>
-      <td><input type="text" name="sms_price" value="{pigcms::C('sms_price')}" class="ipt" size="45" /><span> 每条多少分钱&nbsp;&nbsp;</span>
+      <td><input type="text" name="sms_price" value="{pigcms::C('sms_price')}" class="ipt" size="45" /><span> 每条多少分钱（卖给客户的）&nbsp;&nbsp;</span>
+	  
+    </tr>
+    <tr> 
+      <td  height="48" align="right"><strong>签名：</strong></td>
+      <td><input type="text" name="sms_sign" value="{pigcms::C('sms_sign')}" class="ipt" size="45" /><span>&nbsp;&nbsp;短信的后缀，必须带有签名</span>
+    </tr>
+    <tr> 
+      <td  height="48" align="right"><strong>测试：</strong></td>
+      <td><input type="text" name="sms_mp" value="{pigcms::C('sms_mp')}" id="sms_mp" class="ipt" size="45" /><span> 输入手机号以后，<a href="###" onclick="sendtest()">然后点击这里测试</a>&nbsp;&nbsp;</span>
 	  
     </tr>
 

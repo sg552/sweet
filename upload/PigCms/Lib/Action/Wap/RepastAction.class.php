@@ -201,7 +201,7 @@ class RepastAction extends WapAction {
 	public function GetDishList() {
 		$company = M('Company')->where(array('token' => $this->token, 'id' => $this->_cid))->find();
 		$dish_sort = M('Dish_sort')->where(array('cid' => $this->_cid))->select();
-		$dish = M('Dish')->where(array('cid' => $this->_cid))->select();
+		$dish = M('Dish')->where(array('cid' => $this->_cid, 'isopen' => 1))->select();
 		$dish_like = M('Dish_like')->where(array('cid' => $this->_cid, 'wecha_id' => $this->wecha_id))->select();
 		$like = array();
 		foreach ($dish_like as $dl) {
@@ -360,10 +360,6 @@ class RepastAction extends WapAction {
 		if (empty($this->wecha_id)) {
 			exit(json_encode(array('success' => 0, 'msg' => '无法获取您的微信身份，请关注“公众号”，然后回复“订餐”来使用此功能')));
 		}
-		//$userInfo = unserialize($_SESSION[$this->session_dish_user]);
-		//if (empty($userInfo)) {
-			//exit(json_encode(array('success' => 0, 'msg' => '您的个人信息有误，请重新下单')));
-		//}
 		exit(json_encode(array('success' => 1, 'msg' => 'ok')));
 	}
 	
@@ -375,7 +371,6 @@ class RepastAction extends WapAction {
 		if (empty($this->wecha_id)) {
 			unset($_SESSION[$this->session_dish_info]);
 			$this->error('您的微信账号为空，不能订餐!');
-			exit(json_encode(array('success' => 0, 'msg' => '您的微信账号为空，不能订餐!')));
 		}
 		$dishs = $this->getDishMenu();
 		if (empty($dishs)) {
@@ -412,7 +407,31 @@ class RepastAction extends WapAction {
 		$userInfo['time'] = time();
 		$userInfo['orderid'] = substr($this->wecha_id, -1, 4) . date("YmdHis");
 		$doid = D('Dish_order')->add($userInfo);
-		
+	
+		//保存个人信息
+		$userinfo_model = M('Userinfo');
+		$thisUser = $userinfo_model->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id))->find();
+		if (empty($thisUser)){
+			$userRow = array('tel' => $userInfo['tel'], 'truename' => $userInfo['name'], 'address' => isset($userInfo['address']) ? $userInfo['address'] : '');
+			$userRow['token'] = $this->token;
+			$userRow['wecha_id'] = $this->wecha_id;
+			$userRow['wechaname'] = '';
+			$userRow['qq'] = 0;
+			$userRow['sex'] = -1;
+			$userRow['age'] = 0;
+			$userRow['birthday'] = '';
+			$userRow['info'] = '';
+
+			$userRow['total_score'] = 0;
+			$userRow['sign_score'] = 0;
+			$userRow['expend_score'] = 0;
+			$userRow['continuous'] = 0;
+			$userRow['add_expend'] = 0;
+			$userRow['add_expend_time'] = 0;
+			$userRow['live_time'] = 0;
+			$userinfo_model->add($userRow);
+		}
+			
 		if ($doid) {
 			//TODO 短信提示
 			if ($userInfo['takeaway'] != 2) {
@@ -435,12 +454,10 @@ class RepastAction extends WapAction {
 			if ($alipayConfig['open'] && $dishCompany['payonline']) {
 				$this->success('正在提交中...', U('Alipay/pay',array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'success' => 1, 'from'=> 'Repast', 'orderName' => $userInfo['orderid'], 'single_orderid' => $userInfo['orderid'], 'price' => $price)));
 			} else {
-				$this->redirect(U('Repast/myOrder',array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'cid' => $this->_cid,'success'=>1)));
+				$this->success('预定成功,进入您的订单页', U('Repast/myOrder',array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'cid' => $this->_cid,'success'=>1)));
 			}
-			exit(json_encode(array('success' => 1, 'msg' => 'ok', 'orderid' => $userInfo['orderid'], 'orderName'=> $userInfo['orderid'], 'price'=> $price, 'isopen'=> $alipayConfig['open'])));
 		} else {
 			$this->error('订单出错，请重新下单');
-			exit(json_encode(array('success' => 0, 'msg' => '订单出错，请重新下单')));
 		}
 	}
 	

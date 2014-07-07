@@ -29,10 +29,22 @@ class AlipayAction extends UserAction{
 		$thisGroup=M('User_group')->where(array('id'=>$groupid))->find();
 		$needFee=intval($thisGroup['price'])*$month;
 		$moneyBalance=$this->user['moneybalance'];
-		if ($needFee<$moneyBalance){
+		///
+		$wxusers=M('Wxuser')->where(array('uid'=>$this->user['id']))->select();
+		//
+		if ($this->isAgent){
+			$pricebyMonth=intval($this->thisAgent['wxacountprice'])/12;
+			$price=$pricebyMonth*count($wxusers)*$month;
+			if ($price>$this->thisAgent['moneybalance']){
+				$this->error('请联系您的站长处理');
+			}
+		}
+		//
+		if ($needFee<$moneyBalance||$needFee==$moneyBalance){
 			//
 			$users_db=D('Users');
-			$users_db->where(array('id'=>$this->user['id']))->save(array('viptime'=>$this->user['viptime']+$month*30*24*3600,'status'=>1,'gid'=>$groupid));
+			//$users_db->where(array('id'=>$this->user['id']))->save(array('viptime'=>$this->user['viptime']+$month*30*24*3600,'status'=>1,'gid'=>$groupid));
+			$users_db->where(array('id'=>$this->user['id']))->save(array('viptime'=>time()+$month*30*24*3600,'status'=>1,'gid'=>$groupid));
 			//
 			$gid=$groupid+1;
 			$functions=M('Function')->where('gid<'.$gid)->select();
@@ -46,7 +58,7 @@ class AlipayAction extends UserAction{
 			}
 			//
 			$token_open_db=M('Token_open');
-			$wxusers=M('Wxuser')->where(array('uid'=>$this->user['id']))->select();
+			
 			if ($wxusers){
 				foreach ($wxusers as $wxu){
 					$token_open_db->where(array('token'=>$wxu['token']))->save(array('queryname'=>$str));
@@ -58,6 +70,15 @@ class AlipayAction extends UserAction{
 			$spend=0-$needFee;
 			M('Indent')->data(array('uid'=>session('uid'),'month'=>$month,'title'=>'购买服务','uname'=>$this->user['username'],'gid'=>$groupid,'create_time'=>time(),'indent_id'=>$indent['id'],'price'=>$spend,'status'=>1))->add();
 			M('Users')->where(array('id'=>$this->user['id']))->setDec('moneybalance',intval($needFee));
+			//
+			if ($this->isAgent){
+				$pricebyMonth=intval($this->thisAgent['wxacountprice'])/12;
+				if ($wxusers){
+				$price=$pricebyMonth*count($wxusers)*$month;
+				M('Agent')->where(array('id'=>$this->thisAgent['id']))->setDec('moneybalance',$price);
+				M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>(0-$price),'des'=>$this->user['username'].'(uid:'.$this->user['id'].')延期'.$month.'个月，共'.count($wxusers).'个公众号','status'=>1,'time'=>time()));
+				}
+			}
 			//
 			$this->success('处理成功，请退出重新登陆才会生效',U('User/Index/index'));
 		}else{

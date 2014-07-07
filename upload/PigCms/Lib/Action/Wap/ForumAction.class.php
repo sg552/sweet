@@ -175,7 +175,7 @@ class ForumAction extends WapAction{
 		$token = $this->_get('token');
 
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		
 		S("fans_".$token."_".$uid,NULL);
@@ -193,22 +193,21 @@ class ForumAction extends WapAction{
 	public function checkAdd(){
 		$data = array();
 		$data['uid'] = $this->_post('wecha_id');
-		
+
 		if($data['uid'] == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$data['title'] = $this->_post('title');
 		$data['content'] = $this->_post('form_article');
-		
-		
-		$wecha_id = $data['uid'];	
+
+		$wecha_id = $data['uid'];
 		$userinfo = M('Userinfo')->field('wechaname')->where("wecha_id = '$wecha_id'")->find();
 		$data['uname'] = $userinfo['wechaname'] ? $userinfo['wechaname'] : '游客';
 		$data['token'] = $this->_post('token');
 		$data['createtime'] = time();
-		
+
 		$token = $data['token'];
-		
+
 		$conf = M('Forum_config')->field('ischeck')->where("token = '$token'")->find();
 
 		if($conf['ischeck'] == 1){
@@ -216,7 +215,7 @@ class ForumAction extends WapAction{
 		}else{
 			$data['status'] = 1;
 		}
-		
+
 		$photos[] = $_POST['pics1'];
 		$photos[] = $_POST['pics2'];
 		$photos[] = $_POST['pics3'];
@@ -225,32 +224,34 @@ class ForumAction extends WapAction{
 		$photos[] = $_POST['pics6'];
 		$photos[] = $_POST['pics7'];
 		$photos[] = $_POST['pics8'];
-		
 
 		foreach($photos as $k=>$v){
-		
+
 			if($v == ''){
 				unset($photos[$k]);
 			}
 		}
-		
-		$data['photos'] = implode(',',$photos);
-		
 
-		
-		
-		
+		$data['photos'] = implode(',',$photos);
+
 		//添加记录
 		$forum = M('Forum_topics');
-	
+
 		if($forum->create()){
-			if($forum->add($data)){
-				if($conf['ischeck'] == 1){
-					$this->error('等待管理员审核后您的帖子才可以显示',U('Forum/myContent',array('wecha_id'=>$data['uid'],'token'=>$data['token'])));
+			if(cookie('interval') == NULL){
+				if($forum->add($data)){
+				cookie('interval',1,60);
+					if($conf['ischeck'] == 1){
+						$this->error('等待管理员审核后您的帖子才可以显示',U('Forum/myContent',array('wecha_id'=>$data['uid'],'token'=>$data['token'])));
+					}else{
+						$this->redirect(U('Forum/index',array('wecha_id'=>$data['uid'],'token'=>$data['token'])));
+					}
+					
 				}else{
-					$this->redirect(U('Forum/index',array('wecha_id'=>$data['uid'],'token'=>$data['token'])));
+					$this->error('发布失败');
 				}
-				
+			}else{
+				$this->error('距上次发表时间小于1分钟');
 			}
 		}else{
 			$this->error('系统错误');
@@ -263,7 +264,7 @@ class ForumAction extends WapAction{
 		$uid = $this->_post('uid');
 		
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$id = $this->_post('tid','intval');
 		
@@ -303,7 +304,7 @@ class ForumAction extends WapAction{
 	public function favourAjax(){
 		$uid = $this->_post('uid');
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$id = $this->_post('tid','intval');
 		
@@ -377,7 +378,7 @@ class ForumAction extends WapAction{
 		$data['uid'] = $this->_post('wecha_id');
 		
 		if($data['uid'] == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$data['tid'] = $this->_post('tid','intval');
 		
@@ -446,7 +447,7 @@ class ForumAction extends WapAction{
 	public function commentFavourAjax(){
 		$uid = $this->_post('uid');
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$id = $this->_post('id','intval');
 		
@@ -487,7 +488,7 @@ class ForumAction extends WapAction{
 	public function recomment(){
 		$uid = $this->_get('wecha_id');
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$uid = $this->_get('reid');
 		
@@ -504,7 +505,7 @@ class ForumAction extends WapAction{
 	public function checkRecomment(){
 		$data['uid'] = $this->_post('wecha_id');
 		if($data['uid'] == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$data['tid'] = $this->_post('tid','intval');
 		$data['replyid'] = $this->_post('reid');
@@ -570,7 +571,7 @@ class ForumAction extends WapAction{
 		$uid = $this->_get('wecha_id');
 		
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		
 		$token = $this->_get('token');
@@ -603,7 +604,7 @@ class ForumAction extends WapAction{
 		$wecha_id = $this->_get('wecha_id');	
 		
 		if($wecha_id == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		
 		$uid = $this->_get('uid');
@@ -643,7 +644,7 @@ class ForumAction extends WapAction{
 		
 		$uid = $this->_get('wecha_id');
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		
 		$token = $this->_get('token');
@@ -678,7 +679,7 @@ class ForumAction extends WapAction{
 		
 		$uid = $this->_get('wecha_id');
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		
 		$token = $this->_get('token');
@@ -713,7 +714,7 @@ class ForumAction extends WapAction{
 	public function myContentEdit(){
 		$wecha_id = $this->_get('wecha_id');	
 		if($wecha_id == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$tid = $this->_get('tid','intval');
 		$wecha_id = $this->_get('wecha_id');
@@ -734,7 +735,7 @@ class ForumAction extends WapAction{
 		$data = array();
 		$data['uid'] = $this->_post('wecha_id');
 		if($data['uid'] == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$topics = M('Forum_topics');
 		$data['title'] = $this->_post('title');
@@ -790,7 +791,7 @@ class ForumAction extends WapAction{
 	public function delTopics(){
 		$uid = $this->_post('wecha_id');
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		
 		$id = $this->_post('tid','intval');
@@ -808,7 +809,7 @@ class ForumAction extends WapAction{
 	public function delComment(){
 		$uid = $this->_get('wecha_id');
 		if($uid == ''){
-			$this->error('您需要关注官方公众号才能进入');
+			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		
 		

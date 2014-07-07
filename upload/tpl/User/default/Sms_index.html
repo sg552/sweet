@@ -92,6 +92,7 @@ function checkcz(){
  <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
               <THEAD>
                 <TR>
+                <TH style="width:90px">Status</TH>
 <TH class="keywords">Token</TH>
 <TH class="answer">内容</TH>
                     <TH  class="category" >手机号</TH>
@@ -104,6 +105,7 @@ function checkcz(){
 				</TR>
 				<volist name="list" id="vo">
 				<tr>
+				 <td><pigcmsif where="$vo['status'] eq '0'">成功<else/>不成功({pigcms:$vo.status})</pigcmsif></td>
                   <td>{pigcms:$vo.token}</td>
                   <td><div class="answer_text">{pigcms:$vo.text}</div></td>
                   <td>{pigcms:$vo.mp}</td>

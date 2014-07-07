@@ -125,6 +125,15 @@ class IndexAction extends WapAction{
 				if($info[$k]['url'] == ''){
 						$info[$k]['url'] = U('Index/lists',array('classid'=>$v['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
 					}
+			//解决二级分类
+				if($v['sub'] != NULL){
+					foreach($v['sub'] as $ke=>$va){
+						if($v['sub'][$ke]['url'] == ''){
+							$info[$k]['sub'][$ke]['url'] = U('Index/lists',array('classid'=>$v['sub'][$ke]['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
+						}
+					}
+				}
+				
 			}
 			
 			if($tpldata['tpltypename'] == 'ktv_list' || $tpldata['tpltypename'] == 'yl_list'){
@@ -140,7 +149,7 @@ class IndexAction extends WapAction{
 					$info[$key]['info'] = strip_tags(htmlspecialchars_decode($val['info']));
 				}
 				
-			}		
+			}	
 		
 		
 
@@ -185,7 +194,7 @@ class IndexAction extends WapAction{
 	
 
 		$imgdata = M('Img')->field('id')->where("classid = $classid")->find();
-		
+	
 	
 		if(!empty($sub) AND empty($imgdata)){
 		//有子类
@@ -235,11 +244,13 @@ class IndexAction extends WapAction{
 			foreach($sub as $ke=>$va){
 				 $subpid = $va['id'];
 					$sub[$ke]['sub'] = M('Classify')->where("fid = $subpid")->select();
+					$sub[$ke]['sub'] = $this->convertLinks($sub[$ke]['sub']);
 				if($sub[$ke]['url'] == ''){
 					$sub[$ke]['url'] = U('Index/lists',array('classid'=>$va['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
+					$sub[$ke]['sub'] = $this->convertLinks($sub[$ke]['sub']);
 				}
 			}
-			
+				
 				$count=count($flash);
 				$this->assign('flash',$flash);
 				$this->assign('num',$count);
@@ -483,7 +494,7 @@ class IndexAction extends WapAction{
 				$link='/index.php?g=Wap&m=Vote&a=index&token='.$this->token.'&wecha_id='.$this->wecha_id.'&id='.$itemid;
 			}
 		}else {
-			$link=str_replace(array('{wechat_id}','{siteUrl}','&amp;'),array($this->wecha_id,C('site_url'),'&'),$url);
+			$link=str_replace(array('{wechat_id}','{siteUrl}','&amp;'),array($this->wecha_id,$this->siteUrl,'&'),$url);
 			if (!!(strpos($url,'tel')===false)&&$url!='javascript:void(0)'&&!strpos($url,'wecha_id=')){
 				if (strpos($url,'?')){
 					$link=$link.'&wecha_id='.$this->wecha_id;
@@ -557,9 +568,9 @@ class IndexAction extends WapAction{
 						$card=M('member_card_create')->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id))->find();
 						if (!$pm['url']){
 							if($card==false){
-								$pm['url']=rtrim(C('site_url'),'/').U('Wap/Card/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id));
+								$pm['url']=rtrim($this->siteUrl,'/').U('Wap/Card/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id));
 							}else{
-								$pm['url']=rtrim(C('site_url'),'/').U('Wap/Card/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id));
+								$pm['url']=rtrim($this->siteUrl,'/').U('Wap/Card/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id));
 							}
 						}
 						break;

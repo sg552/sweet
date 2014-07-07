@@ -1,7 +1,7 @@
 <?php
 class StoreAction extends WapAction{
-	public $token;
-	public $wecha_id = 'gh_aab60b4c5a39';
+	//public $token;
+	public $wecha_id = '';
 	public $product_model;
 	public $product_cat_model;
 	public $session_cart_name;
@@ -14,15 +14,14 @@ class StoreAction extends WapAction{
 			//	echo '此功能只能在微信浏览器中使用';exit;
 		}
 		
-		$this->token = isset($_REQUEST['token']) ? htmlspecialchars($_REQUEST['token']) : session('token');
+		//$this->token = isset($_REQUEST['token']) ? htmlspecialchars($_REQUEST['token']) : session('token');
 		$this->session_cart_name = 'session_cart_products_' . $this->token;
 		$this->assign('token', $this->token);
-		$this->wecha_id	= isset($_REQUEST['wecha_id']) ? htmlspecialchars($_REQUEST['wecha_id']) : 'gh_aab60b4c5a39';
+		$this->wecha_id	= isset($_REQUEST['wecha_id']) ? htmlspecialchars($_REQUEST['wecha_id']) : '';
 		if (!$this->wecha_id){
 			//$this->wecha_id='';
 			//exit('非法请求');
 		}
-
 		$this->assign('wecha_id', $this->wecha_id);
 		$this->product_model = M('Product');
 		$this->product_cat_model = M('Product_cat');
@@ -88,6 +87,7 @@ class StoreAction extends WapAction{
 		$this->assign('method', $method);
         	
 		$products = $this->product_model->where($where)->order("sort ASC, " . $order.' '.$method)->limit('0, 8')->select();
+		
 		$this->assign('products', $products);
 		$name = isset($thisCat['name']) ? $thisCat['name'] . '列表' : "商品列表";
 		$this->assign('metaTitle', $name);
@@ -106,18 +106,19 @@ class StoreAction extends WapAction{
 		$method = isset($_GET['method']) && ($_GET['method']=='DESC' || $_GET['method']=='ASC') ? $_GET['method'] : 'DESC';
 		$orders = array('time', 'discount', 'price', 'salecount');
 		$order = isset($_GET['order']) && in_array($_GET['order'], $orders) ? $_GET['order'] : 'time';
-		$start=($page-1)*$pageSize;
+		$start=($page-1) * $pageSize;
 		$products = $this->product_model->where($where)->order("sort ASC, " . $order.' '.$method)->limit($start . ',' . $pageSize)->select();
-		$str='{"products":[';
-		if ($products){
-			$comma='';
-			foreach ($products as $p){
-				$str.=$comma.'{"id":"'.$p['id'].'","catid":"'.$p['catid'].'","storeid":"'.$p['storeid'].'","name":"'.$p['name'].'","price":"'.$p['price'].'","token":"'.$p['token'].'","keyword":"'.$p['keyword'].'","salecount":"'.$p['salecount'].'","logourl":"'.$p['logourl'].'","time":"'.$p['time'].'","oprice":"'.$p['oprice'].'"}';
-				$comma=',';
-			}
-		}
-		$str.=']}';
-		$this->show($str);
+//		$str='{"products":[';
+//		if ($products){
+//			$comma='';
+//			foreach ($products as $p){
+//				$str.=$comma.'{"id":"'.$p['id'].'","catid":"'.$p['catid'].'","storeid":"'.$p['storeid'].'","name":"'.$p['name'].'","price":"'.$p['price'].'","token":"'.$p['token'].'","keyword":"'.$p['keyword'].'","salecount":"'.$p['salecount'].'","logourl":"'.$p['logourl'].'","time":"'.$p['time'].'","oprice":"'.$p['oprice'].'"}';
+//				$comma=',';
+//			}
+//		}
+//		$str.=']}';
+		exit(json_encode(array('products' => $products)));
+		//$this->show($str);
 	}
 	
 	public function product() {
@@ -391,13 +392,35 @@ class StoreAction extends WapAction{
 		$row['token'] = $this->token;
 		$row['wecha_id'] = $this->wecha_id;
 		$row['time'] = $time = time();
-		$row['paymode'] = isset($_POST['paymode']) ? intval($_POST['paymode']) : 1;
+		$row['paymode'] = isset($_POST['paymode']) ? intval($_POST['paymode']) : 0;
 		//积分
 		$score = isset($_POST['score']) ? intval($_POST['score']) : 0;
 		$normal_rt = 0;
 		$carts = $this->_getCart();
 		if ($carts){
 			$calCartInfo = $this->calCartInfo($carts);
+			
+		
+			foreach ($carts as $pid => $rowset) {
+				$total = 0;
+				if (is_array($rowset)) {
+					foreach ($rowset as $did => $ro) {
+						$temp = M('Product_detail')->where(array('id' => $did, 'pid' => $pid))->find();//setDec('num', $ro['count']);
+						if ($temp['num'] < $ro['count']) {
+							$this->error('购买的量超过了库存');
+						}
+						$total += $ro['count'];
+					}
+				} else {
+					$total = $rowset;
+				}
+				
+				$tmp = M('product')->where(array('id' => $pid, 'num' => array('egt', $total)))->find();//setDec('num', $total);
+				if ($tmp['num'] < $total) {
+					$this->error('购买的量超过了库存');
+				}
+			}
+			
 			$setting = M('Product_setting')->where(array('token' => $this->token))->find();
 			$totalprice = $calCartInfo[1] + $calCartInfo[2];
 			if ($score && $setting && $setting['score'] > 0 && $this->fans['total_score'] >= $score) {
@@ -451,13 +474,13 @@ class StoreAction extends WapAction{
 				$total = 0;
 				if (is_array($rowset)) {
 					foreach ($rowset as $did => $ro) {
-						M('Product_detail')->where(array('id' => $did, 'pid' => $pid, 'num' => array('gt', $ro['count'])))->setDec('num', $ro['count']);
+						M('Product_detail')->where(array('id' => $did, 'pid' => $pid))->setDec('num', $ro['count']);
 						$total += $ro['count'];
 					}
 				} else {
 					$total = $rowset;
 				}
-				$product_model->where(array('id' => $pid, 'num' => array('gt', $total)))->setDec('num', $total);
+				$product_model->where(array('id' => $pid))->setDec('num', $total);
 			}
 			$_SESSION[$this->session_cart_name] = null;
 			unset($_SESSION[$this->session_cart_name]);
@@ -469,7 +492,7 @@ class StoreAction extends WapAction{
 				$userRow=array('tel'=>$row['tel'],'truename'=>$row['truename'],'address'=>$row['address']);
 				if ($thisUser) {
 					$userinfo_model->where(array('id' => $thisUser['id']))->save($userRow);
-					$userinfo_model->where(array('id' => $thisUser['id'], 'total_score' => array('gt', $score)))->setDec('total_score', $score);
+					$userinfo_model->where(array('id' => $thisUser['id'], 'total_score' => array('egt', $score)))->setDec('total_score', $score);
 					F('fans_token_wechaid', NULL);
 				} else {
 					$userRow['token']=$this->token;
@@ -498,9 +521,10 @@ class StoreAction extends WapAction{
 			} else {
 				$this->redirect(U('Store/my',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'],'success'=>1)));
 			}
-			exit(json_encode(array('error_code' => false, 'msg' => 'ok', 'orderid' => $orderid, 'price' => $calCartInfo[1] + $calCartInfo[2], 'orderName'=> $orderid, 'isopen'=> $alipayConfig['open'])));
+			//exit(json_encode(array('error_code' => false, 'msg' => 'ok', 'orderid' => $orderid, 'price' => $calCartInfo[1] + $calCartInfo[2], 'orderName'=> $orderid, 'isopen'=> $alipayConfig['open'])));
 		} else {
-			exit(json_encode(array('error_code' => true, 'msg' => '订单生产失败')));
+			$this->error('订单生产失败');
+			//exit(json_encode(array('error_code' => true, 'msg' => '订单生产失败')));
 		} 
 	}
 	

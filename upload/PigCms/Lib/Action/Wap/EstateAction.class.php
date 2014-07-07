@@ -84,6 +84,16 @@ class EstateAction extends BaseAction{
 
 
     public function album(){
+        $this->token=$this->_get('token');
+        $reply_info_db=M('Reply_info');
+        $config=$reply_info_db->where(array('token'=>$this->token,'infotype'=>'album'))->find();
+        if ($config){
+            $headpic=$config['picurl'];
+        }else {
+            $headpic='/tpl/Wap/default/common/css/Photo/banner.jpg';
+        }
+        $this->assign('headpic',$headpic);
+
         $Photo = M("Photo");
         $t_album = M('Estate_album');
         $album = $t_album->where(array('token'=>$this->_get('token')))->field('id,poid')->select();
@@ -96,11 +106,20 @@ class EstateAction extends BaseAction{
     }
 
     public function show_album(){
+        $this->token=$this->_get('token');
+        $reply_info_db=M('Reply_info');
+        $config=$reply_info_db->where(array('token'=>$this->token,'infotype'=>'album'))->find();
+        if ($config){
+            $headpic=$config['picurl'];
+        }else {
+            $headpic='/tpl/Wap/default/common/css/Photo/banner.jpg';
+        }
+        $this->assign('headpic',$headpic);
         $t_housetype = M('Estate_housetype');
         $id = (int)$this->_get('id');
         $where = array('token'=>$this->_get('token'),'id'=>$id);
         $housetype = $t_housetype->where($where)->order('sort desc')->find();
-       // $this->assign('housetype',$housetype);
+        $this->assign('shareid',$id);
 
         $data = M("Estate");
         $this->token=$this->_get('token');

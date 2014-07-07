@@ -54,7 +54,7 @@ class SchoolAction extends  WapAction{
           $count      = $t_res->where($where3)->count();
           $Page       = new Page($count,5);
           $show       = $Page->show();
-          $infolist   = $t_res->where($where3)->field('id,title,picurl as pic,typename,typename2,typename3,keyword,date')->limit($Page->firstRow.','.$Page->listRows)->select();
+          $infolist   = $t_res->where($where3)->field('id,title,picurl as pic,typename,typename2,typename3,keyword,date')->limit($Page->firstRow.','.$Page->listRows)->order('id desc')->select();
           $this->assign('count',$count);
           $this->assign('page',$show);
           $this->assign('readtype',$type);
@@ -74,6 +74,29 @@ class SchoolAction extends  WapAction{
           $this->assign('infolist',$infolist);
           $this->display();
           exit;
+        }elseif('curriculum' == $type && isset($type)){
+            $t_s_tcourse = M('school_tcourse');
+            $where  =  array('token'=>$token);
+            $count      = $t_s_tcourse->where($where)->count();
+            $Page       = new Page($count,15);
+            $show       = $Page->show();
+            $arrids = $t_s_tcourse->where($where)->order('id DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
+            $this->assign('page',$show);
+            $t_s_teachers = M('school_teachers');
+            $t_s_classify = M('school_classify');
+            $market = array();
+            foreach($arrids as $k=>$val){
+                $market[$k]['id']      = $val['id'];
+                $market[$k]['tid']     = $val['tid'];
+                $market[$k]['tname']   = $t_s_teachers->where(array('tid'=>$val['tid'],'token'=>$token))->getField('tname');
+                $market[$k]['bj_name'] = $t_s_classify->where(array('sid'=>$val['bj_id'],'token'=>$token))->getField('sname');
+                $market[$k]['km_name'] = $t_s_classify->where(array('sid'=>$val['km_id'],'token'=>$token))->getField('sname');
+                $market[$k]['xq_name'] = $t_s_classify->where(array('sid'=>$val['xq_id'],'token'=>$token))->getField('sname');
+                $market[$k]['sd_name'] = $t_s_classify->where(array('sid'=>$val['sd_id'],'token'=>$token))->getField('sname');
+            }
+            $this->assign('market',$market);
+            $this->display('curriculum');
+            exit;
         }
 
 
@@ -107,7 +130,7 @@ class SchoolAction extends  WapAction{
            $where3  = array('token'=>$token,'type'=>'course','id'=>$id);
            $infolist= $t_res->where($where3)->find();
            $where4  = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>'course');
-           $count   = $t_book->where($where4)->count();
+           $count   = $t_book->where($where4)->order('id desc')->count();
            $this->assign('count',$count);
            $this->assign('reslist', $infolist);
            $this->assign('readtype',$readtype);
@@ -187,7 +210,7 @@ class SchoolAction extends  WapAction{
                 //发给单个连锁商家
                // Sms::sendSms(token_商家ID, 短信内容);
                 //发送给粉丝
-            Sms::endSms($_POST['token'], "亲爱的 {$_POST['truename']},您预约的 由 {$_POST['choose']} 课程 [{$_POST['housetype']}],预约成功! ". date('Y-m-d H:i:s',time()),$_POST['tel']);
+            Sms::sendSms($_POST['token'], "亲爱的 {$_POST['truename']},您预约的 由 {$_POST['choose']} 课程 [{$_POST['housetype']}],预约成功! ". date('Y-m-d H:i:s',time()),$_POST['tel']);
 
             $url .= U('School/mylist',array('token'=>$token,'wecha_id'=>$wecha_id,'rid'=>$_POST['rid'],'type'=>'course','check'=>time()));
             $arr=array('errno'=>1,'token'=>$token,'wecha_id'=>$wecha_id,'url'=>$url);

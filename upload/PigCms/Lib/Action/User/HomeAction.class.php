@@ -13,6 +13,8 @@ class HomeAction extends UserAction{
 	public function set(){
 		$home=$this->home_db->where(array('token'=>session('token')))->find();
 		if(IS_POST){
+			//$info = str_replace("\r\n",' ',$_POST['info']);
+			//$_POST['info'] = str_replace('&quot;','',$info);
 			$token = session('token');
 			S("homeinfo_".$token,NULL);
 			if($home==false){				

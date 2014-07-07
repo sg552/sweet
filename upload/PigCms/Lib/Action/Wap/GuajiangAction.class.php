@@ -42,8 +42,9 @@ class GuajiangAction extends LotteryBaseAction{
 			$data['usenums'] = 1;
 			$data['winprize']	= '还没开始';
 		}else {
+			if ($this->wecha_id){
 			$return=$this->prizeHandle($token,$wecha_id,$Lottery);
-
+			}
 			//
 			if ($return['end']==2){
 				$data['usenums'] = 3;

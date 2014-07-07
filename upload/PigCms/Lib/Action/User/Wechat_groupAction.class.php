@@ -143,7 +143,7 @@ class Wechat_groupAction extends UserAction{
 						$url2='https://api.weixin.qq.com/cgi-bin/user/info?openid='.$data_all['openid'].'&access_token='.$access_token;
 						$classData=json_decode($this->curlGet($url2));
 						if ($classData->subscribe==1){
-							$data['nickname']=str_replace("'",'',$classData->nickname);
+							$data['nickname']=str_replace(array("'","\\"),array(''),$classData->nickname);
 							$data['sex']=$classData->sex;
 							$data['city']=$classData->city;
 							$data['province']=$classData->province;

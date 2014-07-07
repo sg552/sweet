@@ -21,9 +21,9 @@ class FunctionAction extends UserAction{
 		$open['token']=session('token');
 		//遍历功能列表
 		if (!C('agent_version')){
-			$group=M('User_group')->field('id,name')->where('status=1')->select();
+			$group=M('User_group')->field('id,name')->where('status=1')->order('id ASC')->select();
 		}else {
-			$group=M('User_group')->field('id,name')->where('status=1 AND agentid='.$this->agentid)->select();
+			$group=M('User_group')->field('id,name')->where('status=1 AND agentid='.$this->agentid)->order('id ASC')->select();
 		}
 		$check=explode(',',$toback['queryname']);
 		$this->assign('check',$check);
@@ -34,8 +34,9 @@ class FunctionAction extends UserAction{
 				$fun=M('Function')->where(array('status'=>1,'gid'=>$vo['id']))->select();
 			}
 			
-			foreach($fun as $vkey=>$vo){
-				$function[$key][$vkey]=$vo;
+			foreach($fun as $vkey=>$vos){
+				$vos['groupName']=$vo['name'];
+				$function[$key][$vkey]=$vos;
 			}
 		}
 		$this->assign('fun',$function);

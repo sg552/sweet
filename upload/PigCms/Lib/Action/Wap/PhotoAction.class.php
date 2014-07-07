@@ -40,7 +40,7 @@ class PhotoAction extends WapAction{
 			echo '数据不存在';exit;
 		}
 		$info=M('Photo')->field('title')->where(array('token'=>$token,'id'=>$this->_get('id')))->find();
-		$photo_list=M('Photo_list')->where(array('token'=>$token,'pid'=>$this->_get('id'),'status'=>1))->select();
+		$photo_list=M('Photo_list')->where(array('token'=>$token,'pid'=>$this->_get('id'),'status'=>1))->order('sort desc')->select();
 		//dump($photo);
 		$this->assign('info',$info);
 		$this->assign('photo',$photo_list);

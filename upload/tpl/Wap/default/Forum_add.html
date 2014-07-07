@@ -210,9 +210,9 @@
 			$('.a_upload').remove();
 			num++;
 		}
-		upyunWapPicUpload('portrait'+num,200,200,'{pigcms:$Think.get.token}');
+		upyunWapPicUpload('portrait'+num,1024,768,'{pigcms:$Think.get.token}');
 	}
-	setInterval(ddshow,1000);
+	setInterval(ddshow,100);
 	function ddshow(){
 		var no1 = $("#portrait1_src").attr('src');
 		var no2 = $("#portrait2_src").attr('src');
