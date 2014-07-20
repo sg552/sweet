@@ -116,7 +116,7 @@ $(document).on("click","#del",function(){
 </script>
 
 
-<div class="content">
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
     
     
 <div class="cLineB">
@@ -171,7 +171,8 @@ $(document).on("click","#del",function(){
 <td>{pigcms:$item.time|date="Y-m-d H:i:s",###}</td> 
 
 <td class="norightborder">
-    <a href="{pigcms::U('Reply/replyChked',array('id'=>$item['id'],'token'=>$token))}"><if condition="$item['checked'] neq 1">审核<else/><font style="margin-left:30px;"></font></if></a>
+	
+    <if condition="$item['checked'] neq 1"><a href="{pigcms::U('Reply/replyChked',array('id'=>$item['id'],'token'=>$token))}">审核</a></if>
     &nbsp;&nbsp;<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('User/Reply/replyDeled',array('id'=>$item['id'],'token'=>$token))}');">删除</a></td>
 </tr>
 
@@ -191,4 +192,6 @@ $(document).on("click","#del",function(){
 <div class="clr"></div>
 </div>
 </div>
+<if condition="session('isQcloud') neq true">
 <include file="Public:footer"/>
+</if>

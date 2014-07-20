@@ -8,7 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
 <link href="{pigcms::RES}/css/userinfo/fans.css" rel="stylesheet" type="text/css"> 
 
-<script type="text/javascript" src="{pigcms::RES}/css/guajiang/js/jquery.js"></script> 
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  -->
+<script type="text/javascript" src="/tpl/User/default/common/js/select/js/jquery.js"></script>
+<script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="{pigcms::RES}/css/guajiang/js/jquery.js">\x3C/script>')</script>
 <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
 <script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
 <script src="/tpl/static/upyun.js?2013"></script>
@@ -69,6 +71,9 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
 	</table>
 	</li>
 </if>
+
+<if condition="$conf['wechaname'] eq 0">
+<else />
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>
@@ -78,6 +83,10 @@ onblur="check1(this)"  type="text" class="px" id="wechaname" value="{pigcms:$fan
 </tr>
 </table>
 </li>
+</if>
+
+<if condition="$conf['tel'] eq 0">
+<else />
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>
@@ -87,6 +96,10 @@ onblur="check3(this)" name="tel"  class="px" id="tel" value="{pigcms:$info.tel}"
 </tr>
 </table>
 </li>
+</if>
+
+<if condition="$conf['truename'] eq 0">
+<else />
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>
@@ -95,6 +108,11 @@ onblur="check3(this)" name="tel"  class="px" id="tel" value="{pigcms:$info.tel}"
 </tr>
 </table>
 </li>
+</if>
+
+<if condition="$conf['qq'] eq 0">
+<else />
+
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>
@@ -103,7 +121,30 @@ onblur="check3(this)" name="tel"  class="px" id="tel" value="{pigcms:$info.tel}"
 </tr>
 </table>
 </li>
+</if>
+
+<if condition="$cardid">
+<if condition="$conf['paypass'] eq 0">
+<else />
+
+<li>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
+<tr>
+<th>支付密码</th>
+<td><input name="paypass"  class="px" id="paypass" value=""  type="password" placeholder="请输入您的支付密码"></td>
+</tr>
+</table>
+</li>
+</if>
+</if>
+
+
 </ul>
+
+
+
+<if condition="$conf['portrait'] eq 0">
+<else />
 <ul class="round">
 <li>
 <style>
@@ -139,9 +180,15 @@ function selectpor(el){
 <div style="clear:both"></div>
 </div>
 </li>
-
 </ul>
+</if>
+
+
+
 <ul class="round">
+
+<if condition="$conf['sex'] eq 0">
+<else />
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>
@@ -150,11 +197,16 @@ function selectpor(el){
 <option  class="dropdown-option">请选择你的性别</option>
 <option  value="1" <if condition="$info['sex'] eq 1">selected</if>>男</option>
 <option  value="2" <if condition="$info['sex'] eq 2">selected</if>> 女</option>
-<option  value="0" <if condition="$info['sex'] eq 3">selected</if>>其他</option>
+<option  value="3" <if condition="$info['sex'] eq 3">selected</if>>其他</option>
 </select></td>
 </tr>
 </table>
 </li>
+</if>
+
+<if condition="$conf['bornyear'] eq 0">
+<else />
+
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>
@@ -163,6 +215,11 @@ function selectpor(el){
 </tr>
 </table>
 </li>
+</if>
+
+<if condition="$conf['bornmonth'] eq 0">
+<else />
+
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>
@@ -171,6 +228,11 @@ function selectpor(el){
 </tr>
 </table>
 </li>
+</if>
+
+<if condition="$conf['bornday'] eq 0">
+<else />
+
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>
@@ -179,6 +241,9 @@ function selectpor(el){
 </tr>
 </table>
 </li>
+</if>
+
+
 </ul>
 
 <div class="footReturn">
@@ -209,27 +274,25 @@ function() {
 	var bornmonth       = $("#bornmonth").val();
 	var bornday       = $("#bornday").val();
 	var portrait       = $("#portrait").val();
+	var paypass       = $("#paypass").val();
+
+
+
+<if condition="$cardid neq '' && $conf['tel'] eq 0 && $cardInfo eq false"><else />	
     if (tel == '') {
         alert("请认真输入手机号");
         return
     }
-    
+</if>
+
+<if condition="$cardid neq '' && $conf['wechaname'] eq 0 && $cardInfo eq false"><else />    
     if (wechaname == '') {
         alert("请认真输入微信号");
         return
     }
-    if(/[^\d]/.test(bornyear)||bornyear><php>echo date('Y',time())-1;</php>||bornyear<<php>echo date('Y',time())-100;</php>){
-    	alert("请认真输入出生年份");
-        return
-    }
-    if(/[^\d]/.test(bornmonth)||bornmonth<1||bornmonth>12){
-    	alert("请认真输入出生月份"+bornmonth);
-        return
-    }
-    if(/[^\d]/.test(bornday)||bornday<1||bornday>31){
-    	alert("请认真输入出生日");
-        return
-    }
+</if>
+
+
    
     var submitData = {
         wechaname : wechaname,
@@ -245,8 +308,13 @@ function() {
         bornday   : bornday,
         cardid 	  : {pigcms:$cardid},
         portrait  : portrait,
+        paypass  : paypass,
         action: "index"
     };
+
+	
+	 
+	
     $.post('index.php?g=Wap&m=Userinfo&a=index&token={pigcms:$Think.get.token}&wecha_id={pigcms:$Think.get.wecha_id}&cardid={pigcms:$Think.get.cardid}', submitData,
     function(data) {
         if(data==1){			 
@@ -261,7 +329,7 @@ function() {
 		}else if(data==4){
 			 
 			alert('您的积分不够领取改会员卡');
-		}else{  
+		}else{
 			 
 			alert('稍后再试.');
 		}

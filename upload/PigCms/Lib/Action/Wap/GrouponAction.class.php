@@ -15,7 +15,6 @@ class GrouponAction extends ProductAction{
 		$this->tplid=intval($grouponDetailConfig['tplid']);
 		$this->assign('pageSize',$this->pageSize);
 		$this->assign('wecha_id',$this->_get('wecha_id'));
-		$this->product_model=M('Product');
 	}
 	
 	public function grouponIndex(){
@@ -64,7 +63,6 @@ class GrouponAction extends ProductAction{
 	}
 	public function ajaxGrouponProducts(){
 		$where=array('token'=>$this->token,'groupon'=>1);
-		$where['endtime']=array('gt',time());
 		$page=isset($_GET['page'])&&intval($_GET['page'])>1?intval($_GET['page']):2;
 		$pageSize=isset($_GET['pagesize'])&&intval($_GET['pagesize'])>1?intval($_GET['pagesize']):$this->pageSize;
 		$start=($page-1)*$pageSize;
@@ -119,12 +117,11 @@ class GrouponAction extends ProductAction{
 		$this->assign('intro',$intro);
 		//店铺信息
 		$company_model=M('Company');
-		$where=array('token'=>$this->token,'display'=>1);
-		
+		$where=array('token'=>$this->token);
 		$thisCompany=$company_model->where($where)->find();
 		$this->assign('thisCompany',$thisCompany);
 		//分店信息
-		$branchStoreCount=$company_model->where(array('token'=>$this->token,'isbranch'=>1,'display'=>1))->count();
+		$branchStoreCount=$company_model->where(array('token'=>$this->token,'isbranch'=>1))->count();
 		$this->assign('branchStoreCount',$branchStoreCount);
 		//销量最高的商品
 		$sameCompanyProductWhere=array('token'=>$this->token,'id'=>array('neq',$product['id']));
@@ -160,6 +157,7 @@ class GrouponAction extends ProductAction{
 		$product_cart_model=M('product_cart');
 		//$this->wecha_id
 		$orders=$product_cart_model->where(array('token'=>$this->token,'groupon'=>1,'wecha_id'=>$this->wecha_id))->order('time DESC')->select();
+		
 		$unpaidCount=0;
 		$unusedCount=0;
 		if ($orders){
@@ -214,12 +212,15 @@ class GrouponAction extends ProductAction{
 		//$this->wecha_id
 		$orders=$product_cart_model->where($where)->order('time DESC')->select();
 		//
+
 		$productsIDs=array();
 		if ($orders){
-			foreach ($orders as $o){
+			foreach ($orders as $k=>$o){
 				array_push($productsIDs,$o['productid']);
+				$orders[$k]['name'] = M('Product')->where(array('token'=>$this->token,'id'=>$o['productid']))->getField('name');
 			}
 		}
+		
 		if ($productsIDs){
 		$products=M('Product')->where(array('id'=>array('in',$productsIDs)))->select();
 		}
@@ -270,6 +271,7 @@ class GrouponAction extends ProductAction{
 		$this->assign('alipayConfig',$alipayConfig);
 		//
 		if (IS_POST){
+			
 			$row=array();
 			$orderid=$this->randStr(4).time();
 			$row['orderid']=$orderid;
@@ -302,7 +304,8 @@ class GrouponAction extends ProductAction{
 
 			$product_model=M('product');
 			$product_cart_list_model=M('product_cart_list');
-			$product_model->where(array('id'=>intval($_POST['productid'])))->setInc('salecount',intval($_POST['quantity']));
+			$product_model->where(array('id'=>intval($_POST['productid'])))->setInc('salecount',$_POST['quantity']);
+			$productName = $product_model->where(array('id'=>intval($_POST['productid'])))->getField('name');
 			//保存个人信息
 			if ($_POST['saveinfo']){
 				$userRow=array('tel'=>$row['tel'],'truename'=>$row['truename'],'address'=>$row['address']);
@@ -328,12 +331,23 @@ class GrouponAction extends ProductAction{
 					$userinfo_model->add($userRow);
 				}
 			}
-			Sms::sendSms($this->token,'您在微信上有新的团购订单');
-			if ($alipayConfig['open']){
-				$this->success('提交成功，转向支付页面',U('Alipay/pay',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'success'=>1,'price'=>$row['price'],'from'=>'Groupon','orderName'=>$orderName,'orderid'=>$orderid)));
-			}else {
-				$this->redirect(U('Groupon/my',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'],'success'=>1)));
-			}
+			
+			$orderName = '团购-'.$productName;
+
+			
+				if ($alipayConfig['open']){
+					if($this->_post('paytype') == 1){
+						$this->redirect(U('CardPay/pay',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'price'=>$row['price'],'from'=>'Groupon','orderName'=>$orderName,'single_orderid'=>$orderid)));
+					}else{
+						$this->success('提交成功，转向支付页面',U('Alipay/pay',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'success'=>1,'price'=>$row['price'],'from'=>'Groupon','orderName'=>$orderName,'orderid'=>$orderid)));
+					}
+				}else {
+					Sms::sendSms($this->token,'您在微信上有新的团购订单');
+					$this->redirect(U('Groupon/my',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'],'success'=>1)));
+				}
+				
+			
+
 		}else {
 			$where=array('token'=>$this->token);
 			if (isset($_GET['id'])){
@@ -395,11 +409,11 @@ class GrouponAction extends ProductAction{
 		if (isset($_GET['companyid'])){
 			$where['id']=intval($_GET['companyid']);
 		}
-		$where['display']=1;
+		
 		$thisCompany=$company_model->where($where)->find();
 		$this->assign('thisCompany',$thisCompany);
 		//分店信息
-		$branchStores=$company_model->where(array('token'=>$this->token,'isbranch'=>1,'display'=>1))->order('taxis ASC')->select();
+		$branchStores=$company_model->where(array('token'=>$this->token,'isbranch'=>1))->order('taxis ASC')->select();
 		$branchStoreCount=count($branchStores);
 		$this->assign('branchStoreCount',$branchStoreCount);
 		$this->assign('branchStores',$branchStores);
@@ -493,7 +507,13 @@ class GrouponAction extends ProductAction{
 			/************************************************/
 			Sms::sendSms($this->token,'您的微信里有团购订单已经付款');
 			/************************************************/
-			$this->redirect('?g=Wap&m=Groupon&a=myOrders&token='.$order['token'].'&wecha_id='.$order['wecha_id']);
+			if($this->tplid == 0){
+				$this->redirect('/index.php?g=Wap&m=Groupon&a=myOrders&token='.$order['token'].'&wecha_id='.$order['wecha_id']);
+			}else{
+				
+				$this->redirect('/index.php?g=Wap&m=Product&a=my&token='.$order['token'].'&wecha_id='.$order['wecha_id']);
+			}
+			
 		}else{
 			exit('订单不存在：'.$out_trade_no);
 		}

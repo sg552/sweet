@@ -1,21 +1,39 @@
 <?php
 class VoteAction extends UserAction{
 
+
     public function index(){
         $this->canUseFunction('vote');
-        $user=M('Users')->field('gid,activitynum')->where(array('id'=>session('uid')))->find();
-        $group=M('User_group')->where(array('id'=>$user['gid']))->find();
+        $id     = $this->_get('id','trim');
+        $type   = $this->_request('type','trim');
+        $keyword   = $this->_post('keyword','trim');
+        $user   = M('Users')->field('gid,activitynum')->where(array('id'=>session('uid')))->find();
+        $group  = M('User_group')->where(array('id'=>$user['gid']))->find();
         $this->assign('group',$group);
         $this->assign('activitynum',$user['activitynum']);
 
        // $type = isset($this->_get('type')) ? $this->_get('type') : 'text';
-        $list=M('Vote')->where(array('token'=>session('token')))->order('id DESC')->select();
-        $count = M('Vote')->where(array('token'=>session('token')))->count();
-        $this->assign('count',$count);
-        //你不可以再创建投票活动了。
-        // if($count >= $user['activitynum'])
-        //     $this->assign('ok',1);
+        $where  = array('token'=>session('token'));
+        if($id){
+            $where['id'] = array('in',explode(',', $id));
 
+        }
+        if($type){
+            $where['type'] = $type;
+        }
+        if(!empty($keyword)){
+            $where['title'] = array('like','%'.$keyword.'%');
+        }
+
+        $list=M('Vote')->where($where)->order('id DESC')->select();
+        $count = M('Vote')->where($where)->count();
+        $this->assign('count',$count);
+
+
+        $is_scene = M('wechat_scene')->where(array('is_open'=>'1','token'=>$this->token))->field('id')->find();
+
+        $this->assign('is_scene',$is_scene);
+        $this->assign('type',$type);
         $this->assign('list',$list);
         $this->display();
     }
@@ -24,24 +42,68 @@ class VoteAction extends UserAction{
         $token      = session('token');
         $id         = $this->_get('id');
         $t_vote     = M('Vote');
-        $t_record  = M('Vote_record');
+        $t_record   = M('Vote_record');
         $where      = array('id'=>$id,'token'=>session('token'));
-        $vote   = $t_vote->where($where)->find();
+        $vote       = $t_vote->where($where)->find();
         if(empty($vote)){
             exit('非法操作');
         }
+
+
         $vote_item = M('Vote_item')->where('vid='. $vote['id'])->select();
         $vcount = $t_record->where(array('vid'=>$id))->count();
         $this->assign('count',$vcount);
         $item_count = M('Vote_item')->where('vid='.$id)->select();
-        foreach ($item_count as $k=>$value) {
-            $vote_item[$k]['per']=(number_format(($value['vcount'] / $vcount),2))*100;
-            $vote_item[$k]['pro']=$value['vcount'];
 
+
+        $xml='<chart borderThickness="0" caption="'.$vote['title'].'" baseFontColor="666666" baseFont="宋体" baseFontSize="14" bgColor="FFFFFF" bgAlpha="0" showBorder="0" bgAngle="360" pieYScale="90"  pieSliceDepth="5" smartLineColor="666666">';
+        
+        foreach ($item_count as $k=>$value) {
+            $xml.='<set label="'.$value['item'].'" value="'.$value['vcount'].'"/>';
+        }            
+        $xml.='</chart>';
+
+        $Page     = new Page($vcount,15);
+
+        $record = $t_record->where(array('vid'=>$id))->limit($Page->firstRow.','.$Page->listRows)->select();
+
+        foreach($record as $key=>$value){
+            $record[$key]['wxname']     = M('userinfo')->where(array('wecha_id'=>$value['wecha_id']))->getField('wechaname');
+            $record[$key]['itemname']   = $this->_getItemName($value['item_id']);
         }
+
+        $this->assign('page',$record);
+        $this->assign('page',$Page->show());
+        $this->assign('record',$record);
+        $this->assign('xml',$xml);
         $this->assign('vote_item', $vote_item);
         $this->assign('vote',$vote);
         $this->display();
+    }
+
+
+    public function del_record(){
+
+        $id = $this->_get('id','intval');
+        $record_info = M('vote_record')->where(array('token'=>$this->token,'id'=>$id))->find();
+        if(M('vote_record')->where(array('id'=>$id))->delete()){
+            M('vote_item')->where(array('id'=>array('in',"{$record_info['item_id']}")))->setDec('vcount',1);
+            M('vote')->where(array('token'=>$this->token,'id'=>$record_info['vid']))->setDec('count',1);
+ 
+            $this->success('删除成功',U('Vote/index',array('token'=>session('token'))));
+        }
+
+    }
+
+
+    public function _getItemName($item_id){
+        $id     = explode(',', $item_id);
+        $name   = '';
+        foreach ($id as $key => $value) {
+            $name .= M('Vote_item')->where('id='. $value['id'])->getField('item').',';
+        }
+
+        return rtrim($name,',');
     }
 
     public function add(){
@@ -67,7 +129,7 @@ class VoteAction extends UserAction{
             $_POST['statdate']=strtotime($this->_post('statdate'));
             $_POST['enddate']=strtotime($this->_post('enddate'));
             $_POST['cknums'] = $this->_post('cknums');
-            $_POST['display'] = $this->_post("display");
+            $_POST['display'] = intval($this->_post("display"));
             $_POST['info'] = strip_tags($this->_post("info"));
             $_POST['picurl'] = $this->_post("picurl");
             $_POST['title'] = $this->_post("title");
@@ -93,7 +155,7 @@ class VoteAction extends UserAction{
                         $data2['item']=$v['item'];
                         $data2['rank']=empty($v['rank']) ? "1" : $v['rank'];
                         $data2['vcount']=empty($v['vcount']) ? "0" : $v['vcount'];
-                        if($_POST['type'] == 'img'){
+                        if($_POST['type'] == 'img' || $this->_get('type') == 'scene'){
                             $data2['startpicurl']=empty($v['startpicurl']) ? "#" : $v['startpicurl'];
                             $data2['tourl']=empty($v['tourl']) ? "#" : $v['tourl'];
                         }
@@ -227,7 +289,7 @@ class VoteAction extends UserAction{
                         $data2['item']=$v['item'];
                         $data2['rank']=empty($v['rank']) ? "1" : $v['rank'];
                         $data2['vcount']=empty($v['vcount']) ? "0" : $v['vcount'];
-                        if($this->_get('type') == 'img'){
+                        if($this->_get('type') == 'img' || $this->_get('type') == 'scene'){
                             $data2['startpicurl']=$v['startpicurl'];
                             $data2['tourl']=empty($v['tourl']) ? "#" : $v['tourl'];
                         }

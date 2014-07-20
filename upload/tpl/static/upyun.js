@@ -45,3 +45,7 @@ function editClass(domid,domid2,cid){
 	art.dialog.data('cid', cid);
 	art.dialog.open('?g=User&m=Img&a=editClass&id='+cid,{lock:true,title:'选择分类',width:600,height:500,yesText:'关闭',background: '#000',opacity: 0.45});
 }
+function memberCardRecharge(uid){
+	art.dialog.data('uid', uid);
+	art.dialog.open('?g=User&m=Member_card&a=recharge&uid='+uid,{lock:true,title:'充值会员卡',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});
+}

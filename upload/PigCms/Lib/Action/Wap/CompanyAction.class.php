@@ -37,7 +37,7 @@ class CompanyAction extends WapAction{
 		*/
 		//$this->display();
 		
-		header('Location:http://api.map.baidu.com/marker?location='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&title='.$thisCompany['name'].'&content='.$thisCompany['address'].'&output=html&src=yourComponyName|yourAppName');
+		header('Location:http://api.map.baidu.com/marker?location='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&title='.urlencode($thisCompany['name']).'&content='.urlencode($thisCompany['address']).'&output=html&src=yourComponyName|yourAppName');
 	}
 	public function walk($display=1){
 		$company_model=M('Company');

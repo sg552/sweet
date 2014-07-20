@@ -1,5 +1,8 @@
 <include file="Public:head"/>
 <script src="{pigcms::RES}/js/date/WdatePicker.js"></script>  
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script>
 <div class="content">
          
           <div class="cLineB">
@@ -25,6 +28,7 @@
         <TH>领卡时间</TH>
         <TH>积分</TH>
         <TH>消费总额(元)</TH>
+        <TH>余额(元)</TH>
 
                 </TR>
               </THEAD>
@@ -47,21 +51,43 @@
                   </TD>
                   <TD>{pigcms:$list.total_score}</TD> 
                   <TD>{pigcms:$list.expensetotal}</TD> 
+                  <TD>{pigcms:$list.balance} &nbsp; <a href="###" onclick="memberCardRecharge({pigcms:$list.uid})" class="a_upload">充值</a></TD> 
                 </TR>
+					<assign name="wecha_id" value="$list['wecha_id']" />
 				</volist>
 
 
               </TBODY>
             </TABLE>
-          
-<h5 style="margin-top:20px;">消费记录</h5>
+
+  <!-- 导入 -->	
+			<div style="margin-top:20px;">
+				<a href="###" onclick="$('#import').css('display','')" class="btnGrayS vm">导入积分、线下消费记录</a>
+				<a href="/tpl/User/default/common/images/cardUseRecord.xls" class="btnGrayS vm">下载导入示例Excel</a>
+				<a href="?g=User&amp;m=Member_card&amp;a=exportCardUseRecord&wecha_id={pigcms:$wecha_id}" class="btnGrayS vm">导出此会员的积分、线下消费记录</a>
+				<a href="?g=User&amp;m=Member_card&amp;a=exportCardUseRecord&wecha_id={pigcms:$wecha_id}&amp;type=all" class="btnGrayS vm">导出所有会员的积分、线下消费记录</a>
+			</div>
+			
+			<div style="margin-top: 20px;display:none" id="import">
+				<form enctype="multipart/form-data" action="?g=User&amp;m=Upyun&amp;a=localUploadUsecordExcel" id="thumbForm" method="POST" style="font-size:14px;padding:10px 20px 10px 0px;">
+					<div>
+						选择本地文件：<input type="file" style="width:250px;border:1px solid #ddd" name="photo">
+						<input id="submitbtn" name="doSubmit" type="submit" class="btnGreen" value="上传" onclick="this.value='上传中...'">
+						<input name="id" type="hidden" value="{pigcms:$Think.get.id|intval}" />
+						<input name="wecha_id" type="hidden" value="{pigcms:$wecha_id}" />
+						<a href="###" onclick="$('#import').css('display','none')" class="btnGrayS vm">取消导入</a> 注意：不支持xlsx格式
+					</div>
+				</form>
+			</div>
+<!-- 导入end -->	  
+<h5 style="margin-top:20px;">积分、线下消费记录</h5>
             <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
               <THEAD>
                 <TR>
 				<TH>日期</TH>
 				<TH>金额(元)</TH>
 				<TH>获取积分</TH>
-        <TH>操作</TH>
+				<TH>操作</TH>
 
                 </TR>
               </THEAD>
@@ -75,9 +101,65 @@
                   <TD><a href="javascript:drop_confirm('您确定要删除吗?', '/index.php?g=User&m=Member_card&a=useRecord_del&token={pigcms:$Think.get.token}&itemid={pigcms:$r.id}&id={pigcms:$thisCard.id}');"><strong>删除</strong></a></TD> 
                 </TR>
 				</volist>
-
               </TBODY>
             </TABLE>
+			<div class="cLine">
+            <div class="pageNavigator right">
+                <div class="pages">{pigcms:$page}</div>
+              </div>
+            <div class="clr"></div>
+          </div>
+  <!-- 导入 -->	
+			<div style="margin-top:20px;">
+				<a href="###" onclick="$('#import2').css('display','')" class="btnGrayS vm">导入会员卡消费记录</a>
+				<a href="/tpl/User/default/common/images/CardPayRecord.xls" class="btnGrayS vm">下载导入示例Excel</a>
+				<a href="?g=User&amp;m=Member_card&amp;a=exportrmb&wecha_id={pigcms:$wecha_id}" class="btnGrayS vm">导出此会员的会员卡消费记录</a>
+				<a href="?g=User&amp;m=Member_card&amp;a=exportrmb&wecha_id={pigcms:$wecha_id}&amp;type=all" class="btnGrayS vm">导出所有会员的会员卡消费记录</a>
+			</div>
+			
+			<div style="margin-top: 20px;display:none" id="import2">
+				<form enctype="multipart/form-data" action="?g=User&amp;m=Upyun&amp;a=localUploadPayrecordExcel" id="thumbForm2" method="POST" style="font-size:14px;padding:10px 20px 10px 0px;">
+					<div>
+						选择本地文件：<input type="file" style="width:250px;border:1px solid #ddd" name="photo">
+						<input id="submitbtn2" name="doSubmit" type="submit" class="btnGreen" value="上传" onclick="this.value='上传中...'">
+						<input name="id" type="hidden" value="{pigcms:$Think.get.id|intval}" />
+						<input name="wecha_id" type="hidden" value="{pigcms:$wecha_id}" />
+						<a href="###" onclick="$('#import2').css('display','none')" class="btnGrayS vm">取消导入</a> 注意：不支持xlsx格式
+					</div>
+				</form>
+			</div>
+<!-- 导入end -->	
+			<h5 style="margin-top:20px;">会员卡消费记录</h5>
+            <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+              <THEAD>
+                <TR>
+				<TH>日期</TH>
+				<TH>订单号</TH>
+				<TH>订单名称</TH>
+				<TH>交易金额</TH>
+				<TH>状态</TH>
+        <TH>操作</TH>
+
+                </TR>
+              </THEAD>
+              <TBODY>
+				 <volist id="rmb" name="rmb">
+                <TR>
+                  <TD>{pigcms:$rmb.createtime|date='Y-m-d H:i',###}</TD>
+                  <TD>{pigcms:$rmb.orderid}</TD>
+                  <TD>{pigcms:$rmb.ordername}</TD>
+                  <TD>{pigcms:$rmb.price}</TD>
+                  <TD><if condition="$rmb['paid'] eq 1">交易成功<else /><font color="red">未付款</font></if></TD>
+               
+                  <TD><a href="javascript:drop_confirm('您确定要删除吗?', '/index.php?g=User&m=Member_card&a=payRecord_del&id={pigcms:$rmb.id}');"><strong>删除</strong></a></TD> 
+                </TR>
+				</volist>
+              </TBODY>
+            </TABLE>
+			
+			
+			
+			
           </div>
             
 
@@ -85,7 +167,7 @@
  
           <div class="cLine">
             <div class="pageNavigator right">
-                <div class="pages">{pigcms:$page}</div>
+                <div class="pages">{pigcms:$page2}</div>
               </div>
             <div class="clr"></div>
           </div>

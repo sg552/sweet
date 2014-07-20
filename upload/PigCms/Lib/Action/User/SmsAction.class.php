@@ -77,7 +77,7 @@ class SmsAction extends UserAction{
 	
 		$moneyBalance=$this->user['moneybalance'];
 		$needFee=intval(C('sms_price'))*intval($_POST['count'])/100;
-		if ($needFee<$moneyBalance){
+		if ($needFee<$moneyBalance||$needFee==$moneyBalance){
 			//
 			$users_db=D('Users');
 			$spend=0-$needFee;

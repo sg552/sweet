@@ -1,91 +1,56 @@
-<include file="Public:head"/> 
-  <link href="{pigcms::STATICS}/vote/wap/skins/all.css?v=0.9.1" rel="stylesheet">
-    <link href="{pigcms::STATICS}/vote/wap/vote.css" rel="stylesheet">
-  <script src="{pigcms::STATICS}/vote/wap/js/jquery.js"></script>
-  <script src="{pigcms::STATICS}/vote/wap/jquery.icheck.min.js?v=0.9.1"></script>
+<include file="Public:head"/>
+<script src="/tpl/static/fushionCharts/JSClass/FusionCharts.js" type="text/javascript"></script>   
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<div class="content">   
+      <div class="cLineB">
+        <h4 class="left">    
+          投票数据统计
+          (<if condition="$vote['cknums'] eq 1"> 单选<else/>多选</if>投票，<span class="number">共有{pigcms:$vote.count}人参与投票</span>)
+        </h4>   
+        <span style="float:right;">
+            <a class="btnGreen" href="javascript:window.history.go(-1);">返回</a>
+        </span>     
+        <div class="clr"></div>
+      </div>
 
-<div style="width:70%;margin-left:250px;">
-    
+      <div class="msgWrap" style="border:1px solid #e6e6e6;margin-top:10px;">
+         <div id="chartdiv1" align="center"></div>
+         <script type="text/javascript">
+          var chart = new FusionCharts("/tpl/static/fushionCharts/Charts/Pie3D.swf", "ChartId", "500", "400", "0", "1");
+          //chart.setTransparent("false");
+          chart.setDataXML('{pigcms:$xml}');
+          //chart.setDataURL("data.html");
+          chart.render("chartdiv1");
+          </script>
+      </div>
+      <div class="cLineB">
+        <h4 class="left">    
+          投票记录
+        </h4>        
+        <div class="clr"></div>
+      </div>
 
-  <div class="layout clear">
-      <div class="skin skin-line">          
-         
-            <div class="skin-section">
-              <h4>{pigcms:$vote.title}</h4>  
-             <h3><a href="{pigcms::U('Vote/index')}" class="right btnGrayS vm" style="margin-top:-27px">返回</a></h3>
-              
-             <p class="modus"> <if condition="$vote['cknums'] eq 1"> 单选<else/>多选</if>投票，<span class="number">共有{pigcms:$count}人参与投票</span></p>
-              <ul class="list">
-              <volist name="vote_item" id="li"> 
-              <if condition="$vote['cknums'] eq 1">
-          <if condition="$vote['type'] eq 'text'">
-              <li>
-                <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
-                <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
-                 
-               <div class="progress-bar orange shine">
-    <span style="width: {pigcms:$li.per|default=2}%">{pigcms:$li.per}%</span> &nbsp;<span>{pigcms:$li['pro']} (人)</span>
-</div>             
-             </li>
-          <else/> <!--img-->
-                <li>
-                <span><img src="{pigcms:$li.startpicurl}" ></span>
-                <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
-                <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
-                 
-                <div class="progress-bar orange shine">
-    <span style="width: {pigcms:$li.per|default=2}%">{pigcms:$li.per}%</span> &nbsp;<span>{pigcms:$li['pro']} (人)</span>
-</div>                   
-              </li>
-          </if>
-                 
+        <table class="ListProduct" width="90%" border="0" cellspacing="0" cellpadding="0">
+          <thead>   
+          <tr>
+            <th width="200">投票人</th>
+            <th width="200">选票</th>
+            <th width="100">时间</th>
+            <th width="100">操作</th>
+          </tr>
+          </thead>
 
-              <else/>
-                    <if condition="$vote['type'] eq 'text'">
-              <li>
-                <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
-                <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
-                 
-                <div class="progress-bar orange shine">
-    <span style="width: {pigcms:$li.per|default=2}%">{pigcms:$li.per}%</span> &nbsp;<span>{pigcms:$li['pro']} (人)</span>
-</div>             
-             </li>
-          <else/> <!--img-->
-                <li>
-                <span><img src="{pigcms:$li.startpicurl}" ></span>
-                <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
-                <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
-                 
-                <div class="progress-bar orange shine">
-    <span style="width: {pigcms:$li.per|default=2}%">{pigcms:$li.per}%</span> &nbsp;<span>{pigcms:$li['pro']} (人)</span>
-</div>                 
-              </li>
-          </if>
-              </if>
-                </volist>                  
-        </ul>             
-             
-     </div>
-    
-
-<script>
-  $(document).ready(function(){
-     $('.skin-line input').each(function(){
-       var self = $(this),
-        label = self.next(),
-        label_text = label.text();
-        
-       label.remove();
-       self.iCheck({
-         checkboxClass: 'icheckbox_line-orange',
-         radioClass: 'iradio_line-orange',
-         insert: '<div class="icheck_line-icon"></div>' + label_text
-       });       
-        
-    });
-});
-</script>  
-</div> 
-</div>  
-</div>
+          <tbody>
+          <volist name="record" id="item"> 
+            <tr>
+              <td>{pigcms:$item.wxname}</td>
+              <td>{pigcms:$item.itemname}</td>
+              <td>{pigcms:$item.touch_time|date="Y-m-d H:i:s",###}</td>
+              <td><a href="{pigcms::U('Vote/del_record',array('id'=>$item['id']))}" onclick="javascript:return confirm('您确定要删除吗?')">删除</a></td>
+            </tr>
+          </volist>
+          </tbody>
+          </table>
+          {pigcms:$page}
+        </div>  
 <include file="Public:footer"/>

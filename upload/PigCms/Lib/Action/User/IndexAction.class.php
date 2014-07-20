@@ -6,9 +6,10 @@ class IndexAction extends UserAction{
 			$this->assign('demo',1);
 			//
 			$token=$this->get_token();
+			$pigSecret=$this->get_token(20,0,1);
 			$wxinfo=M('wxuser')->where(array('uid'=>intval(session('uid'))))->find();
 			if (!$wxinfo){
-				$demoImport=new demoImport(session('uid'),$token);
+				$demoImport=new demoImport(session('uid'),$token,$pigSecret);
 			}
 			$wxinfo=M('wxuser')->where(array('uid'=>intval(session('uid'))))->find();
 			$this->assign('wxinfo',$wxinfo);
@@ -46,18 +47,29 @@ class IndexAction extends UserAction{
 		$this->assign('info',$info);
 		$this->assign('group',$groups);
 		$this->assign('page',$page->show());
-		$this->display();
+		if (count($info)==1&&$info[0]['wxid']=='demo'){
+			$this->assign('info',$info[0]);
+			$this->display('bindTip');
+		}else {
+			$this->display();
+		}
 	}
 	//
-	public function get_token(){
-		$randLength=6;
-		$chars='abcdefghijklmnopqrstuvwxyz';
+	public function get_token($randLength=6,$attatime=1,$includenumber=0){
+		if ($includenumber){
+			$chars='abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQEST123456789';
+		}else {
+			$chars='abcdefghijklmnopqrstuvwxyz';
+		}
 		$len=strlen($chars);
 		$randStr='';
 		for ($i=0;$i<$randLength;$i++){
 			$randStr.=$chars[rand(0,$len-1)];
 		}
-		$tokenvalue=$randStr.time();
+		$tokenvalue=$randStr;
+		if ($attatime){
+			$tokenvalue=$randStr.time();
+		}
 		return $tokenvalue;
 	}
 	//添加公众帐号
@@ -92,16 +104,31 @@ class IndexAction extends UserAction{
 		$this->display();
 	}
 	
+	public function bindEdit(){
+		$where['uid']=session('uid');
+		$res=M('Wxuser')->where($where)->find();
+		$this->assign('info',$res);
+		$this->display();
+	}
+	
 	public function del(){
 		$where['id']=$this->_get('id','intval');
 		$where['uid']=session('uid');
+		$thisWxUser=M('Wxuser')->where(array('id'=>$where['id']))->find();
+		$users=M('Users')->where(array('id'=>$thisWxUser['uid']))->find();
 		if(D('Wxuser')->where($where)->delete()){
 			if ($this->isAgent){
 				$wxuserCount=M('Wxuser')->where(array('agentid'=>$this->thisAgent['id']))->count();
 				M('Agent')->where(array('id'=>$this->thisAgent['id']))->save(array('wxusercount'=>$wxuserCount));
-				if ($this->thisAgent['wxacountprice']){
-					M('Agent')->where(array('id'=>$this->thisAgent['id']))->setInc('moneybalance',$this->thisAgent['wxacountprice']);
-					M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>$this->thisAgent['wxacountprice'],'des'=>$this->user['username'].'(uid:'.$this->user['id'].')删除公众号'.$_POST['wxname'],'status'=>1,'time'=>time()));
+				if ($this->thisAgent['wxacountprice']&&time()-$thisWxUser['createtime']<5*24*3600){
+					
+					$pricebyMonth=intval($this->thisAgent['wxacountprice'])/12;
+					$month=($users['viptime']-time())/(30*24*3600);
+					$month=intval($month);
+					$price=$month*$pricebyMonth;
+					//
+					M('Agent')->where(array('id'=>$this->thisAgent['id']))->setInc('moneybalance',$price);
+					M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>$price,'des'=>$this->user['username'].'(uid:'.$this->user['id'].')删除公众号'.$thisWxUser['wxname'].'_'.$month.'个月','status'=>1,'time'=>time()));
 				}
 			}
 			$this->success('操作成功',U(MODULE_NAME.'/index'));
@@ -113,12 +140,52 @@ class IndexAction extends UserAction{
 	public function upsave(){
 		S('wxuser_'.$this->token,NULL);
 		M('Diymen_set')->where(array('token'=>$this->token))->save(array('appid'=>trim($this->_post('appid')),'appsecret'=>trim($this->_post('appsecret'))));
-		$this->all_save('Wxuser');
+		//
+		$db=D('Wxuser');
+		if (isset($_POST['demoStep'])){
+			$back='/bindHelp?id='.intval($_POST['id']);
+		}else {
+			$back='';
+		}
+		if($db->create()===false){
+			$this->error($db->getError());
+		}else{
+			$id=$db->save();
+			if($id){
+				if (isset($_POST['demoStep'])){
+					header('Location:'.$this->siteUrl.U('Index/bindHelp',array('id'=>intval($_POST['id']))));
+				}else {
+					$this->success('操作成功',U('index'));
+				}
+				
+			}else{
+				$this->error('操作失败',U('index'));
+			}
+		}
+		
 	}
 	
 	public function insert(){
 		$data=M('User_group')->field('wechat_card_num')->where(array('id'=>session('gid')))->find();
-		$users=M('Users')->field('wechat_card_num')->where(array('id'=>session('uid')))->find();
+		$users=M('Users')->where(array('id'=>session('uid')))->find();
+		//
+		if ($this->isAgent){
+			$needPay=0;
+			if (($users['viptime']-$users['createtime']-20)>$this->reg_validDays*24*3600||$this->reg_validDays>30){
+				$needPay=1;
+			}
+			if ($needPay){
+				$pricebyMonth=intval($this->thisAgent['wxacountprice'])/12;
+				$month=($users['viptime']-time())/(30*24*3600);
+				$month=intval($month);
+				$price=$month*$pricebyMonth;
+				$price=intval($price);
+				if ($price>$this->thisAgent['moneybalance']){
+					$this->error('请联系您的站长处理');
+				}
+			}
+		}
+		//
 		if($users['wechat_card_num']<$data['wechat_card_num']){
 			
 		}else{
@@ -130,17 +197,27 @@ class IndexAction extends UserAction{
 		if ($this->isAgent){
 			$_POST['agentid']=$this->thisAgent['id'];
 		}
+		$pigSecret=$this->get_token(20,0,1);
+		$_POST['pigsecret']=$pigSecret;
 		if($db->create()===false){
 			$this->error($db->getError());
 		}else{
+			
 			$id=$db->add();
 			if($id){
 				if ($this->isAgent){
 					$wxuserCount=M('Wxuser')->where(array('agentid'=>$this->thisAgent['id']))->count();
 					M('Agent')->where(array('id'=>$this->thisAgent['id']))->save(array('wxusercount'=>$wxuserCount));
 					if ($this->thisAgent['wxacountprice']){
-						M('Agent')->where(array('id'=>$this->thisAgent['id']))->setDec('moneybalance',$this->thisAgent['wxacountprice']);
-						M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>(0-$this->thisAgent['wxacountprice']),'des'=>$this->user['username'].'(uid:'.$this->user['id'].')添加公众号'.$_POST['wxname'],'status'=>1,'time'=>time()));
+						//试用期内不扣费
+						if ($needPay){
+							$pricebyMonth=intval($this->thisAgent['wxacountprice'])/12;
+							$month=($users['viptime']-time())/(30*24*3600);
+							$month=intval($month);
+							$price=$month*$pricebyMonth;
+							M('Agent')->where(array('id'=>$this->thisAgent['id']))->setDec('moneybalance',$price);
+							M('Agent_expenserecords')->add(array('agentid'=>$this->thisAgent['id'],'amount'=>(0-$price),'des'=>$this->user['username'].'(uid:'.$this->user['id'].')添加公众号'.$_POST['wxname'].'('.$month.'个月)','status'=>1,'time'=>time()));
+						}
 					}
 				}
 				M('Users')->field('wechat_card_num')->where(array('id'=>session('uid')))->setInc('wechat_card_num');
@@ -209,6 +286,30 @@ class IndexAction extends UserAction{
 		}else {
 			exit('更新完成，请测试关键词回复');
 		}
+	}
+	public function bindHelp(){
+		$where['id']=$this->_get('id','intval');
+		$where['uid']=session('uid');
+		$thisWxUser=M('Wxuser')->where($where)->find();
+		$this->assign('wxuser',$thisWxUser);
+		$this->display();
+	}
+	public function bindTip(){
+		if (class_exists('demoImport')){
+			$this->assign('demo',1);
+			//
+			$token=$this->get_token();
+			$pigSecret=$this->get_token(20,0,1);
+			$wxinfo=M('wxuser')->where(array('uid'=>intval(session('uid'))))->find();
+			if (!$wxinfo){
+				$demoImport=new demoImport(session('uid'),$token,$pigSecret);
+			}
+			$wxinfo=M('wxuser')->where(array('uid'=>intval(session('uid'))))->find();
+			$this->assign('wxinfo',$wxinfo);
+			//
+			$this->assign('token',$token);
+		}
+		$this->display();
 	}
 }
 ?>

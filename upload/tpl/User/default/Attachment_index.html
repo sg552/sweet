@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>微信公众平台源码,微信机器人源码,微信自动回复源码 飞达多用户微信营销系统</title>
+<title>微信公众平台源码,微信机器人源码,微信自动回复源码 PigCms多用户微信营销系统</title>
 <meta http-equiv="MSThemeCompatible" content="Yes" />
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/style_2_common.css?BPm" />
 <script src="{pigcms::RES}/js/common.js" type="text/javascript"></script>
@@ -13,7 +13,10 @@
  <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
 <script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
 
-<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>-->
+<script type="text/javascript" src="/tpl/User/default/common/js/select/js/jquery.js"></script>
 <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.jplayer.min.js"></script>
     <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.mb.miniPlayer.js"></script>
     <link rel="stylesheet" type="text/css" href="/tpl/static/audioplayer/css/miniplayer.css" title="style" media="screen"/>
@@ -31,7 +34,12 @@
                 document.playerIDX = player.idx + 1 <= players.length - 1 ? player.idx + 1 : 0;
                 players.eq(document.playerIDX).mb_miniPlayer_play();
             }
+			
+
+			
+			
         });
+		
     </script>
 
 </head>
@@ -40,28 +48,24 @@
 function changeFolder(v){
 	window.location.href="?g=User&m=Attachment&a=index&type={pigcms:$type}&folder="+v;
 }
+function changeColor(v){
+	if(v != 'all'){
+		window.location.href="?g=User&m=Attachment&a=index&type={pigcms:$type}&folder={pigcms:$_GET['folder']|default='canyin'}&color="+v;
+	}else{
+		window.location.href="?g=User&m=Attachment&a=index&type={pigcms:$type}&folder={pigcms:$_GET['folder']|default='canyin'}";
+	}
+}
 </script>
 <!--tab start-->
 <div class="tab">
 <ul>
-<?php
-if ($type!='my'){
-?>
-<if condition="$type eq 'icon'"><li class="current tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'icon'))}">图标</a></li></if>
-<if condition="$type eq 'focus'"><li class="current tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'focus'))}">幻灯片</a></li></if>
-<if condition="$type eq 'background'"><li class="current tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'background'))}">背景图</a></li></if>
-<if condition="$type eq 'music'"><li class="current tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'music'))}">音乐</a></li></if>
-<?php
-}else{
-?>
-<li class="tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'icon'))}">图标</a></li>
-<li class="tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'focus'))}">幻灯片</a></li>
-<li class="tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'background'))}">背景图</a></li>
-<li class="tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'music'))}">音乐</a></li>
-<?php
-}
-?>
+
+<li class="<if condition="$type eq 'icon'">current</if> tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'icon'))}">图标</a></li>
+<li class="<if condition="$type eq 'focus'">current</if> tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'focus'))}">幻灯片</a></li>
+<li class="<if condition="$type eq 'background'">current</if> tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'background'))}">背景图</a></li>
+<li class="<if condition="$type eq 'music'">current</if> tabli" id="tab0"><a href="{pigcms::U('Attachment/index',array('type'=>'music'))}">音乐</a></li>
 <li class="<if condition="$type eq 'my'">current</if> tabli" id="tab0"><a href="{pigcms::U('Attachment/my',array('type'=>'my'))}">我的素材</a></li>
+
 </ul>
 </div>
 <!--tab end-->
@@ -71,14 +75,38 @@ if ($type!='my'){
 <?php
 if ($type!='my'){
 ?>
-<div style="margin-bottom:10px;">请选择类别：<select onchange="changeFolder(this.value)"><volist name="folders" id="f"><option value="{pigcms:$f.folder}" <if condition="$f.folder eq $folder">selected</if>>{pigcms:$f.name}</option></volist></select></div>
+<div style="margin-bottom:10px;">
+	请选择类别：
+	<select onchange="changeFolder(this.value)">
+		<volist name="folders" id="f">
+			<option value="{pigcms:$f.folder}" <if condition="$f.folder eq $folder">selected</if>>{pigcms:$f.name}</option>
+		</volist>
+	</select>
+	<if condition="(in_array($_GET['folder'],$folderArr) || $_GET['folder'] eq '') && ($_GET['type'] eq 'icon')">
+ &nbsp; &nbsp; &nbsp; 
+	<select onchange="changeColor(this.value)" style="width:76px">
+		<option value="all">全部颜色</option>
+		<option value="red" <if condition="$_GET['color'] eq 'red'">selected</if>>红</option>
+		<option value="orange" <if condition="$_GET['color'] eq 'orange'">selected</if>>橙</option>
+		<option value="yellow" <if condition="$_GET['color'] eq 'yellow'">selected</if>>黄</option>
+		<option value="green" <if condition="$_GET['color'] eq 'green'">selected</if>>绿</option>
+		<option value="blue" <if condition="$_GET['color'] eq 'blue'">selected</if>>蓝</option>
+		<option value="gray" <if condition="$_GET['color'] eq 'gray'">selected</if>>灰</option>
+		<option value="purple" <if condition="$_GET['color'] eq 'purple'">selected</if>>紫</option>
+		<option value="brown" <if condition="$_GET['color'] eq 'brown'">selected</if>>棕</option>
+		<option value="white" <if condition="$_GET['color'] eq 'white'">selected</if>>白</option>
+	</select>
+	</if>
+</div>
 <if condition="$type neq 'music'">
 <ul>
 <volist name="files" id="item">
-<li style="float:left;width:{pigcms:$height}px;margin:1px;background:#ddd"><a href="###" onclick="returnHomepage('{pigcms:$siteUrl}/tpl/static/attachment/{pigcms:$type}/{pigcms:$folder}/{pigcms:$item}')"><img style="width:{pigcms:$height}px;height:{pigcms:$height}px;" src="/tpl/static/attachment/{pigcms:$type}/{pigcms:$folder}/{pigcms:$item}" /></a></li>
+<li style="float:left;width:{pigcms:$height}px;margin:1px;background:#ddd"><a href="###" onclick="returnHomepage('{pigcms:$siteUrl}/tpl/static/attachment/{pigcms:$type}/{pigcms:$folder}/{pigcms:$item}')"><img class="attimg" style="width:{pigcms:$height}px;height:{pigcms:$height}px;" src="/tpl/static/attachment/{pigcms:$type}/{pigcms:$folder}/{pigcms:$item}" /></a></li>
 </volist>
+<div class="clr" style="height:10px;"></div>
 </ul>
-<else/>
+<div class="pages">{pigcms:$show}</div>
+<else />
 <table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
 <thead>
 <tr>
@@ -139,7 +167,7 @@ function returnHomepage(url){
 	if(origin.document.getElementById(domsrcid)){
 	origin.document.getElementById(domsrcid).src=url;
 	}
-
+	
 	dom.value=url;
 	setTimeout("art.dialog.close()", 100 )
 }

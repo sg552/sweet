@@ -252,7 +252,7 @@ right:0;
 
 /*listhome3*/
 #listhome3{
-    background: -webkit-gradient( linear, 0 0, 0 100%, from(rgb(224, 214, 214)), to(rgba(235, 235, 235, 0.63)) );
+    background: -webkit-gradient( linear, 0 0, 0 100%, from(rgb(223, 223, 223)));
 	margin: 0 auto;
     max-width: 640px;
     min-width: 320px;

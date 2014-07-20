@@ -84,7 +84,7 @@ class CompanyAction extends UserAction{
 		$this->display();
 	}
 	public function delete(){
-		$where=array('token'=>$this->token,'isbranch'=>1,'id'=>intval($_GET['id']));
+		$where=array('token'=>$this->token,'id'=>intval($_GET['id']));
 		$rt=$this->company_model->where($where)->delete();
 		if($rt==true){
 			$this->success('删除成功',U('Company/branches',array('token'=>$this->token,'isBranch'=>1)));

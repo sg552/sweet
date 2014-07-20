@@ -52,8 +52,8 @@ class GrouponAction extends UserAction{
 		
 			$cats=$this->product_cat_model->where($catWhere)->select();
 			if (!$cats){
-				 $this->error("请先添加分类",U('Product/catAdd',array('token'=>$this->token)));
-				 exit();
+				// $this->error("请先添加分类",U('Product/catAdd',array('token'=>$this->token)));
+				// exit();
 			}
 			$this->assign('cats',$cats);
 			$catsOptions=$this->catOptions($cats,0);

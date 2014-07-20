@@ -63,8 +63,10 @@ class SelfformAction extends WapAction{
 			$row['time']=time();
 			//$submitInfo=$this->selfform_value_model->where(array('wecha_id'=>$this->wecha_id,'formid'=>$thisForm['id']))->find();
 			if (!$submitInfo){
+				Sms::sendSms($this->token, '您的表单“'.$thisForm['name'].'”中有新的信息');
 				$this->selfform_value_model->add($row);
 			}
+			
 			$this->redirect(U('Selfform/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'id'=>$thisForm['id'],'success'=>1)));
 		}else {
 			//判断是否提交过信息了

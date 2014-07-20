@@ -30,7 +30,7 @@
 <script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
 <script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
 <script src="{pigcms::STATICS}/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
-<div class="content">
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
 
     <div class="cLineB">
         <h4>模板管理 <span class="FAQ">选择适合您的模版风格，手机输入“首页”测试效果。</span></h4>
@@ -75,12 +75,12 @@
 				
 				<ul class="cateradio g grid" id="grid">
 					<volist id="tpl" name="tpl">
-						<li class="mix {pigcms:$tpl.attr} <php>if($info['tpltypeid'] == $tpl['tpltypeid']) echo 'ck active';</php>">
+						<li class="mix {pigcms:$tpl.attr}<?php if($info['tpltypeid'] == $tpl['tpltypeid']){echo ' ck active';} ?>">
 							<div class="mbtip">{pigcms:$tpl.tpldesinfo|default='暂无模板描述'}</div>
 							<label>
 								<img src="/tpl/User/default/common/images/{pigcms:$tpl.tplview}">
 								<input class="radio" type="radio"<if condition="$info['tpltypeid'] eq $tpl['tpltypeid']"> checked</if> name="optype" value="{pigcms:$tpl.tpltypeid}">
-								模板{pigcms:$tpl.tpltypeid}
+								模板{pigcms:$tpl.sort}
 								</label>
 						</li>
 					</volist>
@@ -269,4 +269,6 @@ $(".radio").click(function(){
             });
 </script>
 
+<if condition="session('isQcloud') neq true">
 <include file="Public:footer"/>
+</if>

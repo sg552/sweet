@@ -18,6 +18,7 @@ class RecordsAction extends BackAction{
 		if($money!=false&&$data['id']!=false){
 			//dump($money);exit;
 			$back=M('Users')->where($data)->setInc('money',$money);
+			$back=M('Users')->where($data)->setInc('moneybalance',$money);
 			$status=M('Indent')->where(array('id'=>$this->_get('iid','intval')))->setField('status',2);
 			if($back!=false&&$status!=false){
 				$this->success('充值成功');

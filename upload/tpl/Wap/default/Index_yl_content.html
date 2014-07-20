@@ -61,6 +61,7 @@ oWin.style.display = "none"
 <h1 id="activity-name">{pigcms:$res.title}</h1>
 <span id="post-date">{pigcms:$res.createtime|date="y-m-d",###}</span>
 </div>
+<if condition="$tpl['weixin'] neq NULL">
 <a id="biz-link" class="btn" href="{pigcms::U('Index/index',array('token'=>$res['token']))}"  data-transition="slide" >
 <div class="arrow">
 <div class="icons arrow-r"></div>
@@ -72,6 +73,7 @@ oWin.style.display = "none"
 <div id="nickname">{pigcms:$tpl.wxname}</div>
 <div id="weixinid">微信号:{pigcms:$tpl.weixin}</div>
 </a>
+</if>
 <eq name="res.showpic" value="1">
 <div class="showpic"><img src="{pigcms:$res.pic}" /></div> 
 </eq>

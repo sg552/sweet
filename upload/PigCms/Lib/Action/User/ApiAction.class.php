@@ -25,6 +25,9 @@ class ApiAction extends UserAction{
 		if(IS_POST){
 			$_POST['uid']=SESSION('uid');
 			$_POST['token']=SESSION('token');
+			if (!isset($_POST['is_colation'])){
+				$_POST['is_colation']=0;
+			}
 			//if(empty($_POST['home']))unset($_POST['home']);
 			if($data->create()){				
 				if($data->add()){
@@ -46,6 +49,9 @@ class ApiAction extends UserAction{
 			$_POST['token']=session('token');
 			$_POST['uid']=session('uid');
 			$_POST['id']=$this->_get('id','intval');
+			if (!isset($_POST['is_colation'])){
+				$_POST['is_colation']=0;
+			}
 			if($data->create()){
 				if($data->save()!=false){
 					$this->success('操作成功',U('User/Api/index'));					

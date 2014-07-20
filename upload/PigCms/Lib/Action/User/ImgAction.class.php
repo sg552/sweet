@@ -5,16 +5,22 @@
 class ImgAction extends UserAction{
 	public function index(){
 		$db=D('Img');
-		//$where['uid']=session('uid');
-		$where['token']=session('token');
+		$token = session('token');
+		
+		if(IS_POST && $_POST['search'] != ''){
+			$search = trim($this->_post('search'));
+			$where = "token = '$token' AND title like '%$search%'";
+		}else{
+			$where['token']=$token;
+		}
 		$count=$db->where($where)->count();
-		$page=new Page($count,25);
+		$page=new Page($count,20);
 		$info=$db->where($where)->order('usort DESC')->limit($page->firstRow.','.$page->listRows)->select();
 		$this->assign('page',$page->show());
 		$this->assign('info',$info);
 
 		$this->display();
-		
+
 	}
 	
 	public function add(){
@@ -107,11 +113,10 @@ class ImgAction extends UserAction{
 	public function editClass(){
 		$token = $this->token;
 		$db = M('Classify');
-		$id = $this->_get('id','intval');
+		$id = (int)$this->_get('id');
 		$class = $db->field('id,name,path')->where("token = '$token' AND fid = $id")->select();
 		
 		foreach($class as $k=>$v){
-		
 			$fid = $v['id'];
 			$class[$k]['sub'] = $db->where("token = '$token' AND fid = $fid")->field('id,name')->select();
 		}
@@ -124,15 +129,86 @@ class ImgAction extends UserAction{
 	}
 	
 	public function editUsort(){
-		$id = $this->_post('id','intval');
-		$usort = $this->_post('v','intval');
 		$token = $this->_post('token',"htmlspecialchars");
-		
-		if(M('Img')->where("token = '$token' AND id = $id")->setField('usort',$usort)){
-			echo $usort;
+		unset($_POST['__hash__']);
+		foreach($_POST as $k=>$v){
+			$k = str_replace('usort','',$k);
+			$data[$k]=$v;
+			M('Img')->where(array('token'=>$token,'id'=>$k))->setField('usort',$v);
+		}
+
+		$this->success('保存成功');
+	}
+	
+	public function multiImgDel(){
+		$id = (int)$this->_get('id');
+		if(M('Img_multi')->where(array('token'=>$this->token,'id'=>$id))->delete() && M('Keyword')->where(array('token'=>$this->token,'pid'=>$id))->delete()){
+			$this->success('删除成功');
 		}else{
-			echo 'error';
+			$this->error('删除失败，请稍后再试~');
 		}
 	}
+	
+	public function multi(){
+		if((int)$this->_get('tip') == 2){
+			$multi = M('Img_multi');
+			$img = M('Img');
+			$where['token'] = $this->token;
+			$count=$multi->where($where)->count();
+			$page=new Page($count,20);
+			$list = $multi->where($where)->limit($page->firstRow.','.$page->listRows)->order('id DESC')->select();
+			$p = $page->show();
+			
+			foreach($list as $k=>$v){
+				$id = explode(',',$v['imgs']);
+					foreach($id as $key=>$val){
+						$title[$k][$val] = $img->where(array('token'=>$this->token,'id'=>$val))->getField('title');
+					}
+				$list[$k]['title'] = $title[$k]; 
+			}
+			$this->assign('list',$list);
+			$this->assign('page',$p);
+		}
+		$this->display();
+	}
+	
+	
+	public function multiSave(){
+		$keywords = $this->_post('keywords','trim');
+		$imgs = $this->_post('imgids');
+		$imgs = trim($imgs,',');
+		
+		if(!$keywords) $this->error('请填写关键词。');
+		if(!$imgs) $this->error('请选择图文消息。');
+		
+		if(M('Img_multi')->where(array('token'=>$this->token,'keywords'=>$keywords))->getField(id)){
+			$this->error('这个关键词已经存在了，请换个关键词哦。');
+		}
+		
+		$data['imgs'] = $imgs;
+		$data['keywords'] = $keywords;
+		$data['token'] = $this->token;
+		$data['__hash__'] = $_POST['__hash__'];
+		$multi = M('Img_multi');
+		if($multi->create($data)){
+			if($multiid = $multi->add($data)){
+				$keyInfo['keyword'] = $keywords;
+				$keyInfo['token'] = $this->token;
+				$keyInfo['module'] = 'Multi';
+				$keyInfo['pid'] = $multiid;
+				if(M('Keyword')->add($keyInfo)){
+					$this->success('保存成功',U('Img/multi',array('tip'=>2)));
+				}
+			}else{
+				$this->error('保存失败，请稍后再试~');
+			}
+		
+		}else{
+			$this->error($multi->getError());
+		}
+	}
+	
+	
+	
 }
 ?>

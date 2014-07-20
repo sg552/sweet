@@ -1467,3 +1467,11 @@ color:#333;
     border-style: solid;
     border-color: rgba(255, 255, 255, 1) transparent;    
 }
+
+
+.pages{padding:3px;margin:3px;text-align:center;}
+.pages a{border:#eee 1px solid;padding:2px 5px;margin:2px;color:#036cb4;text-decoration:none;}
+.pages a:hover{border:#999 1px solid;color:#666;}
+.pages a:active{border:#999 1px solid;color:#666;}
+.pages .current{border:#036cb4 1px solid;padding:2px 5px;font-weight:bold;margin:2px;color:#fff;background-color:#036cb4;}
+.pages .disabled{border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;}

@@ -23,6 +23,7 @@ class UpyunAction extends UserAction{
 			//exit('非法操作');
 		}
 		if ($this->upload_type=='upyun'){
+
 			if (C('site_url')!='http://'.$_SERVER['HTTP_HOST']){
 				exit('您的访问地址(http://'.$_SERVER['HTTP_HOST'].')和总后台配置地址('.C('site_url').')不一致，请修改总后台配置');
 			}
@@ -56,6 +57,7 @@ class UpyunAction extends UserAction{
 				exit('php不支持gd库，请配置后再使用');
 			}
 			if (IS_POST){
+			
 				$return=$this->localUpload();
 				echo '<script>location.href="/index.php?g=User&m=Upyun&a=upload&error='.$return['error'].'&msg='.$return['msg'].'";</script>';
 			}else {
@@ -68,6 +70,7 @@ class UpyunAction extends UserAction{
 			}
 		}
 	}
+	
 	public function localUploadSNExcel(){
 		$return=$this->localUpload(array('xls'));
 		if ($return['error']){
@@ -99,6 +102,228 @@ class UpyunAction extends UserAction{
 			$this->success('操作完成');
 		}
 	}
+	public function localUploadUsecordExcel(){
+		$token = $this->token;
+		$wecha_id = $this->_post('wecha_id');
+		$return=$this->localUpload(array('xls'));
+		if ($return['error']){
+			$this->error($return['msg']);
+		}else {
+		
+			$data = new Spreadsheet_Excel_Reader();
+			// 设置输入编码 UTF-8/GB2312/CP936等等
+			$data->setOutputEncoding('UTF-8');
+			$data->read(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']));
+			chmod(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']),0777);
+			//
+			$sheet=$data->sheets[0];
+			$rows=$sheet['cells'];
+			if ($rows){
+				$i=0;
+				$record = M('Member_card_use_record');
+				foreach ($rows as $r){
+				//跳过表头
+					if($i != 0){
+						
+						$info['itemid'] = (int)$r[1];
+						$info['wecha_id'] = htmlspecialchars($r[2]);
+						if($info['wecha_id'] == ''){
+							$info['wecha_id'] = $wecha_id;
+						}
+						$info['staffid'] = (int)$r[3];
+						
+						if($r[4] == '兑换'){
+							$info['cat'] = 2;
+						}elseif($r[4] == '分享'){
+							$info['cat'] = 98;
+						}else{
+							$info['cat'] = 3;
+						}
+						
+						$info['expense'] = (int)$r[5];
+						$info['score'] = (int)$r[6];
+						$info['usecount'] = (int)$r[7];
+						if($r[8] == ''){
+							$r[8] = time();
+						}else{
+							$r[8] = str_replace(array('年','月','时','分','日','秒'),array('-','-',':',':','',''),$r[8]);
+						
+						}
+						
+						$info['time'] = strtotime($r[8]);
+
+						$info['token'] = $this->token;
+						$record->add($info);
+
+					
+					}
+					$i++;
+				
+				}
+				
+			}
+			$this->success('操作完成');
+		}
+
+	}
+//导入会员卡消费记录
+
+	public function localUploadPayrecordExcel(){
+		$token = $this->token;
+		$wecha_id = $this->_post('wecha_id');
+		$return=$this->localUpload(array('xls'));
+		if ($return['error']){
+			$this->error($return['msg']);
+		}else {
+		
+			$data = new Spreadsheet_Excel_Reader();
+			// 设置输入编码 UTF-8/GB2312/CP936等等
+			$data->setOutputEncoding('UTF-8');
+			$data->read(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']));
+			chmod(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']),0777);
+			//
+			$sheet=$data->sheets[0];
+			$rows=$sheet['cells'];
+			if ($rows){
+				$i=0;
+				$record = M('Member_card_pay_record');
+				foreach ($rows as $r){
+				//跳过表头
+					if($i != 0){
+						//1.订单号	2.订单名称	3.第三方订单	4.支付类型	5.订单创建时间	6.金额	7.支付时间	8.支付状态	9.wecha_id	10.来源模块	11.类型
+
+							$info['orderid'] = ltrim(htmlspecialchars($r[1]),'单号');
+							$info['ordername'] = htmlspecialchars($r[2]);
+							$info['transactionid'] = ltrim(htmlspecialchars($r[3]),'单号');
+							$info['paytype'] = htmlspecialchars($r[4]);
+							
+							if($r[5] != ''){
+								$r[5] = str_replace(array('年','月','时','分','日','秒'),array('-','-',':',':','',''),$r[5]);
+								$info['createtime'] = strtotime($r[5]);
+							}else{
+								$info['createtime'] = '';
+							}
+							
+							
+							$info['price'] = htmlspecialchars($r[6]);
+							
+							if($r[7] != ''){
+								$r[7] = str_replace(array('年','月','时','分','日','秒'),array('-','-',':',':','',''),$r[7]);
+								$info['paytime'] = strtotime($r[7]);
+							}else{
+								$info['paytime'] = '';
+							}
+							
+							if($r[8] == '交易成功'){
+								$info['paid'] = 1;
+							}else{
+								$info['paid'] = 0;
+							}
+							
+							
+							
+							
+							$info['wecha_id'] = htmlspecialchars($r[9]);
+							$info['module'] = htmlspecialchars($r[10]);
+							
+							if($r[11] == '充值'){
+								$info['type'] = 1;
+							}else{
+								$info['type'] = 0;
+							}
+							
+
+						$info['token'] = $token;
+						
+							$record->add($info);
+						
+						
+
+					
+					}
+					$i++;
+				
+				}
+				
+			}
+			$this->success('操作完成');
+		}
+	
+	}
+	
+//导入excel会员卡
+	
+	public function localUploadCardExcel(){
+		$token = $this->token;
+		$cardid = (int)$_POST['id'];
+		$return=$this->localUpload(array('xls'));
+		if ($return['error']){
+			$this->error($return['msg']);
+		}else {
+		
+			$data = new Spreadsheet_Excel_Reader();
+			// 设置输入编码 UTF-8/GB2312/CP936等等
+			$data->setOutputEncoding('UTF-8');
+			$data->read(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']));
+			chmod(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']),0777);
+			//
+			$sheet=$data->sheets[0];
+			$rows=$sheet['cells'];
+			if ($rows){
+				$i=0;
+				foreach ($rows as $r){
+				//跳过表头
+					if($i != 0){
+						$db=M('Userinfo');
+						$create_db = M('Member_card_create');
+						//随机token
+						if($r[15] == ''){
+							$str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+							for($j=0;$j<28;$j++){
+								$rand = mt_rand(0,61);
+								$r[15] .= $str[$rand];
+							}
+						}
+						//	2姓名	3手机号	4积分	5微信名	6性别	7出生年	8出生月	9出生日	10头像地址	11QQ号 12领卡时间  13消费总额 14余额  15 wecha_id
+						//1卡号  cardid  token   
+						if($r[6] == '男'){
+							$r[6] = 1;
+						}elseif($r[6] == '女'){
+							$r[6] = 2;
+						}else{
+							$r[6] = 3;
+						}
+						$info = array('token'=>$this->token,'truename'=>htmlspecialchars($r[2]),'tel'=>htmlspecialchars($r[3]),'total_score'=>(int)$r[4],'wechaname'=>htmlspecialchars($r[5]),'sex'=>$r[6],'bornyear'=>(int)$r[7],'bornmonth'=>$r[8],'bornday'=>$r[9],'portrait'=>$r[10],'qq'=>htmlspecialchars($r[11]),'getcardtime'=>strtotime($r[12]),'expensetotal'=>$r[13],'balance'=>$r[14],'wecha_id'=>$r[15]);
+						$info2 = array('number'=>$r[1],'cardid'=>(int)$_POST['id'],'token'=>$this->token,'wecha_id'=>$r[15]);
+						
+						$where = array('wecha_id'=>$r[15],'token'=>$this->token);
+						
+						$db_exist = $db->where($where)->field('id')->find();
+						$create_db_exist = $create_db->where($where)->field('id')->find();// or ('number != '.$r[1])
+						
+						$number_exist = $create_db->where("cardid = $cardid AND number = '".$r[1]."' AND token = '".$this->token."'")->field('id,wecha_id')->find();
+						
+						if(!$db_exist){
+							$db->add($info);	
+						}
+						
+						if(!$create_db_exist && !$number_exist){
+							$create_db->add($info2);
+							
+						}elseif(!$create_db_exist && $number_exist && $number_exist['wecha_id'] == ''){
+						
+							$create_db->where("cardid = $cardid AND token = '$token' AND number = '".$r[1]."'")->save($info2);
+						}
+
+					}
+					$i++;
+				}
+			}
+			$this->success('操作完成');
+
+		}
+
+	}
 	public function uploadReturn(){
 		$handled=0;
 		$form_api_secret = $this->form_api_secret; /// 表单 API 功能的密匙（请访问又拍云管理后台的空间管理页面获取）
@@ -114,10 +339,14 @@ class UpyunAction extends UserAction{
 					$handled=1;
 					//
 					$fileUrl='http://'.$this->upyun_domain.$_GET['url'];
+
 					$fileinfo=get_headers($fileUrl,1);
 					$fileinfo['Content-Type']=$fileinfo['Content-Type']?$fileinfo['Content-Type']:'';
 					M('Users')->where(array('id'=>$this->user['id']))->setInc('attachmentsize',intval($fileinfo['Content-Length']));
 					M('Files')->add(array('token'=>$this->token,'size'=>intval($fileinfo['Content-Length']),'time'=>time(),'type'=>$fileinfo['Content-Type'],'url'=>$fileUrl));
+					if($this->_get('imgfrom') == 'photo_list'){
+						echo $fileUrl;exit;
+					}
 				}else{
 					$handled=1;
 					/// 上传失败
@@ -460,7 +689,13 @@ class UpyunAction extends UserAction{
 			M('Users')->where(array('id'=>$this->user['id']))->setInc('attachmentsize',intval($info[0]['size']));
 			M('Files')->add(array('token'=>$this->token,'size'=>intval($info[0]['size']),'time'=>time(),'type'=>$info[0]['extension'],'url'=>$msg));
 		}
-		return array('error'=>$error,'msg'=>$msg);
+		
+		if($this->_get('imgfrom') == 'photo_list'){
+			echo $msg;exit;
+		}else{
+			return array('error'=>$error,'msg'=>$msg);
+		}
+		
 	}
 	function alert($msg) {
 		header('Content-type: text/html; charset=UTF-8');

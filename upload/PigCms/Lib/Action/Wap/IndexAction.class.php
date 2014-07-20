@@ -174,6 +174,7 @@ class IndexAction extends WapAction{
 
 		$where['token'] = $this->_get('token','trim');
 		$classify = M('classify');
+		
 		//本分类信息		
 		$info = $classify->where("id = $classid AND token = '$token'")->find();		
 		//是否有子类
@@ -241,6 +242,7 @@ class IndexAction extends WapAction{
 				}
 				
 			}
+			$j=count($sub);
 			foreach($sub as $ke=>$va){
 				 $subpid = $va['id'];
 					$sub[$ke]['sub'] = M('Classify')->where("fid = $subpid")->select();
@@ -249,7 +251,10 @@ class IndexAction extends WapAction{
 					$sub[$ke]['url'] = U('Index/lists',array('classid'=>$va['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
 					$sub[$ke]['sub'] = $this->convertLinks($sub[$ke]['sub']);
 				}
+				$sub[$ke]['key'] = $j--;
 			}
+			
+			
 				
 				$count=count($flash);
 				$this->assign('flash',$flash);
@@ -266,9 +271,9 @@ class IndexAction extends WapAction{
 				$where['token'] = $this->token;
 				$where['classid']=$this->_get('classid','intval');
 				$db=D('Img');
-				
+	
 
-			//多数模板没有分页，这里取消分页功能
+			//
 				$res=$db->where($where)->order('usort DESC')->select();
 				$res=$this->convertLinks($res);
 
@@ -279,10 +284,10 @@ class IndexAction extends WapAction{
 					if($res[$key]['url'] == ''){
 						$res[$key]['url'] = U('Index/content',array('id'=>$val['id'],'classid'=>$val['classid'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
 					}
-					$res[$key]['info'] = strip_tags(htmlspecialchars_decode($val['info']));
+					$res[$key]['info'] = strip_tags(htmlspecialchars_decode(mb_substr($val['text'],0,10,'utf-8')));
 				}
 				
-			//当列表页只有一篇内容的时候，直接显示内容
+			//当列表页只有一篇内容,直接显示内容
 				$listNum = count($res);
 
 				if($listNum == 1){
@@ -323,8 +328,6 @@ class IndexAction extends WapAction{
 				$this->assign('flash',$flash);
 				$this->assign('num',$count);
 				$this->assign('flashbgcount',count($flashbg));
-				
-
 				$this->assign('info',$res);
 				$this->assign('tpl',$tpldata);
 				$this->assign('copyright',$this->copyright);

@@ -1,5 +1,5 @@
 <include file="Public:head"/>
-<div class="content">
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
 
 <div class="cLineB">
   <h4>文章分类管理<if condition="$fid neq 0">({pigcms:$thisClassify.name}子分类)</if>  <span class="FAQ">设置好分类，在图文编辑的时候就可以选择分类，系统会自动生成一个3G网站。</span></h4>
@@ -67,5 +67,6 @@
   </div> 
   <!--底部-->
   	</div>
-
+<if condition="session('isQcloud') neq true">
 <include file="Public:footer"/>
+</if>

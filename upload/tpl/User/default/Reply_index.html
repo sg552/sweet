@@ -125,7 +125,7 @@ $(document).on("click","#del",function(){
 
 </script>
 
-        <div class="content">
+        <div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
 <div class="cLineB">   
 <h4 class="left">留言表单  <input type="text" name="tokened" id="tokened" value="{pigcms:$token}" style="display:none;"></h4>
 <div class="searchbar right">
@@ -176,7 +176,7 @@ $(document).on("click","#del",function(){
 <td>{pigcms:$item.time|date="Y-m-d H:i:s",###}</td> 
 
 <td class="norightborder">
-    <a href="{pigcms::U('User/Reply/checkOne',array('chk_value'=>$item['id'],'token'=>$token))}"><if condition="$item['checked'] neq '1'">审核</if></a>
+    <if condition="$item['checked'] neq '1'"><a href="{pigcms::U('User/Reply/checkOne',array('chk_value'=>$item['id'],'token'=>$token))}">审核</a></if>
 <!--    &nbsp;&nbsp;<a href="#" messageid="{pigcms:$item.id}" class="replyeded">回复</a>-->
     &nbsp;&nbsp;<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('User/Reply/deled',array('chk_value'=>$item['id'],'token'=>$token))}');">删除</a></td>
 </tr>
@@ -195,4 +195,6 @@ $(document).on("click","#del",function(){
 <div class="clr"></div>
 </div>
 </div>
+<if condition="session('isQcloud') neq true">
 <include file="Public:footer"/>
+</if>

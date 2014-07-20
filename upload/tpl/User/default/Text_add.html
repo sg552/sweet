@@ -1,13 +1,13 @@
 <include file="Public:head"/>
- <div class="content">
+ <div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
           <div class="cLineB"><h4>编辑文本自定义内容</h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a></div> 
 <div class="msgWrap">
-  <form class="form" method="post"   action="{pigcms::U('Text/insert')}"  target="_top" enctype="multipart/form-data" >
+  <form class="form" method="post" action="{pigcms::U('Text/insert')}" enctype="multipart/form-data" >
 <TABLE class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
   <THEAD>
 <TR>
   <TH valign="top"><label for="keyword">关键词：</label></TH>
-  <TD><input type="input" class="px" id="keyword" value="" name="keyword" style="width:500px" ><br />
+  <TD><input type="text" class="px" id="keyword" value="" name="keyword" style="width:500px" ><br />
                   多个关键词请用空格格开：例如: 美丽&nbsp;漂亮&nbsp;好看   </TD>
   <TD>&nbsp;</TD>
 </TR>
@@ -34,7 +34,7 @@
    
 <TR>
   <TH></TH>
-  <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>　<a href="{pigcms::U('Img/add')}"  class="btnGray vm"  >切换到图文模式</a>　<a href="index.php?ac=importtxt&amp;id=9379"  class="btnGray vm">取消</a>
+  <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>　<a href="{pigcms::U('Img/add')}"  class="btnGray vm"  >切换到图文模式</a>　<a href="javascript:history.go(-1);"  class="btnGray vm">取消</a>
   	<div class="right" style="margin-right:10px"  >
   		<ul>
   			<li class="biaoqing"><span>表情</span>
@@ -170,4 +170,6 @@ document.getElementById("Hfcontent").value=document.getElementById("Hfcontent").
 
 <!--底部-->
   	</div>
+<if condition="session('isQcloud') neq true">
 <include file="Public:footer"/>
+</if>

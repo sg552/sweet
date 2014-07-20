@@ -24,7 +24,7 @@ items : [
 });
 </script>
 
-  <div class="content"> 
+  <div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>> 
    <div class="cLineB"> 
     <h4>添加回复</h4> 
     <a href="{pigcms::U('Reply/index',array('token'=>$token,'wecha_id'=>$wecha_id))}" class="right  btnGreen" style="margin-top:-27px">返回</a> 
@@ -60,4 +60,6 @@ items : [
    </form> 
   </div> 
 
-  <include file="Public:footer" />
+<if condition="session('isQcloud') neq true">
+<include file="Public:footer"/>
+</if>

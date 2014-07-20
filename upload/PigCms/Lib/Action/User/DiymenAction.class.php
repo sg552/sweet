@@ -106,7 +106,7 @@ class DiymenAction extends UserAction{
 				$c=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id'],'is_show'=>1))->limit(5)->order('sort desc')->select();
 				$count=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id'],'is_show'=>1))->limit(5)->order('sort desc')->count();
 				//子菜单
-				$vo['url']=str_replace(array('&amp;'),array('&'),$vo['url']);
+				$vo['url']=str_replace(array('{siteUrl}','&amp;','&wecha_id={wechat_id}'),array($this->siteUrl,'&','&diymenu=1'),$vo['url']);
 				if($c!=false){
 					$data.='"sub_button":[';
 				}else{
@@ -118,7 +118,7 @@ class DiymenAction extends UserAction{
 				}
 				$i=1;
 				foreach($c as $voo){
-					$voo['url']=str_replace(array('&amp;'),array('&'),$voo['url']);
+					$voo['url']=str_replace(array('{siteUrl}','&amp;','&wecha_id={wechat_id}'),array($this->siteUrl,'&','&diymenu=1'),$voo['url']);
 					if($i==$count){
 						if($voo['url']){
 							$data.='{"type":"view","name":"'.$voo['title'].'","url":"'.$voo['url'].'"}';

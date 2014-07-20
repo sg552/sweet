@@ -46,7 +46,44 @@ class IndexAction extends BaseAction{
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
 	}
 	public function fc(){
+		if (isset($_GET['id'])){
+			$fun=M('Funintro')->where(array('id'=>intval($_GET['id'])))->find();
+		}else {
+			$fun=M('Funintro')->where('id>0')->order('id ASC')->find();
+		}
+		$funs=M('Funintro')->where('id>0')->select();
+		$this->assign('funs',$funs);
+		$this->assign('fun',$fun);
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
+	}
+	public function qrcode(){
+		if (isset($_SESSION['preuid'])){
+			$thisUser=M('Users')->where(array('id'=>intval($_SESSION['preuid'])))->find();
+			$this->assign('thisUser',$thisUser);
+			$this->display($this->home_theme.':Index:'.ACTION_NAME);
+		}else {
+			exit();
+		}
+		
+	}
+	public function qrcodeLogin(){
+		if (isset($_SESSION['preuid'])){
+			$thisUser=M('Users')->where(array('id'=>intval($_SESSION['preuid'])))->find();
+			session('uid',$thisUser['id']);
+			session('gid',$thisUser['gid']);
+			session('uname',$thisUser['username']);
+			session('diynum',0);
+			session('connectnum',0);
+			session('activitynum',0);
+			//session('gname',$info['name']);
+			$this->success('现在进入体验',U('User/Index/bindTip'));
+		}else {
+			$this->success('超时，请联系客服审核账号',U('Home/Index/index'));
+		}
+	}
+	public function isfollow(){
+		$thisUser=M('Users')->where(array('id'=>intval($_SESSION['preuid'])))->find();
+		echo '{"openid":"'.$thisUser['openid'].'"}';
 	}
 	public function about(){
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
@@ -72,7 +109,7 @@ class IndexAction extends BaseAction{
 		if ($groups){
 			foreach ($groups as $g){
 				array_push($prices,$g['price']);
-				array_push($isCopyright,$g['copyright']);
+				array_push($isCopyright,$g['iscopyright']);
 				array_push($wechatNums,$g['wechat_card_num']);
 				array_push($diynums,$g['diynum']);
 				array_push($connectnums,$g['connectnum']);
@@ -82,6 +119,7 @@ class IndexAction extends BaseAction{
 		}
 		$this->assign('prices',$prices);
 		$this->assign('copyrights',$isCopyright);
+
 		$this->assign('wechatNums',$wechatNums);
 		$this->assign('diynums',$diynums);
 		$this->assign('connectnums',$connectnums);
@@ -115,6 +153,14 @@ class IndexAction extends BaseAction{
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
 	}
 	public function help(){
+		if (isset($_GET['token'])){
+			if (isset($_SESSION['uid'])){
+				$wxuser=M('Wxuser')->where(array('uid'=>intval($_SESSION['uid']),'token'=>$this->_get('token')))->find();
+				$this->assign('wxuser',$wxuser);
+			}else {
+				$this->error('无权查看');
+			}
+		}
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
 	}
 	function think_encrypt($data, $key = '', $expire = 0) {

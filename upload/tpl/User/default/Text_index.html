@@ -1,5 +1,5 @@
 <include file="Public:head"/>
-<div class="content">
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
          
           <div class="cLine">
             <div class="pageNavigator left">
@@ -93,4 +93,6 @@ e.checked = form.elements['chkall'].checked;
   </script>
   <!--底部-->
   	</div>
+<if condition="session('isQcloud') neq true">
 <include file="Public:footer"/>
+</if>

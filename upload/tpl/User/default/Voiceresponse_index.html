@@ -1,4 +1,29 @@
 <include file="Public:head"/>
+<script type="text/javascript" src="/tpl/User/default/common/js/select/js/jquery.js"></script>
+<script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.mb.miniPlayer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/tpl/static/audioplayer/css/miniplayer.css" title="style" media="screen"/>
+    <script type="text/javascript">
+        $(function () {
+
+            $(".audio").mb_miniPlayer({
+                width: 200,
+                inLine: false,
+                onEnd: playNext
+            });
+
+            function playNext(player) {
+                var players = $(".audio");
+                document.playerIDX = player.idx + 1 <= players.length - 1 ? player.idx + 1 : 0;
+                players.eq(document.playerIDX).mb_miniPlayer_play();
+            }
+			
+
+			
+			
+        });
+		
+    </script>
 <div class="content">
          
           <div class="cLineB">
@@ -32,7 +57,10 @@
                   <td>  <input type="checkbox" name="del_id[]" value="{pigcms:$vo.id}" class="checkitem"></td>
                   <td>{pigcms:$vo.keyword}</td>
                   <td>{pigcms:$vo.title}</td>
-                  <td><div class="audiojs  error playing" classname="audiojs" id="audiojs_wrapper0"><audio src="http://stream13.qqmusic.qq.com/31319431.mp3" preload="auto"></audio>          <div class="play-pause">             <p class="play"></p>             <p class="pause"></p>             <p class="loading"></p>             <p class="error"></p>           </div>           <div class="scrubber">             <div class="progress" style="width: 0px;"></div>             <div class="loaded"></div>           </div>           <div class="time">             <em class="played">00:00</em>/<strong class="duration">00:00</strong>           </div>           <div class="error-message">Error loading: "http://stream13.qqmusic.qq.com/31319431.mp3"</div></div></td>
+				  
+				<td>
+					<a style="width:220px;float:left" class="audio {skin:'blue'}" href="{pigcms:$vo.musicurl}">{pigcms:$vo.name}</a>
+				</td>
                 
                     <td><php>echo date('Y-m-d',$vo['uptatetime']);</php></td>
                    <td class="norightborder"> <a href="{pigcms::U('Voiceresponse/edit',array('id'=>$vo['id']))}" title="编辑图文自定义回复">编辑</a>  <a href="javascript:drop_confirm('您确定要删除吗?', \'{pigcms::U('Voiceresponse/del',array('id'=>$vo['id']))}\');">删除</a></td>

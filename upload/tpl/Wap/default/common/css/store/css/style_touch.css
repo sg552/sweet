@@ -185,13 +185,14 @@ a{color:#333;text-decoration:none}
 .detailinfo .tabs li{-webkit-box-flex:1;text-align:center;border-right:.1rem solid #e5e5e5;line-height:3rem}.detailinfo .tabs li:last-child{border-right:0}
 .detailinfo .tabs li.on{background:#fff;border-top:.2rem solid #900;line-height:2.8rem;color:#900}
 .detailinfo .tabs li i{font-size:1.2rem;color:#999;margin-left:.5rem}
+.detailinfo .warp .li{float:left;height:1rem;overflow:hidden}
 .detailinfo .warp .li.on{height:auto}
 
 .detailinfo .com-dec{padding:0 1rem;height:3.2rem;line-height:3.2rem;border-bottom:.1rem solid #ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .detailinfo .com-dec b{font-weight:normal;color:#c00;margin:0 3px}
 .detailinfo .com-dec .star{margin:9px 5px 0 0;vertical-align:top}
 .detailinfo .com-dec .star,
-.detailinfo .com-dec .star i{display:inline-block;height:16px;width:91px;background:url(img/stars.png) no-repeat 0 100%;background-size:100%;}
+.detailinfo .com-dec .star i{display:inline-block;height:16px;width:91px;background:url(../images/stars.png) no-repeat 0 100%;background-size:100%;}
 .detailinfo .com-dec .star .st-box{float:left;display:inline-block;overflow:hidden}
 .detailinfo .com-dec .star i{display:inline-block;width:91px;height:16px;background-position:0 0;float:left}
 .detailinfo .com-list li{border-bottom:.1rem dashed #ddd;padding:.8rem}.detailinfo .com-list li:last-child{border:0}

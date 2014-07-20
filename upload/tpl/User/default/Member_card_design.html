@@ -267,11 +267,18 @@ document.getElementById("tishi").innerHTML=document.getElementById("tishi2").val
 		<img src="{pigcms::RES}/images/cart_info/addr-3.jpg">
 	</div>
 </td>
-<td align="center" valign="middle">
-	<span class="red">备注：图片宽640px高109px或者更高，但是不要高太多；图片类型为jpg，签到图片外与其他图片高度不同，尽量根据模板图片修改。</span>
-</td>
+ <td align="center" valign="middle">
+ 	<div class="banner">
+		<img src="{pigcms::RES}/images/cart_info/rech.jpg">
+		<img id="rech2_src" src="{pigcms:$card.recharge}">
+		<img src="{pigcms::RES}/images/cart_info/rech-3.jpg">
+	</div>
+ 
+
+</td> 
 </tr>
 <tr>
+<td align="center">上传或填写外链地址查看效果</td>
 <td align="center">上传或填写外链地址查看效果</td>
 <td align="center">上传或填写外链地址查看效果</td>
 <td align="center">上传或填写外链地址查看效果</td>
@@ -287,7 +294,42 @@ document.getElementById("tishi").innerHTML=document.getElementById("tishi2").val
 <td align="center">
 	<textarea name="contact" class="px" id="addr2" style="width:210px; height:36px" onblur="document.getElementById('addr2_src').src=document.getElementById('addr2').value;">{pigcms:$card.contact}</textarea><br><script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('addr2',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('addr2')">预览</a>
 </td>
-<td><button type="submit" name="button" class="btnGreen">保存</button></td>
+<td>
+<textarea name="recharge" class="px" id="rech2" style="width:210px; height:36px" onblur="document.getElementById('rech2_src').src=document.getElementById('rech2').value;">{pigcms:$card.recharge}</textarea><br><script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('rech2',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('rech2')">预览</a>
+
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td align="center" valign="top">
+	<div class="banner">
+		<img src="{pigcms::RES}/images/cart_info/payre.jpg">
+		<img id="payre2_src" src="{pigcms:$card.payrecord}">
+		<img src="{pigcms::RES}/images/cart_info/payre-3.jpg">
+	</div>
+</td>
+<td><span class="red">备注：图片宽640px高109px或者更高，但是不要高太多；图片类型为jpg，签到图片外与其他图片高度不同，尽量根据模板图片修改。</span></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td align="center">上传或填写外链地址查看效果</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td align="center">
+	<textarea name="payrecord" class="px" id="payre2" style="width:210px; height:36px" onblur="document.getElementById('payre2_src').src=document.getElementById('payre2').value;">{pigcms:$card.payrecord}</textarea><br><script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('payre2',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('payre2')">预览</a>
+</td>
+<td align="center"><button type="submit" name="button" class="btnGreen">保存</button></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>

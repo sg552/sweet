@@ -9,351 +9,127 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="description" content="{pigcms:$vote.title}">
 
-<link href="{pigcms::STATICS}/vote/wap/css/custom.css?v=1.0.1" rel="stylesheet">
-<link href="{pigcms::STATICS}/vote/wap/skins/all.css?v=1.0.1" rel="stylesheet">
-<!--link href="{pigcms::STATICS}/vote/wap/vote.css" rel="stylesheet"-->
-<script src="{pigcms::STATICS}/vote/wap/js/jquery.js"></script>
-<script src="{pigcms::STATICS}/vote/wap/icheck.js?v=1.0.1"></script>
-<script src="{pigcms::STATICS}/vote/wap/jquery.icheck.min.js"></script>
- <style>
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
-  margin:0;
-  padding:0;
-}
-body{
-  font:normal 14px/1.5 Microsoft YaHei,Helvitica,Verdana,Tohoma,Arial,san-serif;color:#000;
-  /*background: url(../images/themes/bg009.jpg) #D0D0D0;*/
-  background-size:288px auto;
--webkit-user-select:none;margin:0 auto;padding:0;list-style:none;vertical-align:middle}
-a {
-  color: #C00;
-    cursor: pointer;
-    text-decoration: none;
+<link href="{pigcms::STATICS}/vote/css/vote.css" rel="stylesheet" type="text/css">
+<script src="{pigcms::STATICS}/vote/js/jquery.min.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/vote/js/jquery.icheck.min.js" type="text/javascript"></script>
+<style>
+#vote-img li {width: 50%;float: left;}
+.votecontent .disabled{background: #a9a9a9;border-color: #a1a1a1;}
+
+.beizhu {
+    background-color: #FFF5C5;
+    border: 1px solid #EDE17E;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px #F6F6F6;
+    color: #BCA24B;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 11px 0 8px;
+    padding: 4px 10px 5px;
+    text-align: center;
 }
 
-
-#vote-text ul {
-    list-style: none outside none;
-    margin: 0 auto;
-    padding: 0;
-    background-color: white;
-}
-#vote-text li{
-  display:block;
-  position:relative;
-  display:block;
-  margin:0;
-  padding:0;
-  -webkit-border-radius:3px;
-  -moz-border-radius:3px;
-  border-radius: 3px;
-  /*box-shadow:0 0 2px 0 rgba(0, 0, 0, 0.1);
-  -moz-box-shadow:0 0 2px 0 rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow:0 0 2px 0 rgba(0, 0, 0, 0.1);*/
-  border-bottom:1px solid #E6E6E6;
-}
-/*#vote-text li:hover{
-  background-color:#FAFAFA;
-}*/
-#vote-text li label{
-  display:block; padding:15px 5px 15px 10px; cursor:pointer;
-}
-#vote-text li label div{
-  float:left;
-}
-#vote-text li label span{
-  display: block;
-    margin-left: 25px;
-  margin-right: 5px;
-  font-size:14px;line-height: 20px
-}
-
-/*li label div.checked ~ span{
-  color:#3498db;
-}*/
-
-
-#vote-text .votebar{
-  padding-bottom:8px;
-}
-#vote-text .percentage{
-  bottom: 8px;
-    font-size: 10px;
-    max-width: 100px;
-    position: absolute;
-  line-height:10px;
-    right: 7px;
-}
-#vote-text .user{
-  max-width: 50px;
-  font-style:normal;
-  color:#333;
-  margin-left:3px;
-
-}
-#vote-text .pbg {
-  height: 10px;
-  background-color:rgba(0, 0, 0, 0.02);
-  box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.07) inset;
-  -moz-box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.07) inset;
-  -webkit-box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.07) inset;
-  -webkit-border-radius:6px;
-  -moz-border-radius:6px;
-    border-radius: 6px;
-  margin-left:10px;
-  margin-right:100px;
-}
-#vote-text .pbr {
-    background-color: #5AAF4A;
-    border-radius: 6px;
-    height: 10px;
-}
-ul li{list-style:none;margin:5px;}
-.div_test {
-padding: 5px 10px 6px;
-text-decoration: none;
-
-border-radius: 15px;
--moz-border-radius: 15px;
--webkit-border-radius: 15px;
-
--moz-box-shadow: 0 1px 2px rgba（0，0，0，0.5）;
--webkit-box-shadow: 0 1px 2px rgba（0，0，0，0.5）;
-text-shadow: 0 -1px 1px rgba（0，0，0，0.25）;
-border-bottom: 1px solid rgba（0，0，0，0.25）;
-position: relative;
-cursor: pointer;
-background-color: #fff;
-}
-.date {
-  display:block;
-    color: #8C8C8C;
-    font-size: 11px;
-    margin:5px auto 10px auto;
-}
-.modus{
-  margin:0; font-size:14px; line-height:30px;border-top:1px solid #E6E6E6;border-bottom:1px solid #E6E6E6; margin:15px 0 0 0; background-color:#FAFAFA; text-align:center
-}
-.number{
-  color:#999;
-}
-.clr{
-  display:block;
-  clear:both;
-  height:1px;
-  overflow:hidden;
-}
-h2{
-  font-size:18px;
-  line-height:22px;
-  font-weight:normal;
-  margin:0;
-  word-break:normal;
-  word-wrap:break-word;
-}
-
-.pxbtn {
-
-  background: #ff6501;
-  background-image: -webkit-gradient(linear, left top, left bottom, from( #ffa201 ), to( #ff6501 )); /* Saf4+, Chrome */
-  background-image: -webkit-linear-gradient( #ffa201 , #ff6501 ); /* Chrome 10+, Saf5.1+ */
-  background-image:    -moz-linear-gradient( #ffa201 , #ff6501 ); /* FF3.6 */
-  background-image:     -ms-linear-gradient( #ffa201 , #ff6501 ); /* IE10 */
-  background-image:      -o-linear-gradient( #ffa201 , #ff6501 ); /* Opera 11.10+ */
-  background-image:         linear-gradient( #ffa201 , #ff6501 );
-  border: 1px solid #ff6501;
-  border-bottom: 1px solid #d35605;
-  color: #ffffff;
-  font-weight: bold;
-  text-shadow: 0 1px 0 #FFFFFF;
-  border-radius: 0.6em 0.6em 0.6em 0.6em;
-  display: block;
-  width: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-  text-align: center;
-  font-weight: bold;
-  text-shadow: 0 0 2px #BE4205;
-  font-size: 18px;
-  padding:10px;
-  margin:15px 0 0 0;
-}
-.pxbtn:visited {
-  background-image: -webkit-gradient(linear, left top, left bottom, from( #ffa201 ), to( #ff6501 )); /* Saf4+, Chrome */
-  background-image: -webkit-linear-gradient( #ffa201 , #ff6501 ); /* Chrome 10+, Saf5.1+ */
-  background-image:    -moz-linear-gradient( #ffa201 , #ff6501 ); /* FF3.6 */
-  background-image:     -ms-linear-gradient( #ffa201 , #ff6501 ); /* IE10 */
-  background-image:      -o-linear-gradient( #ffa201 , #ff6501 ); /* Opera 11.10+ */
-  background-image:         linear-gradient( #ffa201 , #ff6501 );
-}
-.pxbtn:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from( #ff7f01 ), to( #ff6501 )); /* Saf4+, Chrome */
-  background-image: -webkit-linear-gradient( #ff7f01 , #ff6501 ); /* Chrome 10+, Saf5.1+ */
-  background-image:    -moz-linear-gradient( #ff7f01 , #ff6501 ); /* FF3.6 */
-  background-image:     -ms-linear-gradient( #ff7f01 , #ff6501 ); /* IE10 */
-  background-image:      -o-linear-gradient( #ff7f01 , #ff6501 ); /* Opera 11.10+ */
-  background-image:         linear-gradient( #ff7f01 , #ff6501 );
-}
-.pxbtn:active {
-  background-image: -webkit-gradient(linear, left top, left bottom, from( #ff6501 ), to( #ffa201 )); /* Saf4+, Chrome */
-  background-image: -webkit-linear-gradient( #ff6501 , #ffa201 ); /* Chrome 10+, Saf5.1+ */
-  background-image:    -moz-linear-gradient( #ff6501 , #ffa201 ); /* FF3.6 */
-  background-image:     -ms-linear-gradient( #ff6501 , #ffa201 ); /* IE10 */
-  background-image:      -o-linear-gradient( #ff6501 , #ffa201 ); /* Opera 11.10+ */
-  background-image:         linear-gradient( #ff6501 , #ffa201 );
-  border: 1px solid #ff6501;
-  border-top: 1px solid #d35605;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) inset;
-}
-
-.vote_result_meta {
-    display: inline-block;
-    vertical-align: top
-}
- .vote_graph {
-    display: block;
-    background-color: #dedede
-}
- .vote_progress {
-    display: block;
-    background-color: #dedede;
-    height: 5px
-}
+.deploy_ctype_tip{z-index:1001;width:100%;text-align:center;position:fixed;top:50%;margin-top:-23px;left:0;}.deploy_ctype_tip p{display:inline-block;padding:13px 24px;border:solid #d6d482 1px;background:#f5f4c5;font-size:16px;color:#8f772f;line-height:18px;border-radius:3px;}
 
 </style>
 </head>
-<body id="vote-text" style="width:100%;margin:0 auto;">
+<body id="vote-<if condition="$vote['type'] eq 'text'">text<else />img</if>" class="wrap">
+
 <div class="vote">
-  <div class="layout clear div_test">
+ <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
+<div class="votecontent">
+  <h2>{pigcms:$vote.title}</h2>
+  <span class="date">{pigcms:$vote.statdate|date="Y-m-d",###} / {pigcms:$vote.enddate|date="Y-m-d",###}</span>
+   <if condition="($vote['picurl'] neq '') AND ($vote['showpic'] eq 1) ">
+    <div class="voteimg"><img src="{pigcms:$vote.picurl}"></div>  
+   </if> 
+   <p class="content">{pigcms:$vote['info']|htmlspecialchars_decode|htmlspecialchars_decode}</p>
+ 
 
-      <div class="skin skin-line">
-            <!--div class="skin-section"-->
-            <div>
-            <h2>{pigcms:$vote.title}</h2>
-              <span class="date">{pigcms:$vote.statdate|date="Y-m-d",###} / {pigcms:$vote.enddate|date="Y-m-d",###}</span>
-               <p class="modus">{pigcms:$vote['info']|htmlspecialchars_decode|htmlspecialchars_decode}</p><p>
-         <br/>
-               <if condition="($vote['picurl'] neq '') AND ($vote['showpic'] eq 1) ">
-               <p><img src="{pigcms:$vote.picurl}" style="width:100%;" /></p>
-               </if>
+ <p class="modus"><if condition="$vote['cknums'] eq 1"> 单选<else/>多选</if>投票，<span class="number">共有{pigcms:$vote['count']} 人参与投票</span></p>
+ <ul class="list" id="list">
+<volist name="vote_item" id="li" key="key">
+  <if condition="$vote['type'] eq 'text'"> <!--文字投票开始-->  
 
-             <p class="modus"> <if condition="$vote['cknums'] eq 1"> 单选<else/>多选</if>投票，<span class="number">共有{pigcms:$count} 人参与投票</span></p>
-       <br/>
-<!--投票选项开始-->
+    <li>
+      <label for="square-checkbox-{pigcms:$key}">
+          <input class="ckbx" tabindex="9" name="vid[]" value="{pigcms:$li.id}" type="<if condition="$vote['cknums'] eq 1">radio<else/>checkbox</if>" id="square-checkbox-{pigcms:$key}" style="position: absolute; opacity: 0;">
+          <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins>
+        <span>{pigcms:$li.item}</span>
+      </label>                        
+    </li>  
 
-        <ul class="list">
-              <volist name="vote_item" id="li">
-<if condition="$vote['cknums'] eq 1"> <!--单选投票开始-->
-          <if condition="$vote['type'] eq 'text'"> <!--单选 文字投票开始-->
-              <li>
-                  <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
-                  <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
-                  <div class="progress-bar orange shine">
-                      <span style="width: {pigcms:$li.per|default=0}%"> {pigcms:$li.per}%</span>&nbsp; &nbsp;<span>{pigcms:$li['pro']}(人)</span>
-                      <div class="vote_result_meta vote_graph">
-                <span style="width:{pigcms:$li.per|default=0}%;background-color:#<?php echo rand(100000,999999);?>" class="vote_progress"></span>
-                </div>
-                  </div>
+  <else/> <!--图片投票开始--> 
 
-              </li>
-          <else/> <!--单选 图片投票开始-->
-                <li>
-                    <span><a href="{pigcms:$li.tourl}"><img src="{pigcms:$li.startpicurl}" heigth="260" style="width:100%;max-height:720px;"></a></span>
-                    <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
-                    <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
-                    <div class="progress-bar orange shine">
-                    <span style="width: {pigcms:$li.per|default=0}%">{pigcms:$li.per}%</span>&nbsp; &nbsp;<span>{pigcms:$li['pro']}(人)</span>
-                    <div class="vote_result_meta vote_graph">
-                <span style="width:{pigcms:$li.per|default=0}%;background-color:#<?php echo rand(100000,999999);?>" class="vote_progress"></span>
-                </div>
-                </div>
-              </li>
-          </if>
+    <li>
+      <label for="square-checkbox-{pigcms:$key}">
+        <p class="voteimg2">
+          <img src="{pigcms:$li.startpicurl}">
+        </p>
+          <input tabindex="9" name="vid[]"   value="{pigcms:$li.id}" type="<if condition="$vote['cknums'] eq 1">radio<else/>checkbox</if>" id="square-checkbox-{pigcms:$key}" style="position: absolute; opacity: 0;">
+          <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins>
+        <span>{pigcms:$li.item}</span>
+      </label>
+        <div id="voteshow1" class="votebar">
+          <div class="pbg">
+            <div style="width: {pigcms:$li.per|default=0}%;background-color:#ffcc00" class="pbr"></div>
+          </div>
+          <span class="percentage" style="color:#ffcc00">{pigcms:$li.per}%<span class="user">({pigcms:$li['pro']})</span></span>
+        </div>
+    </li>
+  </if>
+</volist>
 
+             
+  <div class="clr"></div>
+ </ul>
+      <if condition="$success.err eq 1">
+        <a href="javascript:showTip('等待投票开始');" class="pxbtn disabled">{pigcms:$success.info}</a>
+      
+      <elseif  condition="$success.err eq 2" />  
+        <a href="javascript:showTip('投票已经结束了');" class="pxbtn disabled"/>{pigcms:$success.info}</a>
+     
+      <elseif  condition="$success.err eq 3" />  
+        <a href="javascript:showTip('请不要重复投票');" class="pxbtn disabled"/>{pigcms:$success.info}</a>
+        <p class="beizhu">
+          你投了：
+          <span class="number">
+                {pigcms:$success['hasitems']}
+          </span>
+        </p>      
+      <else />
+        <a href="javascript:void(0);" class="pxbtn" id="sub">我要投票</a>
+      </if>
+  </div>
 
-<else/><!--多选 投票开始-->
-                    <if condition="$vote['type'] eq 'text'"><!--多选 文字投票开始-->
-              <li>
-
-                <input tabindex="{pigcms:$i}" type="checkbox" name="vid" value="{pigcms:$li['id']}"  id="line-checkbox-{pigcms:$i}">
-                <label for="line-checkbox-{pigcms:$i}">{pigcms:$li.item}</label>
-                <div class="progress-bar orange shine">
-                <span style="width: {pigcms:$li.per|default=0}%">{pigcms:$li.per}%</span>&nbsp; &nbsp;<span>{pigcms:$li['pro']}(人) </span>
-                <div class="vote_result_meta vote_graph">
-                <span style="width:{pigcms:$li.per|default=0}%;background-color:#<?php echo rand(100000,999999);?>" class="vote_progress"></span>
-                </div>
-                </div>
-
-             </li>
-          <else/> <!--多选 图片投票开始-->
-                <li>
-                <span><a href="{pigcms:$li.tourl}"><img src="{pigcms:$li.startpicurl}" heigth="260" style="width:100%;max-height:720px;" ></a></span>
-
-                  <input tabindex="{pigcms:$i}" type="checkbox" name="vid" value="{pigcms:$li.id}"  id="line-checkbox-{pigcms:$i}">
-                <label for="line-checkbox-{pigcms:$i}">{pigcms:$li.item}</label>
-                <div class="progress-bar orange shine">
-                 <span style="width: {pigcms:$li.per|default=0}%">{pigcms:$li.per}%</span>&nbsp; &nbsp;<span>{pigcms:$li['pro']}(人)</span>
-                 <div class="vote_result_meta vote_graph">
-                <span style="width:{pigcms:$li.per|default=0}%;background-color:#<?php echo rand(100000,999999);?>" class="vote_progress"></span>
-                </div>
-                </div>
-              </li>
-          </if>
-  </if> <!--投票结束-->
-                </volist>
-        </ul>
-
-       <?php
-        if($vote['enddate'] < time()){
-            if($vote_record == 1){ ?>
-                    您已投过票，投票项为: <p style="color: coral;"><volist name="hasitems" id="vo">
-                   {pigcms:$vo['item']},
-                    </volist></p>
-                   <br/> 活动已经过结束<br/>
-         <?php   }else{
-               echo "活动已经过结束";
-            }
-
-        }elseif($vote['statdate'] > time()){
-            echo "活动还没正式开始";
-        }else{
-        ?>
-         <input class="pxbtn" name="sub" id="sub" value="提交选票" type="submit">
-        <?php
-        }
-       ?>
-
-
-         <br/><br/>
-    </div>
-</div>
+</form>
+</div>    
 
 <script>
   $(document).ready(function(){
-     $('.skin-line input').each(function(){
+     $('.list input').each(function(){
        var self = $(this),
         label = self.next(),
         label_text = label.text();
-
-       label.remove();
+        label.remove();
        self.iCheck({
-         checkboxClass: 'icheckbox_line-orange',
-         radioClass: 'iradio_line-orange',
+         checkboxClass: 'icheckbox_flat',
+         radioClass: 'iradio_flat',
          insert: '<div class="icheck_line-icon"></div>' + label_text
        });
 
     });
 
-  $(".pxbtn").bind("click",function(){
-     var self = $(this);
-    var chk = document.getElementsByName('vid');
+  $("#sub").bind("click",function(){
+
+    var self = $(this);
+    var chk = document.getElementsByName('vid[]');
     var objarray = chk.length;
     var chid = "";
     var wecha_id = "{pigcms:$wecha_id}";
     var token  = "{pigcms:$token}";
     var tid = "{pigcms:$id}";
+
     for (i=0;i<objarray;i++)
     {
       if(chk[i].checked == true)
@@ -361,12 +137,14 @@ h2{
          chid+=chk[i].value+",";
       }
     }
+
     if(wecha_id == ''){
-        alert("请关注后再重新打开此页面。");
-        return;
+      showTip("您可能是从分享页面打开的，请关注“{pigcms:$user_name}”然后发送关键词“{pigcms:$vote.keyword}”进行投票");
+      return;
     }
+
     if(chid == ""){
-      alert("您还没选择哦。");
+      showTip("请选择投票的选项");
       return;
     }else{
         var submitData={
@@ -378,25 +156,26 @@ h2{
         };
         $.post('index.php?g=Wap&m=Vote&a=add_vote&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}', submitData, function(bakcdata) {
           var obj=eval('('+bakcdata+')');
-          if(obj.success == 1){
-           alert('您已投票成功');
-          setTimeout("window.location.href='index.php?g=Wap&m=Vote&a=index&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}&id={pigcms:$id}'",2000);
-              return
-          }else{
-            alert('您已经投票过了');
-            return false;
-          }
-
+            showTip(obj.info);
+            setTimeout(function(){window.location.reload()},2000);
+            return
         });
-
     }
-
   });
 
 });
+
+function showTip(tipTxt) {
+  var div = document.createElement('div');
+  div.innerHTML = '<div class="deploy_ctype_tip"><p>' + tipTxt + '</p></div>';
+  var tipNode = div.firstChild;
+  $(".wrap").after(tipNode);
+  setTimeout(function () {
+    $(tipNode).remove();
+  }, 1500);
+}
 </script>
-</div>
-</div>
+
 <script type="text/javascript">
 window.shareData = {
             "moduleName":"Vote",

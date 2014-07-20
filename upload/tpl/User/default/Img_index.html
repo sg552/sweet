@@ -1,5 +1,5 @@
 <include file="Public:head"/>
-<div class="content">
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
          
           <div class="cLineB">
               <h4 class="left">自定义回复信息</h4>
@@ -9,21 +9,26 @@
               <div class="pageNavigator left">
   <a href='{pigcms::U("Text/add")}' title='新增文本自定义回复' class='btnGrayS vm bigbtn'><img src="{pigcms::RES}/images/text.png" class="vm" />新增文本自定义回复</a>　
   <a href='{pigcms::U("Img/add")}' title='新增图文自定义回复' class='btnGrayS vm bigbtn'><img src="{pigcms::RES}/images/pic.png" class="vm" />新增图文自定义回复</a>　
-              
-            </div>
           
+            </div>
+  <div style="float:right;line-height:30px;">
+	<form action="#" method="post">
+	<input type="text" placeholder="请输入标题搜索词" value="{pigcms:$_POST['search']}" class="px" name="search" />
+	<button class="btnGrayS" style="height: 29px;">搜索</button>
+	</form>
+   </div>
             <div class="clr"></div>
-			<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：修改排序直接点击图文消息对应的排序单元格修改即可。数值越大排在越上面</div>
+			<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：修改排序时，首先填写好当前页面每篇文章的排序数值，点击“排序”按钮后整页统一保存。</div>
           </div>
           <div class="msgWrap">
             <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
               <THEAD>
-                <TR>
+                <TR valign="top">
 					<TH class="answer">标题</TH>
 					<TH class="keywords">关键词</TH>
 					
                     <TH  class="category" >分类</TH>
-                    <TH class="time">排序</TH>
+                    <TH class="time"><button class="btnGrayS" onclick="$('#sortform').submit()" >排序</button></TH>
                     <TH class="time">浏览次数</TH>
 					<TH class="time">时间</TH>
 					<TH class="edit norightborder">操作</TH>
@@ -31,14 +36,16 @@
               </THEAD>
               <TBODY>
                 <TR></TR>
-				<volist name="info" id="vo">
+				<form action="{pigcms::U("Img/editUsort")}" method="post" id="sortform">
+				<volist name="info" id="vo" empty="没有找到数据">
 				<tr>
                   <td><div class="answer_text"><img src="{pigcms::RES}/images/pic.png" class="vm" title="图文自定义内容">{pigcms:$vo.title}</div></td>
                   <td>{pigcms:$vo.keyword}</td>
                   
                   <td>{pigcms:$vo.classname}</td>
-                  <td onclick="editUsort({pigcms:$vo.id})" id="edit-{pigcms:$vo.id}" title="点击编修改排序" style="cursor:pointer;">
-					<span class="usort-{pigcms:$vo.id}">{pigcms:$vo.usort}</span>
+                  <td>
+					<input type="number" style="border:1px solid #c9c9c9;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;" class="usort" name="usort{pigcms:$vo.id}" value="{pigcms:$vo.usort}" />
+					
 				  </td>
                   <td>{pigcms:$vo.click}</td>
                     <td><php>echo date('Y-m-d',$vo['uptatetime']);</php></td>
@@ -50,13 +57,14 @@
           
                 </tr>
 				</volist>
-                              
+					<input type="hidden" name="token" value="{pigcms:$_SESSION['token']}" />
+                </form>       
               </TBODY>
             </TABLE>
 <style>
 	.usort {
 		width:45px;
-		height:25px;
+		height:23px;
 	}
 </style>
            <script>
@@ -77,7 +85,7 @@ alert('未选中任何文章或回复！')
 }
 
 			//edit-usort
-		
+			/*
 					function editUsort(id){
 						if(document.activeElement.id != 'usortinp'){
 							var val = $(".usort-"+id).html();
@@ -104,7 +112,7 @@ alert('未选中任何文章或回复！')
 						});
 						
 					}
-
+				*/
 
    </script>
           </div>
@@ -135,4 +143,6 @@ e.checked = form.elements['chkall'].checked;
   </script>
   <!--底部-->
   	</div>
+<if condition="session('isQcloud') neq true">
 <include file="Public:footer"/>
+</if>

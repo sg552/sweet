@@ -6,7 +6,7 @@ class ReplyAction extends UserAction{
 	public $differ;//区分是网友回复还是管理员回复
 	public function _initialize(){
 		parent::_initialize();
-		//$this->canUseFunction('message');
+		$this->canUseFunction('messageboard');
 		//session('token','gh_aab60b4c5a39');
 		$this->wecha_id	= $this->_get('wecha_id');
 		//

@@ -98,6 +98,11 @@ class UsersAction extends BaseAction{
 			if($res['status']==0){
 				$this->error('请联系在线客户，为你人工审核帐号');exit;
 			}
+			if ($this->isAgent){
+				if ($this->thisAgent['id']!=$res['agentid']){
+					$this->error('您使用的网址不对');exit;
+				}
+			}
 			session('uid',$res['id']);
 			session('gid',$res['gid']);
 			session('uname',$res['username']);
@@ -182,7 +187,12 @@ class UsersAction extends BaseAction{
 				}
 				if($this->reg_needCheck){
 					$gid=$this->minGroupid;
-					$this->success('注册成功,请联系在线客服审核帐号',U('User/Index/index'));exit;
+					if (C('demo')){
+						session('preuid',$id);
+						$this->success('注册成功,请关注我们公众号获取使用权限',U('Index/qrcode'));exit;
+					}else {
+						$this->success('注册成功,请联系在线客服审核帐号',U('User/Index/index'));exit;
+					}
 				}else{
 					$viptime=time()+intval($this->reg_validDays)*24*3600;
 					$gid=$this->minGroupid;
