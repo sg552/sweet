@@ -4,7 +4,6 @@ class TextModel extends Model{
 	protected $_validate =array(
 		array('text','require','内容不能为空',1),
 		array('keyword','require','关键词不能为空',1),
-		array('type','require','类型不能为空',1),
 	);
 	
 	protected $_auto = array (

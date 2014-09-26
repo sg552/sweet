@@ -3,7 +3,7 @@ class VoteAction extends UserAction{
 
 
     public function index(){
-        $this->canUseFunction('vote');
+        $this->canUseFunction('Vote');
         $id     = $this->_get('id','trim');
         $type   = $this->_request('type','trim');
         $keyword   = $this->_post('keyword','trim');
@@ -16,11 +16,12 @@ class VoteAction extends UserAction{
         $where  = array('token'=>session('token'));
         if($id){
             $where['id'] = array('in',explode(',', $id));
-
         }
+
         if($type){
             $where['type'] = $type;
         }
+
         if(!empty($keyword)){
             $where['title'] = array('like','%'.$keyword.'%');
         }
@@ -72,6 +73,8 @@ class VoteAction extends UserAction{
             $record[$key]['itemname']   = $this->_getItemName($value['item_id']);
         }
 
+
+
         $this->assign('page',$record);
         $this->assign('page',$Page->show());
         $this->assign('record',$record);
@@ -99,8 +102,9 @@ class VoteAction extends UserAction{
     public function _getItemName($item_id){
         $id     = explode(',', $item_id);
         $name   = '';
+
         foreach ($id as $key => $value) {
-            $name .= M('Vote_item')->where('id='. $value['id'])->getField('item').',';
+            $name .= M('Vote_item')->where('id='. $value)->getField('item').',';
         }
 
         return rtrim($name,',');
@@ -108,7 +112,6 @@ class VoteAction extends UserAction{
 
     public function add(){
      $this->assign('type',$this->_get('type'));
-
         if(IS_POST){
          //var_dump($_REQUEST);exit;
             $adds = $_REQUEST['add'];
@@ -167,7 +170,9 @@ class VoteAction extends UserAction{
                     $data1['module']='Vote';
                     $data1['token']=session('token');
                     $data1['keyword']=$_POST['keyword'];
-                    M('keyword')->add($data1);
+                    if($this->_get('type') != 'scene'){
+                        M('keyword')->add($data1);
+                    }
                     //$ukeywordser=M('Users')->where(array('id'=>session('uid')))->setInc('activitynum');
                     $this->success('添加成功',U('Vote/index',array('token'=>session('token'))));
                 }else{
@@ -183,7 +188,6 @@ class VoteAction extends UserAction{
     }
 
     public function del(){
-
         $type = $this->_get('type');
         $id = $this->_get('id');
         $vote = M('Vote');
@@ -320,7 +324,9 @@ class VoteAction extends UserAction{
                     $data1['token']=session('token');
 
                     $da['keyword']=trim($_POST['keyword']);
-                    $ok = M('keyword')->where($data1)->save($da);
+                    if($this->_get('type') != 'scene'){
+                        $ok = M('keyword')->where($data1)->save($da);
+                    }
                     $this->success('修改成功!',U('Vote/index',array('token'=>session('token'))));exit;
                 }else{
                     //$this->error('没有做任何修改！');exit;

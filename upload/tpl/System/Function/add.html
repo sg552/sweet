@@ -29,7 +29,7 @@
 							关闭
 					</td>
 				</tr>
-					<tr>
+					<tr style="display:none">
 					<td height="48" align="right"><strong>模块分类：</strong></td>
 					<td colspan="3" class="lt">
 						<select name="isserve" style="width:136px;height:30px;">
@@ -38,10 +38,11 @@
 						</select>
 					</td>
 				</tr>				
-				<tr>
+				<tr style="display:none">
 					<td height="48" align="right"><strong>等级要求：</strong></td>
 					<td colspan="3" class="lt">
 						<select name="gid" style="width:136px;height:30px;">
+							<option value="1">请选择</option>
 							<volist name="group" id="vo">
 								<option style="height:30px;" value="{pigcms:$vo.id}" <eq name="vo.id" value="$info.gid">selected="selected"</eq> >{pigcms:$vo.name}</option>
 							</volist>

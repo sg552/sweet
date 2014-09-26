@@ -1451,8 +1451,8 @@ figure[hidden] {
 }
 
 .btn_3{
-	display:block;
-	width:66px;
+	/*display:block;*/
+	width:70px;
 	margin:auto;
 	line-height:30px;
 	text-align:center;

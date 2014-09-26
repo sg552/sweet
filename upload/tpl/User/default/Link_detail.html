@@ -20,7 +20,7 @@ ul.modules li div.mright{float:right;width:55%;text-align:right;}
 </style>
 </head>
 <body style="background:#fff;padding:20px 20px;">
-<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;">使用方法：点击对应内容后面的“选中”即可。<a href="?g=User&m=Link&a=insert">点击这里返回模块选择</a></div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;">使用方法：点击对应内容后面的“选中”即可。<a href="?g=User&m=Link&a=insert<?php if (intval($_GET['iskeyword'])){?>&iskeyword=1<?php }?>">点击这里返回模块选择</a></div>
 <h4>{pigcms:$moduleName}列表</h4>
 <table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
 <thead>
@@ -32,7 +32,7 @@ ul.modules li div.mright{float:right;width:55%;text-align:right;}
 </tr>
 </thead>
 <volist name="list" id="m">
-<tr><td>{pigcms:$m.name}</td><td class="norightborder"><a href="###" onclick="returnHomepage('<?php if (!intval($_GET['iskeyword'])){?>{pigcms:$m.linkcode}<?php }else{?>{pigcms:$m.keyword}<?php }?>')">选中</a> <if condition="$m['sub'] neq NULL">&nbsp;<a href="/index.php?g=User&m=Link&a=Classify&iskeyword=0&pid={pigcms:$m.id}">详情</a></if></td></tr>
+<tr><td>{pigcms:$m.name}</td><td class="norightborder"><a href="###" onclick="returnHomepage('<?php if (!intval($_GET['iskeyword'])){?>{pigcms:$m.linkcode}<?php }else{?>{pigcms:$m.keyword}<?php }?>')">选中</a> <if condition="$m['sub'] neq NULL"><?php if (!intval($_GET['iskeyword'])){?>&nbsp;<a href="{pigcms:$m.sublink}">详情</a><?php }?></if></td></tr>
 </volist>
 </table>
 <div class="footactions" style="padding-left:10px">

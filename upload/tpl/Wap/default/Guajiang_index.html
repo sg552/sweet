@@ -1793,8 +1793,8 @@ window.Zepto = Zepto
 				<p class="red"> {pigcms:$Guajiang.sttxt} </p>
 				<if condition="$record.phone eq ''">
             <p>
-            <input name=""  class="px" id="tel" value="" type="text" placeholder="请输入您的{pigcms:$Guajiang.renametel}">
-            <input name=""  class="px" id="wechaname" value="" type="text" placeholder="请输入您的微信号">
+            <input name=""  class="px" id="tel" value="{pigcms:$fans.tel}" type="text" placeholder="请输入您的{pigcms:$Guajiang.renametel}">
+            <input name=""  class="px" id="wechaname" value="{pigcms:$fans.wxid}" type="text" placeholder="请输入您的微信号">
             <input name=""  id="wechaid" value="{pigcms:$record.wecha_id}" type="hidden">
             <input name=""  id="lid" value="{pigcms:$record.lid}" type="hidden">
             <input name=""  id="winprize" value="" type="hidden">

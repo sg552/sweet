@@ -7,8 +7,8 @@
 <!--活动开始-->
 <div class="cLineB">
     <h4>编辑刮刮卡活动开始内容</h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
-</div> 
-<div class="msgWrap bgfc"> 
+</div>
+<div class="msgWrap bgfc">
 <TABLE class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%"><TBODY>
 <TR>
   <th valign="top"><span class="red">*</span>关键词：</th>
@@ -18,7 +18,7 @@
   </TD>
   <TD rowspan="7" valign="top">
 	  <div style="margin-left:20px">
-		<img id="pic1_src" src="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/User/default/common/images/img/activity-scratch-card-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" width="373px" >	
+		<img id="pic1_src" src="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/User/default/common/images/img/activity-scratch-card-start.jpg<else/>{pigcms:$vo.starpicurl}</if>" width="373px" >
 		<br />
 		<input class="px" id="pic1" name="starpicurl" value="<if condition="$vo['starpicurl'] eq ''">{pigcms:$f_siteUrl}/tpl/User/default/common/images/img/activity-scratch-card-start.jpg<else/>{pigcms:$vo.starpicurl}</if>"   onclick="document.getElementById('pic1_src').src=this.value;" style="width:363px;"  />
 		<br /><input name="type" value="2" type="hidden"   />
@@ -47,11 +47,11 @@
 </TR>
 <TR>
 	<th><span class="red">*</span>活动时间：</th>
-	<td><input type="input" class="px" id="statdate" value="<if condition="$vo['statdate'] neq ''">{pigcms:$vo.statdate|date="Y-m-d",###}<else/><?php 
-	echo date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d"), date("Y")));?></if>" onClick="WdatePicker()" name="statdate" />                
+	<td><input type="input" class="px" id="statdate" value="<if condition="$vo['statdate'] neq ''">{pigcms:$vo.statdate|date="Y-m-d",###}<else/><?php
+	echo date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d"), date("Y")));?></if>" onClick="WdatePicker()" name="statdate" />
 		到
-		<input type="input" class="px" id="enddate" value="<if condition="$vo['enddate'] neq ''">{pigcms:$vo.enddate|date="Y-m-d",###}<else/><?php 
-	echo date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d")+3, date("Y")));?></if>" name="enddate" onClick="WdatePicker()"  /> 
+		<input type="input" class="px" id="enddate" value="<if condition="$vo['enddate'] neq ''">{pigcms:$vo.enddate|date="Y-m-d",###}<else/><?php
+	echo date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d")+3, date("Y")));?></if>" name="enddate" onClick="WdatePicker()"  />
 	</td>
 </TR>
 <TR>
@@ -62,13 +62,13 @@
 </TR>
 </TBODY>
 </TABLE>
-  </div> 
-  
+  </div>
+
 <!--活动结束-->
 <div class="cLineB">
-          	<h4>活动结束内容</h4></div> 
+          	<h4>活动结束内容</h4></div>
 <div class="msgWrap bgfc">
- 
+
   	<table class="userinfoArea" style=" margin: 0;" border="0" cellspacing="0" cellpadding="0" width="100%">
   		<tbody>
   			<tr>
@@ -89,12 +89,12 @@
   				</tr>
   			</tbody>
   		</table>
-  </div> 
-  
-  
+  </div>
+
+
 <!--奖项设置-->
 <div class="cLineB">
-          	<h4>奖项设置</h4></div> 
+          	<h4>奖项设置</h4></div>
 <div class="msgWrap bgfc">
 
 <TABLE class="userinfoArea" style=" margin: 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
@@ -124,15 +124,15 @@
 <th valign="top">三等奖奖品设置：</th>
 <td><input type="input" class="px" id="third" name="third"   value="{pigcms:$vo.third}" style="width:250px" />
 请不要多于50字! </td>
-                                        
+
                                           </TR>
 <TR>
 <th valign="top">三等奖奖品数量：</th>
 <td><input type="input" class="px" id="thirdnums" name="thirdnums"     value="{pigcms:$vo.thirdnums}" style="width:60px" />
 </td>
-                                       
+
                                           </TR>
-  
+
   </tbody>
  <tbody>
 <TR>
@@ -142,19 +142,19 @@
                                 <TR>
 <th valign="top"><span class="red">*</span>每人最多允许抽奖次数：</th>
 <td><input type="input" class="px" id="canrqnums" name="canrqnums"   value="{pigcms:$vo.canrqnums}" style="width:150px"/>
-必须1-5之间的数字</td>
+必须是数字</td>
  </TR>
 <tr>
 <th valign="top"><span class="red"></span>每天最多抽奖次数：</th>
 <td><input class="px" id="daynums" name="daynums" style="width:150px" value="{pigcms:$vo.daynums}" type="input">
 必须小于总抽奖次数！ 0 为不限制 抽完总数就不能抽了! 可以抽奖天数 = 总数/每天抽奖次数!</td>
-</tr>                                 
+</tr>
 <tr style="display:none">
 <th valign="top">SN码生成设置：</th>
 <td>
-    <input class="radio" type="radio" checked name="snimport" value="0">自动生成  
+    <input class="radio" type="radio" checked name="snimport" value="0">自动生成
     <input class="radio" type="radio" name="snimport" value="1">手动生成(SN码管理)
-</td> 
+</td>
 </tr>
 <tr>
 <th valign="top"><span class="red">*</span>兑奖密码：</th>
@@ -167,28 +167,28 @@
                                         </tr>
                                          <tr>
 <th valign="top">手机号重命名：</th>
-<td><input class="px" id="renametel" name="renametel" value="<if condition="$vo.renametel">{pigcms:$vo.renametel}<else/>手机号</if>" style="width:150px" type="input"> 例如：QQ号,微信号,手机号等其他联系方式，不懂请别修改</td> 
+<td><input class="px" id="renametel" name="renametel" value="<if condition="$vo.renametel">{pigcms:$vo.renametel}<else/>手机号</if>" style="width:150px" type="input"> 例如：QQ号,微信号,手机号等其他联系方式，不懂请别修改</td>
                                         </tr>
 <TR>
 	<th valign="top">抽奖页面是否显示奖品数量：</th>
-	<td><input class="radio" type="radio" name="displayjpnums" value="1"  <if condition="$vo['displayjpnums'] eq 1" >checked</if> >显示  <input class="radio" type="radio" name="displayjpnums" value="0"  <if condition="$vo['displayjpnums'] eq 0" >checked</if>>不显</td> 
-</TR> 
+	<td><input class="radio" type="radio" name="displayjpnums" value="1"  <if condition="$vo['displayjpnums'] eq 1" >checked</if> >显示  <input class="radio" type="radio" name="displayjpnums" value="0"  <if condition="$vo['displayjpnums'] eq 0" >checked</if>>不显</td>
+</TR>
 <TR>
 	<th valign="top">注册后才能参与：</th>
-	<td><input class="radio" type="radio" name="needreg" value="1"  <if condition="$vo['needreg'] eq 1" >checked</if> > 需要先注册  <input class="radio" type="radio" name="needreg" value="0"  <if condition="$vo['needreg'] eq 0" >checked</if>> 不需要先注册</td> 
-</TR> 
+	<td><input class="radio" type="radio" name="needreg" value="1"  <if condition="$vo['needreg'] eq 1" >checked</if> > 需要先注册  <input class="radio" type="radio" name="needreg" value="0"  <if condition="$vo['needreg'] eq 0" >checked</if>> 不需要先注册</td>
+</TR>
 <TR>
 <th>&nbsp;</th>
 <td><button type="submit" class="btnGreen" >保存</button>　<a href=""  class="btnGray vm">取消</a>　<span class="red">请确认功能管理已开启大转盘功能</span></td>
 </TBODY>
 </TABLE>
-  </div> 
+  </div>
  </div>
 </form>
         <div class="clr"></div>
       </div>
     </div>
-  </div> 
+  </div>
   <script type="text/javascript">
 	//onFocus事件就是当光标落在文本框中时发生的事件。
 	//onBlur事件是光标失去焦点时发生的事件。
@@ -201,4 +201,4 @@
   </script>
 <!--底部-->
 </div>
-<include file="Public:footer"/> 
+<include file="Public:footer"/>

@@ -125,8 +125,8 @@ Unknown property name.-ms-filter: progid:DXImageTransform.Microsoft.gradient(Gra
 							<p>优惠券{pigcms:$lottery.renamesn}: <span class="red">{pigcms:$Coupon.sn} </span></p>
 							<p class="red">{pigcms:$Coupon.aginfo}</p>
 							<p>
-							<input name="" class="px" id="tel" value="" type="text" placeholder="请输入您的{pigcms:$lottery.renametel}">
-							<input name=""  class="px" id="wechaname" value="" type="text" placeholder="请输入您的微信号">
+							<input name="" class="px" id="tel" value="{pigcms:$fans.tel}" type="text" placeholder="请输入您的{pigcms:$lottery.renametel}">
+							<input name=""  class="px" id="wechaname" value="{pigcms:$fans.wxid}" type="text" placeholder="请输入您的微信号">
 							<input name=""  id="wechaid" value="{pigcms:$Coupon.wecha_id}" type="hidden">
 							<input name=""  id="lid" value="{pigcms:$Coupon.lid}" type="hidden">
 							<input name=""  id="winprize" value="{pigcms:$Coupon.winprize}" type="hidden">
@@ -437,7 +437,7 @@ window.shareData = {
             "moduleName":"Coupon",
             "moduleID":"{pigcms:$Coupon.id}",
             "imgUrl": "{pigcms:$Coupon.starpicurl}", 
-            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Coupon/index',array('token'=>$token,'id'=>intval($_GET['id'])))}",
+            "sendFriendLink": "{pigcms:$f_siteUrl}/index.php?g=Wap&m=Coupon&a=index&token={pigcms:$token}&id={pigcms:$Coupon.id}&wecha_id=",
             "tTitle": "{pigcms:$Coupon.title}",
             "tContent": ""
 };

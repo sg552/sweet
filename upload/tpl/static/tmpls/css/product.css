@@ -16,7 +16,7 @@
 width: 100%;
 margin: 0 auto;
 }
-.filterBox{height:26px;position:relative;line-height:26px;padding:20px 0;}
+.filterBox{height:54px;position:relative;line-height:26px;padding:20px 0;}
 	.filterBox h1{font-size:14px;line-height: 26px;font-weight:normal; margin:0;width: 80px;
 float: left;text-align: right;}
 	.filterBtn{margin-left:90px;height: 36px;}

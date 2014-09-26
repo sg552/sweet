@@ -55,7 +55,7 @@
 #navList_box li>a img{
 	width:45px;
 	height:45px;
-	max-height:80%;
+	/*max-height:80%;*/
 	margin:5px 0;
 }
 

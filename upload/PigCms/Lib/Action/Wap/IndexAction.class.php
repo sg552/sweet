@@ -9,7 +9,7 @@ class IndexAction extends WapAction{
 	public $wecha_id;
 	public $copyright;
 	public $company;
-	public $token;
+	//public $token;
 	public $weixinUser;
 	public $homeInfo;
 	public function _initialize(){
@@ -35,6 +35,7 @@ class IndexAction extends WapAction{
 					$firstGradeCatCount++;
 				}
 			}
+
 		
 			foreach ($allClasses as $c){
 				if ($c['fid']>0&&$info[$c['fid']]){
@@ -150,9 +151,10 @@ class IndexAction extends WapAction{
 				}
 				
 			}	
-		
-		
-
+		//zhida
+		$zd = M('Zhida')->where(array('token'=>$this->token))->find();
+		$zd['code'] = htmlspecialchars_decode(base64_decode($zd['code']),ENT_QUOTES);
+		$this->assign('zd',$zd);
 		$count=count($flash);
 		$this->assign('flash',$flash);
 		$this->assign('homeInfo',$this->homeInfo);
@@ -178,7 +180,7 @@ class IndexAction extends WapAction{
 		//本分类信息		
 		$info = $classify->where("id = $classid AND token = '$token'")->find();		
 		//是否有子类
-		$sub = $classify->where("fid = $classid AND token = '$token'")->order('sorts desc')->select();
+		$sub = $classify->where("fid = $classid AND token = '$token' AND status = 1")->order('sorts desc')->select();
 		$sub = $this->convertLinks($sub);
 		$tpldata=D('Wxuser')->where($where)->find();
 		$tpldata['color_id']=intval($tpldata['color_id']);

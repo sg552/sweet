@@ -151,7 +151,7 @@
                   <TD>{pigcms:$rmb.price}</TD>
                   <TD><if condition="$rmb['paid'] eq 1">交易成功<else /><font color="red">未付款</font></if></TD>
                
-                  <TD><a href="javascript:drop_confirm('您确定要删除吗?', '/index.php?g=User&m=Member_card&a=payRecord_del&id={pigcms:$rmb.id}');"><strong>删除</strong></a></TD> 
+                  <TD><a href="javascript:drop_confirm('您确定要删除吗?', '/index.php?g=User&m=Member_card&a=payRecord_del&pid={pigcms:$rmb.id}');"><strong>删除</strong></a></TD> 
                 </TR>
 				</volist>
               </TBODY>

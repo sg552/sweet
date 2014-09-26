@@ -137,6 +137,22 @@ class ClassifyAction extends UserAction{
 		$this->display();
 	}
 	
+	public function changeClassifyTpl(){
+	
+		$tid = $this->_post('tid','intval');
+		$cid = $this->_post('cid','intval');
+		M('Classify')->where(array('token'=>$this->token,'id'=>$cid))->setField('tpid',$tid);
+		echo 200;
+	}
+	
+	public function changeClassifyContTpl(){
+	
+		$tid = $this->_post('tid','intval');
+		$cid = $this->_post('cid','intval');
+		M('Classify')->where(array('token'=>$this->token,'id'=>$cid))->setField('conttpid',$tid);
+		echo 200;
+	
+	}
 	
 	
 	

@@ -167,7 +167,7 @@ class GrouponAction extends ProductAction{
 				if (!$o['paid']){
 					$unpaidCount++;
 				}
-				if (!$o['used']){
+				if (!$o['handled']){
 					$unusedCount++;
 				}
 			}
@@ -333,18 +333,20 @@ class GrouponAction extends ProductAction{
 			}
 			
 			$orderName = '团购-'.$productName;
-
+			if($this->_post('paytype') == 1){
+				$this->redirect(U('CardPay/pay',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'price'=>$row['price'],'from'=>'Groupon','orderName'=>$orderName,'single_orderid'=>$orderid)));
+				Sms::sendSms($this->token,'您在微信上有新的团购订单');
+				exit();
+			}
 			
-				if ($alipayConfig['open']){
-					if($this->_post('paytype') == 1){
-						$this->redirect(U('CardPay/pay',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'price'=>$row['price'],'from'=>'Groupon','orderName'=>$orderName,'single_orderid'=>$orderid)));
-					}else{
-						$this->success('提交成功，转向支付页面',U('Alipay/pay',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'success'=>1,'price'=>$row['price'],'from'=>'Groupon','orderName'=>$orderName,'orderid'=>$orderid)));
-					}
-				}else {
-					Sms::sendSms($this->token,'您在微信上有新的团购订单');
-					$this->redirect(U('Groupon/my',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'],'success'=>1)));
-				}
+			if ($alipayConfig['open']){
+				//$this->printOrder($orderid);
+				$this->success('提交成功，转向支付页面',U('Alipay/pay',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'success'=>1,'price'=>$row['price'],'from'=>'Groupon','orderName'=>$orderName,'orderid'=>$orderid)));
+			}else {
+				Sms::sendSms($this->token,'您在微信上有新的团购订单');
+				//$this->printOrder($orderid);
+				$this->redirect(U('Groupon/my',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'],'success'=>1)));
+			}
 				
 			
 
@@ -358,6 +360,26 @@ class GrouponAction extends ProductAction{
 			$this->assign('product',$product);
 			$this->display('orderCart_'.$this->tplid);
 		}
+	}
+	public function printOrder($orderid){
+		$thisOrder=M('product_cart')->where(array('orderid'=>$orderid))->find();
+		$msg='';
+		$msg=$msg.
+		chr(10).'姓名：'.$thisOrder['truename'].
+		chr(10).'电话：'.$thisOrder['tel'].
+		chr(10).'地址：'.$thisOrder['address'].
+		chr(10).'下单时间：'.date('Y-m-d H:i:s',$thisOrder['time']).
+		chr(10).'配送时间:'.$thisOrder['buytime'].
+		chr(10).'*******************************'.
+		chr(10).$product_list.
+		chr(10).'*******************************'.
+		chr(10).'品种数量：'.$thisOrder['total'].
+		chr(10).'合计：'.$thisOrder['price'].'元'.
+		chr(10).'※※※※※※※※※※※※※※'.
+		chr(10).'谢谢惠顾，欢迎下次光临'.
+		chr(10).'订单编号：'.$thisOrder['orderid'];
+		$op=new orderPrint();
+		$op->printit($this->token,0,'Store',$msg);
 	}
 	public function deleteOrder(){
 		$this->noaccess();

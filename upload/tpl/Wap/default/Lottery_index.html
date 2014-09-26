@@ -161,7 +161,7 @@
     <?php if ($Dazpan['statdate']<time()){?>
     <div id="outercont"  >
         <div id="outer-cont">
-            <div id="outer"><img src="{pigcms::RES}/css/guajiang/images/activity-lottery-5.png"></div>
+            <div id="outer" style="-webkit-transform: rotate(2075.9993514680145deg);"><img src="{pigcms::RES}/css/guajiang/images/activity-lottery-5.png"></div>
         </div>
         <div id="inner-cont">
             <div id="inner" <pigcmsif where="$wecha_id eq ''">onclick="alert('您不能参加此活动');"<else/></pigcmsif>><img src="{pigcms::RES}/css/guajiang/images/activity-lottery-2.png"></div>
@@ -382,7 +382,8 @@ running = true;
                     $("#result").slideToggle(500);
                     $("#outercont").slideUp(500)
                 } else {
-                    alert("{pigcms:$Dazpan.aginfo}")
+                	outter.style.webkitTransform = 'rotate(2075.9993514680145deg)';
+                   alert("{pigcms:$Dazpan.aginfo}")
                 }
             },
             200)
@@ -408,17 +409,19 @@ running = true;
 
         if (running) return;
         if (count >= {pigcms:$Dazpan.canrqnums}) {
+        	outter.style.webkitTransform = 'rotate(2075.9993514680145deg)';
             alert("Oh~No~您已经抽了{pigcms:$Dazpan.canrqnums} 次奖,不能再抽了,下次再来吧!");
             return
         }
 
         if (prize != null) {
+        	outter.style.webkitTransform = 'rotate(2075.9993514680145deg)';
             alert("亲，你不能再参加本次活动了喔！下次再来吧^_^");
             return
         }
 
        $.ajax({
-         url     : "index.php?g=Wap&m=Lottery&a=getajax&token={pigcms:$Dazpan.token}&oneid={pigcms:$Dazpan.wecha_id}&id={pigcms:$Dazpan.lid}&rid={pigcms:$Dazpan.rid}",
+         url     : "/index.php?g=Wap&m=Lottery&a=getajax&token={pigcms:$Dazpan.token}&wecha_id={pigcms:$wecha_id}&oneid={pigcms:$Dazpan.wecha_id}&id={pigcms:$Dazpan.lid}&rid={pigcms:$Dazpan.rid}",
          dataType: "json",
          
          beforeSend : function(){
@@ -431,6 +434,7 @@ running = true;
          },
          success: function(data) {
          	if (data.error == 1) {
+         		outter.style.webkitTransform = 'rotate(2075.9993514680145deg)';
          		alert(data.msg);
          		count = {pigcms:$Dazpan.canrqnums};
          		clearInterval(timer);
@@ -464,14 +468,14 @@ running = true;
          	count++
          },
          error: function() {
-         	alert('ajax request failed!!!!');
+         	alert('请求失败，您的网络环境可能不佳!');
          	return;
          	prize = null;
          	start();
          	running = false;
          	count++
          },
-         timeout    : 5000       
+         timeout    : 10000       
         
        })//ajax
     }

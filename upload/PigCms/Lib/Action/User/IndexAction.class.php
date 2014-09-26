@@ -2,6 +2,7 @@
 class IndexAction extends UserAction{
 	//公众帐号列表
 	public function index(){
+	
 		if (class_exists('demoImport')){
 			$this->assign('demo',1);
 			//
@@ -47,7 +48,7 @@ class IndexAction extends UserAction{
 		$this->assign('info',$info);
 		$this->assign('group',$groups);
 		$this->assign('page',$page->show());
-		if (count($info)==1&&$info[0]['wxid']=='demo'){
+		if (count($info)==1&&$info[0]['wxid']=='demo'&&class_exists('demoImport')){
 			$this->assign('info',$info[0]);
 			$this->display('bindTip');
 		}else {
@@ -185,7 +186,7 @@ class IndexAction extends UserAction{
 				}
 			}
 		}
-		//
+		// 
 		if($users['wechat_card_num']<$data['wechat_card_num']){
 			
 		}else{
@@ -243,12 +244,14 @@ class IndexAction extends UserAction{
 		$open['token']=$_POST['token'];
 		$gid=session('gid');
 		if (C('agent_version')&&$this->agentid){
-			$fun=M('Agent_function')->field('funname,gid,isserve')->where('`gid` <= '.$gid.' AND agentid='.$this->agentid)->select();
+			//$fun=M('Agent_function')->field('funname,gid,isserve')->where('`gid` <= '.$gid.' AND agentid='.$this->agentid)->select();
+			$fun=M('User_group')->field('func')->where('`id` = '.$gid.' AND agentid='.$this->agentid)->select();
 		}else {
-			$fun=M('Function')->field('funname,gid,isserve')->where('`gid` <= '.$gid)->select();
+			//$fun=M('Function')->field('funname,gid,isserve')->where('`gid` <= '.$gid)->select();
+			$fun=M('User_group')->field('func')->where('`id` = '.$gid)->select();
 		}
 		foreach($fun as $key=>$vo){
-			$queryname.=$vo['funname'].',';
+			$queryname.=$vo['func'].',';
 		}
 		$open['queryname']=rtrim($queryname,',');
 		$token_open->data($open)->add();

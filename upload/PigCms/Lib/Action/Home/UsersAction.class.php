@@ -98,8 +98,9 @@ class UsersAction extends BaseAction{
 			if($res['status']==0){
 				$this->error('请联系在线客户，为你人工审核帐号');exit;
 			}
-			if ($this->isAgent){
-				if ($this->thisAgent['id']!=$res['agentid']){
+
+			if (C('agent_version')){
+				if ((int)$this->thisAgent['id']!=$res['agentid']){
 					$this->error('您使用的网址不对');exit;
 				}
 			}
@@ -180,6 +181,9 @@ class UsersAction extends BaseAction{
 		if($db->create()){
 			$id=$db->add();
 			if($id){
+				$now=time();
+				$db->where(array('id'=>$id))->save(array('lasttime'=>$now,'lastloginmonth'=>date('m',$now),'lastip'=>htmlspecialchars(trim(get_client_ip()))));//最后登录时间
+				//
 				Sms::sendSms('admin','有新用户注册了',$this->adminMp);
 				if ($this->isAgent){
 				    $usercount=M('Users')->where(array('agentid'=>$this->thisAgent['id']))->count();

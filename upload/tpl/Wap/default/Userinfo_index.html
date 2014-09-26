@@ -123,10 +123,9 @@ onblur="check3(this)" name="tel"  class="px" id="tel" value="{pigcms:$info.tel}"
 </li>
 </if>
 
-<if condition="$cardid">
+<if condition="$cardid neq ''">
 <if condition="$conf['paypass'] eq 0">
 <else />
-
 <li>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kuang">
 <tr>

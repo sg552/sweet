@@ -29,14 +29,16 @@ class TextAction extends UserAction{
 		$where['id']=$this->_get('id','intval');
 		$where['uid']=session('uid');
 		if(D(MODULE_NAME)->where($where)->delete()){
-			M('Keyword')->where(array('pid'=>$this->_get('id','intval'),'token'=>session('token'),'module'=>'Text'))->delete();
+
+			$this->handleKeyword(intval($_GET['id']),'Text','','',1);
+
 			$this->success('操作成功',U(MODULE_NAME.'/index'));
 		}else{
 			$this->error('操作失败',U(MODULE_NAME.'/index'));
 		}
 	}
 	public function insert(){
-		//C('TOKEN_ON',false);
+		
 		$this->all_insert();
 	}
 	public function upsave(){

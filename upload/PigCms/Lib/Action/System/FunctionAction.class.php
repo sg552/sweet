@@ -17,6 +17,7 @@ class FunctionAction extends BackAction{
 	}
 	public function add(){
 		if(IS_POST){
+
 			$this->all_insert();
 		}else{
 			$map=array('status'=>1);

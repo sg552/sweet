@@ -3,7 +3,7 @@ class UsersAction extends BackAction{
 	public function index(){
 		$db=D('Users');
 		$group=M('User_group')->field('id,name')->order('id desc')->select();
-		$where='';
+		$where='agentid = 0';
 		if (isset($_GET['agentid'])){
 			$where=array('agentid'=>intval($_GET['agentid']));
 		}
@@ -103,13 +103,13 @@ class UsersAction extends BackAction{
 				$_POST['viptime']=strtotime($_POST['viptime']);
                 if($UserDB->save($_POST)){
 					if($_POST['gid']!=$users['gid']){
-						$fun=M('Function')->field('funname,gid,isserve')->where('`gid` <= '.$_POST['gid'])->select();
-						foreach($fun as $key=>$vo){
-							$queryname.=$vo['funname'].',';
-						}
-						$open['queryname']=rtrim($queryname,',');
+						//$fun=M('Function')->field('funname,gid,isserve')->where('`gid` <= '.$_POST['gid'])->select();
+						$queryname = M('User_group')->field('func')->where(array('id'=>$_POST['gid']))->find();
+
+						$open['queryname'] = $queryname['func'];
 						$uid['uid']=$_POST['id'];
 						$token=M('Wxuser')->field('token')->where($uid)->select();
+
 						if($token){
 							$token_db=M('Token_open');
 							foreach($token as $key=>$val){

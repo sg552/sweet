@@ -16,6 +16,8 @@ class RecordsAction extends BackAction{
 		$data['id']=$this->_get('uid','intval');
 	//	dump($money);exit;
 		if($money!=false&&$data['id']!=false){
+			$thisR=M('Indent')->where(array('id'=>$this->_get('iid','intval')))->find();
+			if ($thisR['status']!=2){
 			//dump($money);exit;
 			$back=M('Users')->where($data)->setInc('money',$money);
 			$back=M('Users')->where($data)->setInc('moneybalance',$money);
@@ -24,6 +26,9 @@ class RecordsAction extends BackAction{
 				$this->success('充值成功');
 			}else{
 				$this->error('充值失败');
+			}
+			}else {
+				$this->error('已经入金过了');
 			}
 		}else{
 			$this->error('非法操作');

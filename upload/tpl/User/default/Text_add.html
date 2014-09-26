@@ -11,10 +11,14 @@
                   多个关键词请用空格格开：例如: 美丽&nbsp;漂亮&nbsp;好看   </TD>
   <TD>&nbsp;</TD>
 </TR>
-                            <TR style="display:none">
-  <TH valign="top">关键词类型：</TH>
-  <TD><label for="radio1"><input id="radio1" class="radio" type="radio" name="type" value="1"  checked="checked"> 完全匹配，用户输入的和此关键词一样才会触发!</label><br /><label for="radio2"><input class="radio" id="radio2" type="radio" name="type" value="2"> 包含匹配 (只要用户输入的文字包含本关键词就触发!<span class="red">v2用户才生效</span>)</label></TD>
-</TR>
+        <TR>
+          <TH valign="top">关键词类型：</TH>
+          <TD> 
+              <label for="radio2"><input class="radio" id="radio2" type="radio" name="precisions" value="0" checked="checked" /> 包含匹配 （当此关键词包含粉丝输入关键词时有效）</label>
+              <br />
+              <label for="radio1"><input id="radio1" class="radio" type="radio" name="precisions" value="1"  /> 完全匹配 （当此关键词和粉丝输入关键词完全相同时有效）</label>
+          </TD>
+        </TR>
                             </THEAD>
   <TBODY>
 <TR>

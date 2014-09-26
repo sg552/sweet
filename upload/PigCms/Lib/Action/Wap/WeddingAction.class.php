@@ -9,9 +9,18 @@ class WeddingAction extends WapAction{
 		}
 		$wedding=D('Wedding');
 		$weddingData=$wedding->where($data)->find();
-		$photo=M('Photo_list')->field('id,picurl')->where(array('pid'=>$weddingData['pid']))->select();
+		$photo=M('Photo_list')->field('id,picurl')->where(array('pid'=>$weddingData['pid']))->order('sort desc')->select();
 		$this->assign('weddingData',$weddingData);
 		$this->assign('photo',$photo);
+		if (C('baidu_map')){
+			$this->isamap=0;
+			$mapUrl='http://api.map.baidu.com/marker?location='.$weddingData['lat'].','.$weddingData['lng'].'&title='.urlencode('宴会地点').'&content='.urlencode($weddingData['place']).'&output=html&src=yourComponyName|yourAppName';
+		}else {
+			$this->isamap=1;
+			$this->amap=new amap();
+			$mapUrl=$this->amap->getPointMapLink($weddingData['lng'],$weddingData['lat'],'宴会地点');
+		}
+		$this->assign('mapUrl',$mapUrl);
 		$this->display();
 	}
 	public function check(){

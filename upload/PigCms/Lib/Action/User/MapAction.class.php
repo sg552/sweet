@@ -13,7 +13,13 @@ class MapAction extends UserAction{
 		if(IS_POST){
 			
 		}else{
-			$this->display();
+			if (C('baidu_map')){
+				$this->display();
+			}else {
+				$amap=new amap();
+				$this->assign('key',$amap->key);
+				$this->display('setLatLng_amap');
+			}
 		}
 	}
 	//公司静态地图

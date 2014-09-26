@@ -2,7 +2,7 @@
 class LotteryAction extends LotteryBaseAction{
 	public function _initialize() {
 		parent::_initialize();
-		//$this->canUseFunction('lottery');
+		$this->canUseFunction('lottery');
 	}
 	public function cheat(){
 		parent::cheat();

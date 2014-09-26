@@ -41,6 +41,11 @@ class CouponAction extends LotteryBaseAction{
 		$data['token'] 		= $token;
 		$data['wecha_id']	= $wecha_id;		
 		$data['lid']		= $Lottery['id'];
+		$data['id']		= $Lottery['id'];
+		$data['keyword']		= $Lottery['keyword'];
+		$data['title']		= $Lottery['title'];
+		$data['startpicurl']		= $Lottery['startpicurl'];
+		
 		$data['phone']		= $data['phone']; 
 		$data['usenums']	= $data['usenums'];
 		$data['sendtime']	= $data['sendtime'];

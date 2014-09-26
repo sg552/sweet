@@ -12,7 +12,7 @@ class VoteAction extends WapAction{
 			//echo '此功能只能在微信浏览器中使用';exit;
 		}
 		$token		= $this->_get('token');
-		$wecha_id	= $this->_get('wecha_id');
+		$wecha_id	= $this->wecha_id;
         $id         = $this->_get('id');
         $this->assign('token',$token);
         $this->assign('wecha_id',$wecha_id);

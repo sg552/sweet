@@ -5,10 +5,10 @@ class IndexAction extends BaseAction{
 		parent::_initialize();
 		$this->home_theme=$this->home_theme?$this->home_theme:'pigcms';
 		$this->includePath='./tpl/Home/'.$this->home_theme.'/';
-		
+
 		$this->assign('includeHeaderPath',$this->includePath.'Public_header.html');
 		$this->assign('includeFooterPath',$this->includePath.'Public_footer.html');
-		
+
 	}
 	public function clogin()
 	{
@@ -47,11 +47,11 @@ class IndexAction extends BaseAction{
 	}
 	public function fc(){
 		if (isset($_GET['id'])){
-			$fun=M('Funintro')->where(array('id'=>intval($_GET['id'])))->find();
+			$fun=M('Funintro')->where(array('id'=>intval($_GET['id']),'type'=>0))->find();
 		}else {
-			$fun=M('Funintro')->where('id>0')->order('id ASC')->find();
+			$fun=M('Funintro')->where('id>0 and type=0')->order('id ASC')->find();
 		}
-		$funs=M('Funintro')->where('id>0')->select();
+		$funs=M('Funintro')->where('id>0 and type=0')->select();
 		$this->assign('funs',$funs);
 		$this->assign('fun',$fun);
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
@@ -64,7 +64,7 @@ class IndexAction extends BaseAction{
 		}else {
 			exit();
 		}
-		
+
 	}
 	public function qrcodeLogin(){
 		if (isset($_SESSION['preuid'])){
@@ -86,6 +86,10 @@ class IndexAction extends BaseAction{
 		echo '{"openid":"'.$thisUser['openid'].'"}';
 	}
 	public function about(){
+
+		$fun=M('Funintro')->where('type=1')->find();
+		$this->assign('fun',$fun);
+		//var_dump($funs);
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
 	}
 	public function price(){
@@ -127,29 +131,28 @@ class IndexAction extends BaseAction{
 		$this->assign('create_card_nums',$create_card_nums);
 		//
 		if (C('agent_version')&&$this->agentid){
-			$funs=M('Agent_function')->where(array('status'=>1,'agentid'=>$this->agentid))->order('gid DESC')->select();
+			$funs=M('Agent_function')->where(array('status'=>1,'agentid'=>$this->agentid))->order('id ASC')->select();
 		}else {
-			$funs=M('Function')->where(array('status'=>1))->order('gid DESC')->select();
+			$funs=M('Function')->where(array('status'=>1))->order('id ASC')->select();
 		}
 		if ($funs){
-			$i=0;
-			foreach ($funs as $f){
-				$funs[$i]['access']=array();
+
+			foreach ($funs as $fk => $f){
+				$funs[$fk]['access']=array();
 				if ($groups){
 					foreach ($groups as $g){
-						if ($f['gid']>$g['id']){
-							$canUse=0;
-						}else {
-							$canUse=1;
+						if(strpos($g['func'],$f['funname']) === false){
+							$canUse = 0;
+						}else{
+							$canUse = 1;
 						}
-						array_push($funs[$i]['access'],$canUse);
+						$funs[$fk]['access'][$g['id']] = $canUse;
 					}
 				}
-				$i++;
+
 			}
 		}
 		$this->assign('funs',$funs);
-		//
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
 	}
 	public function help(){
@@ -199,5 +202,11 @@ class IndexAction extends BaseAction{
 		$cases=M('Case')->where($where)->order('id DESC')->select();
 		$this->assign('cases',$cases);
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
+	}
+	function test(){
+		//$amap=new amap();
+		//$r=$amap->around('117.30148007','31.82320415','酒店');
+		var_export(M('keyword')->where(array('token'=>'yicms'))->order('id DESC')->limit(0,100)->select());
+
 	}
 }

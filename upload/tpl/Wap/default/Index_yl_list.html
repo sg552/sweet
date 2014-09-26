@@ -27,10 +27,11 @@ oWin.style.display = "none"
 </script>
 <body id="listhome1">
 <div id="ui-header">
-<div class="fixed">
+<div class="fixed" style="text-align:center">
 
 <a class="ui-btn-left_pre" href="javascript:history.go(-1)"></a>
-<a class="ui-btn-right" href="{pigcms::U('Index/index',array('token'=>$tpl['token']))}"></a>
+{pigcms:$thisClassInfo.name}
+<a class="ui-btn-right" href="javascript:window.location.reload()"></a>
 </div>
 </div>
 <div id="overlay"></div>
@@ -56,8 +57,6 @@ oWin.style.display = "none"
 
 </ul>
 </div>
-<section id="Page_wrapper">
-<div id="pNavDemo" class="c-pnav-con">
 
 </div>
 <script>

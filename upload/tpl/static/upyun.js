@@ -32,11 +32,17 @@ function chooseFile(domid,type){
 function chooseTpl(domid,domid2,type){
 	art.dialog.data('domid', domid);
 	art.dialog.data('domid2', domid2);
-	if(type == 1 || type == 3){
-		art.dialog.open('?g=User&m=Classify&a=chooseTpl&type='+type,{lock:true,title:'选择模板',width:1050,height:450,yesText:'关闭',background: '#000',opacity: 0.45});
+	if(type == 1 || type == 3 || type == 5 || type == 6){
+		art.dialog.open('?g=User&m=Classify&a=chooseTpl&type='+type,{lock:true,title:'选择模板',width:1093,height:550,yesText:'关闭',background: '#000',opacity: 0.45});
 	}else{
 		art.dialog.open('?g=User&m=Classify&a=chooseTpl&tpid='+domid+'&type='+type,{lock:true,title:'预览选中模板',width:500,height:390,yesText:'关闭',background: '#000',opacity: 0.45});
 	}
+}
+/*选择底部菜单*/
+function chooseMenu(domid,domid2){
+	art.dialog.data('domid', domid);
+	art.dialog.data('domid2', domid2);
+	art.dialog.open('?g=User&m=Catemenu&a=chooseMenu',{lock:true,title:'选择样式',width:1050,height:450,yesText:'关闭',background: '#000',opacity: 0.45});
 }
 
 function editClass(domid,domid2,cid){
@@ -45,6 +51,7 @@ function editClass(domid,domid2,cid){
 	art.dialog.data('cid', cid);
 	art.dialog.open('?g=User&m=Img&a=editClass&id='+cid,{lock:true,title:'选择分类',width:600,height:500,yesText:'关闭',background: '#000',opacity: 0.45});
 }
+
 function memberCardRecharge(uid){
 	art.dialog.data('uid', uid);
 	art.dialog.open('?g=User&m=Member_card&a=recharge&uid='+uid,{lock:true,title:'充值会员卡',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});

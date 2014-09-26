@@ -21,7 +21,7 @@
 					<th colspan="4">{pigcms:$title}</th>
 				</tr>
 				<tr>
-					<td height="48" align="right"><strong>用户名称：</strong></td>
+					<td height="48" align="right"><strong>客户名称：</strong></td>
 					<td colspan="3" class="lt">
 						<input type="text" name="username" class="ipt" size="45" value="{pigcms:$info.username}" <eq name="info.username" value="admin">readonly="readonly"</eq>>
 					</td>
@@ -51,7 +51,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td height="48" align="right"><strong>用户角色：</strong></td>
+					<td height="48" align="right"><strong>分配套餐：</strong></td>
 					<td colspan="3" class="lt">
 						<select name="gid" style="width:136px">
 							<volist name="role" id="vo">
@@ -61,7 +61,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td height="48" align="right"><strong>用户状态：</strong></td>
+					<td height="48" align="right"><strong>客户状态：</strong></td>
 					<td colspan="3" class="lt">
 						<input type="radio" class="radio" class="ipt" value="1" name="status" id="status1" <if condition="($info.status eq 1) OR ($info['status'] eq '') ">checked=""</if> >
 							启用

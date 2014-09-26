@@ -17,6 +17,7 @@ class UpyunAction extends UserAction{
 		$this->assign('upyun_domain','http://'.$this->upyun_domain);
 		//
 		$this->upload_type=C('upload_type')?C('upload_type'):'local';
+		$this->siteUrl=$this->siteUrl?$this->siteUrl:C('site_url');
 	}
 	public function upload(){
 		if (!isset($_SESSION['username'])&&!isset($_SESSION['uid'])){
@@ -25,7 +26,7 @@ class UpyunAction extends UserAction{
 		if ($this->upload_type=='upyun'){
 
 			if (C('site_url')!='http://'.$_SERVER['HTTP_HOST']){
-				exit('您的访问地址(http://'.$_SERVER['HTTP_HOST'].')和总后台配置地址('.C('site_url').')不一致，请修改总后台配置');
+				//exit('您的访问地址(http://'.$_SERVER['HTTP_HOST'].')和总后台配置地址('.C('site_url').')不一致，请修改总后台配置');
 			}
 			$bucket = $this->bucket; /// 空间名
 			$form_api_secret = $this->form_api_secret; /// 表单 API 功能的密匙（请访问又拍云管理后台的空间管理页面获取）
@@ -40,7 +41,8 @@ class UpyunAction extends UserAction{
 				$options['x-gmkerl-type'] = 'fix_width';
 				$options['fix_width '] = $_GET['width'];
 			}
-			$options['return-url'] = C('site_url').'/index.php?g=User&m=Upyun&a=uploadReturn'; /// 页面跳转型回调地址
+			$options['return-url'] = $this->siteUrl.'/index.php?g=User&m=Upyun&a=uploadReturn'; /// 页面跳转型回调地址
+
 			$policy = base64_encode(json_encode($options));
 			$sign = md5($policy.'&'.$form_api_secret); /// 表单 API 功能的密匙（请访问又拍云管理后台的空间管理页面获取）
 			$this->assign('bucket',$bucket);
@@ -250,6 +252,84 @@ class UpyunAction extends UserAction{
 		}
 	
 	}
+//导入excel微教育相关导入	
+	public function localUploadSchoolExcel(){
+		$type 	= $this->_post('type','trim');
+		$token = $this->token;
+		
+		$return=$this->localUpload(array('xls'));
+		if ($return['error']){
+			$this->error($return['msg']);
+		
+		}else {
+			$data = new Spreadsheet_Excel_Reader();
+			// 设置输入编码 UTF-8/GB2312/CP936等等
+			$data->setOutputEncoding('UTF-8');
+			$data->read(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']));
+			chmod(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']),0777);
+			//
+			$sheet=$data->sheets[0];
+			$rows=$sheet['cells'];
+			
+			if($rows){
+				$title 	= array(
+						'students' 	=> array('s_name'=>'姓名','age'=>'年龄','sex'=>'性别','birthdate'=>'出生','area_addr'=>'家庭住址','mobile'=>'手机','homephone'=>'固话','xq_name'=>'学期','bj_name'=>'班级','createdate'=>'报名时间','seffectivetime'=>'生效时间','stheendtime'=>'终止时间','area'=>'省市区','xq_id'=>'学期序列号','bj_id'=>'班级序列号'),
+						'teacher' 	=> array('tname'=>'姓名','age'=>'年龄','sex'=>'性别','birthdate'=>'出生','email'=>'邮箱','mobile'=>'手机','homephone'=>'固话','jiontime'=>'入职时间'),
+						'score'		=> array('sid'=>'学员学号','xq_id'=>'学期序列号','qh_id'=>'成绩序列号','km_id'=>'科目序列号','my_score'=>'分数'),
+				);
+				$table 	= array(
+						'students'	=> 'School_students',
+						'teacher'	=> 'School_teachers',
+						'score'		=> 'school_score'
+				);
+				
+				$keys 		= array_flip($title[$type]);
+				$field	 	= array();
+				$item 		= array();
+				$name 		= array();
+				$data 		= array();
+
+				foreach($rows as $key=>$value){
+					if($key == 1){
+						$count 	= count($value);
+						for ($i=1;$i<=$count;$i++){
+							$name[] = $keys[$value[$i]];
+						}
+					}else{
+						$item	= $value;
+					}
+					
+					if(!empty($item)){
+						$data = array_combine($name,$item);
+						$data['token'] 		= $this->token;
+						$data['sex'] 		= $data['sex']=='男'?1:0;				
+						if($type == 'students'){
+							$data['createdate']	= time();
+							$data['birthdate'] 		= $this->format_xls_date($data['birthdate']);
+							$data['seffectivetime'] = $this->format_xls_date($data['seffectivetime']);
+							$data['stheendtime'] 	= $this->format_xls_date($data['stheendtime']);
+						}else if($type == 'teacher'){
+							$data['createtime']	= time();
+							$data['birthdate'] 	= $this->format_xls_date($data['birthdate']);
+							$data['jiontime'] 	= $this->format_xls_date($data['jiontime']);
+						}else if($type == 'score'){
+							
+						}
+						
+						
+						M($table[$type])->add($data);
+					}
+				}
+
+				$this->success('操作完成');
+			}
+		}
+	}
+	/*格式化cls时间格式*/
+	public function format_xls_date($date){
+		$arr 		= explode('/',$date);
+		return $arr[2].'-'.$arr[0].'-'.$arr[1];
+	}
 	
 //导入excel会员卡
 	
@@ -276,7 +356,7 @@ class UpyunAction extends UserAction{
 					if($i != 0){
 						$db=M('Userinfo');
 						$create_db = M('Member_card_create');
-						//随机token
+						//随机wecha_id
 						if($r[15] == ''){
 							$str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 							for($j=0;$j<28;$j++){

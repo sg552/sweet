@@ -29,7 +29,9 @@
     <!--普通用户登录时显示-->
     <ul class="round">
         <li>
-            <a href="{pigcms::U('Reservation/mylist',array('token'=>$token,'wecha_id'=>$wecha_id))}"><span>我的预约订单<em class="ok"><if condition="$count neq ''">{pigcms:$count}<else/>1</if></em></span></a>
+            <a href="{pigcms::U('Reservation/mylist',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$reslist['id']))}">
+                <span>我的预约订单<em class="ok"><if condition="$count neq ''">{pigcms:$count}<else/>1</if></em></span>
+            </a>
         </li>
     </ul>
     <!--后台可控制是否显示-->
@@ -109,20 +111,23 @@
         </li>
         <li class="nob">
             <table class="kuang" border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tbody><tr>
+                <tbody>
+                <tr>
                     <th class="thtop" valign="top">备注</th>
                     <td>
                         <textarea name="info" class="pxtextarea" style=" height:99px;overflow-y:visible" id="info" placeholder="请输入备注信息">{pigcms:$reslist['userinfo']}</textarea>
                         <input type="hidden" name="uid" id="uid" value="{pigcms:$Think.get.wecha_id}">
                         <input type="hidden" name="rid" id="rid" value="{pigcms:$rid}">
-                        <input type="hidden" name="type" id="type" value="house_book">
-                         <if condition="$reslist['booktime'] neq ''">
+                        <input type="hidden" name="type"id="type" value="{pigcms:$reslist['addtype']}">
+                        <input type="hidden" name="eid" id="eid" value="{pigcms:$eid}">
+                        <if condition="$reslist['booktime'] neq ''">
                          <input type="hidden" name="id" id="id" value="{pigcms:$reslist['id']}">
                          <input type="hidden" name="rid" id="rid" value="{pigcms:$reslist['rid']}">
                         </if>
                     </td>
                 </tr>
-            </tbody></table>
+                </tbody>
+            </table>
         </li>
         </form>
     </ul>
@@ -180,6 +185,7 @@ $(document).ready(function () {
             token: "{pigcms:$token}",
             type: $("#type").val(),
             id:$("#id").val(),
+            eid:$("#eid").val(),
             truename: $("#truename").val(),
             dateline: $("#dateline").val(),
             timepart: $("#timepart").val(),

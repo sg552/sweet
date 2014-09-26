@@ -10,7 +10,7 @@ $(function(){
 		$(".page a").removeClass("current");
 		$(this).addClass("current");
 	});
-	$(".box-list-room").on("click", '.box-txt', function(){
+	/*$(".box-list-room").on("click", '.box-txt', function(){
 		var self=$(this),
 			parent=self.parents(".list-li"),
 			ft=parent.find(".ft");
@@ -24,7 +24,7 @@ $(function(){
 		$(".list-li .ft").hide();
 		ft.toggle();
 	});
-	/*$(".select-date").on("click",function(){
+	$(".select-date").on("click",function(){
 		var id=$(this).attr("id");
 		$(".pop").show().find(".btn").attr("data-id", id);
 	});

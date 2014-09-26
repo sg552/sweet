@@ -152,7 +152,8 @@ class DiymenAction extends UserAction{
 			$url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$json->access_token;
 			$rt=$this->api_notice_increment($url,$data);
 			if($rt['rt']==false){
-				$this->error('操作失败,curl_error:'.$rt['errorno']);
+				$errmsg=GetErrorMsg::wx_error_msg($rt['errorno']);
+				$this->error('操作失败,'.$rt['errorno'].':'.$errmsg);
 			}else{
 				$this->success('操作成功');
 			}
@@ -169,6 +170,7 @@ class DiymenAction extends UserAction{
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ch, CURLOPT_SSLVERSION, 3);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -184,7 +186,8 @@ class DiymenAction extends UserAction{
 			if ($js['errcode']=='0'){
 				return array('rt'=>true,'errorno'=>0);
 			}else {
-				$this->error('发生错误：错误代码'.$js['errcode'].',微信返回错误信息：'.$js['errmsg']);
+				$errmsg=GetErrorMsg::wx_error_msg($js['errcode']);
+				$this->error('发生错误：错误代码'.$js['errcode'].',微信返回错误信息：'.$errmsg);
 			}
 		}
 	}
@@ -195,6 +198,7 @@ class DiymenAction extends UserAction{
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ch, CURLOPT_SSLVERSION, 3);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);

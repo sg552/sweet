@@ -2,10 +2,11 @@
 class Token_openAction extends UserAction{
 
 	public function add(){
+
 		if ($this->isAgent){
-			$fun=M('Agent_function')->where(array('id'=>$this->_get('id')))->find();
+			$fun=M('Agent_function')->where(array('id'=>intval($this->_get('id'))))->find();
 		}else {
-			$fun=M('Function')->where(array('id'=>$this->_get('id')))->find();
+			$fun=M('Function')->where(array('id'=>intval($this->_get('id'))))->find();
 		}
 		
 		$openwhere=array('uid'=>session('uid'),'token'=>session('token'));
@@ -53,11 +54,24 @@ class Token_openAction extends UserAction{
 		}
 	}
 
+	public function checkAll(){
 
+		$stat = $_POST['stat'];
+		$token = $_GET['token'];
+		$gid = session('gid');
 
+		if($stat == 'true'){
+			$queryname = M('User_group')->where(array('id'=>$gid))->getField('func');
+		}else{
+			$queryname = '';
+		}
+
+		
+		M('Token_open')->where(array('token'=>$token))->setField('queryname',$queryname);
+		echo 1;
+
+	}
 
 }
-
-
 
 ?>

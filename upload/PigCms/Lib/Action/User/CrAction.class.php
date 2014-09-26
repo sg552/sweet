@@ -118,4 +118,72 @@ class CrAction extends BaseAction{
 
 }
 
+
+	public function repair(){
+
+		$func = include('./PigCms/Lib/ORG/funcs.php');
+		if(class_exists('WallAction') == false){
+			unset($func['wall']);
+		}
+		if(class_exists('ShakeAction') == false){
+			unset($func['shake']);
+		}
+
+		$keys = array('gid', 'usenum', 'name', 'funname', 'info', 'isserve', 'status');
+		foreach ($func as $k => $v){
+			$db = M('Function');
+			$exist = $db->where(array('funname'=>$k))->getField('id');
+
+			if(!$exist){
+				$db->add(array_combine($keys, $v));
+			}
+		}
+
+		//保留原来的套餐
+		$user_group_db = M('User_group');
+//agentid = 0
+		$not_agent_allgid = $user_group_db->field('id')->where(array('agentid'=>'0'))->select();
+		
+		foreach ($not_agent_allgid as $k => $v){
+			$funcs = M('Function')->where('gid <='.$v['id'])->field('funname')->select();
+
+			if($funcs !== NULL){
+				foreach($funcs as $fk => $fv){
+					$data[$v['id']] .= $fv['funname'].',';
+				}
+				$data[$v['id']] = rtrim($data[$v['id']],',');
+				
+			}else{
+				$data[$v['id']] = '';
+			}
+
+			$user_group_db->where(array('agentid'=>'0','id'=>$v['id']))->setField('func',$data[$v['id']]);
+			
+		}
+//all Agent
+		$user_group_id = $user_group_db->field('agentid')->group('agentid')->order('agentid ASC')->where("agentid != 0")->select();
+		
+		if($user_group_id != NULL){
+			foreach ($user_group_id as $ak => $av){
+				$all_group_id = $user_group_db->field('agentid,id')->where(array('agentid' => $av['agentid']))->select();
+				foreach($all_group_id as $gk => $gv){
+					$afuncs = M('Agent_function')->where('agentid = '.$av["agentid"].' AND gid <='.$gv['id'])->field('funname')->select();
+					if($afuncs !== NULL){
+						foreach($afuncs as $afk => $afv){
+							$adata[$gv['id']] .= $afv['funname'].',';
+						}
+						$adata[$gv['id']] = rtrim($adata[$gv['id']],',');
+					}else{
+						$adata[$gv['id']] = '';
+					}
+					$user_group_db->where(array('agentid'=>$av["agentid"],'id'=>$gv['id']))->setField('func',$adata[$gv['id']]);
+				}
+			}
+	
+		}
+		
+		exit('更新成功');
+		
+	}
+
 }

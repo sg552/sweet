@@ -1163,7 +1163,7 @@ TABLE.ListProduct .edit{
 }
 .cateradio4 { padding:20px}
 .cateradio4 h3{ font-size:16px;color: #333333;}
-.samsung-render{ background:url(../images/img/samsung-render.jpg) no-repeat; width:368px; height:480px; padding:146px 0 0 24px;}
+.samsung-render{ width:368px; height:480px;padding-left: 25px;}
 .cateradio4 li{ background-color: #F5F5F5;
     font-size: 14px;
     margin: 5px 0;
@@ -1396,7 +1396,7 @@ table.ListProduct8 TBODY TR:hover {
 	background:url(../images/img/zhifubao.png) no-repeat 8px center; width:142px; height:45px;padding: 10px;text-indent: -999px; display:block; overflow:hidden;
 }
 .usercontent .qqqun{
-	background:url(../images/img/qqqun.png) no-repeat 8px center; width:162px; height:45px;padding: 10px;display:block; overflow:hidden;
+	background:url(../images/img/qqqun.png) no-repeat 8px center; width:183px; height:45px;padding: 10px;display:block; overflow:hidden;
 }
 .usercontent .qqqun .qt{
 	color:#ff0000; text-indent:55px; font-size:20px; font-family:Georgia, "Times New Roman", Times, serif
@@ -1469,6 +1469,7 @@ color:#333;
 }
 
 
+/* pages style */
 .pages{padding:3px;margin:3px;text-align:center;}
 .pages a{border:#eee 1px solid;padding:2px 5px;margin:2px;color:#036cb4;text-decoration:none;}
 .pages a:hover{border:#999 1px solid;color:#666;}

@@ -6,28 +6,44 @@
 class TmplsAction extends UserAction {
 
     public function index() {
+
+			
         $db = D('Wxuser');
         $where['token'] = session('token');
         $where['uid'] = session('uid');
         $info = $db->where($where)->find();
-        
-
-		
 		include('./PigCms/Lib/ORG/index.Tpl.php');
 		
 		foreach($tpl as $k=>$v){
 			$sort[$k] = $v['sort'];
 			$tpltypeid[$k] = $v['tpltypeid'];
 		}
-		
 		array_multisort($sort, SORT_DESC , $tpltypeid , SORT_DESC ,$tpl);
-
 		$this->assign('info', $info);
 		$this->assign('tpl',$tpl);
 		
+		
+		$whe['token']=session('token');
+		$whe['fid']=intval($_GET['fid']);
+		if(isset($_GET['cid'])){
+			$whe['fid'] = (int)$_GET['cid'];
+		}
+		$Classify=D('Classify');
+		$info=$Classify->where($whe)->order('sorts desc')->select();
 
+		$this->assign('info',$info);
+		
+		
+		
         $this->display();
     }
+	
+	public function QRcode(){
+		include './PigCms/Lib/ORG/phpqrcode.php';
+		$viewUrl = C('site_url').U('Wap/Index/index',array('token'=>$this->token));
+        $url = urldecode($viewUrl);
+		QRcode::png($url,false,0,8);
+	}
 
     public function add() {
         $gets = $this->_get('style');

@@ -91,7 +91,8 @@ class ImgAction extends UserAction{
 		$where['id']=$this->_get('id','intval');
 		$where['token']=$this->token;
 		if(D(MODULE_NAME)->where($where)->delete()){
-			M('Keyword')->where(array('pid'=>$this->_get('id','intval'),'token'=>session('token'),'module'=>'Img'))->delete();
+			$this->handleKeyword(intval($_GET['id']),'Img','','',1);
+
 			$this->success('操作成功',U(MODULE_NAME.'/index'));
 		}else{
 			$this->error('操作失败',U(MODULE_NAME.'/index'));

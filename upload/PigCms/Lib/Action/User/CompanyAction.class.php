@@ -47,6 +47,19 @@ class CompanyAction extends UserAction{
 					$this->insert('Company',U('Company/index',array('token'=>$this->token,'isBranch'=>$this->isBranch)));
 				}
 			}else {
+				$amap=new amap();
+				if (!$thisCompany['amapid']&&$thisCompany['longitude']==$_POST['longitude']){
+					$locations=$amap->coordinateConvert($thisCompany['longitude'],$thisCompany['latitude']);
+					$_POST['longitude']=$locations['longitude'];
+					$_POST['latitude']=$locations['latitude'];
+				}
+				if (!$thisCompany['amapid']){
+					$ampaid=$amap->create($_POST['name'],$_POST['longitude'].','.$_POST['latitude'],$_POST['tel'],$_POST['address']);
+					$_POST['amapid']=intval($ampaid);
+				}else {
+					$amap->update($thisCompany['amapid'],$_POST['name'],$_POST['longitude'].','.$_POST['latitude'],$_POST['tel'],$_POST['address']);
+				}
+				//
 				if($this->company_model->create()){
 					if (empty($_POST['password'])) {
 						unset($_POST['password']);
@@ -85,8 +98,11 @@ class CompanyAction extends UserAction{
 	}
 	public function delete(){
 		$where=array('token'=>$this->token,'id'=>intval($_GET['id']));
+		$thisCompany=$this->company_model->where($where)->find();
 		$rt=$this->company_model->where($where)->delete();
 		if($rt==true){
+			$amap=new amap();
+			$amap->delete($thisCompany['amapid']);
 			$this->success('删除成功',U('Company/branches',array('token'=>$this->token,'isBranch'=>1)));
 		}else{
 			$this->error('服务器繁忙,请稍后再试',U('Company/branches',array('token'=>$this->token,'isBranch'=>1)));

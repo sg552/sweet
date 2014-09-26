@@ -26,20 +26,28 @@
 			$this->display();
 		}
 		public function add(){
+			
+			
 			if(IS_POST){
+				$_POST['func'] = join(',',$_REQUEST['func']);
 				$this->all_insert();
 			}else{
+				$func = M('Function') -> where(array( 'status' => 1 )) -> field('funname,name,id') -> select();
+				$this->assign('func',$func);
 				$this->display();
 			}			
 		}
 		public function edit(){
 			if(IS_POST){
+				$_POST['func'] = join(',',$_REQUEST['func']);
 				$this->all_save();
 			}else{
+				$func = M('Function') -> where(array( 'status' => 1 )) -> field('funname,name,id') -> select();
+				$this->assign('func',$func);
 				$id = $this->_get('id','intval',0);
 				if(!$id)$this->error('参数错误!');
 				$info = D('User_group')->getGroup(array('id'=>$id));
-				$this->assign('tpltitle','编辑');				
+				$this->assign('s','编辑');				
 				$this->assign('info',$info);
 				$this->display('add');			
 			}			

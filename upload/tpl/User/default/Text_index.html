@@ -36,7 +36,7 @@
                   <td>  {pigcms:$i}</td>
                   <td>{pigcms:$vo.keyword}</td>
                   <td><div class="answer_text">{pigcms:$vo.text}</div></td>
-                  <td><eq name="vo.type" value="1">完全匹配<else/>模糊匹配</eq></td>
+                  <td><eq name="vo.precisions" value="1">完全匹配<else/>模糊匹配</eq></td>
                   <td>{pigcms:$vo.click}</td>
                     <td><php>echo date('Y-m-d',$vo['updatetime']);</php></td>
                    <td class="norightborder"> <a href="{pigcms::U('Text/edit',array('id'=>$vo['id']))}" title="编辑文本">编辑</a> <a href="{pigcms::U('Text/del',array('id'=>$vo['id']))}">删除</a></td>

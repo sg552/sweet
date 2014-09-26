@@ -23,7 +23,7 @@
             <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
               <THEAD>
                 <TR>
-				<TH>卡号</TH>
+				<TH>卡号<br>[openid]</TH>
 				<TH>微信名</TH>
 				<TH>姓名</TH>
 				<TH>性别</TH>
@@ -43,7 +43,7 @@
 
 				 <volist id="list" name="members">
                 <TR>
-                  <TD>{pigcms:$list.number}</TD>
+                  <TD>{pigcms:$list.number}<br>[{pigcms:$list.wecha_id}]</TD>
                   <TD>{pigcms:$list.wechaname}</TD>
                   <TD>{pigcms:$list.truename}</TD>
                   <TD><if condition="$list['sex'] eq 1">男</if><if condition="$list['sex'] eq 2">女</if></TD>
