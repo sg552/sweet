@@ -194,13 +194,12 @@ class ForumAction extends WapAction{
 	public function checkAdd(){
 		$data = array();
 		$data['uid'] = $this->_post('wecha_id');
-
+		$token = $this->_post('token');
 		if($data['uid'] == ''){
 			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
 		$data['title'] = $this->_post('title');
 		$data['content'] = $this->_post('form_article');
-		$token = $data['token'];
 		$wecha_id = $data['uid'];
 		$userinfo = M('Userinfo')->field('wechaname')->where("wecha_id = '$wecha_id' AND token = '$token'")->find();
 		$data['uname'] = $userinfo['wechaname'] ? $userinfo['wechaname'] : '游客';
@@ -378,6 +377,7 @@ class ForumAction extends WapAction{
 		if($data['uid'] == ''){
 			$this->error('您需要从此社区的公众号聊天窗口进入才能访问');
 		}
+		$token = $this->_post('token');
 		$data['tid'] = $this->_post('tid','intval');
 		
 		$wecha_id = $data['uid'];
@@ -386,7 +386,7 @@ class ForumAction extends WapAction{
 		
 		$data['content'] = $this->_post('form_article');
 		$data['token'] = $this->_post('token');
-		$token = $this->_post('token');
+		
 		$data['createtime'] = time();
 		
 		$conf = M('Forum_config')->field('comcheck')->where("token = '$token'")->find();

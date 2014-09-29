@@ -128,14 +128,15 @@ items : [
         <td>
           <input type="radio" name="is_open" value="0" <if condition="$set.is_open eq '0' or ($set.is_open eq '')">checked</if>>关闭
           &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="is_open" value="1" <if condition="$set.is_open eq '1'">checked</if>>开启   （注意：开启活动后将对活动时间进行计时）
+          <input type="radio" name="is_open" value="1" <if condition="$set.is_open eq '1'">checked</if>>开启   （注意：开启游戏后开始计算进行时间）
+          <input type="checkbox" name="reset"   value="1">重置游戏 （重置游戏后游戏进行时间变为当前时间并清空用户积分和答题记录，请谨慎选择）
         </td>
       </tr>  
       <tr>         
        <th>&nbsp;</th>
        <td>
        <if condition="$isDining neq 1"><input type="hidden" value="0" name="dining" /><else/><input type="hidden" value="1" name="dining" /></if>
-       <input type="hidden" value="$set.id" name="id" />
+       <input type="hidden" value="{pigcms:$set.id}" name="id" />
        <button type="submit" name="button" class="btnGreen">保存</button> &nbsp; <a href="{pigcms::U('Product/index',array('token'=>$token))}" class="btnGray vm">取消</a></td> 
       </tr> 
       </tbody> 

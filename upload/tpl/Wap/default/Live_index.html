@@ -119,7 +119,6 @@
 								<!-- <video src=""></video> -->
 								<!-- <div></div> -->
 								<!-- <div></div> -->
-							<video controls="" preload="none" src="{pigcms:$content.movie_link}"></video>
 							</div>
 						</div>
 					</div>
@@ -315,7 +314,9 @@ window.shareData = {
             "moduleName":"Live",
             "moduleID":"0",
             "imgUrl": "{pigcms:$live_info.open_pic}", 
+            "timeLineLink": "{pigcms:$f_siteUrl}{pigcms::U('Live/index',array('token'=>$token,'id'=>$live_info['id']))}",
             "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Live/index',array('token'=>$token,'id'=>$live_info['id']))}",
+            "weiboLink": "{pigcms:$f_siteUrl}{pigcms::U('Live/index',array('token'=>$token,'id'=>$live_info['id']))}",
             "tTitle": "{pigcms:$live_info.name}",
             "tContent": "{pigcms:$live_info.intro}"
 };

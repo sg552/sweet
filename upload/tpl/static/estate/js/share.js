@@ -1,4 +1,3 @@
-
 if (!window.jq || typeof (jq) !== "function") {
     var jq = (function (window) {
         var undefined, document = window.document, emptyArray = [], slice = emptyArray.slice, classCache = {}, eventHandlers = [], _eventID = 1, jsonPHandlers = [], _jsonPID = 1, fragementRE = /^\s*<(\w+)[^>]*>/, _attrCache = {}, _propCache = {}; function _insertFragments(jqm, container, insert) {
@@ -651,10 +650,3 @@ if (!window.jq || typeof (jq) !== "function") {
     }; function prefixStyle(style) { if (vendor === '') return style; style = style.charAt(0).toUpperCase() + style.substr(1); return vendor + style; }
     dummyStyle = null; if (typeof exports !== 'undefined') exports.iScroll = iScroll; else window.iScroll = iScroll;
 })(window, document);
-/*var shareData = { appid: 'wx9a40654fe6ac86f8', img_url: '', img_width: '640', img_height: '640', link: '', desc: '', title: '', content: '', url: 'http://meishi.qq.com/shenzhen/weixin' }; function shareFriend() { WeixinJSBridge.invoke("sendAppMessage", { appid: shareData.appid, img_url: shareData.img_url, img_width: shareData.img_width, img_height: shareData.img_height, link: shareData.link, desc: shareData.desc, title: shareData.title }, function (a) { }); }
-function shareTimeline() {
-    var title = shareData.title; if (title.indexOf(shareData.desc) == -1) { title += ":" + shareData.desc; }
-    WeixinJSBridge.invoke("shareTimeline", { img_url: shareData.img_url, img_width: shareData.img_width, img_height: shareData.img_height, link: shareData.link, desc: shareData.desc, title: title }, function (a) { });
-}
-function shareWeibo() { WeixinJSBridge.invoke("shareWeibo", { content: shareData.content, url: shareData.url || ' ' }, function (a) { }); }
-(function () { document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() { WeixinJSBridge.on('menu:share:appmessage', function (argv) { shareFriend(); }); WeixinJSBridge.on('menu:share:timeline', function (argv) { shareTimeline(); }); WeixinJSBridge.on('menu:share:weibo', function (argv) { shareWeibo(); }); }, false); })();*/

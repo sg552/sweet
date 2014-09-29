@@ -21,8 +21,10 @@ class SchoolAction extends  WapAction{
         $wecha_id   = filter_var($this->_get('wecha_id'),FILTER_SANITIZE_STRING);
         $where      = array('token'=>$token);
         $setSchool  = $t_school->where($where)->find();
+        
         $this->assign('info',$setSchool);
 
+        $this->assign('cat',$this->_get_cat());
         $tpl=$this->wxuser;
         $this->tpl=$tpl;
 
@@ -65,16 +67,7 @@ class SchoolAction extends  WapAction{
           }
 
 
-$info = array();
-	$info 	= M('School_cat')->where(array('token'=>$this->token,'is_show'=>'1'))->order('sort desc,id desc')->field('url,icon as img,name')->select();
-	
-	foreach ($info as $key=>$value){		
-		if(strpos($info[$key]['url'],'{siteUrl}/index.php?g=Wap&amp;m=Index&amp;a=lists&amp;token=kvdhyj1396063025&amp;wecha_id={wechat_id}&amp;classid') !== false){
-			$info[$key]['url']	= str_replace(array('{wechat_id}','{siteUrl}','Index','lists','classid'),array($this->wecha_id,$this->siteUrl,'School','public_list','cid'),$value['url']);
-		}else{
-			$info[$key]['url']	= str_replace(array('{wechat_id}','{siteUrl}'),array($this->wecha_id,$this->siteUrl),$value['url']);
-		}		
-	}
+
 // $info[0]['url']  = "/index.php?g=Wap&m=School&a=public_list&token=$token&wecha_id=$wecha_id&cid={$setSchool['menu1_id']}";
 // $info[0]['img']  = $setSchool['picurl1'];
 // $info[0]['name'] = $setSchool['menu1'];
@@ -119,15 +112,27 @@ $info = array();
           $homeInfo=M('home')->where(array('token'=>$token))->find();
           $this->assign('homeInfo',$homeInfo);
           $this->assign('flash',$flash);
-          $this->assign('info',$info);
+          $this->assign('info',$this->_get_cat());
           $this->assign('flashbg',$flashbg);
           $this->assign('tpl',$this->tpl);
           $this->display('Index:'.$tplinfo['tpltypename']);
       }
 
     }
-
+    public function _get_cat(){
+        $info   = M('School_cat')->where(array('token'=>$this->token,'is_show'=>'1'))->order('sort desc,id desc')->field('url,icon as img,name')->select();
+  
+        foreach ($info as $key=>$value){    
+          if(strpos($info[$key]['url'],'{siteUrl}/index.php?g=Wap&amp;m=Index&amp;a=lists&amp;token=kvdhyj1396063025&amp;wecha_id={wechat_id}&amp;classid') !== false){
+            $info[$key]['url']  = str_replace(array('{wechat_id}','{siteUrl}','Index','lists','classid'),array($this->wecha_id,$this->siteUrl,'School','public_list','cid'),$value['url']);
+          }else{
+            $info[$key]['url']  = str_replace(array('{wechat_id}','{siteUrl}'),array($this->wecha_id,$this->siteUrl),$value['url']);
+          }   
+        }
+        return $info;
+    }
     public function public_list(){
+
         $cid        = filter_var($this->_get('cid'),FILTER_VALIDATE_INT);
         $token      = filter_var($this->_get('token'),FILTER_SANITIZE_STRING);
         $type      = trim(filter_var($this->_get('type'),FILTER_SANITIZE_STRING));
@@ -397,6 +402,9 @@ $info = array();
 
     public function imessage(){
         $this->display();
+    }
+    public function headermenu(){
+      $this->display();
     }
 
     public function photo_lists(){

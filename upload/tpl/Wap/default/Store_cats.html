@@ -27,7 +27,7 @@
 </div>  
 <!--主体-->
 <volist name="cats" id="hostlist" key="i"> 
-	<php>if ($i > 6) {$k = $i % 6 + 1;} else {$k = $i;}</php>
+	<php>if ($i > 6) {$k = $i % 6;} else {$k = $i;}</php>
 	<div class="m-floor">
 	<ul class="ulsel" url="{pigcms:$hostlist.url}">
 	<li class="tit bgf{pigcms:$k}">

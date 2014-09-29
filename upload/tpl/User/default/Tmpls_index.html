@@ -70,7 +70,21 @@
 					<li class="filter" data-filter="bgs"><p>支持背景音乐</p><i></i></li>
                     <li class="filter" data-filter="slip"><p>支持横向滑动</p><i></i></li>
                   </ul>
+                  <h1>按行业选择:</h1>
+                  <ul class="filterBtn">
+                    <li class="filter" data-filter="mix"><p>常用模板</p><i></i></li>
+                    <li class="filter" data-filter="hotel"><p>酒店</p><i></i></li>
+                    <li class="filter" data-filter="car"><p>汽车</p><i></i></li>
+                    <li class="filter" data-filter="tour"><p>旅游</p><i></i></li>
+					<li class="filter" data-filter="restaurant"><p>餐饮</p><i></i></li>
+                    <li class="filter" data-filter="estate"><p>房地产</p><i></i></li>
+                    <li class="filter" data-filter="health"><p>医疗保健</p><i></i></li>
+					<li class="filter" data-filter="edu"><p>教育培训</p><i></i></li>
+					<li class="filter" data-filter="beauty"><p>健身美容</p><i></i></li>
+                    <li class="filter" data-filter="wedding"><p>婚纱摄影</p><i></i></li>
+                    <li class="filter" data-filter="other"><p>其他行业</p><i></i></li>
 
+                  </ul>
 
                 </div>
 				
@@ -113,22 +127,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<if condition="empty($info)">
+								<if condition="empty($classinfo)">
 								<tr>
 									<td colspan="2" align="center">没有找到分类信息</td>
 								</tr>
 								<else />
-								<volist name="info" id="vo">
+								<volist name="classinfo" id="vo">
 									<tr>
 										<td>{pigcms:$vo.name}</td>
 										<td>
 											<input type="text" id="selecttpl_{pigcms:$vo.id}" class="px" value="已选择模板{pigcms:$vo.tpid}" disabled size="40"  />
 											<a class="a_upload" onclick="chooseTpl('tpid_{pigcms:$vo.id}','selecttpl_{pigcms:$vo.id}',5)">选择模板</a>
-											<a class="a_upload" onclick="viewTpl_{pigcms:$vo.id}()">预览</a>
+											<a class="a_upload" onclick="viewTpl_c_{pigcms:$vo.id}()">预览</a>
 											 &nbsp; <a class="a_upload" href="{pigcms::U('Tmpls/index',array('token'=>$_GET['token'],'cid'=>$vo['id'],'type'=>'1'))}">子分类</a>
 											<input type="hidden" id="tpid_{pigcms:$vo.id}" value="{pigcms:$vo.tpid}" name="tpid" style="width:250px">
 												<script>
-													function viewTpl_{pigcms:$vo.id}(){
+													function viewTpl_c_{pigcms:$vo.id}(){
 														var tid = $('#tpid_{pigcms:$vo.id}').val();
 														chooseTpl(tid,'',2);
 													}
@@ -158,12 +172,12 @@
 								</tr>
 							</thead>
 							<tbody>
-								<if condition="empty($info)">
+								<if condition="empty($classinfo)">
 								<tr>
 									<td colspan="2" align="center">没有找到分类信息</td>
 								</tr>
 								<else />
-								<volist name="info" id="vo">
+								<volist name="classinfo" id="vo">
 									<tr>
 										<td>{pigcms:$vo.name}</td>
 										<td>

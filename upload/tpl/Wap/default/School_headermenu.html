@@ -19,6 +19,10 @@ window.shareData = {
     <div id="overlay"></div>
 <div id="win" >
 <ul class="dropdown">
+<volist name="cat" id="cat">
+<li><a href="{pigcms:$cat.url}"><span>{pigcms:$cat.name}</span></a></li>
+</volist>
+<!--
 <li><a href="{pigcms::U('School/public_list',array('token'=>$token,'wecha_id'=>$wecha_id,'cid'=>$info['menu1_id']))}"><span>{pigcms:$info['menu1']|default='学校简介'}</span></a></li>
 <li><a href="{pigcms::U('School/public_list',array('token'=>$token,'wecha_id'=>$wecha_id,'cid'=>$info['menu2_id'],'type'=>'assess'))}"><span>{pigcms:$info['menu2']|default='教师风采'}</span></a></li>
 <li><a href="{pigcms::U('School/public_list',array('token'=>$token,'wecha_id'=>$wecha_id,'cid'=>$info['menu3_id']))}"><span>{pigcms:$info['menu3']|default='同学天地'}</span></a></li>
@@ -29,6 +33,7 @@ window.shareData = {
 <li><a href="{pigcms::U('Reply/index',array('token'=>$token,'wecha_id'=>$wecha_id))}"><span>{pigcms:$info['menu8']|default='家长建议'}</span></a></li>
 <li><a href="{pigcms::U('School/public_list',array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>'course'))}"><span>{pigcms:$info['menu9']|default='课程预约'}</span></a></li>
 <li><a href="{pigcms::U('School/public_list',array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>'curriculum'))}"><span>{pigcms:$info['menu10']|default='课程安排'}</span></a></li>
+-->
 <div class="clr"></div>
  </ul>
 </div>

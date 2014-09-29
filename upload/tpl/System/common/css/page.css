@@ -14,10 +14,10 @@
 .myform fieldset legend{padding-top:14px; padding-left:33px;height:36px;width:132px;}
 .myform fieldset p{margin-top:15px;margin-left:33px;height:35px;width:324px}
 .myform fieldset p.error{color:red;text-align:left;padding-left:33px;margin-top:5px;margin-left:0;height:20px;}
-	.username_input,.ps_input{display:inline;padding-left:13px;margin:0;height:33px;width:276px;border:solid 1px #d2d9dc;border-radius:2px;overflow:hidden;}
+	.username_input,.ps_input{display:inline;padding-left:13px;margin:0;height:33px;line-height:33px;width:276px;border:solid 1px #d2d9dc;border-radius:2px;overflow:hidden;}
 	.username_input{background:#fff url(http://img1.youxinpai.com/image/chengxp/experience/user_bg.gif) no-repeat 256px center;}
 	.ps_input{background:#fff url(http://img1.youxinpai.com/image/chengxp/experience/ps_bg.gif) no-repeat 256px center;}
-	.chk_input{padding-left:13px;background-color:#fff;width:103px;height:33px;vertical-align:middle;border:solid 1px #d2d9dc;border-radius:2px;}
+	.chk_input{padding-left:13px;background-color:#fff;width:103px;height:33px;line-height:33px;vertical-align:middle;border:solid 1px #d2d9dc;border-radius:2px;}
 	.chk_img{display:inline-block;margin-left:5px;padding:0px 10px 14px 0px;vertical-align:middle;width:51px;height:14px;line-height:33px;background-color:#fff;border:solid 1px #d2d9dc;}
 	.chk_txt{display:inline-block;margin-left:5px;color:#386693;height:33px;line-height:33px;}
 	.subBtn{cursor:pointer;margin-top:18px;margin-left:33px;background:url(http://img1.youxinpai.com/image/chengxp/experience/ty_button.gif) no-repeat 0 0;border:0;height:33px;width:290px;}

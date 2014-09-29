@@ -64,7 +64,8 @@
     <input class="px"  name="masking_pic" value="<if condition="$info['masking_pic'] eq ''">{pigcms:$f_siteUrl}/tpl/static/attachment/background/car/4.jpg<else/>{pigcms:$info.masking_pic}</if>" id="pic2" style="width:250px;"  />
       <script src="/tpl/static/upyun.js"></script>
       <a href="###" onclick="upyunPicUpload('pic2',640,990,'{pigcms:$token}')" class="a_upload">上传</a> 
-      <a href="###" onclick="viewImg('pic2')">预览</a>[640*990]&nbsp;（开启幕布后生效，首页需要拉开幕布才能进入场景）
+      <a href="###" onclick="viewImg('pic2')">预览</a>[640*990]&nbsp;（开启幕布后生效，首页需要拉开幕布才能进入场景）<br />
+      幕布特效图片暂时只能使用本地图片。如果使用了远程图片，请关闭幕布以免影响使用！
     </td>
 </tr>
 

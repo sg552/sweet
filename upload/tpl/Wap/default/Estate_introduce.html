@@ -39,8 +39,9 @@
 	<div class="box">    
 		<h3>地图</h3>    
 		<div class="box_map">     
-			<div class="map_area">      
-				<a  href="http://chabus.duapp.com/mapapi.php?lng={pigcms:$estatindex['lng']}&lat={pigcms:$estatindex['lat']}&title=预约&info=温馨提示：楼盘大概位置"><img  src="http://api.map.baidu.com/staticimage?width=600&height=235&center={pigcms:$estatindex['address']}&markers={pigcms:$estatindex['address']}|{pigcms:$estatindex['lng']},{pigcms:$estatindex['lat']}&zoom=10&markerStyles=s,A,0xff0000"  height="90" style="max-height: 100px;width: 100%"/></a>     
+			<div>      
+				<a  href="{pigcms::U('Estate/maps',array('token'=>$token,'id'=>$estatindex['id']))}">
+					<img  src="http://api.map.baidu.com/staticimage?width=600&height=235&center={pigcms:$estatindex['address']}&markers={pigcms:$estatindex['address']}|{pigcms:$estatindex['lng']},{pigcms:$estatindex['lat']}&zoom=10&markerStyles=s,A,0xff0000"  style="max-height: 200px;width: 100%"/></a>     
 			</div>     
 			<p>{pigcms:$estatindex['place']}</p>    
 		</div>   
@@ -48,12 +49,14 @@
 	<!-- 地图 end -->  
 
 	<!-- 视频 start -->   
-	<div class="box" jqmoldstyle="block" style="display: none;">    
+	<if condition="$estatindex['video'] neq ''">
+	<div class="box" jqmoldstyle="block">    
 		<h3>视频欣赏</h3>    
 		<div class="box_type" style="text-align:center;" id="content">{pigcms:$estatindex['video']}</div>   
 		<script src="tpl/Wap/default/common/wedding/js/play.js" type="text/javascript"></script> 
 		<p>&nbsp;</p>   
 	</div>  
+	</if>
 	<!-- 视频 end -->  
 
 	<!-- 项目简介 start -->   
@@ -90,13 +93,6 @@
 	</div>
 </div>
 <div class="pop_mask" id="popMask" style="display:none;"></div>
-<div id="popFail" style="display: none;" jqmoldstyle="block">
-	<div class="bk"></div>
-	<div class="cont">
-		<img src="load.gif" alt="loading...">
-		正在加载...
-	</div>
-</div>
 <script src="./楼盘简介_files/tvp.player_lite.js" type="text/javascript"></script>
 <a href="javascript:history.go(-1);" class="back360" style="">&nbsp;</a>
 <div mark="stat_code" style="width:0px; height:0px; display:none;"></div>

@@ -242,7 +242,7 @@ items : [
           str  += '<tbody class="item"><tr ><input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:20px;" ><td width="120"><input type="text" name="add[item][]" value="" placeholder="请填写选项标题" class="px" style="width:120px;"></td><td><input type="text" name="add[rank][]" value="" style="width:20px;" class="px"></td><td><input type="text" name="add[vcount][]" value="" style="width:20px;" class="px"></td>';
 
         if(type == 1){
-          str  += '<td width="200"><input type="text" name="add[startpicurl][]" value="" class="px" id="'+"'url_"+len+'"'+'" style="width:130px;"><a href="###" onclick="upyunPicUpload('+"'url_"+len+'"'+',700,400,"{pigcms:$token}")" class="a_upload">上传</a><a href="###" onclick="viewImg('+"'url_"+len+'"'+')">预览</a></td><td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>';
+          str  += '<td width="200"><input type="text" name="add[startpicurl][]" value="" class="px" id="url_'+len+'" style="width:130px;"><a href="###" onclick="upyunPicUpload(\'url_'+len+'\',700,400,\'{pigcms:$token}\')" class="a_upload">上传</a><a href="###" onclick="viewImg(\'url_'+len+'\')">预览</a></td><td width="100"><input type="text" name="add[tourl][]" value="" class="px" style="width:100px;"></td>';
         }
 
           str  += '<td width="50" class="norightborder"><a href="javascript:void(0);" vid="0" class="del">删除</a></td></tr></tbody>';

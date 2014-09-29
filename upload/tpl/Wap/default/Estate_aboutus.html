@@ -57,7 +57,7 @@
         </header>
         <article>
             <p>
-                <a style="text" href="http://chabus.duapp.com/mapapi.php?lng={pigcms:$about['longitude']}&lat={pigcms:$about['latitude']}&title=我们的位置&info=温馨提示：楼盘大概位置">
+                <a style="text" href="{pigcms::U('Estate/maps',array('token'=>$token,'id'=>$estatindex['id'],'type'=>'about'))}">
                     <span color="#2c2c2c">地址： {pigcms:$about['address']}</span>
                     <img  src="http://api.map.baidu.com/staticimage?width=600&height=235&center=&markers=|{pigcms:$about['longitude']},{pigcms:$about['latitude']}&zoom=10&markerStyles=s,A,0xff0000"  height="235" style="max-height: 250px;max-width: 390px;"/>
                 </a>

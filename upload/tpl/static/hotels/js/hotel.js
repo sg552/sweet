@@ -60,7 +60,7 @@ $(function(){
 			return false;
 		}
 		var html = '<div class="cui-hd hotel-hd-title">' + $(this).children('.name').val();
-		html += '<div class="lab-close-area"><span class="cui-top-close">×</span></div>';
+		html += '<div class="lab-close-area" onclick="$(\'.cui-view\').hide();"><span class="cui-top-close">×</span></div>';
 		html += '</div>';
 		html += '<div class="cui-bd" style="overflow: hidden; position: relative; width: 100%; height: auto; background-color: rgb(250, 250, 250);">';
 		html += '<div class="hotel-detail-layer" style="transition: 0ms cubic-bezier(0.1, 0.57, 0.1, 1); -webkit-transition: 0ms cubic-bezier(0.1, 0.57, 0.1, 1); transform: translate(0px, 0px) translateZ(0px); background-color: white;">';
@@ -136,8 +136,8 @@ $(function(){
 		
 		var focusPic = new Swiper('.swiper-container', {pagination: '.pagination',autoplay:3000})
 	});
-	$(".cui-top-close").live("click", function(){
-		$(".cui-view").hide();
-	});
+//	$(".cui-top-close").live("click", function(){
+//		$(".cui-view").hide();
+//	});
 });
 

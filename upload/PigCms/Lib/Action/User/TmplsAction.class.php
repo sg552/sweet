@@ -29,9 +29,9 @@ class TmplsAction extends UserAction {
 			$whe['fid'] = (int)$_GET['cid'];
 		}
 		$Classify=D('Classify');
-		$info=$Classify->where($whe)->order('sorts desc')->select();
+		$classinfo=$Classify->where($whe)->order('sorts desc')->select();
 
-		$this->assign('info',$info);
+		$this->assign('classinfo',$classinfo);
 		
 		
 		

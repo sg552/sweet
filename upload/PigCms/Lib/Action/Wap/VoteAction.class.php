@@ -3,7 +3,9 @@ class VoteAction extends WapAction{
 
     public function __construct(){
         parent::_initialize();
-
+        if(empty($this->fans)){
+            $this->error('请先完善个人资料再参加活动',U('Userinfo/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'redirect'=>MODULE_NAME.'/index|id:'.$this->_get('id','intval'))));
+        }
     }
 
 	public function index(){

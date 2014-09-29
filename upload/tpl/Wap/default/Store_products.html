@@ -121,9 +121,9 @@ window.shareData = {
             "moduleName":"Store",
             "moduleID":"{pigcms:$products[0]['id']}",
             "imgUrl": "{pigcms:$products[0]['logourl']}", 
-            "timeLineLink": "{pigcms::C('site_url') .  U('Store/products',array('token' => $_GET['token']))}",
-            "sendFriendLink": "{pigcms::C('site_url') .  U('Store/products',array('token' => $_GET['token']))}",
-            "weiboLink": "{pigcms::C('site_url') .  U('Store/products',array('token' => $_GET['token']))}",
+            "timeLineLink": "{pigcms::C('site_url') .  U('Store/products',array('token' => $_GET['token'], 'catid' => $thisCat['id']))}",
+            "sendFriendLink": "{pigcms::C('site_url') .  U('Store/products',array('token' => $_GET['token'], 'catid' => $thisCat['id']))}",
+            "weiboLink": "{pigcms::C('site_url') .  U('Store/products',array('token' => $_GET['token'], 'catid' => $thisCat['id']))}",
             "tTitle": "{pigcms:$metaTitle}",
             "tContent": "{pigcms:$metaTitle}"
         };

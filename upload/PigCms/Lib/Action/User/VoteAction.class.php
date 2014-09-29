@@ -3,7 +3,7 @@ class VoteAction extends UserAction{
 
 
     public function index(){
-        $this->canUseFunction('Vote');
+        //$this->canUseFunction('Vote');
         $id     = $this->_get('id','trim');
         $type   = $this->_request('type','trim');
         $keyword   = $this->_post('keyword','trim');
@@ -30,9 +30,13 @@ class VoteAction extends UserAction{
         $count = M('Vote')->where($where)->count();
         $this->assign('count',$count);
 
-
-        $is_scene = M('wechat_scene')->where(array('is_open'=>'1','token'=>$this->token))->field('id')->find();
-
+        $scene  = M();
+        $is     = $scene->query('SHOW TABLES LIKE "'.C('DB_PREFIX') .'wechat_scene123"');
+        if($is){
+            $is_scene = M('wechat_scene')->where(array('is_open'=>'1','token'=>$this->token))->field('id')->find();
+        }else{
+            $is_scene = 0;
+        }
         $this->assign('is_scene',$is_scene);
         $this->assign('type',$type);
         $this->assign('list',$list);

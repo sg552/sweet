@@ -330,10 +330,10 @@ class EstateAction extends WapAction{
     }
 
     public function load_album_pic(){
-        $id = $this->es_data['id'];
-        $album = $this->get_album($id);
-
-        echo 'showPics('.json_encode($album).')';
+        $id     = $this->es_data['id'];
+        $album  = $this->get_album($id);
+        $json   = 'showPics('.json_encode($album).')';
+        echo $json;
     }
     /*获取相册*/
     public function get_album($id){
@@ -352,16 +352,17 @@ class EstateAction extends WapAction{
 
         $where  = array('pid'=>$photo_info['id'],'token'=>$this->token);
         $count  = M('Photo_list')->where($where)->count();
-        $flag   = $count/2;
+        $flag   = ceil($count/2);
         $data   = array();
 
         if($type == 'text'){
             $data   = M('Photo_list')->where($where)->order('sort desc')->limit(0,$flag)->field('title as name,picurl as img')->select();
-            $arr  = array('title'=>$photo_info['title'],/*'color'=>$color[array_rand($color)],*/'type'=>"title",'subTitle'=>$photo_info['title']);
+            $arr  = array('title'=>$photo_info['title'],'type'=>"title",'subTitle'=>$photo_info['title']);
             array_splice($data, 0, 0, array($arr));
         }else if($type == 'info'){
+        	/*'color'=>$color[array_rand($color)],*/
             $data   = M('Photo_list')->where($where)->order('sort desc')->limit($flag,$count)->field('title as name,picurl as img')->select();
-            $arr   = array('content'=>$photo_info['info'],/*'color'=>$color[array_rand($color)],*/'type'=>'text');
+            $arr   = array('content'=>$photo_info['info'],'type'=>'text');
             array_splice($data, 1, 0, array($arr));
         }
         foreach($data as $key=>$value){
@@ -520,7 +521,33 @@ class EstateAction extends WapAction{
         $num = sprintf('%.0f%%',$val*100);
         return $num;
     }   
-
+	
+    public function maps(){
+    	$type 	= $this->_get('type','trim');
+    	
+    	$this->apikey=C('baidu_map_api');
+    	$this->assign('apikey',$this->apikey);
+    	
+    	$map 	= array();
+    	if($type == 'about'){
+    		$about = M('Company')->where(array('token'=>$this->token,'shortname'=>'loupan'.$this->es_data['id'],'isbranch'=>1))->find();
+    		$map['name'] 		= $about['name'];
+    		$map['longitude'] 	= $about['longitude'];
+    		$map['latitude'] 	= $about['latitude'];
+    		$map['tel'] 		= $about['tel'];
+    		$map['logourl'] 	= $about['logourl'];
+    		$map['address'] 	= $about['address'];
+    	}else{
+    		$map['name'] 		= $this->es_data['title'];
+    		$map['longitude'] 	= $this->es_data['lng'];
+    		$map['latitude'] 	= $this->es_data['lat'];
+    		$map['address'] 	= $this->es_data['place'];
+    		$map['logourl'] 	= $this->es_data['cover'];
+    	}
+    	
+    	$this->assign('thisMap',$map);
+    	$this->display();
+    }
 
 }
 

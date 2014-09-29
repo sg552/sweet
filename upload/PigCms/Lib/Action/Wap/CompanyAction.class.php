@@ -2,6 +2,7 @@
 class CompanyAction extends WapAction{
 	public $token;
 	public $apikey;
+	public $isamap;
 	public function _initialize() {
 		parent::_initialize();
 		$this->token=$this->_get('token');
@@ -9,6 +10,13 @@ class CompanyAction extends WapAction{
 		$this->apikey=C('baidu_map_api');
 		$this->assign('apikey',$this->apikey);
 		$this->assign('staticFilePath',str_replace('./','/',THEME_PATH.'common/css/product'));
+		
+		if (C('baidu_map')){
+			$this->isamap=0;
+		}else {
+			$this->isamap=1;
+			$this->amap=new amap();
+		}
 	}
 	public function map(){
 		
@@ -36,8 +44,14 @@ class CompanyAction extends WapAction{
 		
 		*/
 		//$this->display();
+		if (!$this->isamap){
+			$link='http://api.map.baidu.com/marker?location='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&title='.urlencode($thisCompany['name']).'&content='.urlencode($thisCompany['address']).'&output=html&src=yourComponyName|yourAppName';
+		}else {
+			$link=$this->amap->getPointMapLink($thisCompany['longitude'],$thisCompany['latitude'],$thisCompany['name']);
+		}
 		
-		header('Location:http://api.map.baidu.com/marker?location='.$thisCompany['latitude'].','.$thisCompany['longitude'].'&title='.urlencode($thisCompany['name']).'&content='.urlencode($thisCompany['address']).'&output=html&src=yourComponyName|yourAppName');
+		header('Location:'.$link);
+		
 	}
 	public function walk($display=1){
 		$company_model=M('Company');
