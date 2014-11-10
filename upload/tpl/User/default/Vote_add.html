@@ -28,14 +28,14 @@ items : [
 <div class="content">
 
 <div class="cLineB">
-  <h4> 
-    <if condition="$vo['type'] eq 'img' or ($type eq 'img')"> 
+  <h4>
+    <if condition="$vo['type'] eq 'img' or ($type eq 'img')">
       图片
     <elseif condition="$vo['type'] eq 'text' or ($type eq 'text')"/>
       文本
     <else />
       微现场
-  </if>-投票设置 
+  </if>-投票设置
 </h4>
 
 <a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
@@ -87,7 +87,7 @@ items : [
     <td width="50">排序</td>
      <td width="50">票数</td>
     <if condition="$vo['type'] eq 'img' OR $type eq 'img' OR ($vo['type'] eq 'scene') OR ($type eq 'scene')">
-    <td width="320">图片外链地址&nbsp;&nbsp;&nbsp;&nbsp;如：http://www.pigcms.com</td>
+    <td width="320">图片外链地址&nbsp;&nbsp;&nbsp;&nbsp;如：http://www.weixin.pe</td>
     <td width="180">图片跳转地址</td>
     </if>
     <td class="norightborder"></td>
@@ -255,7 +255,7 @@ items : [
       if(vid == 0){
         $(this).parents('.item').remove();
       }else{
-        if(confirm('确定要删除吗？')){   
+        if(confirm('确定要删除吗？')){
             var obj = {id:vid}
             $.post("{pigcms::U('Vote/del_tab')}", obj,
                 function(data) {

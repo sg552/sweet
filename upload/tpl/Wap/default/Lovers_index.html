@@ -27,12 +27,12 @@
     <style type="text/css">
         #start-page-main {background:url(./tpl/static/applegame/wap/images/qixibg2.jpg) no-repeat center 0 #031448;background-size:100%}
     </style>
-	
+
     <script src="./tpl/static/applegame/wap/res/lxb.js" charset="utf-8" type="text/javascript"></script>
 
 	<script type="text/javascript">
         (function () {
-							
+
 			window.start_page_config = {
 				NEEDREGISTER : false,
 				RANKTOTALPAGE:273,
@@ -45,7 +45,7 @@
                     GAME:"{pigcms::U('Lovers/game',array('token'=>$_GET['token'],'id'=>intval($_GET['id']),'wecha_id'=>$_GET['wecha_id']))}"
                 }
             }
-			
+
         })();
     </script>
 	<script type="text/javascript" src="./tpl/static/applegame/wap/res/zepto_min.js"></script>
@@ -58,12 +58,12 @@
 		<div id="btn-start" class="anim"></div>
 		<!-- <a id="btn-prize" class="anim" href="#"></a> -->
 		<div class="panel-container">
-			
+
 			<ul style="width:100%;" class="container-title">
 				<li style="width:50%;float:left"><a class="btn-rank"></a></li>
 				<li style="width:50%;"><a class="btn-activity"></a></li>
 			</ul>
-			
+
 			<div class="container-body">
 				<div class="container-content container-rank">
 					<table class="table-title">
@@ -103,7 +103,7 @@
 
 						</tbody>
 					</table>
-					
+
 					<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 1;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% padding-box rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); box-sizing: border-box; width: 100%; border-radius: 3px; pointer-events: none; transition-property: transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 0px) translateZ(0px); height: 215px;"></div></div></div>
 					<table class="table-bottom">
 						<colgroup><col width="20%">
@@ -121,7 +121,7 @@
 									请关注“{pigcms:$mpName}”后回复“{pigcms:$keyword}”参与此活动
 								</td>
 								</tr>
-								
+
 							<else />
 							<tr>
 							<td>
@@ -140,17 +140,17 @@
 											$('#myinfo').remove();
 										}
 									</script>
-									
-								<else />我的排名：<b>{pigcms:$myinfo.rank}</b>   最佳：<b>{pigcms:$myinfo.time}</b>  
-								
-									
+
+								<else />我的排名：<b>{pigcms:$myinfo.rank}</b>   最佳：<b>{pigcms:$myinfo.time}</b>
+
+
 								</if>
 
 							</td>
 							</tr>
 
 							</if>
-						
+
 					</tbody></table>
 				</div>
 				<div class="container-content container-acitivity">
@@ -164,12 +164,12 @@
 										{pigcms:$linfo.title}<br/>
 										每人最多有{pigcms:$linfo.canrqnums}次机会
 									</p>
-								
+
 									<br />
 									<p>
 										本活动奖项：{pigcms::$prizeStr}
 									</p>
-								
+
 									<br />
 									<p>
 										{pigcms:$linfo.info}
@@ -182,7 +182,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="company-rights">©小猪CMS版权所有</div>	-->
+		<!-- <div class="company-rights">©weixin.pe版权所有</div>	-->
 
 	</div>
 </div>
@@ -190,12 +190,12 @@
 
         		<div mark="stat_code" style="width:0px; height:0px; display:none;">
 					</div>
-	
+
 <script type="text/javascript">
 window.shareData = {
             "moduleName":"Lovers",
             "moduleID":"{pigcms:$_GET['id']|intval}",
-            "imgUrl": "{pigcms:$linfo.starpicurl}", 
+            "imgUrl": "{pigcms:$linfo.starpicurl}",
             "timeLineLink": "{pigcms::C('site_url')}{pigcms::U('Lovers/index',array('token'=>$_GET['token'],'id'=>intval($_GET['id'])))}",
             "sendFriendLink": "{pigcms::C('site_url')}{pigcms::U('Lovers/index',array('token'=>$_GET['token'],'id'=>intval($_GET['id'])))}",
             "weiboLink": "{pigcms::C('site_url')}{pigcms::U('Lovers/index',array('token'=>$_GET['token'],'id'=>intval($_GET['id'])))}",

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>微信公众平台源码,微信机器人源码,微信自动回复源码 PigCms多用户微信营销系统</title>
+<title>微信公众平台源码,微信机器人源码,微信自动回复源码 多用户微信营销系统</title>
 <meta http-equiv="MSThemeCompatible" content="Yes" />
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/style_2_common.css?BPm" />
 <script src="{pigcms::RES}/js/common.js" type="text/javascript"></script>
@@ -34,12 +34,12 @@
                 document.playerIDX = player.idx + 1 <= players.length - 1 ? player.idx + 1 : 0;
                 players.eq(document.playerIDX).mb_miniPlayer_play();
             }
-			
 
-			
-			
+
+
+
         });
-		
+
     </script>
 
 </head>
@@ -83,7 +83,7 @@ if ($type!='my'){
 		</volist>
 	</select>
 	<if condition="(in_array($_GET['folder'],$folderArr) || $_GET['folder'] eq '') && ($_GET['type'] eq 'icon')">
- &nbsp; &nbsp; &nbsp; 
+ &nbsp; &nbsp; &nbsp;
 	<select onchange="changeColor(this.value)" style="width:76px">
 		<option value="all">全部颜色</option>
 		<option value="red" <if condition="$_GET['color'] eq 'red'">selected</if>>红</option>
@@ -167,7 +167,7 @@ function returnHomepage(url){
 	if(origin.document.getElementById(domsrcid)){
 	origin.document.getElementById(domsrcid).src=url;
 	}
-	
+
 	dom.value=url;
 	setTimeout("art.dialog.close()", 100 )
 }
