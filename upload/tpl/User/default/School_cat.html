@@ -45,7 +45,7 @@
 						<TD><if condition="$list['is_show'] eq '1'">显示</if> <if
 								condition="$list['is_show'] eq '0'">隐藏</if></TD>	
 						<TD><a href="{pigcms::U('School/cat_add',array('token'=>$token,'id'=>$list['id'],'type'=>'cat'))}"><font color="red">编辑</font></a>
-						<if condition="$list['is_system'] eq '0'">
+						<if condition="$list['system'] eq '0'">
 							<a href="{pigcms::U('School/cat_del',array('token'=>$token,'id'=>$list['id'],'type'=>'cat'))}" onclick="return(confirm('确定要删除吗？'))" title="删除">
 							<font color="#CCC7C7">删除</font>
 							</a>

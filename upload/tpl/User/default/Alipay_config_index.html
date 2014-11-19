@@ -53,8 +53,12 @@ function ccolumns(value){
 					<td><input type="text" name="appid" value="{pigcms:$config.appid}" class="px" style="width:350px;"> 公众号身份的唯一标识（使用财付通接口不用填写）</td>
 				</tr>
 				<tr class="tenpay" <pigcmsif where="$config.paytype eq 'alipay'">style="display:none"</pigcmsif>>
-					<th>paySignKey：</th>
-					<td><input type="text" name="paysignkey" value="{pigcms:$config.paysignkey}" class="px" style="width:350px;"> 公众号支付请求中用于加密的密钥Key（使用财付通接口不用填写）</td>
+					<th>mchid：</th>
+					<td><input type="text" name="mchid" value="{pigcms:$config.mchid}" class="px" style="width:350px;"> 商户号</td>
+				</tr>
+				<tr class="tenpay" <pigcmsif where="$config.paytype eq 'alipay'">style="display:none"</pigcmsif>>
+					<th>key：</th>
+					<td><input type="text" name="paysignkey" value="{pigcms:$config.paysignkey}" class="px" style="width:350px;"> 在公众平台api安全>>api密钥里设置</td>
 				</tr>
 				<tr class="tenpay" <pigcmsif where="$config.paytype eq 'alipay'">style="display:none"</pigcmsif>>
 					<th>AppSecret：</th>

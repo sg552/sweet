@@ -70,7 +70,7 @@ class ReservationAction extends BaseAction{
             }
             if($reslist['addtype'] =='house_book'){
                 $t_housetype = M('Estate_housetype');
-                $eid        = $this->_get('id','intval');
+                $eid        = $this->_get('rid','intval');
                 if(empty($eid)){
                     $this->error('参数错误！');
                     exit;

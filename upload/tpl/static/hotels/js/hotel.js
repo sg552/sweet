@@ -120,6 +120,9 @@ $(function(){
 		if ($(this).children('.smoke').val() != null && $(this).children('.smoke').val() != '') {
 			html += '<li><i class="hotel-icon-smoke"></i><span>无烟</span><p>' + $(this).children('.smoke').val() + '</p></li>';
 		}
+		if ($(this).children('.note').val() != null && $(this).children('.note').val() != '') {
+			html += '<li><span><strong>备注：</strong></span><p>' + $(this).children('.note').val() + '</p></li>';
+		}
 		
 		html += '</ul>';
 		html += '</div>';
@@ -132,8 +135,9 @@ $(function(){
 		html += '</div>';
 		html += '</div>';
 		$(".cui-pop-box").html(html);
-		$(".cui-view").show();
-		
+		var w = ($(window).width() - $(".cui-layer").width()) / 2; 
+		$(".cui-layer").show().css({'left': w + 'px'});
+		$(".cui-view").show().height($(".cui-layer").height());
 		var focusPic = new Swiper('.swiper-container', {pagination: '.pagination',autoplay:3000})
 	});
 //	$(".cui-top-close").live("click", function(){

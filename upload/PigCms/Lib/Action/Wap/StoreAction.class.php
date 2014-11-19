@@ -127,7 +127,9 @@ class StoreAction extends WapAction{
 			$row['parentid'] && $sub[$row['parentid']][] = $row;
 		}
 		foreach ($sub as $k => $r) {
-			$info[$k]['sub'] = $r;
+			if (isset($info[$k]) && $info[$k]) {
+				$info[$k]['sub'] = $r;
+			}
 		}
 		$result = array();
 		foreach ($info as $kk => $ii) {
@@ -330,7 +332,7 @@ class StoreAction extends WapAction{
 		$count      = $product_model->where($where)->count();
 		$comment = $product_model->where($where)->order('id desc')->limit("0, 10")->select();
 		foreach ($comment as &$com) {
-			$com['wecha_id'] = substr($com['wecha_id'], 0, 7) . "****";
+			$com['wecha_id'] = $com['truename'];
 		}
 		
 		$percent = "100%";
@@ -361,7 +363,7 @@ class StoreAction extends WapAction{
 		
 		$comment = $product_model->where($where)->order('id desc')->limit($start, $offset)->select();
 		foreach ($comment as &$com) {
-			$com['wecha_id'] = substr($com['wecha_id'], 0, 7) . "****";
+			$com['wecha_id'] = $com['truename'];
 			$com['dateline'] = date("Y-m-d H:i", $com['dateline']);//substr($com['wecha_id'], 0, 7) . "****";
 		}
 		$totalPage = ceil($count / $offset);
@@ -678,6 +680,7 @@ class StoreAction extends WapAction{
 			if ($cartObj) {
 				//$row['score'] = $cartObj['score'] + $score;
 				$normal_rt = $product_cart_model->where(array('id' => $orid))->save($row);
+				$orderid = $cartObj['orderid'];
 			} else {
 				$row['time'] = $time = time();
 				$row['orderid'] = $orderid = substr($this->wecha_id, -1, 4) . date("YmdHis");
@@ -708,7 +711,7 @@ class StoreAction extends WapAction{
 				$op->printit($this->token, $this->_cid, 'Store', $msg, 0);
 				
 				$userInfo = D('Userinfo')->where(array('token' => $this->token, 'wecha_id' => $this->wecha_id))->find();
-				Sms::sendSms($this->token, "您的顾客{$userInfo['truename']}刚刚下了一个订单，订单号：{$orderid}，请您注意查看并处理");
+				Sms::sendSms($this->token, "您的顾客{$row['truename']}刚刚下了一个订单，订单号：{$orderid}，手机号：{$row['tel']}请您注意查看并处理");
 			}
 		}
 		if ($normal_rt){
@@ -731,7 +734,7 @@ class StoreAction extends WapAction{
 					$product_cart_list_model->add($crow);
 					
 					//增加销量
-					$product_model->where(array('id'=>$k))->setInc('salecount', $tdata[1][$k]['total']);
+					$totalprice || $product_model->where(array('id'=>$k))->setInc('salecount', $tdata[1][$k]['total']);
 				}
 				
 				//删除库存
@@ -743,7 +746,12 @@ class StoreAction extends WapAction{
 							$total += $ro['count'];
 						}
 					} else {
-						$total = $rowset;
+						if (strstr($rowset, '|')) {
+							$a = explode("|", $rowset);
+							$total = $a[0];
+						} else {
+							$total = $rowset;
+						}
 					}
 					$product_model->where(array('id' => $pid))->setDec('num', $total);
 				}
@@ -971,10 +979,15 @@ class StoreAction extends WapAction{
 						$total += $row['count'];
 					}
 				} else {
-					$total = $rowset;
+					if (strstr($rowset, '|')) {
+						$a = explode("|", $rowset);
+						$total = $a[0];
+					} else {
+						$total = $rowset;
+					}
 				}
 				$product_model->where(array('id' => $pid))->setInc('num', $total);
-				$product_model->where(array('id' => $pid))->setDec('salecount', $total);
+				//$product_model->where(array('id' => $pid))->setDec('salecount', $total);
 			}
 			exit(json_encode(array('error_code' => false, 'msg' => '订单取消成功')));
 		}
@@ -1106,7 +1119,7 @@ class StoreAction extends WapAction{
 				$productid=$k;
 				$price=$c['price'];
 				$count=$c['count'];
-				$product_model->where(array('id'=>$k))->setDec('salecount',$c['count']);
+				//$product_model->where(array('id'=>$k))->setDec('salecount',$c['count']);
 			}
 		}
 		$this->redirect(U('Store/my',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'])));
@@ -1125,16 +1138,21 @@ class StoreAction extends WapAction{
 				$list = array();
 				foreach ($tdata[0] as $va) {
 					$t = array();
+					$salecount = 0;
 					if (!empty($va['detail'])) {
 						foreach ($va['detail'] as $v) {
 							$t = array('num' => $v['count'], 'colorName' => $v['colorName'], 'formatName' => $v['formatName'], 'price' => $v['price'], 'name' => $va['name']);
 							$list[] = $t;
+							$salecount += $v['count'];
 						}
 					} else {
 						$t = array('num' => $va['count'], 'price' => $va['price'], 'name' => $va['name']);
 						$list[] = $t;
+						$salecount = $va['count'];
 					}
+					D("Product")->where(array('id' => $va['id']))->setInc('salecount', $salecount);
 				}
+				
 				$company = D('Company')->where(array('token' =>$this->token, 'id' => $order['cid']))->find();
 				$op = new orderPrint();
 				$msg = array('companyname' => $company['name'], 'companytel' => $company['tel'], 'truename' => $order['truename'], 'tel' => $order['tel'], 'address' => $order['address'], 'buytime' => $order['time'], 'orderid' => $order['orderid'], 'sendtime' => '', 'price' => $order['price'], 'total' => $order['total'], 'list' => $list);

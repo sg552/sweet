@@ -7,9 +7,19 @@
 		<li class="addr-info">
 			<ul class="addr-addnew-form addr-edit-form" id="addr-edit-form" style="display: none1;">
 				<li>
-					<label>收货人姓名：</label><span><input name="truename" id="truename" value="{pigcms:$fans.truename}" type="text" placeholder="输入收货人姓名"></span>
-					<label>手机：</label><span><input name="tel" id="tel" value="{pigcms:$fans.tel}" type="text" placeholder="输入您的收货电话"></span>
-					<label>详细地址：</label><span><input name="address" id="address" value="{pigcms:$fans.address}" type="text" placeholder="输入您的收货地址"></span>
+					<label>收货人姓名：</label>
+					<span>
+						<input name="orid" value="{pigcms:$orid}" type="hidden" />
+						<input name="truename" id="truename" value="{pigcms:$fans.truename}" type="text" placeholder="输入收货人姓名" />
+					</span>
+					<label>手机：</label>
+					<span>
+						<input name="tel" id="tel" value="{pigcms:$fans.tel}" type="text" placeholder="输入您的收货电话" />
+					</span>
+					<label>详细地址：</label>
+					<span>
+						<input name="address" id="address" value="{pigcms:$fans.address}" type="text" placeholder="输入您的收货地址" />
+					</span>
 				</li>
 			</ul>
 			<label>联系方式保存到用户库</label>
@@ -83,7 +93,7 @@
 <if condition="($setting['score'] gt 0) AND ($fans['total_score'] gt 0)">
 <p class="check">您的可用积分：<b>{pigcms:$fans['total_score']}</b>　分<br/>
 使用积分兑换：<input type="text" name="score" style="border: 1px solid #cfcfcf;margin: 0 -1px;font-size: 16px;display: inline-block;text-align: center;height: 22px;width: 50px;border-radius: 0;background: -webkit-gradient(linear, 0 0, 0 100%, from(#e5e5e5),color-stop(0.3, #fff),to(#fff));-webkit-appearance: none;color: #999;" id="score"/>
-<span></span>
+<span>(整数)</span>
 </p>
 </if>
 <div id="show_msg" class="tip_blue"></div>
@@ -96,9 +106,9 @@
 var scale = "{pigcms:$setting['score']}";
 var totalscore = "{pigcms:$fans['total_score']}";
 $(document).ready(function(){
-	var total =$("#totalmoney").html();
+	var total = $("#totalmoney").html();
 	$("#score").keyup(function(){
-		var num = $(this).val();
+		var num = parseInt($(this).val());
 		if (isNaN(num)) {
 			num = 0;
 		}

@@ -31,7 +31,7 @@ class VoteAction extends UserAction{
         $this->assign('count',$count);
 
         $scene  = M();
-        $is     = $scene->query('SHOW TABLES LIKE "'.C('DB_PREFIX') .'wechat_scene123"');
+        $is     = $scene->query('SHOW TABLES LIKE "'.C('DB_PREFIX') .'wechat_scene"');
         if($is){
             $is_scene = M('wechat_scene')->where(array('is_open'=>'1','token'=>$this->token))->field('id')->find();
         }else{
@@ -73,7 +73,8 @@ class VoteAction extends UserAction{
         $record = $t_record->where(array('vid'=>$id))->limit($Page->firstRow.','.$Page->listRows)->select();
 
         foreach($record as $key=>$value){
-            $record[$key]['wxname']     = M('userinfo')->where(array('wecha_id'=>$value['wecha_id']))->getField('wechaname');
+            $name   = M('userinfo')->where(array('wecha_id'=>$value['wecha_id']))->getField('wechaname');
+            $record[$key]['wxname']     = $name?$name:'匿名';
             $record[$key]['itemname']   = $this->_getItemName($value['item_id']);
         }
 
@@ -108,7 +109,9 @@ class VoteAction extends UserAction{
         $name   = '';
 
         foreach ($id as $key => $value) {
-            $name .= M('Vote_item')->where('id='. $value)->getField('item').',';
+            if($value){
+                $name .= M('Vote_item')->where('id='. $value)->getField('item').',';
+            }
         }
 
         return rtrim($name,',');

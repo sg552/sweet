@@ -59,7 +59,7 @@ FCAPP.HOUSE.PICSHOW = {
         datafile += 'picshow.js?';
         $.ajax({
             //url: './tpl/static/estate/js/picdata',
-            url: './index.php?g=Wap&m=Estate&a=load_album_pic&id='+PID+'&token='+TOKEN,
+            url: './index.php?g=Wap&m=Estate&a=load_album_pic&id='+PID+'&token='+TOKEN+'&wecha_id=no',
             dataType: 'jsonp',
             error: function() {
                 FCAPP.Common.msg(true, {

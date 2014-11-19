@@ -26,7 +26,7 @@ top: 1px;
 }
 </style>
 <div class="m-cart-e">
-<form action="{pigcms::U('Store/commentsave',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id']))}" id="commentsave" method="post">
+<form action="{pigcms::U('Store/commentsave',array('token'=>$_GET['token'],'wecha_id'=>$_GET['wecha_id'], 'twid' => $twid))}" id="commentsave" method="post">
 <div class="txt">
 
 <div class="give_score">
@@ -34,15 +34,15 @@ top: 1px;
 	<span class="grade pngFix"></span>
 	<span class="grade pngFix"></span>
 	<span class="grade pngFix"></span>
-	<span class="pngFix grade_off"></span>
-	<span class="pngFix grade_off"></span>
+	<span class="grade pngFix"></span>
+	<span class="grade pngFix"></span>
 	</div>
 </div>
 
 <input type="hidden" name="cartid" value="{pigcms:$cartid}" />
 <input type="hidden" name="pid" value="{pigcms:$pid}" />
 <input type="hidden" name="detailid" value="{pigcms:$detailid}" />
-<input type="hidden" name="score" id="store_score" value="3" />
+<input type="hidden" name="score" id="store_score" value="5" />
 <textarea cols="40" id="content" name="content" placeholder="请在此输入您的评论" rows="7" style="width: 100%;line-height: 20px;"></textarea>
 </div>
 <a href="javascript:void(0);" class="gobuy">提交评论</a>
@@ -82,9 +82,9 @@ window.shareData = {
             "moduleName":"Store",
             "moduleID":"0",
             "imgUrl": "", 
-            "timeLineLink": "{pigcms::C('site_url') .  U('Store/cart',array('token' => $_GET['token']))}",
-            "sendFriendLink": "{pigcms::C('site_url') .  U('Store/cart',array('token' => $_GET['token']))}",
-            "weiboLink": "{pigcms::C('site_url') .  U('Store/cart',array('token' => $_GET['token']))}",
+            "timeLineLink": "{pigcms::C('site_url') .  U('Store/cart',array('token' => $_GET['token'], 'twid' => $mytwid))}",
+            "sendFriendLink": "{pigcms::C('site_url') .  U('Store/cart',array('token' => $_GET['token'], 'twid' => $mytwid))}",
+            "weiboLink": "{pigcms::C('site_url') .  U('Store/cart',array('token' => $_GET['token'], 'twid' => $mytwid))}",
             "tTitle": "{pigcms:$metaTitle}",
             "tContent": "{pigcms:$metaTitle}"
         };

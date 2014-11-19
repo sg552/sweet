@@ -279,6 +279,7 @@ class SchoolAction extends UserAction{
         $rid     =   trim(filter_var($this->_get('id'),FILTER_VALIDATE_INT));
         $addtype=   trim(filter_var($this->_get('addtype'),FILTER_SANITIZE_STRING));
         $this->assign('addtype',$addtype);
+        $this->assign('rid',$rid);
 
         $where = array('token'=>session('token'),'rid'=>$rid,'type'=>$addtype);
         $count      = $t_reservebook->where($where)->count();
@@ -322,13 +323,14 @@ class SchoolAction extends UserAction{
 
     public function manage_del(){
         $id     = filter_var($this->_get('id'),FILTER_VALIDATE_INT);
+        $rid    = filter_var($this->_get('rid'),FILTER_VALIDATE_INT);
         $type   = filter_var($this->_get('type'),FILTER_SANITIZE_STRING);
         $res    = M('Reservebook');
         $find   = array('id'=>$id,'token'=>session('token'),'type'=>$type);
         $result = $res->where($find)->find();
          if($result){
             $res->where(array('id'=>$result['id'],'token'=>session('token'),'type'=>$type))->delete();
-            $this->success('删除成功',U('School/res_manage',array('token'=>session('token'),'type'=>$type)));
+            $this->success('删除成功',U('School/res_manage',array('token'=>session('token'),'id'=>$rid,'addtype'=>$type)));
              exit;
          }else{
             $this->error('非法操作');

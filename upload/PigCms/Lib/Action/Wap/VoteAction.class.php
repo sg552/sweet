@@ -3,9 +3,6 @@ class VoteAction extends WapAction{
 
     public function __construct(){
         parent::_initialize();
-        if(empty($this->fans)){
-            $this->error('请先完善个人资料再参加活动',U('Userinfo/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'redirect'=>MODULE_NAME.'/index|id:'.$this->_get('id','intval'))));
-        }
     }
 
 	public function index(){
@@ -30,7 +27,6 @@ class VoteAction extends WapAction{
         }
 
         $success = array();
-
         $vote_item  = M('Vote_item')->where(array('vid'=>$vote['id']))->order('rank DESC')->select();   
         
   
@@ -72,19 +68,18 @@ class VoteAction extends WapAction{
 	}
 
 	public function add_vote(){	
-
-		$token 		=	$this->_post('token');
-		$wecha_id	=	$this->_post('wecha_id');
-		$tid 		=	$this->_post('tid');
-		$chid 		= 	rtrim($this->_post('chid'),',');	
-		$recdata 	=	M('Vote_record');
-        $where   = array('vid'=>$tid,'wecha_id'=>$wecha_id,'token'=>$token);  
-        $recode =  $recdata->where($where)->find();
+		$trueip 	= ip2long($_SERVER['REMOTE_ADDR']);
+		$token 		= $this->_post('token');
+		$wecha_id	= $this->_post('wecha_id');
+		$tid 		= $this->_post('tid');
+		$chid 		= rtrim($this->_post('chid'),',');	
+		$recdata 	= M('Vote_record');
+        $where   	= array('vid'=>$tid,'wecha_id'=>$wecha_id,'token'=>$token);  
+        $recode 	= $recdata->where($where)->find();
 
 
         $t_vote = M('Vote'); 
-        $vote_info = $t_vote->where(array('token'=>$token,'id'=>$tid))->find();
-                  
+        $vote_info = $t_vote->where(array('token'=>$token,'id'=>$tid))->find();             
         
         if($vote_info['statdate']>time()){
             $arr = array('success'=>-1,'info'=>'投票还没有开始');
@@ -97,13 +92,24 @@ class VoteAction extends WapAction{
             echo json_encode($arr);
             exit;
         }
+        
         if($vote_info['status']==0){
             $arr = array('success'=>-3,'info'=>'投票已经关闭');
             echo json_encode($arr);
             exit;
         }
+        
+        if($vote_info['refresh'] == '1'){
+    		$r_where 	= array('token'=>$this->token,'vid'=>$tid,'trueip'=>"$trueip");
+            $is_voted 	= $recdata->where($r_where)->find();
 
-        $data = array('item_id'=>$chid,'token'=>$token,'vid'=>$tid,'wecha_id'=>$wecha_id,'touch_time'=>time(),'touched'=>1);     
+            if($is_voted){
+            	$arr = array('success'=>-4,'info'=>'禁止恶意刷票，换了马甲以为不认识你吗？');
+            	echo json_encode($arr);
+            	exit;
+            }
+        }
+        $data = array('item_id'=>$chid,'token'=>$token,'vid'=>$tid,'wecha_id'=>$wecha_id,'touch_time'=>time(),'touched'=>1,'trueip'=>$trueip);     
 		$ok = $recdata->add($data);
         $map['id'] = array('in',$chid);
         $t_item = M('Vote_item');

@@ -578,7 +578,7 @@ class StoreAction extends UserAction{
 		$num = isset($_POST['num']) ? intval($_POST['num']) : 0;
 		$gid = isset($_POST['gid']) ? intval($_POST['gid']) : 0;
 		$status = isset($_POST['status']) ? intval($_POST['status']) : 0;
-		$salecount = isset($_POST['salecount']) ? intval($_POST['salecount']) : 0;
+		$fakemembercount = isset($_POST['fakemembercount']) ? intval($_POST['fakemembercount']) : 0;
 		$pid = isset($_POST['pid']) ? intval($_POST['pid']) : 0;
 		$name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
 		$keyword = isset($_POST['keyword']) ? htmlspecialchars($_POST['keyword']) : '';
@@ -622,7 +622,7 @@ class StoreAction extends UserAction{
 		} else {
 			exit(json_encode(array('error_code' => true, 'msg' => '商品分类不存在')));
 		}
-		$data = array('token' => $token, 'gid' => $gid, 'status' => $status, 'cid' => $this->_cid, 'num' => $num, 'salecount' => $salecount, 'sort' => $sort, 'catid' => $catid, 'name' => $name, 'price' => $price, 'mailprice' => $mailprice, 'vprice' => $vprice, 'oprice' => $oprice, 'intro' => $intro, 'logourl' => $pic, 'keyword' => $keyword, 'time' => time());
+		$data = array('token' => $token, 'gid' => $gid, 'status' => $status, 'cid' => $this->_cid, 'num' => $num, 'fakemembercount' => $fakemembercount, 'sort' => $sort, 'catid' => $catid, 'name' => $name, 'price' => $price, 'mailprice' => $mailprice, 'vprice' => $vprice, 'oprice' => $oprice, 'intro' => $intro, 'logourl' => $pic, 'keyword' => $keyword, 'time' => time());
 		$data['discount'] = number_format($price / $oprice, 2, '.', '') * 10;
 		$product = M('Product');
 		if ($pid && $obj = $product->where(array('id' => $pid, 'token' => $token, 'cid' => $this->_cid))->find()) {
@@ -741,7 +741,7 @@ class StoreAction extends UserAction{
 			}
 			$key = $this->_post('searchkey');
 			if ($key) {
-				$where['truename|address'] = array('like', "%$key%");
+				$where['truename|tel|orderid'] = array('like', "%$key%");
 			} else {
 				for ($i=0;$i<40;$i++){
 					if (isset($_POST['id_'.$i])){
@@ -973,7 +973,12 @@ class StoreAction extends UserAction{
 						$total += $row['count'];
 					}
 				} else {
-					$total = $rowset;
+					if (strstr($rowset, '|')) {
+						$a = explode("|", $rowset);
+						$total = $a[0];
+					} else {
+						$total = $rowset;
+					}
 				}
 				$product_model->where(array('id' => $pid))->setInc('num', $total);
 				$product_model->where(array('id' => $pid))->setDec('salecount', $total);

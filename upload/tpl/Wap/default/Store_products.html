@@ -28,7 +28,7 @@
 		<span class="con">
 			<a class="t" href="{pigcms::U('Store/product',array('token' => $_GET['token'], 'id' => $hostlist['id'], 'wecha_id' => $_GET['wecha_id']))}">{pigcms:$hostlist.name}</a>
 			<b>￥{pigcms:$hostlist.price}</b><del>￥{pigcms:$hostlist.oprice}</del>
-			<span style="color:#999;font-size:8px;margin-top:15px;">{pigcms:$hostlist.salecount}人付款</span>
+			<span style="color:#999;font-size:8px;margin-top:15px;">{pigcms:$hostlist['salecount'] + $hostlist['fakemembercount']}人付款</span>
 		</span>
 	</li>
 </volist>

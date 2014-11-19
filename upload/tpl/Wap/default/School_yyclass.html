@@ -55,7 +55,8 @@
 
     <ul class="round">
         <li>
-            <a href="{pigcms::U('School/mylist',array('token'=>$token,'wecha_id'=>$wecha_id))}"><span>我的预约订单<em class="ok"><if condition="$count neq ''">{pigcms:$count}<else/>0</if></em></span></a>
+            <a href="{pigcms::U('School/mylist',array('token'=>$token,'wecha_id'=>$wecha_id,'rid'=>$_GET['id'],'type'=>$_GET['readtype']))}"><span>我的预约订单<em class="ok"><if condition="$count neq ''">{pigcms:$count}<else/>0</if></em></span>
+            </a>
         </li>
     </ul>
 

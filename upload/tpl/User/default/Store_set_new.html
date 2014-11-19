@@ -150,6 +150,10 @@ afterBlur: function(){this.sync();}
         <td><input type="text" id="num" name="num" value="{pigcms:$set.num}" class="px" style="width:100px;" /></td> 
        </tr>
        <tr> 
+        <th>销量基数：</th> 
+        <td><input type="text" id="fakemembercount" name="fakemembercount" value="{pigcms:$set.fakemembercount}" class="px" style="width:100px;" />(如果您不做假数据就设置为0)</td> 
+       </tr>
+       <tr> 
         <th>是否下架：</th> 
         <td>
 	        <input type="radio" name="status" class="status" value="0" id="status_0" <if condition="$set['status'] eq 0">checked</if> /><label for="status_0">正常</label>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -342,6 +346,7 @@ $(document).ready(function(){
 		var pic = $("#pic").val();
 		var intro = $("#intro").val();
 		var gid = $("#gid").val();
+		var fakemembercount = $("#fakemembercount").val();
 		var status = $(".status:checked").val();
 		var attribute = [];
 		var i = 0;
@@ -393,6 +398,7 @@ $(document).ready(function(){
 					gid:gid,
 					intro:intro,
 					status:status,
+					fakemembercount:fakemembercount,
 					attribute:JSON.stringify(attribute),
 					norms:JSON.stringify(norms),
 					images:JSON.stringify(images),

@@ -114,7 +114,7 @@ FCAPP.HOUSE.Picroll = {
         datafile = datafile.replace(/[<>\'\"\/\\&#\?\s\r\n]+/gi, '');
         datafile += 'rooms.js?';
         $.ajax({
-            url: './index.php?g=Wap&m=Estate&a=load_house_pic&id='+PID+'&token='+TOKEN+'&hid='+HID,
+            url: './index.php?g=Wap&m=Estate&a=load_house_pic&wecha_id=no&id='+PID+'&token='+TOKEN+'&hid='+HID,
             //url: './tpl/static/estate/js/data',
             dataType: 'jsonp',
             error: function() {

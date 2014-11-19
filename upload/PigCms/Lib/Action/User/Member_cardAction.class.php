@@ -18,12 +18,16 @@ class Member_cardAction extends UserAction{
 		$thisGroup=$this->userGroup;
 		$this->wxuser_db->where(array('token'=>$this->token))->save(array('allcardnum'=>$thisGroup['create_card_num']));
 		//总数
-		if (!$thisUser['card_num']){
-			$cardTotal=$this->wxuser_db->where(array('token'=>$this->token))->sum('yetcardnum');
+		//if (!$thisUser['card_num']){
+			$allcards=M('Member_card_create')->where(array('token'=>$this->token))->select();
+			
+			$cardTotal=count($allcards);
+		
 			M('Users')->where(array('id'=>$thisUser['id']))->save(array('card_num'=>$cardTotal));
-		}else {
-			$cardTotal=$thisUser['card_num'];
-		}
+			M('Wxuser')->where(array('token'=>$this->token))->save(array('yetcardnum'=>$cardTotal));
+		//}else {
+			//$cardTotal=$thisUser['card_num'];
+		//}
 		//
 		$can_cr_num = $thisWxUser['allcardnum'] - $cardTotal;
 		if($can_cr_num > 0){

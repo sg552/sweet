@@ -182,9 +182,7 @@ function setlatlng(longitude,latitude){
 	<div class="control-group">
 		<label class="control-label" for="mp3url">背景音乐</label>
 		<div class="controls">
-			<input class="px" name="mp3url" id="mp3url" value="{pigcms:$wedding.mp3url}" id="suicai4" style="width:300px" onchange="document.getElementById('plmp3').src=this.value"> <a href="###" onclick="upyunPicUpload('mp3url',0,0,'{pigcms:$token}')" class="a_upload">上传</a>&nbsp; <a href="###" onclick="chooseFile('suicai4','music')" class="a_upload">选择</a><br />
-		
-			<audio  id="plmp3" src="" preload="none"></audio>
+			<input type="text" class="px" name="mp3url" value="{pigcms:$wedding.mp3url}" id="mp3url" style="width:200px;float:left" onchange="$('#plmp3').attr('href',this.value"> <a href="###" onclick="upyunPicUpload('mp3url',0,0,'{pigcms:$token}')" class="a_upload">上传</a>&nbsp;<a href="###" onclick="chooseFile('mp3url','music')" class="a_upload">选择</a>
 		</div>
 	</div>
 	<div class="control-group">

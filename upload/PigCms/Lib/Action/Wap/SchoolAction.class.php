@@ -228,10 +228,11 @@ class SchoolAction extends  WapAction{
         }elseif(isset($readtype) && $readtype == 'course'){
            $t_res   = M('reservation');
            $t_book  = M('reservebook');
-           $where3  = array('token'=>$token,'type'=>'course','id'=>$id);
+           $where3  = array('token'=>$token,'type'=>'course','rid'=>$id);
            $infolist= $t_res->where($where3)->find();
-           $where4  = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>'course');
+           $where4  = array('token'=>$token,'wecha_id'=>$this->wecha_id,'type'=>'course','rid'=>$id);
            $count   = $t_book->where($where4)->order('id desc')->count();
+
            $this->assign('count',$count);
            $this->assign('reslist', $infolist);
            $this->assign('readtype',$readtype);
@@ -331,7 +332,7 @@ class SchoolAction extends  WapAction{
         $type      = trim(filter_var($this->_get('type'),FILTER_SANITIZE_STRING));
         $check     = trim(filter_var($this->_get('check'),FILTER_VALIDATE_INT));
         if(empty($check)){
-            $this->error('抱歉,请输入验证信息后在查看!',U('School/index',array('token'=>$token,'wecha_id'=>$wecha_id)));
+            //$this->error('抱歉,请输入验证信息后在查看!',U('School/index',array('token'=>$token,'wecha_id'=>$wecha_id)));
         }
         $where = array('token'=>$token,'wecha_id'=>$wecha_id,'type'=>$type);
 

@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html><head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>{pigcms:$tpl.wxname}</title>
-        <base href="." />
-        <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="format-detection" content="telephone=no" />
-<script src="{pigcms::RES}/css/guajiang/js/jquery.js" type="text/javascript"></script> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{pigcms:$replyInfo.title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta charset="utf-8">
 <link href="/tpl/Wap/default/common/css/yl/news.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="/tpl/Wap/default/common/css/flash/css/plugmenu.css">
-    </head>
-    <body onselectstart="return true;" ondragstart="return false;">
+</head>
+
+<body id="listhome1">
 <div class="Listpage">
     <div id="todayList">
 <ul  class="todayList">
    <volist name="list" id="so">   
 <li>
 <if condition="$so['url']">
-<a href="{pigcms::U('Panorama/item',array('id'=>$so['id'],'token'=>$so['token']))}">
+<a href="{pigcms::U('Panorama/item',array('id'=>$so['id'],'wecha_id'=>$wecha_id,'token'=>$so['token']))}">
 <div class="img"><img src="{pigcms:$so.frontpic}"></div>
 <h2>{pigcms:$so.name}</h2>
 <p class="onlyheight">{pigcms:$so.intro}</p>
@@ -26,6 +27,7 @@
 </a>
 </li>
  </volist>
+
 </ul>
 </div>
 

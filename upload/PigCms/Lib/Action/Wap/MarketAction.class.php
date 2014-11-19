@@ -310,7 +310,7 @@ $this->assign('catemenu',$catemenu);
 
 			foreach($slide as $key=>$value){		
 				$flash[$key]['info'] 	= $value['slide_title'];
-				$flash[$key]['url'] 	= $value['slide_link'];
+				$flash[$key]['url'] 	= str_replace(array('{wechat_id}','{siteUrl}'),array($this->wecha_id,$this->siteUrl),$value['slide_link']);
 				$flash[$key]['img'] 	= $value['slide_url'];
 			}
 

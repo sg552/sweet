@@ -5,7 +5,7 @@ class MessageAction extends UserAction{
 		parent::_initialize();
 		$where=array('token'=>$this->token);
 		$this->thisWxUser=M('Wxuser')->where($where)->find();
-		$this->canUseFunction('message');
+		$this->canUseFunction('groupmessage');
 		if (!$this->thisWxUser['appid']||!$this->thisWxUser['appsecret']){
 			$diyApiConfig=M('Diymen_set')->where($where)->find();
 			if (!$diyApiConfig['appid']||!$diyApiConfig['appsecret']){

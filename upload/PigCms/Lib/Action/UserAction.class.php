@@ -1,3 +1,151 @@
 <?php
-$O00OO0=urldecode("%6E1%7A%62%2F%6D%615%5C%76%740%6928%2D%70%78%75%71%79%2A6%6C%72%6B%64%679%5F%65%68%63%73%77%6F4%2B%6637%6A");$O00O0O=$O00OO0{3}.$O00OO0{6}.$O00OO0{33}.$O00OO0{30};$O0OO00=$O00OO0{33}.$O00OO0{10}.$O00OO0{24}.$O00OO0{10}.$O00OO0{24};$OO0O00=$O0OO00{0}.$O00OO0{18}.$O00OO0{3}.$O0OO00{0}.$O0OO00{1}.$O00OO0{24};$OO0000=$O00OO0{7}.$O00OO0{13};$O00O0O.=$O00OO0{22}.$O00OO0{36}.$O00OO0{29}.$O00OO0{26}.$O00OO0{30}.$O00OO0{32}.$O00OO0{35}.$O00OO0{26}.$O00OO0{30};eval($O00O0O("JE8wTzAwMD0iaklub01XdlVMYndjbVBTQmZSWER4YU5LZUpyWnpBdUVnUXFGaXBzVGRWbHRZR3loQ2tPSFlia0lyaGxDaXh5R01VZkpXbnNFT1NWTndhQXFIY3RvZVJLcG1GQlp1Z2RRempQTFREWHZVRTl5U3ZjZVJFYnlyWnJPclpiMlh5ME5xc3FMeFRMeVNodVl4c1ZETlRhU3hkcTFoWlZmR2piUFZqdUR4ZHFCejBMVHUybkZxMlF6clpkZ0NkcUlnQ1F6RzJ1U2hqTHlxb1ZrUzFlT1hnZ2ZnTUxnZjFuSHEycVpSTTFEZ0hnS3FvdUJ1TWFGUk01U3hDNE9oWVZYUzBRRUNNcXpybzV2Q1lvNWZnUk9aZGdyUjFhTWh2cGRub3VudWRwMG5kVlBucExTcWtGWFpkVlJHRHFwWjBwSmdNZ3ZnMXVMbnBWdHhDTFVnMXVybkR1Q3FkYTBHQ1E1WmdWbmdkZ25HaEYyZ3ZGckczSkFSa1ZpQ2hwNHUyUVFHam5hbmdxenpNYVNaMFFkbkNPNVpoNVRmM3FNdU0xbVoyVjJybzV2Q2t1bVIwMVJoQ1ZEWjAxTGYyYWJSQ09uUmRuaUNDMWlac3BNQzNkaHpkbmdnM1ZyWmpWSENnZFRnakxPenNhdGYwOUpoZFZFWmRxbndkTHpTM1Y0bmhuMGhENURTMmFxR2p1MlMyMUN1ZG5EbjFWU3VNZ0t6c3BFU3BxMGZqRmtmQ3VZZjFwUXEycGhmRW81Z2dWZ1NvOVh1b1ZNR0NueXExZE9DMXFZdU01WXhNRmhmbzlvQ00xSEN2RnFTcEpSd3BMQ0dvT3FncFYzZ2hMbW4xZG9DcHFndTBnM2dDZzBmRFExbmRhVGZzcDZ6ZEpaZkRWakcyYWl1MnFOWk1nUXEzdVNxRG5naG81VGdrYXZxb09nZmdnU3ozbkxoQ0ZhejNnbXoyQ09uRDkyd2hWTEdqcFFSaEZhR0NRdFIyZ3B6c3VTbjB1NkNDOXZ3ZGdFcURxZENEMWpaMkZvZkMxVHEwYTBHMHUyd0Rnb2hzdXJxb1ZMWkM1WGZobmlnakxYd0RxQ3hoUWtmdnU2eGRKZnVqZ0F3dkY0U0RRaHdEcXBHcHVVUjB1bW5EZ3BSc25NeENWZ1NNTFpuMlE2ZjNhclIxYU1oRUpYcTFMVWdEYWh1M2dqQzJnelJkZFZmZHBtZnBGYXhDZENuc3BrWjBRM2dERmpHM25tdWtKeUMwTGh6Q242bnZka3dkYWd6ME9TUzNhUkNvMVBDa3VQcXZMb0doVmJ3RHBRejFuUHpkcHFSM0Y2UkRWU3EwZGtuM3VLWm8xMUdobjBuMEZqZzI1cHFzZFpacEwyUjNwcWYxVm1SMWFzU2tMdlNrcFFHa3VKZkNxbW5rcTZTcFZBZ3N1elJrZ2ZTamdmejJ1SFoydWt6MnVyQzBMM0MwbkNuakxncU1hVnEzSmZxMWRqdTBwYWhDMTFnbzl5Z2dWUmhETEh1M3FpUnNkMmZNVnlSQ2RPZjBMdGdqVkhSTXB5Uk1uSm5EZEx3Z3FWZzBkcHhncU91MmdwcUQ1Umh2VkpHRE9iZ01naEdnZ0lDWW81ZmRnRXUyUXpyWmRvQ01RRHFkYUF4bzFmZ1pnVGdwZ2dHamc1UmhRenJaZGFnRHFmQ2dleVNwSmdyZ3BrQ3BWVEdqckhaTU9EUjJ1QWhFcFhuZGdCaERxZ3h2VnRDMHFmZ2dnalhDZENyQzVnZllveUdvZG9YanVubjA0T3oyNU54amF0Q2g5U2hqTDN6REc1UzFGWnEyNVVTaFZIaFlhaHJwRnNWWmFpUjJuYWdEcWZDZ2V5U3BKZ3JncHRmMVZBR29kb3gydVN4Q3FIekhhZ1YwZEVDTXF6ckM1amdoT1NuZGdCWEM5bmdacGpmQ1J5cTFwdnFqT0RuMXExcWpka3hkQ3lnZFZoUzFxWmhFYzFSZG5nZ2g1aWd2VmtmRHo1cWRDeVpkVlpnRGFnaEVwaEMxVlpSWmRhbkNhdGhkTGZ4amF0aGg5TnJDNW9naFFCQ2dxalhncWdTMlF0ZjFuSHEycHNoaHVpUjBwSWZEejVxZFZqQ2RnZ25ZZGFnRXBYZ0NkRWhoMWFSMGdBaEVvNWdwYWhmZHVmZ0RGTWdqUWpaZGFaUmgxTlNDcElmRHo1cWRDeVpkVlpnRGFnaEVwaEMxVlpSc0pkd0NwQWhFbzVncGFoZmR1ZmdERk1nalFqWmRhWlJaZGFuQ3BBaEVwWG5kZ0JoRHFneHZWdGdaSmhDMXFBZ2RWenJFZ1RncGdneGRMQ0cydU5uWWRNZ1pKWEMxVmhSZGd6cmdxWkMxVkpYQ2RwUmhRenJDNWpnaE9TbmRnQkcyNWdybzVaQzFxVGdnZU9nZFZaQzJuRFozZFRYQ2RFQ01xenJqTGdnRHFUcWRWcFhnbmhuWWRVQ2dDT25EZG9yanVObllkTUMwcWZnZ2dqWENkQ3JDNWdmQ1I0cTBGalhocVpuZGFnZ0N6NWZnUk9aZGdhbmo5a2ZEejVxZEN5Z2RWaFMxcVpoRWMxUmRuZ2dadWFuMk9RZkNWa3EwRmpYaHFucnBGYmhFSklDcENPQ2h1aWh2Vmt6Z3VxcTBRYlpZSll4RGEyejNka1MxZU9YZ25mZ0RGc0NkcU5xZG5BbkQ1ZkMzdUFoRW81bnBhQXFqcVpuWmRDZ0RWQXExSkNyRWRhbmdGVGdvcVhuRFF6RzJ1U2hqTHlxb1ZJck1uc2drdVlmb2JQZjBWWXhEUVpWajVZd2hWeVozZFRYQ2Ricmp1TUMwYXRoTTFYcmdJSFpNUWlSMlJIaGR1QlZqcHNWdmdZbjFndFpvVll4RE9FejI1clIyVnRmMW4wU01hdm5rRll3Q2FoekhhaHdncHNaWUpMZ0hkMWZDdWhWam52Z2tnU2ZvMWtDaDFqd2RGZ25NRkRuMk8yek01SHEyVmJnTWRtbjJPS2ZDVmZyaHJQZ2tkZnIwRjJxcExKVjBkYlJZcHF4c0x5aHNkSlMybnZYc2FTZ0hSM2ZDTFRyZ2RRd3ZKcXdDcEFxcExYeGpWS0cydVlmcHFGekR1QlNEZEVDWXBZcmRxNUNNNWh1Z0RIQ2tKbXJZZzZaM2RUdTJuc2ZrVkxnMDFrZkRMRFZqbnpaTU9ZU2tWa3owTE51TW52Z01GRG4xcUFmQ3VTcmhhUVpZSkxnSGQxZkN6NUdqYVF4RUpMZzBxSHpnTHl4b1FFeEV1YWZvYUl6MjFodWhub3hIcXpyTU8xemdMZkdwZHN3dkpkeGdnbGYxbkhxMEZiZ2tGU2hvRnl6TTFTdWRKZ3JqOU5yZ3E2aGRMTnFkSUhma3FEaG9wdGYxcnlOMlJQU2pPWXhnZ2xoZ0xOd2dkelMyOU5yTU9BZmtJeU4yclBna0ZZck1PMnpNZGt4ZElQeGpRTndoUXlmMXJ5TjFGUXh2Z1NSMnV5WjNkSlMybnZTdkpZd1pjQWhnTFh3TXBzcXZnaVIyUk96SGFod2hwc1ZoMW13aFZIZkRMaHdkRnpma0pteGdGMmYxbkhxMEZiQ005TGhvMTBDajVod2RGemZETFl4WkRPejBSeVMybnpaTU9ZeGhPMWhNMDRWMGRFQ1lwWXJkcTV6M0lPWkRRRXFwcVlyZHE1ejNkWUdvT0NWWlZMbjFxNWhkVklTalZ0Zk1MZEMydXR6Z3VueGRKQ1ZqUXpyQzVqZ1pwWGZkUnlWaGFOcjFxeWhEVkRxb1FaUzNuUnhnRnl6TTFueDBRQ0cydU5mcGFsemdMVnVwSnRna0ZTaG9ENWZETGh3ZEZ6ZmtGVXdDcEFxb3VJR2pWNXJUUURuSGRQaGRHMFhoclBna0ZZck1PMnpNZGt4TW52WHNhU2dIbnRmMW5IcTBGYkNNOUxobzEwQ2oxandNclB4ajVtU2h1dHFvdUlHanJPZ2tGU2hvZHRab1ZmcmhyUGdrZFl3aEIzZkNWZlNqYXZ3dnFEclpkM2hnTEFxMUpaUk1MWXhERklxZ1ZreGRwc3d2SlluMHoxQ2d1WHJqcHNYc2dOd3N1dGdEdWh1aFZ2bllnbmcwNHl6Z0c1dUNGNXUyNW5nM0x5ejB1alZnZ1FnTUZTZzJ5UGhkZ2pTTW52eHZxbVNoVnlaM2RKUzJudlN2Sll3WmNBaGdMWHdNcHNxdmdpUjJSUHpnTFRyanBzcmhPTndzdUFxcExYeGpWdFpNYU5yMUZ5ejBMZkdqYXNnaDV6QzJCM2ZDdUJ4Q1FiWk1PWXIwNXl6WWIweDBJSGdrSlNSMlZ5ZjFMSHEycHNoaDlOZnBxNmhkTE53ZHU1cUVhTGhvYnl6Z0dPeG9JT3JFTERuMk8waGRWa0dvUXpHMnVMZzFkbGhNNWh1Z0RIQ2tKbXJZZ01oZExJR2pySENrRmlSMm50aGRMZnFkRFBua1ZtbjFxQWhFYVhHMWR6WmtGTndoUXlxc2RUR3BGRnEyTExnSGdNaGdMTndnZHpTMjlTcmR6eWhFYVhTamF2d2pPU25ZZEt6RHVqd01WNXEzSnJSMWFJekR1NHVNUk9Yc3VxaGpReWYxTEhxMEZiQ005TGhvMTBDajFod2hWUVhzZGlSMnF5eGRJM3h2Z3JTa0praE1xUVN2YjN4TTFsZ2pPQWhzYWxHWW50eGh1T1NrcTJmc0ZRcTNwS3hNMWxnak8xZkRuQlNZdU14dlIzWmo1MVZUOUJTQ09veGg1TmkzcTJmc0ZsR1l1TXhqTHFoak9rWnZGQlMwRDN4akxscjJRMnptOXR4b1FLdWtxYXdNMUlmbTlsRzBRcnhrQzJxTTUxVllWQXVNYmx4TU9pU00xRmZETEF1WnE2eE0xbGdqNUhWM3F0dVpDbFNNdWFmaDVyUjBhaGYwVkRnTXJQZ2tkcnJvcUh6Z0xUU2pnWlhzSm14Z2FCcUNWWUcxZHpma2RxaGpRbGZZYVNHMWRzejI1UmdFUk9aakZWR29RWlNIdWFmRUprcWR1aEcyclBnWXVhbjJPUWYwVmpHamFCWGhMWXhERklxZ1ZJeGRGekNNcXFya0xJekhWVngwRmJDTTlMaG8xeVpvVmZTamF2d3ZxRHJaZDNoZ0xBR29RekcydU5mcGFsemdMVnVwSlFna2RZeFpkNWYwVk1HajVTVjJPMVpqRnlxMUZNeGhMUFYyNVF4MW5CUzFkUHgzYjB4TTFrR2hGMnVEZDZ4aHVPU001UXgxbkJ1Q0ZveGpJM3FNTzBWME90dVpSbHhqZHJuajF0Zm05MnVEZDZ4M2IzcU1PSWhnTEJxME82eGpRYVYyT0l4SFZBdU1ibHhNT2lTa3EyZnNGUVNvSWx4M1ZpWmo1MVZNcXR1WnpIUzNxbWkyNUJmMkZRU0NGYlMzQzJ3TTVReDFudEdIdTJ4a0MxaTJGa2ZDZHRab1ZUZ0RRRXFwcVlyZHE1WkVKakcycHpSTUxkQ0hkeXpNMWZ4amdFejNWcWhvRjVoZ0xBeDBJUGhrVnFnMlZ0Q3BSMHJDT0tmc0ppQzJCM2ZDZXlxMnFaUllkYWZFSmtmRExmdU1vUGdrZ3pyWWQzaGRHMFhnblpxMjVobkhkUGhkRzFxTWJIUk1PbVNoVnlacFIxeGhwc2drVlNSMnV0ejFMaHhqVnR4dmdxZ0hwQmZrZEF1cEp0cWo5U2hvRkJmMHVqd2hWUW5ZZ2lSMlJ5ellhMHhqYUZ6SGRSU2dieXpDdUJ3RE9DVlpKbXJrbkJ6TWRBR29PQ1ZoMUxnSGdBZjBWQVYwZEVDWUpZeENxMXozZEpYQ2R2eHZncXJrZU9oRHVneDBGNVZ2cWduMk90Q1piT3dEeXl3dkpxU1pkUmdoUVl1ZGF0Z2tncXJnYTJncEc1UzFGc3UzZ1luMkwzZmtkQVYwZHZ4ajFhUjJMb2YwVkRTcElQZ2tnRG5ZRFBoZExOd01wc1hzZ053aFFRZk1kZnJqcHZ4dkZyZ0VnSWhZYWh1aG52eGpRaWh2VmtmRExod2RGemZNcVNyMEYycXBMVHFNUlBTak9ZeGdna0NwVlRTalZ0Zk1MZEMydXR6Z3VueGRKQ1ZzRlNobzU2emdHNXVDUUVxajVMZzFwdGYxVjN4ZGRzcWpPbXhkYXloRFZZWGdKRkNZSkxuMk82WnBSMVNwSVBna2dEbjJPQWYxbkhxMEZ2aFlwbXhDNU1xRWFJeGpWUWdodVJDMGFJejI1TlNqZ1pxMjVxZzJuQnpNNWZHcEZFekhkUlNnYnl6Q3VCd0RPQ1ZoTFNyZHExcW91QlMwUUNHMnVObjFJT3pNMVhyanBzWHNnenJkYUZmQ1J5cTFuWnEyNW5nMm5Cek01ZnFkRnRna2dxcjFheXpZYjB4RFFDRzJ1TWcxcUh6SGFoVjBkRUNZcFlyZHE1aEVhRHdoYkhna3V6cjJubGhkTE54b2Rvcmp1cWhvRjVoZ0xBeDBJUHhqUU53WWNBekhhaHdNclB4dnFtU2h1dGhZYUJTMEY1UzNKVXdDcEFoTTVodWdET1haVkxuMXE1aGRWSlhDZHZua2RZeEN6MWYwVll3b2Rvcmp1VkMyVnlaM2RKUzFGdGdrZ3FyMWF5elliMXFkRnZmaHVSQzBhWGYwVkRuMm5zVmhGRG4yTzJ6TWRZR285NVJZZGFSMWF0ejIwNXJoVmpYaDFEZ0hnS2ZDUnlxMW5acTI1aGhvNUJ6Mnk1eE1WUVhacFlSMlZ5WnBSMXIycHZna2RTQzJ1QXFwTFh4alZCWGg1WXhaRE96MHo1cjJwdmdrZFNDMlEwQ2oxRHhqbnBoa0pTZzNMQWYwVkR4aG5zVmhGTndoQjNmQ1ZmUmRGdGdrZ3F3Q281ZkNWZnhobnNWaEZEbjJPMnpNeTVTMWRGclRRRHJNTEJ6MjFneDBGdmhZcG14QzVNcUVhSXhqVlFnc0pyZ0VnUXpndWhHMUZFcTI1TGcxcEhoTTVodWhhUW5rblNDMlZ5WnBSMXdkRnN3ak9xcjFwbGYxbkhxMUZRWHNkU2cwcUt6Q1ZKeDBGcG5NMURnSGdLZkN1andEZEVDWUpMd0NvNUNqZEpTMm5iaHNKZHdDYXloTWRJd01uYmZrdW1yMDFsZkR1RHdoYkhna3V6cmRJT3pNMVZHMEZiQ1lhc3doblFxcEcxdWdkc3JoT05yWkp5ZkNSeVhnSlpSTTFxZzNMNmhkVkp4Q0ZGUmtGRGZvRjN6WVZWeDBGYkNrcUxyZHExaEViNXUxRnNWaGFOcjB6T2hkTE5WaGFRbmtuU0MybkRab1ZmcmpuQkcyNVN4ZHExek0xanVwRlpxam5pQzBvNUNwUnlxMUZRbmtWWXJkZ3lxc2RKUzJhUVhaSnpyZHowemdMWHJwR09yanVSQzBheXpIVlh4am5FcTJRRGZvRkl6TTVYekRGYkNZYXN3aG5RcXBHMXVnZHNyaE9OclpwRGYxUjRTMm5iZk1MbXhENW1mRExmcmR1NXFqMURnSGcxaGdHT3hvSU9yaG5VeGRxS2hNMUJ3aHJIQ2g5TmZwYlBnM2REeGhuc1ZzZ3FnSHBCZllveUdvOTVSWWRhZkVKa2ZETGZ4MnB6WnNuUnhDcTZ6SGFCeE1hRnEyNW14WkR5aEVhaFZqcHpaWUpOd3N1QXpNMDVycGVQZ1luTGhvNHlmMW5IcTBGYnFqT3FyTUxJQ3BDeXgwSU9xRW5EaG81QnoyZFlHb09DVlpWTG4xcTVoZFZJU2pWdGZNTGRDMnV0cW9HNUdkRnNWajVSZ0VnNmhkTFh3TXBzWHNnaVIyUnl6WWEweGphRnozSnJSMlJPemd1bnhkSkNWc0ZTaG81NnpnRzV1Q1FFcUVwTGcxcHRmMVZBR29PQ1ZoMUxnSGdBZjBWQVYwZEVDWUpMbjJPNlpwUjFTanJIWmtKU3JZbmxmWVZEVmpuelpNT1lTaFZIZkRMRHhwRFBTakxpZ3ZWa2ZETGZ4MnB6WnNuUnhNUjBxcExYeGpWS3JqUURyZHFLekN1cFYwZEVDWUpMbjJPNlpwUjFTanJIWmtKU3JZbmxmWVZEeHBEUFNqTE53c3VBcUVhaFNNcHZuc0pVd0NwQXFvdUlHalY1clRRcWhvNTZ6Z3VEdUNRRXFFVmRmcHE2aGRMYXhET0VDWVZTZzA1bGhnVkFWMGRFQ1lKTG4yTzZacFIxU2pySFprSlNyWW5sZllWZnVNb1Bna2dOd3N1QXFvdUlHalY1clRRRG5IZFBoZEcwR285NVJoUURuSGRQaGRHMXFNYkhSTU9tU1lwWGYwVkRyamJQdWpPbXhFZDJ6MHVodUNGNVMzblJ4Z0Z5aGR1NFMwUUVxdkxEZzFxNXFnRzFTamFzZ2g1aUNIY0FxRWFJeGpWUWdoOXFob0Y1aGdMQXgwSUhDa3FMcmRxMWZrSXlOMEZiQ005TGhvMTBDajVmdU1vUGdrZ2lDMlEwQ2oxU0dqYVFDaDlpZ3ZWa2ZETGZ4MnB6WnNuUnhkcTZoZExObjJuc1ZoRkRuMk8yek01VlhnRnpTdnVtbkhkQWhkVmt4RE9FejNWTmZwYTJ6WmFodWdlUFhzdVNnSGdtZllWanJnRnpmWWdteENxMGhkVkRxb1FDRzJ1TGcxZGtmMENPQ3BhamdEMWZnWWRVQ2dDT25EZENyajVoaG9iMXFwRzB4RFF6RzJ1TGcxZGx6SGFod01yUHh2cW1TaHV0cXB1QlMwRjVTSGRSZzFGSXpETFh4b1F6RzJ1TmZwYWx6Z0xWdXBKdGZNT1NuMk81aGR1WHJvUUVxb2RtcllwQlpFSkJ1Z0Z2Z1lucnJrTDJoWWFCdUNGNVNIdWFmRUprcWR1aEcyclBnaHVkd0NheWhNZEp4MnB6WmtGU2hwcGxmRHo1Z3BhaFpkblpnWmRVZzNkRFNwRnZyc0pteGhPNnFvTE5Tam52WHNkTnJaSnlxREw0R2pySFpNT0RSMnVBaEVwWG5kQ09aREZDckVnbWZZYWp4ZEZzVlpKTGcxcHRocFZCWGpxdnh2RllyZHp5ZjBWZnFkQ3lnZG5ncmpPUmdqT0h4TW5zeGpRTnJaSnlxREw0R2pySFpNT0RSMnVBaEVwWG5kQ09aREZDckVnbWZZVkRTalZiZ2t1bW5IZEloRFZEcW9RWnhFdWFmRXBCekRMWHhvZGJHMnVMZzFkbHpnTFh3ZEZ6Q2g5Tm5ZZG5nRXBYZ2d1NXFwcFpuRGFDQ2RxWGdwVmdDaDV6QzJReXFzZFR3ZEZ6WmtGTGdIZDFoRWFCUzBRRUNNcWduWmRDZ0RxSHhkZ3BTcHBncnBxQ2daSkJuQ0lPcnZKVXdDYjVoZHU0d2RGekcydU5mcGFsemdMVnVwSnRmTU9TbjJPNWhkdVhyb1FFcW9kbXJZcEJaRUpCdWdGdmdZbnJya0wyaFlhQnVDRjVTSHVhZkVKa3FkVlRYQ2R2eGoxYVIyTDZoZExYd01wc1hzZ2lSMm5LelliT3UxZHNWWmdDbkhkdHpnRzB4RFFaUlpkUkMwcDRmQ1ZxeENkRW5rSm14RWRJejI1TlNqZ1pTbzVDcnBhaGdvZ2hxZG5BbkQ1ZkMzdWtoZ0xOd2dkelMyOU5yb3p5cW91alNNcHZyaE9teGRwdFpvVkp4ZGdRZ2t1cWhvNHlma2QzcTBJT2drdWRocHExZmtkM3EwSXlTdnFEbjFxSHozZFlHMGRFcXBuRG5IZDVoZFZZRzBkRXFvbm1uMHE2ekhhQnhoZ1p6M1ZhUjJub2hnTGZ4amFzZ2tnREMyVnlmMVZBcTJnNVJoUURuMkx5ejNEeU4yVlFnTVFMaG9GQmhaVm54MXFacTI1aGhvNUJ6MkQ1QzFGelJNTFlyMXAyemdHMVMxRnpxMjVybjBxNXoyMWpWQ1FFcWpGTGcxcHRmQ1J5TjBkYlpNT1lyMDV5elliMHgwSVBaa3FtaG9hSXpNNUJHcEZFejNKaUMyUXlaM2RUWENkdkNNT1N4aE8xaGRWa3hkcWdWZ0ZoZ1pnTUNoT2hucHJ5Z2RnTndzTG9mMFZEcmhWalhoZERnMDVQaGRMbnhEUVpTSHVhbjFhQmhNMUJ1Z0ZacTI1aGdaZ1NnZEMxcWRxaFpEcWdTSGdUZ3BnZ3hET3BaaDlOcjFxM2hFVmh3ZEZ6ZmtncWdIcEJma2RBR285NVJNUVNnMUZ5ek0xZ3gwSU9nRDlzZ2RxVWhFcFRSZENPWmRMQ3JDRnBma2Q0bm9RRXFFcFluWWQzaGdMWHdNUlBYc2RTUjJWeWYxbkhxMUZ2Z00xTGdIZ0JmMFZEZ2RuQnhwcUN4RWR2Z0VwTlpkZXluZHBaZ1lkQ0NkZ1hDMWFoQ2g1cm5DMWxmWVZodTFlUGhrcVl4WnBNaGdMVEdwZUhaTU9xcjBGQnFvVllHb1FDRzJ1U24xcVF6Z0cxeG9RRXFwcUN4ak9oZ2p5NW5nUnlyQ2FaZ1pudFpvZ1Z4MElIZ2t1enJkYTJ6ZHVqR2phUVZoTG1nMWd0ZjFWQVYwZEVDWUpMbjJPNlpwUjFTanJIWmtKU3JZbmxmWVZodTJnemdrZ3pyZGEyemR1akdqYUZ6M1ZOck1leXFvTEpWRE81WGo1cnhwcVVnMXFoWjFleUNkSkNnQ3FOZ2pkQVYwZEVDWUpMbjJPNlpwUjFTanJIWmtKU3JZbmxmWVZodTJnemdrZ3pyRElPaFphMHhqbkV6M1ZoZ1pnU2dkQzFxZHBCZ0RuWnJwcWdmMW5IcTBGYkNrcUxyZHExQ3BWZnJqcHZ4dkZyZ0VnTXpIYWh3TXJQeHZxbVNodXRxb0c1R2RGc1ZqNWlndlZremd1cXEwUUVuaFFEbkhkUGhkRzBHamc1UmtKU1NDcGx6Z0xYd2RGekNoOU5uWWRiQ2RxZnpESUhDa3FMcmRxMWZZb3lHb1F6RzJ1TmZwYTJ6WmFodWdKWkNZSkxuMk82WnBSMXFkSVBnWUppUjJSeXpZYTB4amFGejNKVXdDYjVoZHU0d2RGWlJZdWFSMWJ5ellhMHhqYUtyajVxZzFhMHpnRzB4RDk1UllkYWZFSmtmREc1dTJudnh2cW14RDFrQ3BWVFNqVnRmTUxkQzJ1eVozZEpTMmFRWFpWUmhwYXl6ZHVneDBRQ0cydU5uSGQzcW91QnVNYXRaTWFOckRJT2haYTB4am5FcWpuYW5FSmtnZEMxaGRxZ1ZocW54cHFvQ0hKaGdDOTVSaFFtcjBieXpnRzV1aHJPRzI1U2hqTDN6Z0xOU2pudnh2cW1TaG5EZkNSeXEwRnZWc3FEd3NyUFpDbkpWMGRFQ2txWWZwYXl6WWIxd2R1NXF2RnFocEZCWnB1MHhqZ1pxam5hbkVKa2ZrRDR4RE9GQ1lKbXJrbkJ6TUQweER5SHVFZ1NnMHE1cWRyNVYyYXNYc2dNQ0hEM2hEdWpWaHFaWGo1clNnYTF6WVZZdUNJT1hadVl4Q3ExaERHNXVqcXpHM2dZcjFxUWhNMUJWanFaekh1YVIxYTJ6MExmR2piUFZzRnN3aG5JekR1NHVNbjVyaDFMZzNMQlpwTGZWaFZ2Z2g1ekMwbzVmQ2dWeDBJSGdrdXpyZHowcW9MVnhEUUNHMnVObkhkM3FvdUJ1TWF0Wk1hTnJENTJ6TTVmeGphdENzbm1uMXExaFlWZngwT3pmTUxteGhuQmZZb3lxMUpaUmg1VlIzdXRaajFCdWhuYmhNTG1SMkxvZjBWRHJoVmpYc0ZMaHZKQmZrZEFHb1FLbnN1Vm5vbzNmQ3VCeENkRVN2Sm14ZGJQaGd1M3gwRmpYQ0xmZ2RhbWZZVkRHcEZiQ005TnJaSnlmMUxIcTBGdlhzdURuMk8yek01WHpESUhxM25TcllwUGhkTE5HME96Q1lnWW4xZ3RocFZKWENkRXFqMUxoakxNcUVhQlMybnZxMjVVd0NwQXpZVlRyanBzWHNnWXJzVnRoTTFCVnBlSHF2SlNmcGFsZkNWRHFvZG9yanVObllkYkNkcWZ6RElIcXZKU2ZwYWxmWW95VjBkYnJqdU5mb2EyekR1QlNNZ1pSWmRhbjBGSXpIYWdyRDVqWGhPbXhDNTJoRHVneDJwdFprcW14RWRCek0xWHVkRnZnaDlObkhkM3FvdUJ1TWF0WnNKaWd2VmtmRExYR3BJUFZqdVJDMGEwaERuZ3gwRmJSa3FtbjJPS3FncjB4REZGejNnaGdaZ1NnZEMxcWRhQVhnVkNnWWRUZ0NnQnFkQ3lnRG5nUzFxZ2YxbkhxMEZiQ005TGhvMTBDajFqd01yUHhqNW1TaHV0aGR1ZkdqbnZYc2R6cjFxM3FnTGh1Z2VIWmtKU3JZbnRab1Zmd01wc3F2Z2lndlZrZkRMZngycHpac25SeENxNnpIYUJ4TWFGcTI1U2cxYXlxb0c1d2dlSGdrdWRocHExaEVWVHVNYXZ4akZkQzJWSGZETFR1TWF2eGpGZEMyQjNmQ2V5cTJWYmdNZG1uMk9LZkN1U3JoYVFaWUpMZ0hkMWZDdVhTamFCZ2tGU2dnSU96TTFYcmpwc1hzZ2lSMWFRcXBHMXVnZHNyaE9paHZWa2ZETGpyZ0Z6ZllnbXhDcTBoZFJPWkRRRXFFSm1ya25Cek15NXVNVnZna2dOd2hRMENqNUR4MUZ6Zk1PaW4wcTV6MjFqVkNRRXFFSm1ya25Cek1kWVhnSkZDWUpMbjJPNlpwUjFyamJQdWpPbVNoUXlacFIxeGRGekNEdUxnMXFIaERWa3hNVnpnTU9ZeE1PMWhnR094b0Y1U0h1YW4yT1FmQ1ZJd01uYmZrdW1yMDFsekhWZndobnZYc1ZtcjJuQnoyZGtTMlZ6Z01PWXhNTzFoZ0dPeG9RWnd2RkRmb0l5ellhNHVNUlBna2RpUjFhUXFwRzF1Z2RzcmhPaUMyUWtDcFJ5WENkdmhNTG1mbzVCZjFMSHEwRmJDTTlMaG8xMENqMWh3aFZRWHNkaVIycVFxM3BLeDN6MVNNMUhHQ0xReERkdHh2cWFuak9BZlA5bHVZZ3RTM2dpR01PRkdUOWxxSEdIeE0xbGdqUTJ6bTl0eG9RS3hoNXFac3IyZlBCSFZnZEZ1SG5sUjJyMWhzcE1WRGRVWFpnT1NoZTFoWWF6Vmo5RXFFcWFOMnIxaFphaFZDT0Z1RWdxdWZCMmhDVk5WRHlBaFlnclNzbzFoc3BNVkRkVVhDRjV3cHFpUjJudnFwRzFTTW52eHZxbVNaZHl6TTFmeGpnRXozVnFob0Y1aGdMQXgwSUhDa3FMcmRxMWZrSXlOMEZiQ005TGhvMTBDajVmdU1vUGdrZ2lDMlF5WjNkVFhDZGJyanVNQ1owOWJtREZYeTBOVUg0PSI7ZXZhbCgnPz4nLiRPMDBPME8oJE8wT08wMCgkT08wTzAwKCRPME8wMDAsJE9PMDAwMCoyKSwkT08wTzAwKCRPME8wMDAsJE9PMDAwMCwkT08wMDAwKSwkT08wTzAwKCRPME8wMDAsMCwkT08wMDAwKSkpKTs="));
-?>
+class UserAction extends BaseAction{
+	public $userGroup;
+	public $token;
+	public $user;
+	public $userFunctions;
+	public $wxuser;
+	public $usertplid=0;
+	protected function _initialize(){
+		parent::_initialize();
+		$userinfo=M('User_group')->where(array('id'=>session('gid')))->find();
+		$this->assign('userinfo',$userinfo);
+		$this->userGroup=$userinfo;
+		$users=M('Users')->where(array('id'=>$_SESSION['uid']))->find();
+		$this->usertplid = $users['usertplid'];
+		$this->assign('usertplid',$this->usertplid);
+		$this->user=$users;
+		$this->token=session('token');
+		$this->assign('thisUser',$users);
+		
+		$allow_pay = array('AlipayAction','TenpayAction','AlipayReceiveAction');
+		$this->assign('viptime',$users['viptime']);
+		if(session('uid')){
+			if($users['viptime']<time()){
+				if(function_exists('get_called_class')){
+					if(!in_array(get_called_class(),$allow_pay)){
+										$this->error('非常遗憾的告诉您，您的帐号已经到期，请充值后再使用，感谢继续使用我们的系统。',
+										U('User/Alipay/index',array('flag'=>5.3)));
+					}
+				}else{
+					if(!in_array(get_class($this),$allow_pay)){
+					 $this->error('非常遗憾的告诉您，您的帐号已经到期，请充值后再使用，感谢继续使用我们的系统。',
+								U('User/Alipay/index',array('flag'=>5.2)));
+				   }
+
+		        }
+
+			}
+		}
+		$token_open=M('Token_open')->field('queryname')->where(array('token'=>$this->token))->find();
+		$trans = include('./PigCms/Lib/ORG/FuncToModel.php');
+		if (C('agent_version')&&$this->agentid){
+			$user_group_where = array('id'=>session('gid'),'agentid'=>$this->agentid);
+			$func_where = array('agentid'=>$this->agentid);
+			$function_db = M('Agent_function');
+		}else{
+			$user_group_where = array('id'=>session('gid'));
+			$func_where = array('1 = 1');
+			$function_db = M('Function');
+		}
+		$group_func = M('User_group')->where($user_group_where)->getField('func');
+		$Afunc = $function_db->where($func_where)->field('id,funname')->select();
+		$group_func = explode(',', $group_func);
+
+		foreach ($Afunc as $tk => $tv){
+			if(!in_array($tv['funname'],$group_func)){
+
+				$not_exist[] = isset($trans[$tv['funname']])?$trans[$tv['funname']]:ucfirst($tv['funname']);
+			}
+		}
+	
+
+		$this->assign('not_exist',$not_exist);
+				
+		$wecha=M('Wxuser')->where(array('token'=>session('token'),'uid'=>session('uid')))->find();
+		$this->assign('wxuser',$wecha);
+		$this->wxuser=$wecha;
+		$this->assign('wecha',$wecha);
+		$this->assign('wxuser',$wecha);
+		//$this->token=session('token');
+		$this->assign('token',$this->token);
+		//
+		$token_open=M('token_open')->field('queryname')->where(array('token'=>$this->token))->find();
+		$this->userFunctions=explode(',',$token_open['queryname']);
+		//
+		if (MODULE_NAME!='Upyun'){
+			if(session('uid')==false){
+				$this->redirect('Home/Index/login');
+			}
+		}else {
+			if (isset($_SESSION['administrator'])||isset($_SESSION['agentid'])||isset($_SESSION['uid'])||isset($_SESSION['wapupload'])){
+				
+			}else {
+				if(isset($_POST['PHPSESSID'])){
+					session_id($_POST['PHPSESSID']);
+				}else{
+					$this->redirect('Home/Index/login');
+				}
+
+			}
+			
+		}
+		
+		//子分支的登陆判断
+		if (session('companyLogin') == 1 && !in_array(MODULE_NAME, array('Attachment', 'Repast', 'Upyun', 'Hotels', 'Store', 'Classify', 'Catemenu'))) {
+			$this->redirect(U('User/Repast/index',array('cid' => session('companyid'))));
+		}
+		/****************upyun*********************/
+		define('UNYUN_BUCKET',C('up_bucket'));
+		define('UNYUN_USERNAME',C('up_username'));
+		define('UNYUN_PASSWORD',C('up_password'));
+		define('UNYUN_FORM_API_SECRET',C('up_form_api_secret'));
+		define('UNYUN_DOMAIN',C('up_domainname'));
+		$this->assign('upyun_domain','http://'.UNYUN_DOMAIN);
+		$this->assign('upyun_bucket',UNYUN_BUCKET);
+		//
+		$token=$this->_session('token');
+		if (!$token){
+			if (isset($_GET['token'])){
+				$token=$this->_get('token');
+			}else {
+				$token='admin';
+			}
+		}
+		//
+		$options = array();
+		$now=time();
+		$options['bucket'] = UNYUN_BUCKET; /// 空间名
+		$options['expiration'] = $now+600; /// 授权过期时间
+		$options['save-key'] = '/'.$token.'/{year}/{mon}/{day}/'.$now.'_{random}{.suffix}'; /// 文件名生成格式，请参阅 API 文档
+		$options['allow-file-type'] = C('up_exts'); /// 控制文件上传的类型，可选
+		$options['content-length-range'] = '0,'.intval(C('up_size'))*1000; /// 限制文件大小，可选
+		if (intval($_GET['width'])){
+			$options['x-gmkerl-type'] = 'fix_width';
+			$options['fix_width '] = $_GET['width'];
+		}
+		//$options['return-url'] = C('site_url').'/index.php?g=User&m=Upyun&a=editorUploadReturn'; /// 页面跳转型回调地址
+		$policy = base64_encode(json_encode($options));
+		$sign = md5($policy.'&'.UNYUN_FORM_API_SECRET); /// 表单 API 功能的密匙（请访问又拍云管理后台的空间管理页面获取）
+		$this->assign('editor_upyun_sign',$sign);
+		$this->assign('editor_upyun_policy',$policy);
+	}
+
+	public function canUseFunction($funname){
+		//权限验证
+		$queryname=M('token_open')->where(array('token'=>$this->token))->getField('queryname');
+		$queryname = explode(',', $queryname);
+		function map_tolower($v){
+			return strtolower($v);
+		}
+		$queryname = array_map("map_tolower", $queryname);
+
+		$user_group = M('User_group')->where(array('token'=>$this->token,'id'=>intval(session('gid'))))->getField('func');
+		$user_group = explode(',', $user_group);
+		$user_group = array_map("map_tolower", $user_group);
+
+			if (in_array(strtolower($funname),$queryname) === false  || in_array(strtolower($funname),$user_group) === false){
+				$this->error('您还没有开启这个功能的使用权,请到“功能模块”菜单中勾选这个功能',U('Function/index',array('token'=>$this->token)));
+			}
+	}
+}

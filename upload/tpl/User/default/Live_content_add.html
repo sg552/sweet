@@ -40,11 +40,11 @@
 <tr id="mv">
   <th><span class="red">*</span>视频资源：</th>
   <td>
-    <input class="px"  name="movie_link" value="{pigcms:$info.movie_link}" id="mv1" style="width:320px;"  />
+    <input class="px"  name="movie_link" value="{pigcms:$info.movie_link}" id="movie_link" style="width:320px;"  />
       <script src="/tpl/static/upyun.js"></script>
-        <a href="###" onclick="upyunPicUpload('movie_link',640,990,'{pigcms:$token}')" class="a_upload">上传</a> 
+        <a href="###" onclick="upyunPicUpload('movie_link',0,0,'{pigcms:$token}')" class="a_upload">上传</a> 
 		<a href="###" onclick="chooseFile('movie_link','')" class="a_upload">选择</a> 
-	  &nbsp;&nbsp;&nbsp;&nbsp;视频连接只支持“MP4”格式资源,如：move.mp4
+	  &nbsp;&nbsp;&nbsp;&nbsp;视频只支持格式为“MP4”，视频编码为AVC(H264)的资源,如：move.mp4
   </td>
 </tr>
 

@@ -28,14 +28,14 @@ items : [
 <div class="content">
 
 <div class="cLineB">
-  <h4>
-    <if condition="$vo['type'] eq 'img' or ($type eq 'img')">
+  <h4> 
+    <if condition="$vo['type'] eq 'img' or ($type eq 'img')"> 
       图片
     <elseif condition="$vo['type'] eq 'text' or ($type eq 'text')"/>
       文本
     <else />
       微现场
-  </if>-投票设置
+  </if>-投票设置 
 </h4>
 
 <a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
@@ -87,7 +87,7 @@ items : [
     <td width="50">排序</td>
      <td width="50">票数</td>
     <if condition="$vo['type'] eq 'img' OR $type eq 'img' OR ($vo['type'] eq 'scene') OR ($type eq 'scene')">
-    <td width="320">图片外链地址&nbsp;&nbsp;&nbsp;&nbsp;如：http://www.weixin.pe</td>
+    <td width="320">图片外链地址&nbsp;&nbsp;&nbsp;&nbsp;如：http://www.pigcms.com</td>
     <td width="180">图片跳转地址</td>
     </if>
     <td class="norightborder"></td>
@@ -199,6 +199,14 @@ items : [
 到
 <input type="input" class="px" id="enddate" value="<if condition="$vo['enddate'] neq ''">{pigcms:$vo.enddate|date="Y-m-d",###}</if>" name="enddate" onClick="WdatePicker()"></td>
 </tr>
+
+<tr>
+<th>防恶意刷新：</th>
+<td>
+  <input type="radio" name="refresh" value="1" <if condition="$vo.refresh eq '1' or $vo.refresh eq ''">checked</if>>开启 &nbsp;&nbsp;
+  <input type="radio" name="refresh" value="0" <if condition="$vo.refresh eq '0'">checked</if>>关闭  &nbsp;(开启防刷新后一个ip地址只能投一票)
+</td>
+</tr>
 <!--
 <tr>
 <th>投票结果：</th>
@@ -237,7 +245,7 @@ items : [
   $(function(){
     $('#addItem').click(function(){
         var type  = $(this).attr('types');
-        var len   = $('.Product').children('tbody').length;
+        var len   = $('.ListProduct').children('tbody').length;
         var str   = "";
           str  += '<tbody class="item"><tr ><input type="hidden" name="add[id][]" readonly="readonly" disabled="disabled"  value="" style="width:20px;" ><td width="120"><input type="text" name="add[item][]" value="" placeholder="请填写选项标题" class="px" style="width:120px;"></td><td><input type="text" name="add[rank][]" value="" style="width:20px;" class="px"></td><td><input type="text" name="add[vcount][]" value="" style="width:20px;" class="px"></td>';
 
@@ -255,7 +263,7 @@ items : [
       if(vid == 0){
         $(this).parents('.item').remove();
       }else{
-        if(confirm('确定要删除吗？')){
+        if(confirm('确定要删除吗？')){   
             var obj = {id:vid}
             $.post("{pigcms::U('Vote/del_tab')}", obj,
                 function(data) {

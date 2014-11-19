@@ -47,6 +47,10 @@ $(document).ready(function(){
 <li><a href="{pigcms::U('Store/select',array('token' => $_GET['token'], 'wecha_id' => $wecha_id))}">浏览店铺</a></li>
 <li><a href="{pigcms::U('Store/cats',array('token' => $_GET['token'], 'catid' => $hostlist['id'], 'wecha_id' => $wecha_id, 'cid' => $cid))}">商城首页</a></li>
 <volist name="cats" id="hostlist" key="i"> 
+<if condition="$hostlist['isfinal'] eq 1">
 <li><a href="{pigcms::U('Store/products',array('token' => $_GET['token'], 'catid' => $hostlist['id'], 'wecha_id' => $wecha_id))}">{pigcms:$hostlist.name}</a></li>
+<else />
+<li><a href="{pigcms::U('Store/cats',array('token' => $_GET['token'], 'cid' => $hostlist['cid'], 'parentid' => $hostlist['id'], 'wecha_id' => $wecha_id))}">{pigcms:$hostlist.name}</a></li>
+</if>
 </volist>
 </ul>

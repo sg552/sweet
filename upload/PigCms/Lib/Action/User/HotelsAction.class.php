@@ -1,357 +1,427 @@
 <?php
-class HotelsAction extends WapAction {
-	
-	//public $token;
-	
-	//public $wecha_id = '';
-	
-	public $session_dish_info;//
-	public $session_dish_user;
+class HotelsAction extends UserAction 
+{
 	public $_cid = 0;
-	
-	public $offset = 8;
-	
-	public function _initialize(){
+	public function _initialize() {
 		parent::_initialize();
-		$agent = $_SERVER['HTTP_USER_AGENT']; 
-		if (!strpos($agent, "MicroMessenger")) {
-			//echo '此功能只能在微信浏览器中使用';exit;
+		//$this->canUseFunction('hotel');
+		
+		$this->_cid = isset($_GET['cid']) ? intval($_GET['cid']) : session('companyid');
+		if (empty($this->token)) {
+			$this->error('不合法的操作', U('Index/index'));
 		}
-		
-		//$this->token = isset($_REQUEST['token']) ? $_REQUEST['token'] : session('token');//$this->_get('token');
-		
-		//$this->assign('token', $this->token);
-		//$this->wecha_id	= isset($_REQUEST['wecha_id']) ? $_REQUEST['wecha_id'] : '';
-		//$this->assign('wecha_id', $this->wecha_id);
-		
-		$this->_cid = $_SESSION["session_hotel_{$this->token}"];
+		if (empty($this->_cid))  {
+			$company = M('Company')->where(array('token' => $this->token, 'isbranch' => 0))->find();
+			if ($company) {
+				$this->_cid = $company['id'];
+				//主店的k存session
+				session('companyk', md5($this->_cid . session('uname')));
+			} else {
+				$this->error('您还没有添加您的商家信息',U('Company/index',array('token' => $this->token)));
+			}
+		} else {
+			$k = session('companyk');
+			$company = M('Company')->where(array('token' => $this->token, 'id' => $this->_cid))->find();
+			if (empty($company)) {
+				$this->error('非法操作', U('Hotels/index',array('token' => $this->token)));
+			} else {
+				$username = $company['isbranch'] ? $company['username'] : session('uname');
+				if (md5($this->_cid . $username) != $k) {
+					$this->error('非法操作', U('Hotels/index',array('token' => $this->token)));
+				}
+			}
+		}
+		$this->assign('ischild', session('companyLogin'));
 		$this->assign('cid', $this->_cid);
-		
-		$this->session_dish_info = "session_hotel_{$this->_cid}_info_{$this->token}";
-		$this->session_dish_user = "session_hotel_{$this->_cid}_user_{$this->token}";
-		
-		$this->assign('totalDishCount', $count);
 	}
 	
 	/**
-	 * 酒店分布
+	 * 房间划分列表
 	 */
-	public function index() {
-		$company = M('Company')->where("`token`='{$this->token}' AND ((`isbranch`=1 AND `display`=1) OR `isbranch`=0)")->select();
-		if (count($company) == 1) {
-			$this->redirect(U('Hotels/selectdate',array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'cid' => $company[0]['id'])));
-		}
-		$price = M('Hotels_house_sort')->field('min(vprice) as price, cid')->group('cid')->where(array('token' => $this->token))->select();
-		$t = array();
-		foreach ($price as $row) {
-			$t[$row['cid']]	= $row['price'];
-		}
-		$list = array();
-		foreach ($company as $c) {
-			if (isset($t[$c['id']])) {
-				$c['price'] = $t[$c['id']];
-			} else {
-				$c['price'] = 0;
-			}
-			$list[] = $c;
-		}
-		$this->assign('company', $list);
-		$this->assign('metaTitle', '酒店分布');
+	public function index()
+	{
+		$data = M('Hotels_house_sort');
+		$where = array('cid' => $this->_cid);
+		$count = $data->where($where)->count();
+		$Page = new Page($count,20);
+		$show = $Page->show();
+		$list = $data->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
+		$this->assign('page', $show);	
+		$this->assign('list', $list);
 		$this->display();
 	}
 	
-	public function selectdate()
-	{
-		$cid = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
-		if ($company = M('Company')->where(array('token' => $this->token, 'id' => $cid))->find()) {
-			$_SESSION["session_hotel_{$this->token}"] = $cid;
+	/**
+	 * 房间分类的添加
+	 * @see UserAction::add()
+	 */
+	public function add() {
+		$dataBase = D('Hotels_house_sort');
+		if (IS_POST) {
+			$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+			if ($id) {//edit
+				if ($dataBase->create() !== false) {
+					$action = $dataBase->save();
+					if ($action != false) {
+						$this->success('修改成功',U('Hotels/index',array('token' => $this->token, 'cid' => $this->_cid)));
+					} else {
+						$this->error('操作失败');
+					}
+				} else {
+					$this->error($dataBase->getError());
+				}
+			} else {//add
+				if ($dataBase->create() !== false) {
+					$action = $dataBase->add();
+					if ($action != false ) {
+						$this->success('添加成功',U('Hotels/index',array('token' => $this->token, 'cid' => $this->_cid)));
+					} else {
+						$this->error('操作失败');
+					}
+				} else {
+					$this->error($dataBase->getError());
+				}
+			}
 		} else {
-			$this->redirect(U('Hotels/index',array('token' => $this->token, 'wecha_id' => $this->wecha_id)));
+			$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+			$findData = $dataBase->where(array('id' => $id, 'cid' => $this->_cid))->find();
+			$this->assign('tableData', $findData);
+			$this->display();
 		}
+	}
+	
+	/**
+	 * 删除
+	 */
+	public function del() {
+		$diningTable = M('Hotels_house_sort');
+        if (IS_GET) {
+        	$id = isset($_GET['id']) ? intval($_GET['id']) : 0;      
+            $where = array('id' => $id,'cid' => $this->_cid);
+            $check = $diningTable->where($where)->find();
+            if($check == false) $this->error('非法操作');
+            $back = $diningTable->where($where)->delete();
+            if ($back == true) {
+                $this->success('操作成功',U('Hotels/index',array('token' => $this->token,'cid' => $this->_cid)));
+            } else {
+                $this->error('服务器繁忙,请稍后再试',U('Hotels/index',array('token' => $this->token,'cid' => $this->_cid)));
+            }
+        }        
+	}
+	
+	/**
+	 * 房间管理
+	 */
+	public function house() {
+		$data = M('Hotels_house');
+		$where = array('cid' => $this->_cid);
+		$count      = $data->where($where)->count();
+		$Page       = new Page($count,20);
+		$show       = $Page->show();
+		$list = $data->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
+		
+		$list_sort = M('Hotels_house_sort')->where(array('cid' => $this->_cid))->select();
+		$t = array();
+		foreach ($list_sort as $l) {
+			$t[$l['id']] = $l['name'];
+		}
+		$h = array();
+		foreach ($list as $r) {
+			$r['sname'] = $t[$r['sid']];
+			$h[] = $r;
+		}
+		$this->assign('page', $show);	
+		$this->assign('list', $h);
+		$this->display();		
+	}
+	
+	/**
+	 * 批量添加房间
+	 */
+	public function batchadd() {
+		$dataBase = D('Hotels_house');
+		if (IS_POST) {
+			$houseid = isset($_POST['houseid']) ? $_POST['houseid'] : '';
+			$start = isset($_POST['start']) ? intval($_POST['start']) : '';
+			$end = isset($_POST['end']) ? intval($_POST['end']) : '';
+			if ($end < $start) {
+				$this->error('操作失败');
+			}
+			$n = strlen($end);
+			unset($_POST['houseid'], $_POST['start'], $_POST['end'], $_POST['end']);
+			$data = array('sid' => $_POST['sid'], 'cid' => $_POST['cid'], 'token' => $this->token, 'image' => $_POST['image'], 'note' => $_POST['note']);
+			for ($i = $start; $i < $end; $i++) {
+				$data['name'] = $houseid . sprintf("%0{$n}d", $i);
+				$dataBase->add($data);
+				D('Hotels_house_sort')->where(array('id' => $_POST['sid']))->setInc('houses', 1);
+			}
+			$this->success('添加成功',U('Hotels/house',array('token' => $this->token, 'cid' => $this->_cid)));
+		} else {
+			$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+			$findData = $dataBase->where(array('id' => $id, 'cid' => $this->_cid))->find();
+			$this->assign('tableData', $findData);
+			
+			$list = M('Hotels_house_sort')->where(array('cid' => $this->_cid))->select();
+			$this->assign('list', $list);
+			$this->display();
+		}
+	}
+	
+	/**
+	 * 对房间的操作
+	 */
+	public function houseadd() {
+		$dataBase = D('Hotels_house');
+		if (IS_POST) {
+			$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+			if ($id && ($house = $dataBase->where(array('id' => $id, 'token' => $this->token, 'cid' => $this->_cid))->find())) {//edit
+				$sid = $house['sid'];
+				if ($dataBase->create() !== false) {
+					$action = $dataBase->save();
+					if ($sid != $_POST['sid']) {
+						D('Hotels_house_sort')->where(array('id' => $_POST['sid']))->setInc('houses', 1);
+						D('Hotels_house_sort')->where(array('id' => $sid, 'houses' => array('gt', 1)))->setDec('houses', 1);
+					}
+					if ($action != false) {
+						
+						$this->success('修改成功',U('Hotels/house',array('token' => $this->token, 'cid' => $this->_cid)));
+					} else {
+						$this->error('操作失败');
+					}
+				} else {
+					$this->error($dataBase->getError());
+				}
+			} else {//add
+				if ($dataBase->create() !== false) {
+					$action = $dataBase->add();
+					if ($action != false ) {
+						D('Hotels_house_sort')->where(array('id' => $_POST['sid']))->setInc('houses', 1);
+						$this->success('添加成功',U('Hotels/house',array('token' => $this->token, 'cid' => $this->_cid)));
+					} else {
+						$this->error('操作失败');
+					}
+				} else {
+					$this->error($dataBase->getError());
+				}
+			}
+		} else {
+			$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+			$findData = $dataBase->where(array('id' => $id, 'cid' => $this->_cid))->find();
+			$this->assign('tableData', $findData);
+			
+			$list = M('Hotels_house_sort')->where(array('cid' => $this->_cid))->select();
+			$this->assign('list', $list);
+			$this->display();
+		}
+	}
+	
+	/**
+	 * 删除分类
+	 */
+	public function housedel() {
+		$house = M('Hotels_house');
+        if(IS_GET){
+        	$id = isset($_GET['id']) ? intval($_GET['id']) : 0;     
+            $where = array('id' => $id,'cid' => $this->_cid);
+            $check = $house->where($where)->find();
+            if($check == false) $this->error('非法操作');
+            $back = $house->where($where)->delete();
+            if($back == true){
+            	D('Hotels_house_sort')->where(array('id' => $check['sid'], 'houses' => array('gt', 1)))->setDec('houses', 1);
+                $this->success('操作成功',U('Hotels/house',array('token' => $this->token,'cid' => $this->_cid)));
+            }else{
+                 $this->error('服务器繁忙,请稍后再试',U('Hotels/house',array('token' => $this->token,'cid' => $this->_cid)));
+            }
+        }        
+	}
+	
+	/**
+	 * 订单列表
+	 */
+	public function orders() {
+		$status = isset($_GET['status']) ? intval($_GET['status']) : 0;
+		$hotelOrder = M('Hotels_order');
+		$where = array('token' => $this->_session('token'), 'cid' => $this->_cid);
+		if ($status) {
+			$where['startdate'] = array('ELT', $status);
+			$where['enddate'] = array('GT', $status);
+		}
+		$count      = $hotelOrder->where($where)->count();
+		$Page       = new Page($count, 20);
+		$show       = $Page->show();
+		$orders = $hotelOrder->where($where)->order('id DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
+		
+		$sort = M('Hotels_house_sort')->where(array('cid' => $this->_cid, 'token' => $this->token))->select();
+		$t = array();
+		foreach ($sort as $row) {
+			$t[$row['id']] = $row['name'];
+		}
+		$list = array();
+		foreach ($orders as $o) {
+			$o['housename'] = isset($t[$o['sid']]) ? $t[$o['sid']] : '';
+			$o['startdate'] = date("Y-m-d", strtotime($o['startdate']));
+			$o['enddate'] = date("Y-m-d", strtotime($o['enddate']));
+			$list[] = $o;
+		}
+		
 		$dates = array();
-		$dates[] = array('k' => date("Y-m-d"), 'v' => date("m月d日"));
-		for ($i = 1; $i <= 90; $i ++) {
-			$dates[] = array('k' => date("Y-m-d", strtotime("+{$i} days")), 'v' => date("m月d日", strtotime("+{$i} days")));
+		//$dates[] = array('k' => date("Ymd"), 'v' => date("Y-m-d"));
+		for ($i = -30; $i <= 90; $i ++) {
+			$dates[] = array('k' => date("Ymd", strtotime("+{$i} days")), 'v' => date("Y-m-d", strtotime("+{$i} days")));
 		}
 		
 		$this->assign('dates', $dates);
-		$this->assign('metaTitle', '在线预订客房');
+
+		$this->assign('orders', $list);
+		$this->assign('status', $status);
+
+		$this->assign('page',$show);
 		$this->display();
 	}
 	
-	public function hotel()
-	{
-		$in = isset($_GET['check_in_date']) ? htmlspecialchars($_GET['check_in_date']) : '';
-		$out = isset($_GET['check_out_date']) ? htmlspecialchars($_GET['check_out_date']) : '';
-		
-		$days = (strtotime($out) - strtotime($in)) / 86400;
-		if ($days < 1) {
-			$this->redirect(U('Hotels/selectdate',array('token' => $this->token, 'wecha_id' => $this->wecha_id)));
-		}
-		
-		$in = date("Ymd", strtotime($in));
-		$out = date("Ymd", strtotime($out));
-		
-		$company = M('Company')->where(array('id' => $this->_cid))->find();
-		
-		$sorts = M('Hotels_house_sort')->where(array('cid' => $this->_cid, 'token' => $this->token))->select();
-		
-		$order = M('Hotels_order')->field('sum(nums) as num, sid')->group('sid')->where(array('startdate' => array('ELT', $in), 'enddate' => array('GT', $in), 'token' => $this->token, 'cid' => $this->_cid, 'status' => array('ELT', 1)))->select();
-		$t = array();
-		foreach ($order as $o) {
-			$t[$o['sid']] = $o['num'];
-		}
-		
-		$imagelist = M("hotels_image")->where(array('token' => $this->token, 'cid' => $this->_cid))->select();
-//		$houses = M('Hotels_house')->where(array('cid' => $this->_cid, 'token' => $this->token))->select();
-//		$h = array();
-//		foreach ($houses as $row) {
-//			$h[$row['sid']][] = $row;
-//		}
-		$list = array();
-		foreach ($sorts as $s) {
-			$s['useHouse'] = isset($t[$s['id']]) ? $t[$s['id']] : 0;
-			//$s['houseslist'] = isset($h[$s['id']]) ? $h[$s['id']] : array();
-			$list[] = $s;
-		}
-		//echo "<pre/>";
-		//print_r($list);die;
-		$this->assign('count', count($imagelist));
-		$this->assign('imagelist', $imagelist);
-		$this->assign('company', $company);
-		$this->assign('sday', date("m月d日", strtotime($in)));
-		$this->assign('eday', date("m月d日", strtotime($out)));
-		$this->assign('startdate', $in);
-		$this->assign('enddate', $out);
-		$this->assign('days', $days);
-		$this->assign('list', $list);
-		$this->assign('metaTitle', '在线预订客房');
-		$this->display();
-		
-	}
-	
-	public function order()
-	{
-		$in = isset($_GET['startdate']) ? htmlspecialchars($_GET['startdate']) : '';
-		$out = isset($_GET['enddate']) ? htmlspecialchars($_GET['enddate']) : '';
-		$sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
-		$days = (strtotime($out) - strtotime($in)) / 86400;
-		if ($days < 1) {
-			$this->redirect(U('Hotels/selectdate',array('token' => $this->token, 'wecha_id' => $this->wecha_id)));
-		}
-		if ($sort = M('Hotels_house_sort')->where(array('cid' => $this->_cid, 'token' => $this->token, 'id' => $sid))->find()) {
-			if ($this->fans['getcardtime'] > 0) {
-				$sort['price'] = $sort['vprice'] ? $sort['vprice'] : $sort['price'];
-			}
-			//是否要支付
-			$alipayConfig = M('Alipay_config')->where(array('token' => $this->token))->find();
-			$this->assign('alipayConfig', $alipayConfig);
-			$company = M('Company')->where(array('id' => $this->_cid))->find();
-			$this->assign('company', $company);
-			$this->assign('sort', $sort);
-			$this->assign('sday', date("m月d日", strtotime($in)));
-			$this->assign('eday', date("m月d日", strtotime($out)));
-			$this->assign('startdate', $in);
-			$this->assign('enddate', $out);
-			$this->assign('days', $days);
-			$this->assign('total', $days * $sort['price']);
-			$this->assign('metaTitle', '在线预订客房');
-			$this->display();
-		}
-	}
-	
-	/**
-	 * 提交订单
-	 */
-	public function saveorder()
-	{
-		$dataBase = D('Hotels_order');
-		if (IS_POST) {
-			$price = 0;
-			if ($sort = M('Hotels_house_sort')->where(array('cid' => $this->_cid, 'token' => $this->token, 'id' => $_POST['sid']))->find()) {
-				if ($this->fans['getcardtime'] > 0) {
-					$price = $sort['vprice'] ? $sort['vprice'] : $sort['price'];
-				} else {
-					$price = $sort['price'];
-				}
-			}
-			$days = (strtotime($_POST['enddate']) - strtotime($_POST['startdate'])) / 86400;
-			$sday = date("Y年m月d日", strtotime($_POST['startdate']));
-			$eday = date("Y年m月d日", strtotime($_POST['enddate']));
-			if ($_POST['startdate'] < date("Ymd") || $days < 1) {
-				$this->error('您预定的时间不正确');
-			}
-			//处理预定房间的数量
-			$in = date("Ymd", strtotime($_POST['startdate']));
-			$order = M('Hotels_order')->field('sum(nums) as num')->where(array('startdate' => array('ELT', $in), 'enddate' => array('GT', $in), 'token' => $this->token, 'cid' => $this->_cid, 'sid' => $_POST['sid'], 'status' => array('ELT', 1)))->find();
-			$oldnum = isset($order['num']) ? $order['num'] : 0;
-			$total = $_POST['nums'] + $oldnum;
-			$hotelSort = M("Hotels_house_sort")->where(array('id' => $_POST['sid'], 'token' => $this->token))->find();
-			if ($total > $hotelSort['houses']) {
-				$this->error('您预定的房间数超出总房间数了');
-			}
-			
-			$_POST['orderid'] = $orderid = substr($this->wecha_id, -1, 4) . date("YmdHis");
-			$_POST['price'] = $_POST['nums'] * $days * $price;
-			$_POST['time'] = time();
-		
-	
-			//保存个人信息
-			$userinfo_model = M('Userinfo');
-			$thisUser = $userinfo_model->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id))->find();
-			if (empty($thisUser)){
-				$userRow = array('tel' => $_POST['tel'], 'truename' => $_POST['name'], 'address' => '');
-				$userRow['token'] = $this->token;
-				$userRow['wecha_id'] = $this->wecha_id;
-				$userRow['wechaname'] = '';
-				$userRow['qq'] = 0;
-				$userRow['sex'] = -1;
-				$userRow['age'] = 0;
-				$userRow['birthday'] = '';
-				$userRow['info'] = '';
-	
-				$userRow['total_score'] = 0;
-				$userRow['sign_score'] = 0;
-				$userRow['expend_score'] = 0;
-				$userRow['continuous'] = 0;
-				$userRow['add_expend'] = 0;
-				$userRow['add_expend_time'] = 0;
-				$userRow['live_time'] = 0;
-				$userinfo_model->add($userRow);
-			}
-			if ($dataBase->create() !== false) {
-				$action = $dataBase->add();
-				if ($action != false ) {
-					$company = M('Company')->where(array('id' => $this->_cid, 'token' => $this->token))->find();
-					$op = new orderPrint();
-					$msg = array('companyname' => $company['name'], 'companytel' => $company['tel'], 'truename' => $_POST['name'], 'tel' => $_POST['tel'], 'address' => '', 'buytime' => time(), 'orderid' => $_POST['orderid'], 'sendtime' => '', 'price' => $_POST['price'], 'total' => $_POST['nums'], 'list' => array(array('name' => $sort['name'], 'day' => $days, 'price' => $price, 'num' => $_POST['nums'])));
-					$msg = ArrayToStr::array_to_str($msg);
-					$op->printit($this->token, $this->_cid, 'Hotel', $msg, 0);
-					
-					Sms::sendSms($this->token . "_" . $this->_cid, "顾客{$_POST['name']}刚刚预定了{$sday}到{$eday}，{$days}天的{$sort['name']}，请您注意查看并处理");
-					$alipayConfig = M('Alipay_config')->where(array('token' => $this->token))->find();
-					if ($_POST['paymode'] == 1 && $alipayConfig['open']) {
-						$this->success('正在提交中...', U('Alipay/pay',array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'from'=> 'Hotels', 'orderName' => $orderid, 'single_orderid' => $orderid, 'price' => $_POST['price'])));
-					} elseif ($_POST['paymode'] == 4 && $this->fans['balance']) {
-						$this->success('正在提交中...', U('CardPay/pay',array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'from'=> 'Hotels', 'orderName' => $orderid, 'single_orderid' => $orderid, 'price' => $_POST['price'])));
-					} else {
-						$model = new templateNews();
-						$model->sendTempMsg('TM00820', array('href' => U('Hotels/my',array('token' => $this->token, 'wecha_id' => $this->wecha_id)), 'wecha_id' => $this->wecha_id, 'first' => '预订房间提醒', 'keynote1' => '订单未支付', 'keynote2' => date("Y年m月d日H时i分s秒"), 'remark' => '预订房间成功，感谢您的光临，欢迎下次再次光临！'));
-						$this->success('预定成功,进入您的订单页', U('Hotels/my',array('token' => $this->token, 'wecha_id' => $this->wecha_id)));
-					}
-				} else {
-					$this->error('操作失败');
-				}
+	/*public function fenhouse() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		$hotelOrder = M('Hotels_order');
+		if ($thisOrder = $hotelOrder->where(array('id' => $id, 'token' => $this->token, 'cid' => $this->_cid))->find()) {
+			if (IS_POST) {
+				$hid = isset($_POST['hid']) ? intval($_POST['hid']) : 0;
+				$hid && $hotelOrder->save(array('cid' => $this->_cid, 'sid' => $thisOrder['sid'], 'hid' => $hid, 'oid' => $thisOrder['id'], 'startdate' => $thisOrder['startdate'], 'enddate' => $thisOrder['enddate']));
+				$this->success('修改成功',U('Hotels/orderInfo',array('token'=>session('token'),'id'=>$thisOrder['id'])));
 			} else {
-				$this->error($dataBase->getError());
+				$house = M('Hotels_house')->where(array('cid' => $this->_cid, 'token' => $this->token, 'sid' => $thisOrder['sid']))->select();
+				$use = M('Hotels_house_use')->where(array('startdate' => array(array('EGT', $thisOrder['startdate']), array('ELT', $thisOrder['startdate'] + 86400), 'AND'), 'cid' => $this->_cid, 'sid' => $thisOrder['sid']))->select();
+				
+				$sort = M('Hotels_house_sort')->where(array('cid' => $this->_cid, 'token' => $this->token, 'id' => $thisOrder['sid']))->find();
+				$thisOrder['housename'] = isset($sort['name']) ? $sort['name'] : '';
+				$this->assign('thisOrder', $thisOrder);
+				$this->display();
 			}
 		}
-	}
-	
-	/**
-	 * 我的订单
-	 */
-	public function my()
-	{
-		$company = M('Company')->where(array('id' => $this->_cid, 'token' => $this->token))->find();
-		$orders = M('Hotels_order')->where(array('cid' => $this->_cid, 'token' => $this->token, 'wecha_id' => $this->wecha_id, 'status' => array('lt', 2)))->order('id desc')->limit($this->offset)->select();
-		$list = array();
-		foreach ($orders as $o) {
-			$o['day'] = (strtotime($o['enddate']) - strtotime($o['startdate'])) / 86400;
-			$o['startdate'] = date("m月d日", strtotime($o['startdate']));
-			$o['enddate'] = date("m月d日", strtotime($o['enddate']));
-			$list[] = $o;
-		}
-		$count = M('Hotels_order')->where(array('cid' => $this->_cid, 'token' => $this->token, 'wecha_id' => $this->wecha_id, 'status' => array('lt', 2)))->count();
-		$totalpage = ceil($count / $this->offset);
-		$this->assign('totalpage', $totalpage);
-		$this->assign('company', $company);
-		$this->assign('list', $list);
-		$this->assign('metaTitle', '我的订单');
-		$this->display();
-	}
-	
-	public function ajaxorder()
-	{
-		$company = M('Company')->where(array('id' => $this->_cid, 'token' => $this->token))->find();
-		$page = isset($_GET['page']) && intval($_GET['page']) > 1 ? intval($_GET['page']) : 2;
-		$start =($page-1) * $this->offset;
-		$orders = M('Hotels_order')->where(array('cid' => $this->_cid, 'token' => $this->token, 'wecha_id' => $this->wecha_id, 'status' => array('lt', 2)))->order('id desc')->limit($start . ', ' . $this->offset)->select();
-		$list = array();
-		foreach ($orders as $o) {
-			$o['day'] = (strtotime($o['enddate']) - strtotime($o['startdate'])) / 86400;
-			$o['startdate'] = date("m月d日", strtotime($o['startdate']));
-			$o['enddate'] = date("m月d日", strtotime($o['enddate']));
-			$o['hotelname'] = $company['name'];
-			$list[] = $o;
-		}
-		
-		$count = M('Hotels_order')->where(array('cid' => $this->_cid, 'token' => $this->token, 'wecha_id' => $this->wecha_id, 'status' => array('lt', 2)))->count();
-		
-		$totalpage = ceil($count / $this->offset);
-		$page = $totalpage > $page ? intval($page + 1) : 0;
-		exit(json_encode(array('page' => $page, 'data' => $list)));
-	}
-	
+	}*/
 	/**
 	 * 订单详情
 	 */
-	public function detail()
-	{
-		$id = isset($_GET['oid']) ? intval($_GET['oid']) : 0;
-		if ($order = M('Hotels_order')->where(array('cid' => $this->_cid, 'token' => $this->token, 'id' => $id))->find()) {
-			$company = M('Company')->where(array('id' => $this->_cid))->find();
-			$order['startdate'] = date("m月d日", strtotime($order['startdate']));
-			$order['enddate'] = date("m月d日", strtotime($order['enddate']));
-			$sort = M('Hotels_house_sort')->where(array('cid' => $this->_cid, 'token' => $this->token, 'id' => $order['sid']))->find();
-			$order['housename'] = isset($sort['name']) ? $sort['name'] : '';
-			$this->assign('company', $company);
-			$this->assign('order', $order);
-			$this->assign('metaTitle', '订单详情');
-			$this->display();
-		} else {
-			$this->redirect(U('Hotels/my',array('token' => $this->token, 'wecha_id' => $this->wecha_id)));
+	public function orderInfo() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		$hotelOrder = M('Hotels_order');
+		if ($thisOrder = $hotelOrder->where(array('id' => $id, 'token' => $this->token, 'cid' => $this->_cid))->find()) {
+			if (IS_POST) {
+				$status = isset($_POST['status']) ? intval($_POST['status']) : 0;
+				$paid = isset($_POST['paid']) ? intval($_POST['paid']) : 0;
+				$hotelOrder->where(array('id' => $thisOrder['id']))->save(array('status' => $status, 'paid' => $paid));
+				$company = M('Company')->where(array('token' => $this->token, 'id' => $thisOrder['cid']))->find();
+				if ($paid) {
+					$sort = M('Hotels_house_sort')->where(array('id' => $thisOrder['sid'], 'token' => $this->token))->find();
+					$days = (strtotime($thisOrder['enddate']) - strtotime($thisOrder['startdate'])) / 86400;
+					$price = $this->fans['getcardtime'] > 0 ? ($sort['vprice'] ? $sort['vprice'] : $sort['price']) : $sort['price'];
+					$op = new orderPrint();
+					$msg = array('companyname' => $company['name'], 'companytel' => $company['tel'], 'truename' => $thisOrder['name'], 'tel' => $thisOrder['tel'], 'address' => '', 'buytime' => $thisOrder['time'], 'orderid' => $thisOrder['orderid'], 'sendtime' => '', 'price' => $thisOrder['price'], 'total' => $thisOrder['nums'], 'list' => array(array('name' => $sort['name'], 'day' => $days, 'price' => $price, 'num' => $thisOrder['nums'])));
+					$msg = ArrayToStr::array_to_str($msg, 1);
+					$op->printit($this->token, $this->_cid, 'Hotel', $msg, 1);
+				}
+				
+				Sms::sendSms($this->token, "{$company['name']}欢迎您，本店对您的订单号为：{$thisOrder['orderid']}的订单状态进行了修改，如有任何疑意，请您及时联系本店！", $thisOrder['tel']);
+				$this->success('修改成功',U('Hotels/orderInfo',array('token'=>session('token'),'id'=>$thisOrder['id'])));
+			} else {
+				$sort = M('Hotels_house_sort')->where(array('cid' => $this->_cid, 'token' => $this->token, 'id' => $thisOrder['sid']))->find();
+				$thisOrder['housename'] = isset($sort['name']) ? $sort['name'] : '';
+				$this->assign('thisOrder', $thisOrder);
+				$this->display();
+			}
 		}
 	}
 	
 	/**
-	 * 支付成功后的回调函数
+	 * 删除订单
 	 */
-	public function payReturn() {
-	   $orderid = $_GET['orderid'];
-	   if ($order = M('Hotels_order')->where(array('orderid' => $orderid, 'token' => $this->token))->find()) {
-			//TODO 发货的短信提醒
-			if ($order['paid']) {
-				$sort = M('Hotels_house_sort')->where(array('id' => $order['sid'], 'token' => $this->token))->find();
-				$days = (strtotime($order['enddate']) - strtotime($order['startdate'])) / 86400;
-				$price = $this->fans['getcardtime'] > 0 ? ($sort['vprice'] ? $sort['vprice'] : $sort['price']) : $sort['price'];
-				$company = M('Company')->where(array('id' => $order['cid'], 'token' => $this->token))->find();
-				$op = new orderPrint();
-				$msg = array('companyname' => $company['name'], 'companytel' => $company['tel'], 'truename' => $order['name'], 'tel' => $order['tel'], 'address' => '', 'buytime' => $order['time'], 'orderid' => $order['orderid'], 'sendtime' => '', 'price' => $order['price'], 'total' => $order['nums'], 'list' => array(array('name' => $sort['name'], 'day' => $days, 'price' => $price, 'num' => $order['nums'])));
-				$msg = ArrayToStr::array_to_str($msg, 1);
-				$op->printit($this->token, $this->_cid, 'Hotel', $msg, 1);
-
-				Sms::sendSms($this->token . "_" . $order['cid'], "顾客{$order['name']}刚刚对订单号：{$orderid}的订单进行了支付，请您注意查看并处理");
-				$model = new templateNews();
-				$model->sendTempMsg('TM00820', array('href' => U('Hotels/my',array('token' => $this->token, 'wecha_id' => $this->wecha_id)), 'wecha_id' => $this->wecha_id, 'first' => '预订房间提醒', 'keynote1' => '订单已支付', 'keynote2' => date("Y年m月d日H时i分s秒"), 'remark' => '预订房间成功，感谢您的光临，欢迎下次再次光临！'));
-				
-			}
-			$this->redirect(U('Hotels/my', array('token'=>$this->token, 'wecha_id' => $this->wecha_id)));
-	   }else{
-	      exit('订单不存在');
-	    }
+	public function deleteOrder() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		$hotelOrder = M('Hotels_order');
+		if ($thisOrder = $hotelOrder->where(array('id' => $id, 'token' => $this->token, 'cid' => $this->_cid))->find()) {
+			$hotelOrder->where(array('id' => $id))->delete();
+			$this->success('操作成功', U('Hotels/orders', array('token' => session('token'), 'cid' => $this->_cid)));
+		}
 	}
 	
-	public function cancel()
-	{
-		$status = isset($_GET['status']) ? $_GET['status'] : 0;
-		$oid = isset($_GET['oid']) ? intval($_GET['oid']) : 0;
-		if ($order = M('Hotels_order')->where(array('id' => $oid, 'wecha_id' => $this->wecha_id))->find()) {
-			$status = $order['paid'] ? 3 : 2;// 2：取消订单，3：删除订单
-			D("Hotels_order")->where(array('id' => $oid, 'wecha_id' => $this->wecha_id))->save(array('status' => $status));
-			exit(json_encode(array('error_code' => false, 'msg' => 'ok')));
+	/**
+	 * 图片介绍
+	 */
+	public function image() {
+		$data = M('Hotels_image');
+		$where = array('cid' => $this->_cid);
+		$count      = $data->where($where)->count();
+		$Page       = new Page($count,20);
+		$show       = $Page->show();
+		$list = $data->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
+		$this->assign('page', $show);	
+		$this->assign('list', $list);
+		$this->display();		
+	}
+	
+	/**
+	 * 酒店图片介绍
+	 */
+	public function imageadd() {
+		$dataBase = D('Hotels_image');
+		if (IS_POST) {
+			$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+			$_POST['token'] = $this->token;
+			if (strlen($_POST['info']) > 20) {
+				$this->error("描述不要超过20个字符");
+				die;
+			}
+			if ($id && ($house = $dataBase->where(array('id' => $id, 'token' => $this->token, 'cid' => $this->_cid))->find())) {//edit
+				$sid = $house['sid'];
+				if ($dataBase->create() !== false) {
+					$action = $dataBase->save();
+					if ($action != false) {
+						$this->success('修改成功',U('Hotels/image',array('token' => $this->token, 'cid' => $this->_cid)));
+					} else {
+						$this->error('操作失败');
+					}
+				} else {
+					$this->error($dataBase->getError());
+				}
+			} else {//add
+				if ($dataBase->create() !== false) {
+					$action = $dataBase->add();
+					if ($action != false ) {
+						$this->success('添加成功',U('Hotels/image',array('token' => $this->token, 'cid' => $this->_cid)));
+					} else {
+						$this->error('操作失败');
+					}
+				} else {
+					$this->error($dataBase->getError());
+				}
+			}
+		} else {
+			$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+			$findData = $dataBase->where(array('id' => $id, 'cid' => $this->_cid))->find();
+			$this->assign('tableData', $findData);
+			
+			$list = M('Hotels_house_sort')->where(array('cid' => $this->_cid))->select();
+			$this->assign('list', $list);
+			$this->display();
 		}
-		exit(array('error_code' => true, 'msg' => '不合法的操作！'));
+	}
+	
+	/**
+	 * 酒店介绍图片删除
+	 */
+	public function imagedel() {
+		$image = M('Hotels_image');
+        if(IS_GET){
+        	$id = isset($_GET['id']) ? intval($_GET['id']) : 0;     
+            $where = array('id' => $id,'cid' => $this->_cid);
+            $check = $image->where($where)->find();
+            if($check == false) $this->error('非法操作');
+            $back = $image->where($where)->delete();
+            if($back == true){
+                $this->success('操作成功',U('Hotels/image',array('token' => $this->token,'cid' => $this->_cid)));
+            }else{
+                 $this->error('服务器繁忙,请稍后再试',U('Hotels/image',array('token' => $this->token,'cid' => $this->_cid)));
+            }
+        }        
 	}
 }
 ?>

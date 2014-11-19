@@ -2,6 +2,7 @@
 class CardAction extends WapAction{
 	public $wecha_id;
 	public $thisUser;
+	public $isamap;
 	public function __construct(){
 		parent::_initialize();
 		if (!defined('RES')){
@@ -14,6 +15,14 @@ class CardAction extends WapAction{
 		$this->thisUser = M('Userinfo')->where(array('token'=>$this->_get('token'),'wecha_id'=>$this->wecha_id))->find();
 		if (!$this->wecha_id){
 			$this->error('您没有权限使用会员卡，如需使用请关注微信“'.$this->wxuser['wxname'].'”并回复会员卡',U('Index/index',array('token'=>$this->token)));
+		}
+		
+		
+		if (C('baidu_map')){
+			$this->isamap=0;
+		}else {
+			$this->isamap=1;
+			$this->amap=new amap();
 		}
 	}
 	public function index(){
@@ -91,13 +100,36 @@ class CardAction extends WapAction{
 				)
 			);
 		}
-		$IndexModel = new IndexAction();
-		$focus = $IndexModel->convertLinks($focus);
+
+		$focus = $this->convertLinks($focus);
 		$this->assign('flash',$focus);
 		$this->assign('infoType',$infoType);
 		//
 		$this->display();
     }
+    public function getLink($url){
+		$url=$url?$url:'javascript:void(0)';
+		
+		$link=str_replace(array('{wechat_id}','{siteUrl}','&amp;'),array($this->wecha_id,$this->siteUrl,'&'),$url);
+			if (!!(strpos($url,'tel')===false)&&$url!='javascript:void(0)'&&!strpos($url,'wecha_id=')){
+				if (strpos($url,'?')){
+					$link=$link.'&wecha_id='.$this->wecha_id;
+				}else {
+					$link=$link.'?wecha_id='.$this->wecha_id;
+				}
+			}
+		return $link;
+	}
+	public function convertLinks($arr){
+		$i=0;
+		foreach ($arr as $a){
+			if ($a['url']){
+				$arr[$i]['url']=$this->getLink($a['url']);
+			}
+			$i++;
+		}
+		return $arr;
+	}
     public function companyMap(){
     	//
     	$member_card_create_db=M('Member_card_create');
@@ -115,7 +147,17 @@ class CardAction extends WapAction{
 		$this->assign('thisCompany',$thisCompany);
 		$infoType='companyDetail';
 		$this->assign('infoType',$infoType);
-		$this->display();
+		
+		
+		if (!$this->isamap){
+			$this->display();
+		}else {			
+			$link=$this->amap->getPointMapLink($thisCompany['longitude'],$thisCompany['latitude'],$thisCompany['name']);
+			header('Location:'.$link);
+		}
+		
+		
+		
     }
     public function companyDetail(){
     	$member_card_set_db=M('Member_card_set');

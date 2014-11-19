@@ -41,7 +41,7 @@
                         <td>{pigcms:$o.booktime|date="Y-m-d H:i",###}</td>
                         <td><if condition="$o.remate eq 0">待回复<elseif condition="$o.remate eq 1"/>确认<elseif condition="$o.remate eq 2"/>拒绝</if></td>
                         <td class="norightborder"><a href="###" onclick="showIntroDetail({pigcms:$o['id']})">详细</a>
-                        <a class="btn" href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('School/manage_del',array('token'=>$o['token'],'id'=>$o['id']))}');"  title="删除">删除</a></td>
+                        <a class="btn" href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('School/manage_del',array('token'=>$o['token'],'id'=>$o['id'],'rid'=>$rid,'type'=>$addtype))}');"  title="删除">删除</a></td>
                     </tr>
                 </volist>
                 </tbody>

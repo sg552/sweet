@@ -14,6 +14,7 @@ class Alipay_configAction extends UserAction{
 			$row['pid']=$this->_post('pid');
 			$row['paytype']=$this->_post('paytype');
 			$row['key']=$this->_post('key');
+			$row['mchid']=$this->_post('mchid');
 			$row['name']=$this->_post('name');
 			$row['token']=$this->_post('token');
 			$row['open']=$this->_post('open');

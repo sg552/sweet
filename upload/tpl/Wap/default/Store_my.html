@@ -17,7 +17,7 @@
 				<li>订单状态：<php>if($o['sent']){echo '<span style="color:green">已发货</span>';}else{echo '<span style="color:red">未发货</span>';}</php><i class="t">{pigcms:$o.time|date="Y-m-d H:i:s",###}</i></li>
 				<li>订单总额：￥{pigcms:$o.price}
 					<if condition="($o['paid'] eq 0) AND ($alipayConfig['open'] eq 1)">
-					<a href="{pigcms::U('Alipay/pay', array('token' => $token, 'wecha_id' => $wecha_id,'success'=>1,'from'=>'Store', 'price' => $o['price'], 'orderName' => $o['orderid'], 'orderid' => $o['orderid']))}" class="pay-btn">立即付款</a>
+					<a href="{pigcms::U('Store/orderCart', array('token' => $token, 'wecha_id' => $wecha_id,'orid' => $o['id']))}" class="pay-btn">立即付款</a>
 					</if>
 				</li>
 			</span>

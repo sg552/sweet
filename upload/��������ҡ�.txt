@@ -1,0 +1,14 @@
+1.
+访问：域名+ /index.php?g=User&m=Update&a=index
+比如域名是： wx.baidu.com ，那么访问：
+wx.baidu.com/index.php?g=User&m=Update&a=index
+
+
+
+2.前端的appid还是appid
+
+mchid 代表新版的商户号【最新申请的才有这个商户号，很早申请的就不用管这个参数】
+paySignKey代表新版的key
+appsecret还是appsecret
+
+3.其他的文件就覆盖到网站的根目录下
