@@ -21,9 +21,9 @@
         </style>
     </head>
     <body onselectstart="return true;" ondragstart="return false;" id="onlinebooking">
-        
+
     <div class="qiandaobanner">
-        <img src="{pigcms:$reslist['picurl']|default='http://image.pigcms.com/yicms/2013/12/24/1387856692_5a4e28182dd3a663.jpg'}">
+        <img src="{pigcms:$reslist['picurl']|default='http://image.weixin.pe/yicms/2013/12/24/1387856692_5a4e28182dd3a663.jpg'}">
     </div>
     <div class="cardexplain">
     <!--普通用户登录时显示-->
@@ -132,7 +132,7 @@
         </form>
     </ul>
     <div class="footReturn">
-        <input id="showcard" class="submit" value="提交消息" type="button"> 
+        <input id="showcard" class="submit" value="提交消息" type="button">
         <div class="window" id="windowcenter">
             <div id="title" class="wtitle">操作提示<span class="close" id="alertclose"></span></div>
             <div class="content">
@@ -173,8 +173,8 @@ $(document).ready(function () {
 
         tel_num = $("#tel").val();
         if('undefined' !== typeof(tel_num)){
-            if(tel_num ==''){alert('电话不能为空');return;} 
-            if(tel_num.length < 11){alert('请输入正确的电话');return;} 
+            if(tel_num ==''){alert('电话不能为空');return;}
+            if(tel_num.length < 11){alert('请输入正确的电话');return;}
         }
 
         if($("#truename").val()==''){alert('名字不能为空');return;}
@@ -214,7 +214,7 @@ $(document).ready(function () {
                 }
 
         })
-       
+
 
     });
 });
@@ -242,5 +242,5 @@ setTimeout('$("#windowcenter").slideUp(1000)',4000);
 <p><br/></p>
                 <div mark="stat_code" style="width:0px; height:0px; display:none;">
                     </div>
-    
+
 <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body></html>
