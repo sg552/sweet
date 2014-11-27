@@ -7,6 +7,7 @@
 <meta name="description" content="微信公众平台接口开发、托管、营销活动、二次开发"/>
 <include file="$includeHeaderPath"/>
 <div class="banner nbanner"></div>
+
 <div class="main">
    <div class="pos"> 当前位置&raquo;<a href="{pigcms:$f_siteUrl}">{pigcms:$f_siteName}</a> &raquo; <a href="">帮助中心</a></div>
 <style type="text/css">
@@ -96,7 +97,7 @@ border: 1px solid #C1C9D4;
             <div class="normalTitle"><h2>如何为微信公众号配置接口？</h2></div>
                 <div class="collapsible" style="line-height:180%">
 <div class="section lastSection">
-<p>请务必认真阅读以下2步内容，才能更有效的完成配置工作，有疑问的请联系QQ：{pigcms:$f_qq}提问。<br/><if condition="$_GET['token'] neq ''">你的接口URL是：<font color="red">{pigcms:$f_siteUrl}/index.php/api/<php>echo $_GET['token'];</php></font><br>您的token是：<font color="red"><php>if($wxuser['pigsecret']){echo $wxuser['pigsecret'];}else{echo $_GET['token'];}</php></font></if></p>
+<p>请务必认真阅读以下2步内容，才能更有效的完成配置工作，有疑问的请联系QQ：{pigcms:$f_qq}提问。<br/><if condition="$_GET['token'] neq ''">你的接口URL是：<font color="red">{pigcms:$f_siteUrl}/index.php?g=Home&m=Weixin&a=index&token={pigcms:$wxuser.token}{pigcms:$wxuser.urlsubfix}</font><br>您的token是：<font color="red"><php>if($wxuser['pigsecret']){echo $wxuser['pigsecret'];}else{echo $_GET['token'];}</php></font><br>EncodingAESKey：<font color="red">{pigcms:$wxuser.aeskey}</font><br>消息加解密方式：<font color="red">{pigcms:$wxuser.encodetype}</font></if></p>
 </div>
                 <div id="CollapsiblePanel2" class="CollapsiblePanel">
                     <div class="CollapsiblePanelTab clicked">第一步、在{pigcms:$f_siteName}绑定你的微信公众号。<span></span></div>
@@ -126,9 +127,10 @@ border: 1px solid #C1C9D4;
 									<p style="font-size:14px">比如你{pigcms:$f_siteName}平台上的地址是{pigcms:$f_siteUrl}/index.php/api/demo</p>
 									<p style="font-size:14px">那么URL就是{pigcms:$f_siteUrl}/INDEX.PHP/api/demo</p>
 									<else/>
-									<p style="font-size:14px">你的URL是 <font color="red">{pigcms:$f_siteUrl}/index.php/api/<php>echo $_GET['token'];</php></font></p>
+									<p style="font-size:14px">你的URL是 <font color="red">{pigcms:$f_siteUrl}/index.php?g=Home&m=Weixin&a=index&token={pigcms:$wxuser.token}{pigcms:$wxuser.urlsubfix}</font></p>
 									</if>
-									<p style="font-size:14px">Token填写 <font color="red"><php>echo $_GET['token'];</php></font></p>
+									<p style="font-size:14px">Token填写 <font color="red"><php>if($wxuser['pigsecret']){echo $wxuser['pigsecret'];}else{echo $_GET['token'];}</php></font></p>
+									<p style="font-size:14px">EncodingAESKey <font color="red">{pigcms:$wxuser.aeskey}</font></p><p style="font-size:14px">消息加解密方式 <font color="red">{pigcms:$wxuser.encodetype}</font></p>
 									<p><img src="{pigcms::STATICS}/help/5.jpg"></p><br>
 									<p style="font-size:14px">4、在手机上用微信给你的公众号输入"帮助"，如果能接收到信息就接入成功，否则请按照以上步骤重新配置</p><br>									
                                 </div>

@@ -28,7 +28,193 @@
 <div style="display:none">
 {pigcms:$alert}
 {pigcms::base64_decode(C('countsz'))}
-<script src="http://s15.cnzz.com/stat.php?id=5524076&web_id=5524076" language="JavaScript"></script>
-</div>
+<!-- <script src="http://s15.cnzz.com/stat.php?id=5524076&web_id=5524076" language="JavaScript"></script>
+ --></div>
+
 </body>
+
+<php>
+    if(MODULE_NAME == 'Function' && ACTION_NAME == 'welcome'){
+</php>
+<script src="{pigcms:$staticPath}/tpl/static/myChart/js/echarts-plain.js"></script>
+
+<script type="text/javascript">
+
+
+    var myChart = echarts.init(document.getElementById('main')); 
+   
+
+    var option = {
+        title : {
+            text: '<if condition="$charts.ifnull eq 1">本月关注和文本请求数据统计示例图(您暂时没有数据)<else />本月关注和文本请求数据统计</if>',
+            x:'left'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['文本请求数','关注数'],
+            x: 'right'
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: false},
+                dataView : {show: false, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore : {show: false} ,
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : [{pigcms:$charts.xAxis}]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'文本请求数',
+                type:'line',
+                tiled: '总量',
+                data: [{pigcms:$charts.text}]
+            },    
+            {
+                "name":'关注数',
+                "type":'line',
+                "tiled": '总量',
+                data:[{pigcms:$charts.follow}]
+            }
+       
+
+        ]
+
+    };                   
+
+    myChart.setOption(option); 
+
+
+    var myChart2 = echarts.init(document.getElementById('pieMain')); 
+               
+    var option2 = {
+        title : {
+            text: '<if condition="$pie.ifnull eq 1">7日内粉丝行为分析示例图(您暂时没有数据)<else />7日内粉丝行为分析</if>',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        series : [
+            {
+                name:'粉丝行为统计',
+                type:'pie',
+                radius : ['50%', '70%'],
+                itemStyle : {
+                    normal : {
+                        label : {
+                            show : false
+                        },
+                        labelLine : {
+                            show : false
+                        }
+                    },
+                    emphasis : {
+                        label : {
+                            show : true,
+                            position : 'center',
+                            textStyle : {
+                                fontSize : '18',
+                                fontWeight : 'bold'
+                            }
+                        }
+                    }
+                },
+                data:[ 
+                    {pigcms:$pie.series}
+                
+                ]
+            }
+        ]
+    };
+     myChart2.setOption(option2,true); 
+
+
+    var myChart3 = echarts.init(document.getElementById('pieMain2')); 
+    var option3 = {
+        title : {
+            text: '<if condition="$sex_series.ifnull eq 1">会员性别统计示例图(您暂时没有数据)<else />会员性别统计</if>',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        series : [
+            {
+                name:'会员性别统计',
+                type:'pie',
+                radius : ['50%', '70%'],
+                itemStyle : {
+                    normal : {
+                        label : {
+                            show : false
+                        },
+                        labelLine : {
+                            show : false
+                        }
+                    },
+                    emphasis : {
+                        label : {
+                            show : true,
+                            position : 'center',
+                            textStyle : {
+                                fontSize : '18',
+                                fontWeight : 'bold'
+                            }
+                        }
+                    }
+                },
+                data:[
+                  {pigcms:$sex_series['series']}
+                ]
+            }
+        ]
+    };                     
+
+  myChart3.setOption(option3,true); 
+
+
+
+    </script>
+<php>
+}
+</php>
 </html>

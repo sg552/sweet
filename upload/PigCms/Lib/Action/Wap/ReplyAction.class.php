@@ -2,28 +2,32 @@
 class ReplyAction extends WapAction{
     public $token;
     public $needCheck;
+    public $needpass;
     public $sepTime;
     public $wecha_id;
     public function __construct(){
         parent::__construct();
         $this->token=$this->_get('token');
         $this->reply_info_model=M('reply_info');
-		$thisInfoConfig = $this->reply_info_model->where(array('infotype'=>'message','token'=>$this->token))->find();
-		$detailConfig=unserialize($thisInfoConfig['config']);
-		//
-		$this->needCheck=intval($detailConfig['needcheck']);
-		//
+		    $thisInfoConfig = $this->reply_info_model->where(array('infotype'=>'message','token'=>$this->token))->find();
+		    $detailConfig=unserialize($thisInfoConfig['config']);
+		
+        $this->needCheck=intval($detailConfig['needcheck']);
+		    $this->needpass=intval($detailConfig['needpass']);
+		
         $this->sepTime=60;
         $this->wecha_id	= $this->_get('wecha_id');        
-        //session('token','gh_aab60b4c5a39');
+
         
         $this->assign('wecha_id',$this->wecha_id);
         $this->assign('needCheck',$this->needCheck);
+        $this->assign('needpass',$this->needpass);
         $this->assign('token',$this->token);
     } 
      public function index(){ //显示数据
+      
          $leave_model =M("leave");  
-         if(IS_GET){
+         
             $where = array("token"=>$this->token,'checked'=>1);
             import('ORG.Util.Page');// 导入分页类
             $count      = $leave_model->where($where)->count();// 查询满足要求的总记录数
@@ -40,8 +44,8 @@ class ReplyAction extends WapAction{
 
             $this->assign('res',$res);// 赋值数据集
             $this->assign('page',$show);// 赋值分页输出
-            $this->display(); // 输出模板
-        } 
+            $this->display();
+            session('readMessage',NULL);
      }
     public function leave(){//留言信息插入处理
         $leave_model =M("leave");
@@ -148,6 +152,24 @@ class ReplyAction extends WapAction{
             }
  
      }
+
+     public function checkpass()
+     {
+
+           $pass = $this->_post('readpass');
+           $readpass = M('Reply_info')->where(array('infotype'=>'message','token'=>$this->_post('token')))->getField('readpass');
+
+          if(md5($pass) == $readpass){
+              session('readMessage',1);
+              echo 1;
+          }else{
+              echo 0;
+          }
+
+       
+     }
+
+
 }
 
 ?>

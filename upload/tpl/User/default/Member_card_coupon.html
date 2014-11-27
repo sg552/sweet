@@ -1,11 +1,6 @@
 <include file="Public:head"/>  
 <div class="content">
-         
-          <div class="cLineB">
-              <h4 class="left">当前位置：<a href="{pigcms::U('Member_card/index',array('token'=>$token))}">会员卡</a> >> {pigcms:$thisCard.cardname}：会员优惠卷管理</h4>
-               
-              <div class="clr"></div>
-          </div>
+<include file="Member_card:menu"/> 
           <div class="cLine">
 			<div class="pageNavigator left">
 			<a href="{pigcms::U('Member_card/coupon_edit',array('token'=>$token,'id'=>$thisCard['id']))}" title="发布优惠券" class="btnGrayS vm bigbtn">
@@ -13,7 +8,7 @@
 			  </a>　
 
 			</div>
-			<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:10px">返回</a>          
+			<a href="{pigcms::U('Member_card/index',array('token'=>$token))}" class="right btnGrayS vm" style="margin-top:10px">返回</a>          
 			<div class="clr"></div>
           </div>
           <div class="msgWrap">
@@ -25,6 +20,7 @@
                 <tr>
 					<th class="select">选择</th>
 					<th class="answer">标题</th>
+					<th class="time">属性</th>
 					<th class="time" style="width:80px;">使用次数</th>
 					<th class="category" style="display:none">会员级别</th>
 					<th class="time">创建时间</th>
@@ -37,6 +33,13 @@
                 <tr>
 					  <td>  <input type="checkbox" name="del_id[]" value="" class="checkitem"></td>
 					  <td><div class="answer_text">{pigcms:$data_vip.title}</div></td>
+					  <td>
+					  	<if condition="$data_vip.attr eq '1'">
+					  		赠送卷	
+						<else/>
+							普通卷	
+					  	</if>
+					  </td>
 					  <td>{pigcms:$data_vip.usetime}</td>
 					  <td style="display:none">
 						<switch name="data_vip.group">
@@ -46,8 +49,8 @@
 							<case value="4">钻石卡会员</case>
 						</switch>					  
 					  </td>
-					  <td><if condition="$data_vip['type'] eq 1">无时间限制<else/>{pigcms:$data_vip.statdate|date='Y-m-d',###}</if></td>
-					  <td><if condition="$data_vip['type'] eq 1">无时间限制<else/>{pigcms:$data_vip.enddate|date='Y-m-d',###}</if></td>
+					  <td>{pigcms:$data_vip.statdate|date='Y-m-d',###}</td>
+					  <td>{pigcms:$data_vip.enddate|date='Y-m-d',###}</td>
 					  <td class="norightborder">
 						<a href="{pigcms::U('Member_card/useRecords',array('id'=>$thisCard['id'],'type'=>'coupon','itemid'=>$data_vip['id']))}">使用统计</a> <a href="{pigcms::U('Member_card/coupon_edit',array('itemid'=>$data_vip['id'],'id'=>$thisCard['id']))}">编辑</a> <a href="{pigcms::U('Member_card/coupon_del',array('itemid'=>$data_vip['id'],'id'=>$thisCard['id']))}">删除</a>
 					  </td>

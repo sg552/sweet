@@ -11,15 +11,17 @@
 <script>
 var editor;
 KindEditor.ready(function(K) {
-editor = K.create('#intro', {
+editor = K.create('#intro', {	
 resizeType : 1,
 allowPreviewEmoticons : false,
 allowImageUpload : true,
+allowUpload : true,
+postParams:{'PHPSESSID':"<?php echo session_id();?>"},
 uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
 items : [
 'source','undo','clearhtml','hr',
 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-'insertunorderedlist', '|', 'emoticons', 'image','link', 'unlink','baidumap','lineheight','table','anchor','preview','print','template','code','cut']
+'insertunorderedlist', '|', 'emoticons', 'image' ,'multiimage', 'link', 'unlink','baidumap','lineheight','table','anchor','preview','print','template','code','cut']
 });
 
 });
@@ -89,8 +91,8 @@ function setlatlng(longitude,latitude){
         <td><input type="text" id="tel" name="tel" value="{pigcms:$set.tel}" class="px require" style="width:400px;" /></td> 
        </tr> 
        <tr> 
-        <th><span class="red">*</span>手机：</th> 
-        <td><input type="text" id="mp" name="mp" value="{pigcms:$set.mp}" class="px require" style="width:400px;" /></td> 
+        <th><span class="red"></span>手机：</th> 
+        <td><input type="text" id="mp" name="mp" value="{pigcms:$set.mp}" class="px" style="width:400px;" /></td> 
        </tr> 
        <if condition="$isBranch eq 1">
        <tr> 
@@ -155,8 +157,7 @@ function setlatlng(longitude,latitude){
 $(function(){
 
 	$("#form").valid([
-	{ name:"name",simple:"名称",require:true},
-	{ name:"mp",type:"mobile",message:"手机号输入不正确"}
+	{ name:"name",simple:"名称",require:true}
 	
 	],true,true);
 

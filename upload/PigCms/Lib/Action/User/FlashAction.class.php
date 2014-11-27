@@ -24,7 +24,7 @@ class FlashAction extends UserAction{
 		$where['tip']=$tip;
 		$count=$db->where($where)->count();
 		$page=new Page($count,25);
-		$info=$db->where($where)->limit($page->firstRow.','.$page->listRows)->select();
+		$info=$db->where($where)->limit($page->firstRow.','.$page->listRows)->order('id DESC')->select();
 		$this->assign('page',$page->show());
 		$this->assign('info',$info);
 		$this->assign('tip',$tip);

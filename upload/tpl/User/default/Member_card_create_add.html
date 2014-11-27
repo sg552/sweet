@@ -1,15 +1,22 @@
 <include file="Public:head"/>
-
 <div class="content">
-          <div class="cLineB"><h4>{pigcms:$thisCard.cardname}：商家开卡配置 <span class="FAQ">卡号自定义啦</span> <strong>本月可创建 <span style="color:red">{pigcms:$count}</span> 张，剩余<span style="color:red">{pigcms:$cancrnum}</span>张</strong></h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a></div>
-         
+         <div class="cLineB">
+          <h4>
+          	创建会员卡
+          </h4>
+          <a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+         </div>
+       
+        <div class="cLine">
+       		<strong>本月可创建 <span style="color:red">{pigcms:$count}</span> 张，剩余<span style="color:red">{pigcms:$cancrnum}</span>张</strong>
+        </div>
           <form method="post" action="">
           <div class="msgWrap form">
             <table class="userinfoArea" border="0" cellspacing="0" cellpadding="0" width="100%">
               <tbody>
-  <tr>
+  				<tr>
               		<th>卡号英文编号：</th>
-              		<td><input type="input" class="px" id="title" value="" name="title" style="width:200px;"> 例：<font style="color:red">BSD</font>-65535 <font style="color:red">BSD</font>就是英文编号</td>
+              		<td><input type="input" class="px" id="title" value="" name="title" style="width:195px;"> 例：<font style="color:red">BSD</font>-65535 <font style="color:red">BSD</font>就是英文编号</td>
               		</tr>
   <tr style="display:none">
               		<th >选择人群：</th>

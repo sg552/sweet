@@ -141,13 +141,13 @@ var upload_type = '{pigcms::C("upload_type")}';
 	<td><input type="text" name="title" value="{pigcms:$photo.title}"  class="px"    /></td>
 	<td><input type="text" name="sort" value="{pigcms:$photo.sort}"  class="px" style="width:50px;" /></td>
 	<td><div class="cateimg"></div><input class="px"  style="width:250px;"   type="text"   name="picurl" id="picurl{pigcms:$i}" value="{pigcms:$photo.picurl}"  /> <a href="###" onclick="upyunPicUpload('picurl{pigcms:$i}',1500,1000,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('picurl{pigcms:$i}')">预览</a></td>
-	<td><input class="px" type="text"  style="width:250px;"  name="info" value="{pigcms:$photo.info}"  /></td>
+	<td><input class="px" type="text"  style="width:200px;"  name="info" value="{pigcms:$photo.info}"  /></td>
 	<td>
 		<input class="checkbox" type="checkbox" name="status" value="1"  <if condition="$photo['status'] eq 1">checked</if> >
 		<input type="hidden"   name="id" value="{pigcms:$photo.id}"  /></td>
 	<td class="norightborder">
-		<button type="submit" name="edit" value="true" class="btnGreen vm" style="height:20px;font-size:12px;line-height:10px;">
-			<strong>修改</strong>
+		<button type="submit" name="edit" value="true" class="btnGreen vm" style="height:20px;font-size:12px;line-height:10px;margin-bottom:5px;">
+			修改
 		</button>
 	<a href="{pigcms::U('Photo/list_del',array('id'=>$photo['id'],'token'=>session('token')))}">删除</a>
 	</td>

@@ -16,7 +16,9 @@
                   </td>
                 </tr>
               </thead>
+              
               <tbody>
+                <if condition="$_GET['biz'] neq 1">
                 <tr>
                   <th><span class="red">*</span>公众号原始id：</th>
                   <td><input type="text" required="" name="wxid" value="{pigcms:$info.wxid}" onmouseup="this.value=this.value.replace('_430','')" class="px" tabindex="1" size="25">　<span class="red">请认真填写，错了不能修改。</span>比如：gh_423dwjkeww3 <a href="/tpl/static/getoid.htm" target="_blank"><img src="{pigcms::RES}/images/help.png" class="vm helpimg" title="帮助"></a></td>
@@ -32,12 +34,24 @@
                  
                  <input type="hidden" name="token" value="{pigcms:$info.token}" class="px" tabindex="1" size="40">
                 <tr>
-                  <th><span class="red"></span>AppID：</th>
+                  <th><span class="red"></span>AppID（公众号）：</th>
                   <td><input type="text" name="appid" value="{pigcms:$info.appid}" class="px" tabindex="1" size="25">　用于自定义菜单等高级功能，可以不填 </td>
                 </tr>
                 <tr>
                   <th><span class="red"></span>AppSecret：</th>
                   <td><input type="text" name="appsecret" value="{pigcms:$info.appsecret}" class="px" tabindex="1" size="25">　用于自定义菜单等高级功能，可以不填 </td>
+                </tr>
+                <tr>
+                  <th><span class="red"></span>消息加密方式：</th>
+                  <td><select id="winxintype" name="encode">                  
+                  <option value="0" <eq name="info.encode" value="0">selected</eq>>明文模式</option>
+                  <option value="1" <eq name="info.encode" value="1">selected</eq>>兼容模式</option>
+                  <option value="2" <eq name="info.encode" value="2">selected</eq>>安全模式</option>
+                  </select>　 </td>
+                </tr>
+                <tr>
+                  <th><span class="red"></span>AesEncodingKey：</th>
+                  <td><input type="text" name="aeskey" value="{pigcms:$info.aeskey}" class="px" tabindex="1" size="55">　加密消息的AesEncodingKey </td>
                 </tr>
                 
                 <tr>
@@ -78,7 +92,16 @@
                   <option value="8,服务" <eq name="info.typeid" value="8">selected</eq> >服务</option>
                   </select></td>
                 </tr>
-              
+                <tr>
+                    <td colspan="2"><br /></td>
+                </tr>
+
+
+                <tr>
+                    <th>AppID（服务窗）:</th>
+                    <td><input type="text" name="fuwuappid" value="{pigcms:$info.fuwuappid}" class="px" size="25" />　用于支付宝服务窗，可以不填</td>
+                </tr>
+              </if>
                 <tr>
                   <th></th>
                   <td><button type="submit" class="btnGreen" id="saveSetting">保存</button></td>

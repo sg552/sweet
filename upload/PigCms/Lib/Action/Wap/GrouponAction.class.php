@@ -356,6 +356,12 @@ class GrouponAction extends ProductAction{
 				$id=intval($_GET['id']);
 				$where['id']=$id;
 			}
+
+			if($this->wxuser['winxintype'] ==3 && $this->wxuser['oauth'] == 1){
+				$addr = new WechatAddr($this->wxuser['appid'],$this->wxuser['appsecret']);
+				$this->assign('addrSign', $addr->addrSign());
+			}
+			
 			$product=$this->product_model->where($where)->find();
 			$this->assign('product',$product);
 			$this->display('orderCart_'.$this->tplid);

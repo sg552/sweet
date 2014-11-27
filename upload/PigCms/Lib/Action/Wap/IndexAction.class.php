@@ -19,7 +19,7 @@ class IndexAction extends WapAction{
 		$this->weixinUser=$tpl;
 		if (isset($_GET['wecha_id'])&&$_GET['wecha_id']){
 			$_SESSION['wecha_id']=$_GET['wecha_id'];
-		}		
+		}	
 		//父类信息
 		$allClasses=M('Classify')->where(array('token'=>$this->_get('token'),'status'=>1))->order('sorts desc')->select();
 		$allClasses=$this->convertLinks($allClasses);//加外链等信息
@@ -75,7 +75,7 @@ class IndexAction extends WapAction{
 		//
 		$where['token']=$this->token;
 		//
-		$allflash=M('Flash')->where($where)->select();
+		$allflash=M('Flash')->where($where)->order('id DESC')->select();
 		$allflash=$this->convertLinks($allflash);
 		
 		//
@@ -120,7 +120,6 @@ class IndexAction extends WapAction{
 			
 			$tpldata['tpltypeid'] = $tplinfo['tpltypeid'];
 			$tpldata['tpltypename'] = $tplinfo['tpltypename'];		
-
 			foreach($info as $k=>$v){
 			
 				if($info[$k]['url'] == ''){
@@ -136,7 +135,7 @@ class IndexAction extends WapAction{
 				}
 				
 			}
-			
+
 			if($tpldata['tpltypename'] == 'ktv_list' || $tpldata['tpltypename'] == 'yl_list'){
 
 				//控制模板中的不同字段
@@ -149,8 +148,8 @@ class IndexAction extends WapAction{
 					
 					$info[$key]['info'] = strip_tags(htmlspecialchars_decode($val['info']));
 				}
-				
 			}	
+		$this->assign('home',$this->homeInfo);
 		//zhida
 		$zd = M('Zhida')->where(array('token'=>$this->token))->find();
 		$zd['code'] = htmlspecialchars_decode(base64_decode($zd['code']),ENT_QUOTES);
@@ -167,16 +166,11 @@ class IndexAction extends WapAction{
 	}
 	
 	public function lists(){
-	
-
 		$token = $this->token;
 		$classid = $this->_get('classid','intval');	
-		
-		$classid = (int)$classid;
-
 		$where['token'] = $this->_get('token','trim');
 		$classify = M('classify');
-		
+		$this->assign('homes',$this->homeInfo['gzhurl']);
 		//本分类信息		
 		$info = $classify->where("id = $classid AND token = '$token'")->find();		
 		//是否有子类
@@ -188,7 +182,7 @@ class IndexAction extends WapAction{
 			include('./PigCms/Lib/ORG/index.Tpl.php');
 			foreach($tpl as $k=>$v){
 				if($v['tpltypeid'] == $info['tpid']){
-					$tplinfo = $v;
+					$tplinfo = $v;					
 				}
 			}
 
@@ -197,24 +191,39 @@ class IndexAction extends WapAction{
 	
 
 		$imgdata = M('Img')->field('id')->where("classid = $classid")->find();
-	
+		$allflash=M('Flash')->where($where)->order('id DESC')->select();
+		$allflash=$this->convertLinks($allflash);
+		$flash=array();
+		$flashbg=array();
+		$flashs=array();
+		$flashsbg=array();
 	
 		if(!empty($sub) AND empty($imgdata)){
 		//有子类
-
 			//幻灯片
-			$allflash=M('Flash')->where($where)->select();
-			$allflash=$this->convertLinks($allflash);
-			
-			$flash=array();
-			$flashbg=array();
 			foreach ($allflash as $af){
-				if ($af['tip']==1){
-					array_push($flash,$af);
-				}elseif ($af['tip']==2) {
-					array_push($flashbg,$af);
+				if ($af['url']==''){
+					$af['url']='javascript:void(0)';
 				}
+				if($af['tip']==1){
+					array_push($flashs,$af);
+				}		
+				if($af['tip']==2){
+					array_push($flashsbg,$af);
+				}
+				if ($af['tip']==3&&$af['did']==$classid){
+					array_push($flash,$af);
+				}elseif ($af['tip']==4&&$af['did']==$classid ) {
+					array_push($flashbg,$af);
+				}				
 			}
+			if(empty($flash)){
+				$flash=$flashs;
+			}
+			if(empty($flashbg)){
+				$flashbg=$flashsbg;
+			}
+			
 			$this->assign('flashbg',$flashbg);
 			if(!$flashbg&&$this->homeInfo['homeurl']){
 				$flash_db=M('Flash');
@@ -225,7 +234,7 @@ class IndexAction extends WapAction{
 				$arr['info']='';
 				$arr['tip']=2;
 				if ($arr['img']){
-				$flash_db->add($arr);
+					$flash_db->add($arr);
 				}
 			}
 	
@@ -239,8 +248,6 @@ class IndexAction extends WapAction{
 						$sub[$key]['url'] = U('Index/lists',array('classid'=>$val['id'],'token'=>$where['token'],'wecha_id'=>$this->wecha_id));
 					}
 					$sub[$key]['info'] = strip_tags(htmlspecialchars_decode($val['info']));
-					
-					
 				}
 				
 			}
@@ -255,27 +262,11 @@ class IndexAction extends WapAction{
 				}
 				$sub[$ke]['key'] = $j--;
 			}
-			
-			
-				
-				$count=count($flash);
-				$this->assign('flash',$flash);
-				$this->assign('num',$count);
-				$this->assign('flashbgcount',count($flashbg));
-				$this->assign('info',$sub);
-				$this->assign('thisClassInfo',$info);
-				$this->assign('tpl',$tpldata);
-				$this->assign('copyright',$this->copyright);
-				$this->display($tpldata['tpltypename']);
-		
+			$this->assign('info',$sub);
 		}else{
 			//无子类 在模板中显示内容列表
-				$where['token'] = $this->token;
-				$where['classid']=$this->_get('classid','intval');
-				$db=D('Img');
-	
-
-			//
+				$db=D('Img'); 
+				$where['classid']=$classid;
 				$res=$db->where($where)->order('usort DESC')->select();
 				$res=$this->convertLinks($res);
 
@@ -300,17 +291,27 @@ class IndexAction extends WapAction{
 				}
 				
 			//幻灯片
-			$allflash=M('Flash')->where($where)->select();
-			$allflash=$this->convertLinks($allflash);
-			
-			$flash=array();
-			$flashbg=array();
 			foreach ($allflash as $af){
-				if ($af['tip']==1){
-					array_push($flash,$af);
-				}elseif ($af['tip']==2) {
-					array_push($flashbg,$af);
+				if ($af['url']==''){
+					$af['url']='javascript:void(0)';
 				}
+				if($af['tip']==1){
+					array_push($flashs,$af);
+				}		
+				if($af['tip']==2){
+					array_push($flashsbg,$af);
+				}
+				if ($af['tip']==3&&$af['did']==$classid){
+					array_push($flash,$af);
+				}elseif ($af['tip']==4&&$af['did']==$classid ) {
+					array_push($flashbg,$af);
+				}				
+			}
+			if(empty($flash)){
+				$flash=$flashs;
+			}
+			if(empty($flashbg)){
+				$flashbg=$flashsbg;
 			}
 			$this->assign('flashbg',$flashbg);
 			if(!$flashbg&&$this->homeInfo['homeurl']){
@@ -325,23 +326,18 @@ class IndexAction extends WapAction{
 				$flash_db->add($arr);
 				}
 			}
-		
-				$count=count($flash);
-				$this->assign('flash',$flash);
-				$this->assign('num',$count);
-				$this->assign('flashbgcount',count($flashbg));
-				$this->assign('info',$res);
-				$this->assign('tpl',$tpldata);
-				$this->assign('copyright',$this->copyright);
-				$this->assign('thisClassInfo',$info);
-				
-				$this->display($tpldata['tpltypename']);	
-
+			$this->assign('info',$res);
 		}
-				
-
+		$count=count($flash);
+		$this->assign('flash',$flash);
+		$this->assign('num',$count);
+		$this->assign('flashbgcount',count($flashbg));
+		$this->assign('tpl',$tpldata);
+		$this->assign('copyright',$this->copyright);
+		$this->assign('thisClassInfo',$info);
+		$this->display($tpldata['tpltypename']);
 	}
-	
+
 	public function content($contid='',$cid=''){
 		$token = $this->token;
 		$class = M('Classify');
@@ -360,8 +356,7 @@ class IndexAction extends WapAction{
 			$classid = intval($cid);
 
 		}
-		
-		
+		$this->assign('homes',$this->homeInfo['gzhurl']);
 		
 		$res = $img->where("id = ".intval($id)." AND token = '$token'")->find();
 
@@ -619,5 +614,6 @@ class IndexAction extends WapAction{
 		}
 		return $plugmenus;
 	}
+
 }
 

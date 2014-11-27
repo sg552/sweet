@@ -56,19 +56,31 @@ class Token_openAction extends UserAction{
 
 	public function checkAll(){
 
-		$stat = $_POST['stat'];
-		$token = $_GET['token'];
-		$gid = session('gid');
+		if(IS_AJAX){
+			$stat = $_POST['stat'];
+			$token = $_GET['token'];
+			$gid = session('gid');
 
-		if($stat == 'true'){
-			$queryname = M('User_group')->where(array('id'=>$gid))->getField('func');
-		}else{
-			$queryname = '';
+			if($stat == 'true'){
+				$queryname = M('User_group')->where(array('id'=>$gid))->getField('func');
+			}else{
+				$queryname = '';
+			}
+
+			if(M('Token_open')->where(array('token'=>$token))->getField("id")){
+
+				M('Token_open')->where(array('token'=>$token,'uid'=>session('uid')))->setField('queryname',$queryname);
+
+			}else{
+				$insertData = array(
+					'uid'       => session('uid'),
+					'token'     => $token,
+					'queryname' => $queryname
+				);
+				M('Token_open')->where(array('token'=>$token))->add($insertData);
+			}
+			echo 1;
 		}
-
-		
-		M('Token_open')->where(array('token'=>$token))->setField('queryname',$queryname);
-		echo 1;
 
 	}
 

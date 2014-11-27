@@ -61,6 +61,16 @@
 					</td>
 				</tr>
 				<tr>
+					<td height="48" align="right"><strong>所属行业：</strong></td>
+					<td>
+                            <select name="business">
+                                <volist name="business" id="business">
+                                    <option value="{pigcms:$business.key}" <if condition="$business['key'] eq $info['business']">selected</if>>{pigcms:$business.val}</option>
+                                </volist>
+                            </select>
+					</td>
+				</tr>
+				<tr>
 					<td height="48" align="right"><strong>客户状态：</strong></td>
 					<td colspan="3" class="lt">
 						<input type="radio" class="radio" class="ipt" value="1" name="status" id="status1" <if condition="($info.status eq 1) OR ($info['status'] eq '') ">checked=""</if> >
@@ -69,6 +79,7 @@
 							关闭
 					</td>
 				</tr>
+
 				<tr>
 					<td height="48" align="right"><strong>公众号已创建数：</strong></td>
 					<td colspan="3" class="lt">

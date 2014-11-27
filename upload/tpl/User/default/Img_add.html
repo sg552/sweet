@@ -14,11 +14,11 @@ editor = K.create('#info', {
 resizeType : 1,
 allowPreviewEmoticons : false,
 allowImageUpload : true,
-uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+postParams:{'PHPSESSID':"<?php echo session_id();?>"},uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
 items : [
 						'source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-						'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'music', 'video']
+						'insertunorderedlist', '|', 'emoticons', 'image','multiimage', 'link', 'music', 'video']
 });
 
 });
@@ -51,14 +51,18 @@ items : [
                   <TD><input type="text" class="px" id="title" value=""    name="title" style="width:580px;"> </TD>
                 </TR>
                 <TR>
-                  <TH valign="top"><label for="text">简介：</label></TH>
+ <TH><label for="writer">作者：</label></TH>
+                  <TD><input type="text" class="px" id="writer" value="{pigcms:$info.writer}"    name="writer" style="width:580px;"> </TD>
+                </TR>
+
+                <TR>                  <TH valign="top"><label for="text">简介：</label></TH>
                   <TD><textarea  class="px" id="Hfcontent"     name="text" style="width:580px;  height:100px"></textarea><br />限制200字内
                    
 
 </TD>
                 </TR>
                 <TR>
-                  <TH valign="top"><span class="red">*</span><label for="classid">文章所属类别：</label></TH>
+                  <TH valign="top"><label for="classid">文章所属类别：</label></TH>
                   <TD>
 					<div id="classname" style="padding:5px;"></div>
 					<input type="hidden" id="classid" value="" name="classid" />
@@ -100,11 +104,22 @@ items : [
 }
                 </script>
                 <tr> 
-        <th><span class="red"></span>经纬度：</th> 
-        <td>经度 <input type="text" id="longitude"  name="longitude" size="14" class="px" value="{pigcms:$set.longitude}" /> 纬度 <input type="text"  name="latitude" size="14" id="latitude" class="px" value="{pigcms:$set.latitude}" /> <a href="###" onclick="setlatlng($('#longitude').val(),$('#latitude').val())">在地图中查看/设置</a>&nbsp;&nbsp;可以根据粉丝发送的地理位置后推送最近的图文（可以不填）</td> 
-       </tr>
+					<th><span class="red"></span>经纬度：</th> 
+					<td>经度 <input type="text" id="longitude"  name="longitude" size="14" class="px" value="{pigcms:$set.longitude}" /> 纬度 <input type="text"  name="latitude" size="14" id="latitude" class="px" value="{pigcms:$set.latitude}" /> <a href="###" onclick="setlatlng($('#longitude').val(),$('#latitude').val())">在地图中查看/设置</a>&nbsp;&nbsp;可以根据粉丝发送的地理位置后推送最近的图文（可以不填）</td> 
+				</tr>
+				<TR id="pc_show" style="display:none;">
+					<TH valign="top">是否同时添加到<br/>电脑网站文章：</TH>
+					<TD>
+						<input type="hidden" name="pc_cat_id" id="pc_cat_id" value="0"/>
+						<label for="pc_show_yes"><input type="radio" class="px" id="pc_show_yes" value="1" name="pc_show" />是</label>
+						<br/>
+						<label for="pc_show_no"><input type="radio" class="px" id="pc_show_no" value="0" name="pc_show" checked />否</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果选择是，将同步到电脑网站分类下。
+					</TD>
+					<TD>&nbsp;</TD>
+				</TR>
                 <TR>
-                  <TH></TH>
+ <input value="1" name="texttype" type="hidden">                  <TH></TH>
                   <TD><input type="submit" value="保存" name="sbmt" class="btnGreen left">　<a href="{pigcms::U('Img/index')}"  class="btnGray vm">取消</a></TD>
                 </TR>
               </TBODY>

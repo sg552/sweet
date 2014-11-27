@@ -69,6 +69,7 @@ class UserAction extends BackAction{
                 }
                 $_POST['password'] = md5($password);
             }
+            
             if(empty($password) && empty($repassword)) unset($_POST['password']);   //不填写密码不修改
             //根据表单提交的POST数据创建数据对象
             if($UserDB->create()){

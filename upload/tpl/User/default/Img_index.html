@@ -6,18 +6,38 @@
               <div class="clr"></div>
           </div>
           <div class="cLine">
+            <if condition="$usertplid eq 0">
               <div class="pageNavigator left">
-  <a href='{pigcms::U("Text/add")}' title='新增文本自定义回复' class='btnGrayS vm bigbtn'><img src="{pigcms::RES}/images/text.png" class="vm" />新增文本自定义回复</a>　
-  <a href='{pigcms::U("Img/add")}' title='新增图文自定义回复' class='btnGrayS vm bigbtn'><img src="{pigcms::RES}/images/pic.png" class="vm" />新增图文自定义回复</a>　
-          
+                <a href='{pigcms::U("Text/add")}' title='新增文本自定义回复' class='btnGrayS vm bigbtn'><img src="{pigcms::RES}/images/text.png" class="vm" />新增文本自定义回复</a>　
+                <a href='{pigcms::U("Img/add")}' title='新增图文自定义回复' class='btnGrayS vm bigbtn'><img src="{pigcms::RES}/images/pic.png" class="vm" />新增图文自定义回复</a>　
+                        
+                          </div>
+                <div style="float:right;line-height:30px;">
+                <form action="#" method="post">
+                <input type="text" placeholder="请输入标题搜索词" value="{pigcms:$_POST['search']}" class="px" name="search" />
+                <button class="btnGrayS" style="height: 29px;">搜索</button>
+                </form>
+              </div>
+            <else />
+              <div class="pageNavigator left">
+                <div class="vm01">
+                    <a href='{pigcms::U("Text/add")}' title='新增文本自定义回复'>新增文本自定义回复</a>
+                  </div>
+                <div class="vm02">
+                    <a href='{pigcms::U("Img/add")}' title='新增图文自定义回复'>新增图文自定义回复</a>　
+                </div>
+                <div class="vm03">
+                    <form action="#" method="post">
+                     <input type="text" placeholder="请输入标题搜索词" value="{pigcms:$_POST['search']}" class="px" name="search" />
+                    <button style="outline:none;"></button>
+                    <div class="clr"></div>
+                  </form>
             </div>
-  <div style="float:right;line-height:30px;">
-	<form action="#" method="post">
-	<input type="text" placeholder="请输入标题搜索词" value="{pigcms:$_POST['search']}" class="px" name="search" />
-	<button class="btnGrayS" style="height: 29px;">搜索</button>
-	</form>
-   </div>
+
             <div class="clr"></div>
+          </div>
+        </if>
+          <div class="clr" style="height:20px;"></div>
 			<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：修改排序时，首先填写好当前页面每篇文章的排序数值，点击“排序”按钮后整页统一保存。</div>
           </div>
           <div class="msgWrap">
@@ -39,7 +59,7 @@
 				<form action="{pigcms::U("Img/editUsort")}" method="post" id="sortform">
 				<volist name="info" id="vo" empty="没有找到数据">
 				<tr>
-                  <td><div class="answer_text"><img src="{pigcms::RES}/images/pic.png" class="vm" title="图文自定义内容">{pigcms:$vo.title}</div></td>
+                  <td><div class="answer_text">{pigcms:$vo.title}</div></td>
                   <td>{pigcms:$vo.keyword}</td>
                   
                   <td>{pigcms:$vo.classname}</td>

@@ -56,6 +56,16 @@ class UsersAction extends BackAction{
 				$map['agentid']=array('lt',1);
 			}
             $role = M('User_group')->field('id,name')->where($map)->select();
+
+			$business = include('./PigCms/Lib/ORG/Business.php');
+			$i=0;
+			foreach ($business as $k => $v){
+				$data[$i]['key'] = $k;
+				$data[$i]['val'] = $v;
+				$i++;
+			}
+			$this->assign('business',$data);
+
             $this->assign('role',$role);
             $this->assign('tpltitle','添加');
             $this->display();
@@ -101,8 +111,11 @@ class UsersAction extends BackAction{
 			unset($_POST['__hash__']);
             //根据表单提交的POST数据创建数据对象
 				$_POST['viptime']=strtotime($_POST['viptime']);
+				if (intval($users['agentid'])){
+					unset($_POST['gid']);
+				}
                 if($UserDB->save($_POST)){
-					if($_POST['gid']!=$users['gid']){
+					if($_POST['gid']!=$users['gid']&&intval($_POST['gid'])!=0){
 						//$fun=M('Function')->field('funname,gid,isserve')->where('`gid` <= '.$_POST['gid'])->select();
 						$queryname = M('User_group')->field('func')->where(array('id'=>$_POST['gid']))->find();
 
@@ -133,6 +146,16 @@ class UsersAction extends BackAction{
             $role = M('User_group')->field('id,name')->where($map)->select();
             $info = $UserDB->find($id);
             $inviteCount=$UserDB->where(array('inviter'=>$id))->count();
+
+			$business = include('./PigCms/Lib/ORG/Business.php');
+			$i=0;
+			foreach ($business as $k => $v){
+				$data[$i]['key'] = $k;
+				$data[$i]['val'] = $v;
+				$i++;
+			}
+			$this->assign('business',$data);
+
             $this->assign('inviteCount',$inviteCount);
             $this->assign('tpltitle','编辑');
             $this->assign('role',$role);
@@ -183,4 +206,5 @@ class UsersAction extends BackAction{
             $this->error('删除失败!');
         }
     }
+   
 }

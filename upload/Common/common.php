@@ -301,7 +301,7 @@ function D($name='',$layer='') {
 		$host=$_SERVER['HTTP_HOST'];
 		$host=strtolower($host);
 		if(strpos($host,"\/")!==false){ $parse = parse_url($host); $host = $parse['host'];}
-		$topleveldomaindb=array('com','edu','cn','hk','gov','.so','co','int','tk','mil','net','org','biz','info','pro','name','museum','coop','aero','xxx','idv','mobi','cc','me','li'); $str=''; 
+		$topleveldomaindb=array('com','edu','cn','hk','gov','.so','co','int','tk','mil','net','org','biz','info','pro','name','museum','coop','aero','xxx','idv','mobi','cc','me'); $str=''; 
 		foreach($topleveldomaindb as $v){ 
 			$str.=($str ? '|' : '').$v;
 		} 

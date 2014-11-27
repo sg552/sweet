@@ -137,7 +137,16 @@ class IndexAction extends UserAction{
 			$this->error('操作失败',U(MODULE_NAME.'/index'));
 		}
 	}
-	
+	public function apiInfo(){
+		$thisWx=apiInfo::info($this->user['id'],intval($_GET['id']));
+		$this->assign('info',$thisWx);
+		$fuwu = FALSE;
+		if (is_file($_SERVER['DOCUMENT_ROOT']."/PigCms/Lib/Action/Fuwu/FuwuAction.class.php")) {
+			$fuwu = TRUE;
+		}
+		$this->assign('fuwu',$fuwu);
+		$this->display();
+	}
 	public function upsave(){
 		S('wxuser_'.$this->token,NULL);
 		M('Diymen_set')->where(array('token'=>$this->token))->save(array('appid'=>trim($this->_post('appid')),'appsecret'=>trim($this->_post('appsecret'))));
@@ -167,6 +176,12 @@ class IndexAction extends UserAction{
 	}
 	
 	public function insert(){
+		if ($this->_post('biz','intval') && C('open_biz') == 1) {
+			$_POST['wxid'] = uniqid('id_');
+			$_POST['weixin'] = uniqid('wx_');
+			$_POST['ifbiz'] = 1;
+
+		}
 		$data=M('User_group')->field('wechat_card_num')->where(array('id'=>session('gid')))->find();
 		$users=M('Users')->where(array('id'=>session('uid')))->find();
 		//
@@ -192,12 +207,24 @@ class IndexAction extends UserAction{
 		}else{
 			$this->error('您的VIP等级所能创建的公众号数量已经到达上线，请购买后再创建',U('User/Index/index'));exit();
 		}
-		//$this->all_insert('Wxuser');
+		//$this->alli_nsert('Wxuser');
 		//
 		$db=D('Wxuser');
 		if ($this->isAgent){
 			$_POST['agentid']=$this->thisAgent['id'];
 		}
+		//
+		$randLength=43;
+		$chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$len=strlen($chars);
+		$randStr='';
+		for ($i=0;$i<$randLength;$i++){
+			$randStr.=$chars[rand(0,$len-1)];
+		}
+		$aeskey=$randStr;
+		$_POST['aeskey']=$aeskey;
+		$_POST['encode']=0;
+		//
 		$pigSecret=$this->get_token(20,0,1);
 		$_POST['pigsecret']=$pigSecret;
 		if($db->create()===false){
@@ -293,8 +320,8 @@ class IndexAction extends UserAction{
 	public function bindHelp(){
 		$where['id']=$this->_get('id','intval');
 		$where['uid']=session('uid');
-		$thisWxUser=M('Wxuser')->where($where)->find();
-		$this->assign('wxuser',$thisWxUser);
+		$thisWx=apiInfo::info($this->user['id'],intval($_GET['id']));
+		$this->assign('wxuser',$thisWx);
 		$this->display();
 	}
 	public function bindTip(){
@@ -312,6 +339,46 @@ class IndexAction extends UserAction{
 			//
 			$this->assign('token',$token);
 		}
+		$this->display();
+	}
+	public function switchTPl()
+	{
+
+
+		if(IS_AJAX){
+			$id = (int)$this->_post('value');
+
+			if($id == 1){
+				if(M("Users")->where(array("id"=>(int)session('uid')))->setField('usertplid',1)){
+					echo 200;
+				}else{
+					echo 500;
+				}
+
+			}else{
+				if(M("Users")->where(array("id"=>(int)session('uid')))->setField('usertplid',0)){
+					echo 200;
+				}else{
+					echo 500;
+				}
+			}
+
+		}else{
+			$this->display();
+		}
+	}
+
+
+	public function qiye(){
+		$where = array('uid' => intval(session('uid')), 'id' => intval($_GET['id']));
+		$wxinfo=M('Wxuser')->where($where)->find();
+		if(empty($wxinfo)){
+			$this->error('参数错误,请稍后再试~');
+		}
+		$oa = new oa($wxinfo);
+		$url = $oa->url();
+
+		$this->assign("oaurl",$url);
 		$this->display();
 	}
 }

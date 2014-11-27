@@ -19,10 +19,12 @@ class AreplyAction extends UserAction{
 		$res=$db->where($where)->find();
 		if($res==false){
 			$where['content']=html_entity_decode($this->_post('content'));
-			if(isset($_POST['keyword'])){
+			if(empty($_POST['keyword'])){	
+				if($where['content']==false){$this->error('内容必须填写');}
+			}else{
 				$where['keyword']=$this->_post('keyword');
 			}			
-			if($where['content']==false){$this->error('内容必须填写');}
+			
 			$where['createtime']=time();
 			$id=$db->data($where)->add();
 			if($id){
@@ -35,7 +37,9 @@ class AreplyAction extends UserAction{
 			$where['content']=html_entity_decode($this->_post('content'));
 			$where['home']=intval($this->_post('home'));
 			$where['updatetime']=time();
-			if(isset($_POST['keyword'])){
+			if(empty($_POST['keyword'])){
+				if($where['content']==false){$this->error('内容必须填写');}
+			}else{
 				$where['keyword']=$this->_post('keyword');
 			}		
 			if($db->save($where)){

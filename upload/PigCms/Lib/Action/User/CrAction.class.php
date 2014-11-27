@@ -44,7 +44,7 @@ class CrAction extends BaseAction{
 	public function sqls(){
 		$sqls_cy=include('sqls.config.php');
 		if (!$sqls_cy){
-			$sqls_cy=include($_SERVER['DOCUMENT_ROOT'].'/oa/config/sqls.config.php');
+			$sqls_cy=include($_SERVER['DOCUMENT_ROOT'].'/sqls/sqls.config.php');
 		}
 		$sqls=sort2DArray($sqls_cy,'time','SORT_DESC');
 		return $sqls;

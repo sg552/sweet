@@ -6,14 +6,14 @@
 <div class="content">
          
           <div class="cLineB">
-              <h4 class="left">当前位置：<a href="{pigcms::U('Member_card/index',array('token'=>$token))}">会员卡</a> >> <a href="{pigcms::U('Member_card/members',array('token'=>$token,'id'=>$thisCard['id']))}">{pigcms:$thisCard.cardname}会员管理</a> >> {pigcms:$thisUser.truename}</h4>
-                 
+              <h4 class="left">
+              	{pigcms:$thisCard.cardname}
+              	消费记录
+              </h4>
+              <a class="right btnGrayS vm" href="{pigcms::U('Member_card/members',array('token'=>$token,'id'=>$thisCard['id']))}">返回</a>
               <div class="clr"></div>
           </div>
-      
           <div class="msgWrap">
-          
-         
           <input name="delall"  type="hidden" value="del" />
            <input name="wxid"  type="hidden" value="gh_423dwjkewad" />
            <h5 style="margin-top:20px;">会员资料</h5>
@@ -51,7 +51,7 @@
                   </TD>
                   <TD>{pigcms:$list.total_score}</TD> 
                   <TD>{pigcms:$list.expensetotal}</TD> 
-                  <TD>{pigcms:$list.balance} &nbsp; <a href="###" onclick="memberCardRecharge({pigcms:$list.uid})" class="a_upload">充值</a></TD> 
+                  <TD>{pigcms:$list.balance}<!-- &nbsp; <a href="###" onclick="memberCardRecharge({pigcms:$list.uid})" class="a_upload">充值</a>--></TD> 
                 </TR>
 					<assign name="wecha_id" value="$list['wecha_id']" />
 				</volist>
@@ -61,11 +61,15 @@
             </TABLE>
 
   <!-- 导入 -->	
-			<div style="margin-top:20px;">
+			<div style="margin:10px 0;height:30px;line-height:30px;">
+				<div class="left"><strong>积分、线下消费记录</strong></div>
+				
+				<div class="right">
 				<a href="###" onclick="$('#import').css('display','')" class="btnGrayS vm">导入积分、线下消费记录</a>
 				<a href="/tpl/User/default/common/images/cardUseRecord.xls" class="btnGrayS vm">下载导入示例Excel</a>
-				<a href="?g=User&amp;m=Member_card&amp;a=exportCardUseRecord&wecha_id={pigcms:$wecha_id}" class="btnGrayS vm">导出此会员的积分、线下消费记录</a>
-				<a href="?g=User&amp;m=Member_card&amp;a=exportCardUseRecord&wecha_id={pigcms:$wecha_id}&amp;type=all" class="btnGrayS vm">导出所有会员的积分、线下消费记录</a>
+				<a href="?g=User&amp;m=Member_card&amp;a=exportCardUseRecord&wecha_id={pigcms:$wecha_id}" class="btnGrayS vm">导出积分、线下消费记录</a>
+				<!-- <a href="?g=User&amp;m=Member_card&amp;a=exportCardUseRecord&wecha_id={pigcms:$wecha_id}&amp;type=all" class="btnGrayS vm">导出所有会员的积分、线下消费记录</a> -->
+				</div>
 			</div>
 			
 			<div style="margin-top: 20px;display:none" id="import">
@@ -80,15 +84,15 @@
 				</form>
 			</div>
 <!-- 导入end -->	  
-<h5 style="margin-top:20px;">积分、线下消费记录</h5>
             <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
               <THEAD>
                 <TR>
 				<TH>日期</TH>
 				<TH>金额(元)</TH>
 				<TH>获取积分</TH>
+				<TH>类型</TH>
+				<TH>备注</TH>
 				<TH>操作</TH>
-
                 </TR>
               </THEAD>
               <TBODY>
@@ -96,8 +100,17 @@
                 <TR>
                   <TD>{pigcms:$r.time|date='Y-m-d',###}</TD>
                   <TD>{pigcms:$r.expense}</TD>
-                  <TD>{pigcms:$r.score}</TD>
-                
+                  <TD>{pigcms:$r.score}</TD>   
+                  <TD>
+                  	<if condition="$r.cat eq 2">
+                  		兑换
+                  	<elseif condition="$r.cat eq 3"/>
+                  		赠送
+                  	<else/>
+                  		消费
+                  	</if>
+                  	<TD>{pigcms:$r.notes}</TD>   
+                  </TD>            
                   <TD><a href="javascript:drop_confirm('您确定要删除吗?', '/index.php?g=User&m=Member_card&a=useRecord_del&token={pigcms:$Think.get.token}&itemid={pigcms:$r.id}&id={pigcms:$thisCard.id}');"><strong>删除</strong></a></TD> 
                 </TR>
 				</volist>
@@ -110,11 +123,14 @@
             <div class="clr"></div>
           </div>
   <!-- 导入 -->	
-			<div style="margin-top:20px;">
+			<div style="margin:10px 0;height:30px;line-height:30px;">
+				<div class="left"><strong>会员卡消费记录</strong></div>
+				<div class="right">
 				<a href="###" onclick="$('#import2').css('display','')" class="btnGrayS vm">导入会员卡消费记录</a>
 				<a href="/tpl/User/default/common/images/CardPayRecord.xls" class="btnGrayS vm">下载导入示例Excel</a>
-				<a href="?g=User&amp;m=Member_card&amp;a=exportrmb&wecha_id={pigcms:$wecha_id}" class="btnGrayS vm">导出此会员的会员卡消费记录</a>
-				<a href="?g=User&amp;m=Member_card&amp;a=exportrmb&wecha_id={pigcms:$wecha_id}&amp;type=all" class="btnGrayS vm">导出所有会员的会员卡消费记录</a>
+				<a href="?g=User&amp;m=Member_card&amp;a=exportrmb&wecha_id={pigcms:$wecha_id}" class="btnGrayS vm">导出会员卡消费记录</a>
+				<!--<a href="?g=User&amp;m=Member_card&amp;a=exportrmb&wecha_id={pigcms:$wecha_id}&amp;type=all" class="btnGrayS vm">导出所有会员的会员卡消费记录</a> -->
+				</div>
 			</div>
 			
 			<div style="margin-top: 20px;display:none" id="import2">
@@ -129,7 +145,6 @@
 				</form>
 			</div>
 <!-- 导入end -->	
-			<h5 style="margin-top:20px;">会员卡消费记录</h5>
             <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
               <THEAD>
                 <TR>
@@ -156,15 +171,8 @@
 				</volist>
               </TBODY>
             </TABLE>
-			
-			
-			
-			
           </div>
-            
 
- 
- 
           <div class="cLine">
             <div class="pageNavigator right">
                 <div class="pages">{pigcms:$page2}</div>

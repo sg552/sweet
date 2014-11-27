@@ -97,8 +97,18 @@
 	&nbsp;
   </TD>
 </tr>
-
-
+<if condition="$has_website">
+<TR>
+	<TH valign="top">是否同时添加到<br/>电脑网站文章分类：</TH>
+	<TD>
+		<label for="pc_show_yes"><input type="radio" class="px" id="pc_show_yes" value="1" name="pc_show" />是</label>
+		<br/>
+		<label for="pc_show_no"><input type="radio" class="px" id="pc_show_no" value="0" name="pc_show" checked />否</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果选择是，以后删除电脑网站分类您需要到电脑网站设置处自行手动删除。
+    </TD>
+	<TD>&nbsp;</TD>
+</TR>
+</if>
 <TR>
   <TH></TH>
   <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>

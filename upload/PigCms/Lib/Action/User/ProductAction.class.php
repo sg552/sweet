@@ -388,7 +388,8 @@ class ProductAction extends UserAction{
 			}
 			/************************************************/
 			//
-			if ($thisOrder['paytype']=='weixin'&&$thisOrder['transactionid']){
+			$payConfig=M('Alipay_config')->where(array('token'=>$this->token))->find();
+			if($thisOrder['paytype']=='weixin'&&$thisOrder['transactionid'] && empty($payConfig['mchid'])){
 				$this->success('修改成功,正在同步发货状态到微信中',U('Product/deliveryNotify',array('token'=>session('token'),'orderid'=>$thisOrder['orderid'],'wecha_id'=>$thisOrder['wecha_id'],'transactionid'=>$thisOrder['transactionid'],'id'=>$thisOrder['id'])));
 			}else {
 				$this->success('修改成功',U('Product/orderInfo',array('token'=>session('token'),'id'=>$thisOrder['id'])));

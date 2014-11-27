@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html><head>
+<html>    <head>
+       <if condition="$zd['status'] eq 1">
+            {pigcms:$zd['code']}
+        </if>
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>{pigcms:$tpl.wxname}</title>
         <base href="." />
@@ -7,7 +10,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="format-detection" content="telephone=no" />
-<link href="{pigcms::RES}/css/allcss/cate{pigcms:$tpl.tpltypeid}_{pigcms:$tpl.color_id}.css" rel="stylesheet" type="text/css" />
+<link href="{pigcms::RES}/css/allcss/cate16_{pigcms:$tpl.color_id}.css" rel="stylesheet" type="text/css" />
         
     <!-- <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/116/common.css" media="all"> -->
     <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/116/reset.css" media="all">
@@ -48,9 +51,9 @@
 	-->
 	<div style="-webkit-transform:translate3d(0,0,0);">
 		<div id="banner_box" class="box_swipe" style="visibility: visible;">
-			<ul style="list-style: none; width: 1920px; transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0, 0);">
+			<ul style="list-style: none; transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0, 0);">
                             <volist name="flash" id="so">
-                                <li style="width: 640px; display: table-cell; vertical-align: top;">
+                                <li style=" vertical-align: top;">
                                 <a href="{pigcms:$so.url}">
                                     <img src="{pigcms:$so.img}"  style="width:100%;">
                                 </a>
@@ -58,9 +61,9 @@
                                 </volist>
                         </ul>
 			<ol>
-                            <li class="on"></li>
-                            <li class=""></li>
-                            <li class=""></li>
+               <volist name="flash" id="so">
+                    <li <if condition="$i eq 1">class="on"</if>></li>
+                </volist>
                         </ol>
 		</div>
 	</div>
@@ -125,34 +128,7 @@
 {pigcms:$siteCopyright}
 </if>
 </div>
-	<include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
-		<if condition="ACTION_NAME eq 'index'">
-		<script type="text/javascript">
-			window.shareData = {  
-					"moduleName":"Index",
-					"moduleID": '0',
-					"imgUrl": "{pigcms:$homeInfo.picurl}", 
-					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
-					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
-					"weiboLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token']))}",
-					"tTitle": "{pigcms:$homeInfo.title}",
-					"tContent": "{pigcms:$homeInfo.info}"
-				};
-		</script>
-	<else />
-		<script type="text/javascript">
-			window.shareData = {  
-				"moduleName":"Index",
-				"moduleID": '1',
-				"imgUrl": "{pigcms:$homeInfo.picurl}", 
-				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(Index/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
-				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
-				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
-				"tTitle": "{pigcms:$homeInfo.title}",
-				"tContent": "{pigcms:$homeInfo.info}"
-			};
-		</script>	
-	
-	</if>
-{pigcms:$shareScript}
+	<include file="Index:styleInclude"/><include file="$cateMenuFileName"/> <include file="Index:kcdh"/>
+<!-- share -->
+<include file="Index:share" />
 </body></html>

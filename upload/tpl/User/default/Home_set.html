@@ -7,8 +7,9 @@
 
 <script type="text/javascript" src="/tpl/User/default/common/js/select/js/jquery.js"></script>
 <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.mb.miniPlayer.js"></script>
-    <link rel="stylesheet" type="text/css" href="/tpl/static/audioplayer/css/miniplayer.css" title="style" media="screen"/>
+<script src="./tpl/User/default/common/js/cart/jscolor.js" type="text/javascript"></script>
+<script type="text/javascript" src="/tpl/static/audioplayer/inc/jquery.mb.miniPlayer.js"></script>
+<link rel="stylesheet" type="text/css" href="/tpl/static/audioplayer/css/miniplayer.css" title="style" media="screen"/>
     <script type="text/javascript">
         $(function () {
 
@@ -53,14 +54,47 @@
 					<th>回复图片：</th>
 					<td><input type="text" name="picurl" id="picurl" value="{pigcms:$home.picurl}" class="px" style="width:550px;">   <script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script><a href="###" onclick="upyunPicUpload('picurl',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('picurl')">预览</a></td>
 				</tr>
+				<TR>
+                  <TH valign="top"><label for="gzhurl">公众号链接地址：</label></TH>
+                  <TD><input type="text" class="px" id="gzhurl"  name="gzhurl" value="{pigcms:$home.gzhurl}" style="width:580px;"  /><br>
+                    <span class="red">填写此链接地址可以有效帮助粉丝关注您的公众号！请填写一个微信官方公众平台群发出的文章链接。链接前加http://</span>
+                  </TD>
+                </TR>
 				<tr>
 					<th>3G网站背景：</th>
 					<td><input type="hidden" name="homeurl" id="homeurl" value="{pigcms:$home.homeurl}" class="px" style="width:550px;"><a href="?g=User&m=Flash&a=index&token={pigcms:$token}&tip=2">请在首页背景图中设置</a></td>
 				</tr>
 				<tr>
+					<th>开场动画：</th>
+					<td><select id="start" onchange="Cmd(this)" name="start" value="{pigcms:$home.start}"style="width:220px">
+						<option name="start" value="">关闭开场动画</option>
+						<option name="start" value="1">宝马动画</option>
+						<option name="start" value="2">左右展开</option>
+						<option name="start" value="3">上下展开</option>
+						<option name="start" value="4">滑动式开场动画(可自定义图片)</option>
+					</select></td>
+				</tr>
+				<tr id="div23">
+					<th>开场动画颜色：</th>
+					<td>
+						<input type="text" name="stpics" id="stpics" value="{pigcms:$strcolor}" class="px color" style="width: 55px; background:{pigcms:$strcolor}; color: rgb(255, 255, 255);"onblur="document.getElementById('pic1').value=document.getElementById('stpics').value;">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red">实际显示颜色为当前所选颜色的70%透明效果。</span>
+					</td>
+				</tr>
+				<tr id="div4">
+					<th></th>
+					<td>
+						<p class="red">此动画结束后,点击一下图片才能进入主页。</p>
+						<img id="pic1_src" src="<if condition="$img eq 1">{pigcms:$staticPath}/tpl/static/home/kcdhbj.jpg<elseif condition="$img eq 2"/>{pigcms:$strpic}<else/>{pigcms:$staticPath}/tpl/static/home/kcdhbj.jpg</if>" width="220" >
+						<input class="px"  name="stpic" value="<if condition="$img eq 1">{pigcms:$strpic}<elseif condition="$img eq 2"/>{pigcms:$strpic}<else/>{pigcms:$staticPath}/tpl/static/home/kcdhbj.jpg</if>" id="pic1" style="width:363px;" type="hidden" >
+						<br>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic1',475,775,'{pigcms:$token}')" class="a_upload">自定义图片</a> &nbsp;&nbsp;&nbsp;<span class="red">建议图片尺寸(475*775)</span>
+					</td>
+				</tr>
+				<tr>
 					<th>背景音乐：</th>
 					<td>
-					<table><tr><if condition="$home.musicurl neq ''"><td><a style="width:120px;float:left" id="musicurl_src" class="audio {skin:'blue'}" href="{pigcms:$home.musicurl}">音乐播放</a></td></if><td> <input type="text" class="px" name="musicurl" value="{pigcms:$home.musicurl}" id="musicurl" style="width:200px;float:left" onchange="$('#musicurl_src').attr('href',this.value"> <a href="###" onclick="upyunPicUpload('musicurl',0,0,'{pigcms:$token}')" class="a_upload">上传</a>&nbsp;<a href="###" onclick="chooseFile('musicurl','music')" class="a_upload">选择</a></td></tr></table>
+					<table><tr><if condition="$home.musicurl neq ''"><td><a style="width:120px;float:left" id="musicurl_src" class="audio {skin:'green'}" href="{pigcms:$home.musicurl}">音乐播放</a></td></if><td> <input type="text" class="px" name="musicurl" value="{pigcms:$home.musicurl}" id="musicurl" style="width:200px;float:left" onchange="$('#musicurl_src').attr('href',this.value"> <a href="###" onclick="upyunPicUpload('musicurl',0,0,'{pigcms:$token}')" class="a_upload">上传</a>&nbsp;<a href="###" onclick="chooseFile('musicurl','music')" class="a_upload">选择</a></td></tr></table>
 					 </td>
 				</tr>
 				<tr>
@@ -73,17 +107,46 @@
 				</tr>
 				<th>&nbsp;</th>
 					<td>
-						<button type="submit" name="button" class="btnGreen">保存</button>
+						<button type="submit" name="button" class="btnGreen">保存</button>&nbsp;&nbsp;
 						<a href="javascript:history.go(-1);" class="btnGray vm">取消</a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</form>
-  </div> 
- 
-  
-        </div>
+ 	</div> 
+  	<script>
+ 	 	onload = function() {
+            document.getElementById("start").selectedIndex = {pigcms:$home.start};
+        }        
+ 	</script>
+ 	<script>
+ 		var start = {pigcms:$home.start};
+ 		if(start == "4"){
+ 			$("#div4").show();
+ 		}else{
+ 			$("#div4").hide();
+ 		}
+ 		if(start =='3' || start =='2'){
+ 			$("#div23").show();
+ 		}else{
+ 			$("#div23").hide();
+ 		}
+	 	function Cmd(obj){ 
+	 	    var abc = obj.value;
+	 	    if(abc == '4'){
+	 	    	$("#div4").show();
+	 	    }else{
+	 	    	$("#div4").hide();
+	 	    }  
+	 	    if(abc == '2' || abc =='3'){
+	 	    	$("#div23").show();
+	 	    }else{
+	 	    	$("#div23").hide();
+	 	    }
+	 	}
+  </script>
+ </div>
 <if condition="session('isQcloud') neq true">
 
 	<include file="Public:footer"/>

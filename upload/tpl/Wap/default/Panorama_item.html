@@ -150,7 +150,7 @@ a {
 	if (ggHasHtml5Css3D() || ggHasWebGL()) {
 		pano=new pano2vrPlayer("container");
 		skin=new pano2vrSkin(pano);
-		pano.readConfigUrl('/index.php?g=Wap&m=Panorama&a=item&o=xml&id={pigcms:$item.id}');
+		pano.readConfigUrl('/index.php?g=Wap&m=Panorama&a=item&o=xml&token={pigcms:$token}&id={pigcms:$item.id}&wecha_id=ssssss');
 	} else{
 		alert("not support 360view");
 	}
@@ -169,7 +169,7 @@ window.shareData = {
             "moduleName":"Panorama",
             "moduleID":"{pigcms:$item.id}",
             "imgUrl": "{pigcms:$item.frontpic}", 
-            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Panorama/item',array('token'=>$token,'id'=>$item['id']))}",
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Panorama/item',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$item['id']))}",
             "tTitle": "{pigcms:$item.name}",
             "tContent": ""
 };

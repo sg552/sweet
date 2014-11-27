@@ -1,17 +1,11 @@
 <include file="Public:head"/>  
 <div class="content">
-         
-          <div class="cLineB">
-              <h4 class="left">职员管理</h4>
-               
-              <div class="clr"></div>
-          </div>
+<include file="Member_card:menu"/> 
           <div class="cLine">
 			<div class="pageNavigator left">
-			<a href="{pigcms::U('Member_card/staffSet',array('token'=>$token,'id'=>$thisCard['id']))}" title="" class="btnGrayS vm bigbtn">添加</a>　
-
+			<a href="{pigcms::U('Member_card/staffSet',array('token'=>$token,'id'=>$thisCard['id']))}" title="" class="btnGrayS vm bigbtn"><img class="vm" src="./tpl/User/default/common/images/product/add.png">添加职员</a>　
 			</div>
-			<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:10px">返回</a>          
+			<a href="{pigcms::U('Member_card/index',array('token'=>$token))}" class="right btnGrayS vm" style="margin-top:10px">返回</a>          
 			<div class="clr"></div>
           </div>
           <div class="msgWrap">

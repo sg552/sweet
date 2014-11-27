@@ -13,7 +13,7 @@
 <script src="{pigcms::STATICS}/vote/js/jquery.min.js" type="text/javascript"></script>
 <script src="{pigcms::STATICS}/vote/js/jquery.icheck.min.js" type="text/javascript"></script>
 <style>
-#vote-img li {width: 50%;float: left;}
+#vote-img li {width: 50%;float: left;padding: 0 1%;width: 48%;}
 .votecontent .disabled{background: #a9a9a9;border-color: #a1a1a1;}
 
 .beizhu {
@@ -83,7 +83,7 @@
 </volist>
 
              
-  <div class="clr"></div>
+<div class="clr"></div>
  </ul>
       <if condition="$success.err eq 1">
         <a href="javascript:showTip('等待投票开始');" class="pxbtn disabled">{pigcms:$success.info}</a>
@@ -159,8 +159,9 @@
         $.post('index.php?g=Wap&m=Vote&a=add_vote&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}', submitData, function(bakcdata) {
           var obj=eval('('+bakcdata+')');
             showTip(obj.info);
-            setTimeout(function(){window.location.reload()},2000);
-            return
+            if(obj.success == 1){
+               setTimeout(function(){window.location.reload()},2000);
+            }
         });
     }
   });
@@ -179,15 +180,18 @@ function showTip(tipTxt) {
 </script>
 
 <script type="text/javascript">
-window.shareData = {
+window.shareData = {  
             "moduleName":"Vote",
-            "moduleID":"0",
+            "moduleID":"{pigcms:$vote.id}",
             "imgUrl": "{pigcms:$vote.picurl}",
-            "sendFriendLink": "{pigcms::C('site_url')}{pigcms::U('Vote/index',array('token'=>$token,'id'=>$id))}",
+            "timeLineLink":"{pigcms::C('site_url')}{pigcms::U('Vote/index',array('token'=>$token,'id'=>$id))}",
+            "sendFriendLink":"{pigcms::C('site_url')}{pigcms::U('Vote/index',array('token'=>$token,'id'=>$id))}",
+            "weiboLink": "{pigcms::C('site_url')}{pigcms::U('Vote/index',array('token'=>$token,'id'=>$id))}",
             "tTitle": "{pigcms:$vote.title}",
-            "tContent": "{pigcms:$vote['info']|html_entity_decode}"
+            "tContent": "{pigcms:$vote.title}",
         };
 </script>
 {pigcms:$shareScript}
+
 </body>
 </html>

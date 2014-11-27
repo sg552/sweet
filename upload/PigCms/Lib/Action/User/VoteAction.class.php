@@ -173,12 +173,9 @@ class VoteAction extends UserAction{
                       }
 
                     }
-                    $data1['pid']=$id;
-                    $data1['module']='Vote';
-                    $data1['token']=session('token');
-                    $data1['keyword']=$_POST['keyword'];
+
                     if($this->_get('type') != 'scene'){
-                        M('keyword')->add($data1);
+                        $this->handleKeyword($id,'Vote',$this->_post('keyword','trim'));
                     }
                     //$ukeywordser=M('Users')->where(array('id'=>session('uid')))->setInc('activitynum');
                     $this->success('添加成功',U('Vote/index',array('token'=>session('token'))));
@@ -326,14 +323,10 @@ class VoteAction extends UserAction{
             if($data->create()){
 
                 if($data->where($where)->save($_POST)){
-                    $data1['pid']=$_POST['id'];
-                    $data1['module']='Vote';
-                    $data1['token']=session('token');
-
-                    $da['keyword']=trim($_POST['keyword']);
                     if($this->_get('type') != 'scene'){
-                        $ok = M('keyword')->where($data1)->save($da);
+                        $this->handleKeyword($this->_post('id','intval'),'Vote',$this->_post('keyword','trim'));
                     }
+
                     $this->success('修改成功!',U('Vote/index',array('token'=>session('token'))));exit;
                 }else{
                     //$this->error('没有做任何修改！');exit;

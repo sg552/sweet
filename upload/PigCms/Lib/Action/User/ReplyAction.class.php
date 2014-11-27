@@ -34,7 +34,11 @@ class ReplyAction extends UserAction{
 			$row['picurl']=$this->_post('picurl');
 			$row['token']=$this->token;
 			$row['infotype']=$infotype;
-			$row['config']=serialize(array('needcheck'=>intval($_POST['needcheck'])));
+			if($this->_post('readpass') != NULL){
+				$row['readpass']=md5($this->_post('readpass'));
+			}
+			$row['config']=serialize(array('needcheck'=>intval($_POST['needcheck']),'needpass'=>intval($_POST['needpass'])));
+			
 			if ($thisInfo){
 				$where=array('infotype'=>$thisInfo['infotype'],'token'=>$this->token);
 				$this->reply_info_model->where($where)->save($row);
@@ -44,9 +48,11 @@ class ReplyAction extends UserAction{
 				$this->success('添加成功',U('Reply/config'));
 			}
 		}else{
-			//
+			
 			$config=unserialize($thisInfo['config']);
 			$thisInfo['needcheck']=$config['needcheck'];
+			$thisInfo['needpass']=$config['needpass'];
+
 			$this->assign('set',$thisInfo);
 			$this->display();
 		}

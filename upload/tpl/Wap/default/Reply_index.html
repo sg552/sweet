@@ -14,7 +14,7 @@
   <div class="qiandaobanner"><a   href="javascript:history.go(-1);"><img src="tpl/static/messageboard/images/522c649a6fd98.jpg?2013" ></a> </div>
 
 <div class="cardexplain">
-	<div class="window" id="windowcenter">
+	<div class="window" id="windowcenter" style="z-index:100">
 		<div id="title" class="wtitle">操作提示<span class="close" id="alertclose"></span></div>
 		<div class="content">
                     <div id="txt"></div>
@@ -60,6 +60,7 @@ $(document).on("click","#showcard1",function(){
                     $("#closel").trigger("click");
                     return;
                 }else if(res['status'] == 1){
+                    
                     var html = "";
                     html+="<li class='green bounceInDown'>";
                
@@ -77,6 +78,7 @@ $(document).on("click","#showcard1",function(){
                     html+="</li>";
                     alert(res['info']);
                     $(html).prependTo("#limsg");
+               
                     $("#limsg").html(html);
                     $("#wxname1").val("") ;
                     $("#info1").val("");
@@ -137,7 +139,7 @@ $(document).on("click","#showcard2",function(){
                         return;
                         exit;
                     }else{
-
+                    
                         var html = "";
                         html+="<li class='green bounceInDown'>";
 
@@ -153,9 +155,11 @@ $(document).on("click","#showcard2",function(){
                         html+="<a class='hhsubmit submit' date="+data['id']+" href='javascript:void(0)' id='submit2'>确定</a> </p></span></dt>";
                         html+="</dl>";
                         html+="</li>";
-                        alert(res['info']);
+                        
 
+                        alert(res['info']);
                         $(html).prependTo("#limsg");
+                   
                         $("#limsg").html(html);
                         $("#wxname2").val("") ;
                         $("#info2").val("");
@@ -289,11 +293,11 @@ $("#windowcenter").slideUp(500);
  
 }); 
 
-function alert(title){ 
- 
+function alert(title){
+var showTime = arguments[1] ? arguments[1] : 1000;
 $("#windowcenter").slideToggle("slow"); 
 $("#txt").html(title);
-setTimeout('$("#windowcenter").slideUp(500)',1000);
+setTimeout('$("#windowcenter").slideUp(500)',showTime);
 } 
 $(document).ready(function(){
   $(".first1").click(function(){
@@ -324,7 +328,38 @@ $(document).ready(function(){
           </dl>
 <!--        </form>-->
 		</li>	
-         <font id="limsg"></font>      
+         <font id="limsg"></font>
+    <if  condition="$needpass eq 1 && session('readMessage') neq 1">
+         <li class="green bounceInDown"><a href="javascript:showPassInput();">请输入密码查看留言</a></li>
+         <script type="text/javascript">
+            function showPassInput(){
+                var inputCode = "<input type='password' name='readpass' class='px' placeholder='请输入查看密码' /><br /><a onclick='sendpass()' class='submit'>确定</a>";
+                alert(inputCode,300000);
+            }
+
+            function sendpass(){
+                var pass = $('input[name=readpass]').val();
+
+
+                $.ajax({
+                    url: '{pigcms::U("Reply/checkpass",array("token"=>$_GET["token"]))}',
+                    type: 'POST',
+                    dataType: 'html',
+                    data: {readpass: pass,token:"{pigcms:$_GET['token']}"},
+                    success:function(data){
+                        if(data == 1){
+                            location.reload();
+                        }else{
+                            alert('密码错误');
+                            
+                        }
+                    }
+                });
+                
+                
+            }
+         </script>
+    <else />
          <volist name="res" id="val">
          <li class="green bounceInDown">
           <h3><!--<img src="style/images/logo100x100.jpg">-->{pigcms:$val.name}<span>{pigcms:$val.time|date="Y-m-d H:i:s",###}</span><div class="clr"></div></h3>
@@ -351,6 +386,7 @@ $(document).ready(function(){
           </volist>
          </li>
         </volist>
+    </if>
                 <li  class="green bounceInDown nob ly2" style="display:none" >
                                 
 			<dl>

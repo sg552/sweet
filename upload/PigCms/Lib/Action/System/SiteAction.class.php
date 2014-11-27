@@ -34,9 +34,9 @@ class SiteAction extends BackAction{
 		$_POST['countsz']=base64_encode($_POST['countsz']);
 		}
 		if($this->update_config($_POST,CONF_PATH.$file)){
-			$this->success('操作成功',U('Site/index',array('pid'=>6,'level'=>3)));
+			$this->success('操作成功');
 		}else{
-			$this->success('操作失败',U('Site/index',array('pid'=>6,'level'=>3)));
+			$this->success('操作失败');
 		}
 	}
 	public function smssendtest(){

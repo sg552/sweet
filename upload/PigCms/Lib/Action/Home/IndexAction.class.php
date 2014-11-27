@@ -158,8 +158,9 @@ class IndexAction extends BaseAction{
 	public function help(){
 		if (isset($_GET['token'])){
 			if (isset($_SESSION['uid'])){
-				$wxuser=M('Wxuser')->where(array('uid'=>intval($_SESSION['uid']),'token'=>$this->_get('token')))->find();
-				$this->assign('wxuser',$wxuser);
+				$thisWx=apiInfo::info($_SESSION['uid'],0,$this->_get('token'));
+		
+				$this->assign('wxuser',$thisWx);
 			}else {
 				$this->error('无权查看');
 			}
@@ -203,10 +204,43 @@ class IndexAction extends BaseAction{
 		$this->assign('cases',$cases);
 		$this->display($this->home_theme.':Index:'.ACTION_NAME);
 	}
-	function test(){
-		//$amap=new amap();
-		//$r=$amap->around('117.30148007','31.82320415','酒店');
-		var_export(M('keyword')->where(array('token'=>'yicms'))->order('id DESC')->limit(0,100)->select());
 
+	 public function userJson(){
+    	if (C('server_topdomain')=='pigcms.cn'&&$this->_get('key')==C('server_key')){
+    		$id=intval($_GET['id']);
+    		$users=M('users')->where('id>'.$id)->order('id ASC')->limit(0,400)->select();
+    		if ($users){
+    			$i=0;
+    			foreach ($users as $u){
+    				unset($users[$i]['password']);
+    				$i++;
+    			}
+    		}
+    	}
+    	echo json_encode($users);
+    }
+
+
+	public function login(){
+		$business = include('./PigCms/Lib/ORG/Business.php');
+		$i=0;
+		foreach ($business as $k => $v){
+			$data[$i]['key'] = $k;
+			$data[$i]['val'] = $v;
+			$i++;
+		}
+		$this->assign('business',$data);
+		$this->display('login');
+	}
+	public function reg(){
+		$business = include('./PigCms/Lib/ORG/Business.php');
+		$i=0;
+		foreach ($business as $k => $v){
+			$data[$i]['key'] = $k;
+			$data[$i]['val'] = $v;
+			$i++;
+		}
+		$this->assign('business',$data);
+		$this->display('login');
 	}
 }

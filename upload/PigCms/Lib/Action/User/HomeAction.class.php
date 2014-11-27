@@ -13,6 +13,12 @@ class HomeAction extends UserAction{
 	public function set(){
 		$home=$this->home_db->where(array('token'=>session('token')))->find();
 		if(IS_POST){
+			$stpic=$_POST['stpic'];
+			$start=$_POST['start'];
+			$str = substr($stpic,0,1);
+			if($str == '#' && $start == '4'){
+				$_POST['stpic']="";
+			}
 			//$info = str_replace("\r\n",' ',$_POST['info']);
 			//$_POST['info'] = str_replace('&quot;','',$info);
 			$token = session('token');
@@ -24,6 +30,20 @@ class HomeAction extends UserAction{
 				$this->all_save('Home','/set');				
 			}
 		}else{
+			$strpic=$home['stpic'];
+			$str=substr( $strpic, 0, 1 );
+			if($str != ''){
+				if($str == '#'){
+					$strcolor=$strpic;
+					$img = '1';
+				}else{
+					$strcolor='';
+					$img = '2';
+				}
+			}
+			$this->assign('img',$img);
+			$this->assign('strpic',$strpic);
+			$this->assign('strcolor',$strcolor);
 			$this->assign('home',$home);
 			$this->display();
 		}

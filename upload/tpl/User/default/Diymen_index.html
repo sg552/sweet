@@ -7,11 +7,10 @@
  $(document).ready(function() {
 	
 	$("#iframe1").click(function(){
-		tipsWindown("添加菜单","iframe:{pigcms::U('Diymen/class_add')}","760","480","true","","true","leotheme");
+		tipsWindown("添加菜单","iframe:{pigcms::U('Diymen/class_add')}","760","450","true","","true","leotheme");
 	});
  });
  </script>
-
 <div class="content">
 
 <div class="cLineB">
@@ -37,8 +36,8 @@
 <tr>
 	<th style=" width:60px;">显示顺序</th>
 	<th style=" width:220px;">主菜单名称</th>
-	<th style=" width:170px;">关联关键词</th>
-	<th>外链URL</th>
+	<th style=" width:170px;">菜单类型</th>
+	<th>类型数值</th>
 	<th class="norightborder" style=" width:160px;">操作</th>
 </tr>
 </thead>
@@ -53,8 +52,34 @@
 			<span>{pigcms:$class.title}</span>
           </div>
         </td>
-        <td><span>{pigcms:$class.keyword}</span></td>
-        <td><span><if condition="$class['url'] eq false">无链接地址<else/>{pigcms:$class.url}</if></span></td>
+        <td>
+        	<span>
+        		
+	        	    <if condition="$class.keyword neq ''">
+		        		顶级菜单-【关键词回复菜单】
+		        	<elseif condition="$class.url neq ''"/>
+		        		顶级菜单-【url外链菜单】
+		        	<elseif condition="$class.wxsys neq ''"/>
+		        		顶级菜单-【微信扩展菜单】
+		        	<else/>
+		        		父级菜单
+		        	</if>
+        	</span>
+        </td>
+        <td>
+        	<span>
+			 		<if condition="$class.keyword neq ''">
+		        		{pigcms:$class.keyword}
+		        	<elseif condition="$class.url neq ''"/>
+		        		{pigcms:$class.url}
+		        	<elseif condition="$class.wxsys neq ''"/>
+		        		{pigcms:$class.wxsys}
+		        	<else/>
+		        		无
+		        	</if>
+        	</span>
+        
+        </td>
         <td>
 			<a class="ajax btnGreen  cboxElement" href='javascript:tipsWindown("修改菜单","iframe:{pigcms::U('Diymen/class_edit',array('id'=>$class['id']))}","760","480","true","","true","leotheme");' title="修改主菜单">修改</a>
 			<a class=" btnGreen " href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Diymen/class_del',array('id'=>$class['id']))}');">删除</a>
@@ -72,9 +97,30 @@
 			</td>
 			
 			<td colspan="1">
-				<span>{pigcms:$class1.keyword}</span>
+				<span>
+					<if condition="$class1.keyword neq ''">
+		        		关键词回复菜单
+		        	<elseif condition="$class1.url neq ''"/>
+		        		url外链菜单
+		        	<elseif condition="$class1.wxsys neq ''"/>
+		        		微信扩展菜单
+		        	</if>
+				</span>
 			</td>
-			 <td><span><if condition="$class1['url'] eq false">无链接地址<else/>{pigcms:$class1.url}</if></span></td>
+			 <td>
+			 	<span>
+			 	
+			 		<if condition="$class1.keyword neq ''">
+		        		{pigcms:$class1.keyword}
+		        	<elseif condition="$class1.url neq ''"/>
+		        		{pigcms:$class1.url}
+		        	<elseif condition="$class1.wxsys neq ''"/>
+		        		{pigcms:$class1.wxsys}
+		        	</if>
+			 	
+			 	</span>
+			 
+			 </td>
 			<td colspan="1">
 			<a class="ajax btnGreen cboxElement" href='javascript:tipsWindown("修改菜单","iframe:{pigcms:$f_siteUrl}{pigcms::U('Diymen/class_edit',array('id'=>$class1['id']))}","760","480","true","","true","leotheme");' title="修改主菜单">修改</a>
 			<a class=" btnGreen " href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Diymen/class_del',array('id'=>$class1['id']))}');">删除</a></td>				

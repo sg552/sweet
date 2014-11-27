@@ -80,7 +80,7 @@ class UsersAction extends BaseAction{
 		
 	}
 	public function checklogin(){
-		$verifycode=$this->_post('verifycode2','intval,md5',0);
+		$verifycode=$this->_post('verifycode2','md5',0);
 		if (isset($_POST['verifycode2'])){
 			if($verifycode != $_SESSION['loginverify']){
 				$this->error('验证码错误',U('Index/login'));
@@ -101,7 +101,7 @@ class UsersAction extends BaseAction{
 
 			if (C('agent_version')){
 				if ((int)$this->thisAgent['id']!=$res['agentid']){
-					$this->error('您使用的网址不对');exit;
+					//$this->error('您使用的网址不对');exit;
 				}
 			}
 			session('uid',$res['id']);
@@ -152,10 +152,15 @@ class UsersAction extends BaseAction{
 	public function checkreg(){
 		$db=D('Users');
 		$info=M('User_group')->find(1);
-		$verifycode=$this->_post('verifycode','intval,md5',0);
+		$verifycode=$this->_post('verifycode','md5',0);
 		if (isset($_POST['verifycode'])){
 			if($verifycode != $_SESSION['verify']){
 				$this->error('验证码错误',U('Index/login'));
+			}
+		}
+		if(C('reg_mp_verify') == 1){
+			if(session('reg_mp') != md5($this->_post('mp'))){
+				$this->error('请输入刚接收验证码的手机号');
 			}
 		}
 		if (isset($_POST['mp'])){
@@ -178,6 +183,7 @@ class UsersAction extends BaseAction{
 			$_POST['inviter']=0;
 		}
 		$_POST['invitecode']=$this->randStr(6);
+		$_POST['usertplid']=1;
 		if($db->create()){
 			$id=$db->add();
 			if($id){
@@ -278,5 +284,30 @@ class UsersAction extends BaseAction{
 			$this->error('密码修改失败！',U('Index/index'));
 		}
 	}
-	
+
+
+	public function sendMsg(){
+
+		if(IS_POST){
+			if (strlen($this->_post('mp'))!=11){
+				exit('Error Phone Number!');
+			}
+			for($i=0;$i<6;$i++){
+				$code .= rand(0,9);
+			}
+
+			session('verify',md5($code));
+			session('reg_mp',md5($this->_post('mp')));
+			//Sms::sendSms('admin','尊敬的客户，注册验证码是：'.$code.',我们的工作人员不会向您索取本条消息内容，切勿向任何人透漏',$this->_post('mp'));
+
+			require('./PigCms/Lib/ORG/RestSMS.php');
+
+			sendTempSMS($this->_post('mp'),array($code),"4764");//手机号码，替换内容数组，模板ID 4764
+		
+		}else{
+			exit("Error!");
+		}
+	}
+
+
 }

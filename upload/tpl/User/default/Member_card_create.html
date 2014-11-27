@@ -16,21 +16,37 @@ function selectall(name) {
 </script> 
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
 <div class="content">
-         
           <div class="cLineB">
-              <h4 class="left">当前位置：<a href="{pigcms::U('Member_card/index',array('token'=>$token))}">会员卡</a> >> {pigcms:$thisCard.cardname}：创建会员卡号　<span style="color:red">此会员卡号,会员领取一张，这里将会少一张,当全部被领取完了,请再次开卡</span></h4>
-              <br />
-           
+              <h4 class="left">会员开卡</h4>
+              <a href="{pigcms::U('Member_card/index',array('token'=>$token))}" class="right btnGrayS vm">返回</a>
               <div class="clr"></div>
           </div>
+ 			<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">此会员卡号,会员领取一张，这里将会少一张,当全部被领取完了,请再次开卡</div>         
           <div class="cLine">
 			<div class="pageNavigator left">
+
+				<a  href="{pigcms::U('Member_card/create_add',array('token'=>$token,'id'=>$thisCard['id']))}" title="创建会员卡号" class="add">创建会员卡号
+</a>&nbsp;&nbsp;<a class="delete" href="###" onclick="if(confirm('确定删除吗')){$('#info').submit()}">删除</a>&nbsp;&nbsp; <strong>已经领取 <span style="color:red">{pigcms:$usecount}</span> 张，剩余<span style="color:red">{pigcms:$ucount}</span>张未领取，一共 <span style="color:red">{pigcms:$count}</span>张</strong>
+			</div>	    
 			
-				<a href="{pigcms::U('Member_card/create_add',array('token'=>$token,'id'=>$thisCard['id']))}" title="创建会员卡号" class="add">创建会员卡号
-				</a>&nbsp;&nbsp;<a class="delete" href="###" onclick="if(confirm('确定删除吗')){$('#info').submit()}">删除</a>&nbsp;&nbsp; <strong>已经领取 <span style="color:red">{pigcms:$usecount}</span> 张，剩余<span style="color:red">{pigcms:$ucount}</span>张未领取，一共 <span style="color:red">{pigcms:$count}</span>张</strong>
+			<div class="right">
+				<a href="###" onclick="$('#import').css('display','')" class="btnGrayS vm">导入会员卡</a>
+				<a href="?g=User&m=Member_card&a=exportCard&id={pigcms:$Think.get.id|intval}" class="btnGrayS vm">导出会员卡</a>
+				<a href="/tpl/User/default/common/images/cardDemo.xls" class="btnGrayS vm">下载导入Excel模板</a>
 			</div>
-			<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:10px">返回</a>          
-			<div class="clr"></div>
+			         
+			<div class="clr"></div>	
+			<div style="margin-top: 20px;display:none" id="import">
+				<form enctype="multipart/form-data" action="?g=User&amp;m=Upyun&amp;a=localUploadCardExcel" id="thumbForm" method="POST" style="font-size:14px;padding:10px 20px 10px 0px;">
+					<div>
+						选择本地文件：<input type="file" style="width:250px;border:1px solid #ddd" name="photo">
+						<input id="submitbtn" name="doSubmit" type="submit" class="btnGreen" value="上传" onclick="this.value='上传中...'">
+						<input name="id" type="hidden" value="{pigcms:$Think.get.id|intval}" />
+						<a href="###" onclick="$('#import').css('display','none')" class="btnGrayS vm">取消导入</a> 注意：不支持xlsx格式
+					</div>
+				</form>
+			</div>
+<!-- 导入end -->			
           </div>
           <div class="msgWrap">
           <form method="post" action="" id="info">
@@ -57,10 +73,9 @@ function selectall(name) {
 						<if condition="$data_vip['wecha_id'] eq false">空闲卡<else/><strong>使用中</strong></if>
 					  </td>
                       <td> 
-                      <if condition="$data_vip['wecha_id'] neq false">
-                            
-                    <a href="index.php?g=User&m=Member_card&a=member&itemid={pigcms:$data_vip.id}&id={pigcms:$thisCard.id}">查看详情</a>
-                       
+                      <if condition="$data_vip['wecha_id'] neq false">  
+                    	<!--<a href="index.php?g=User&m=Member_card&a=member&itemid={pigcms:$data_vip.id}&id={pigcms:$thisCard.id}">查看详情</a>-->      
+                    	<a href="index.php?g=User&m=Member_card&a=members&itemid={pigcms:$data_vip.id}&id={pigcms:$thisCard.id}">查看详情</a>    
                       </if>
                     
                     </td>

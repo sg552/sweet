@@ -97,7 +97,7 @@
 						<li class="mix {pigcms:$tpl.attr}<?php if($info['tpltypeid'] == $tpl['tpltypeid']){echo ' ck active';} ?>">
 							<div class="mbtip">{pigcms:$tpl.tpldesinfo|default='暂无模板描述'}</div>
 							<label>
-								<img src="{pigcms::STATICS}/tmpls/images/loading.png" data-original="/tpl/User/default/common/images/{pigcms:$tpl.tplview}">
+								<img src="{pigcms::STATICS}/tmpls/images/loading.png" data-original="<if condition="$tpl.user eq 0">{pigcms:$staticPath}</if>/tpl/User/default/common/images/{pigcms:$tpl.tplview}">
 								<input class="radio" type="radio"<if condition="$info['tpltypeid'] eq $tpl['tpltypeid']"> checked</if> name="optype" value="{pigcms:$tpl.tpltypeid}">
 								模板{pigcms:$tpl.sort}
 								</label>

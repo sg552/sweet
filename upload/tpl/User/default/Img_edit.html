@@ -14,11 +14,12 @@ editor = K.create('#info', {
 resizeType : 1,
 allowPreviewEmoticons : false,
 allowImageUpload : true,
+postParams:{'PHPSESSID':"<?php echo session_id();?>"},
 uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
 items : [
 						'source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-						'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'music', 'video']
+						'insertunorderedlist', '|', 'emoticons', 'image','multiimage', 'link', 'music', 'video']
 });
 
 });
@@ -51,6 +52,11 @@ items : [
                   <TD><input type="text" class="px" id="title" value="{pigcms:$info.title}"    name="title" style="width:580px;"> </TD>
                 </TR>
                 <TR>
+                  <TH><label for="writer">作者：</label></TH>
+                  <TD><input type="text" class="px" id="writer" value="{pigcms:$info.writer}"    name="writer" style="width:580px;"> </TD>
+                </TR>
+                
+                <TR>
                   <TH valign="top"><label for="text">简介：</label></TH>
                   <TD><textarea  class="px" id="Hfcontent"     name="text" style="width:580px;  height:100px">{pigcms:$info.text}</textarea><br />限制200字内
 </TD>
@@ -64,11 +70,11 @@ items : [
 					<a href="{pigcms::U('Classify/add')}" class="a_upload" style="margin-left:10px;" target="ddd" >添加分类</a>
                   </TD>
                 </TR> 
-				<TR>
-                  <TH valign="top"><label for="pic">封面图片地址：</label></TH>
-                  <TD><input type="text" class="px" id="pic"  name="pic" value="{pigcms:$info.pic}" style="width:580px;"  />  <script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script><a href="###" onclick="upyunPicUpload('pic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>
-</TD>
-                </TR>
+  				<TR>
+            <TH valign="top"><label for="pic">封面图片地址：</label></TH>
+            <TD><input type="text" class="px" id="pic"  name="pic" value="{pigcms:$info.pic}" style="width:580px;"  />  <script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script><a href="###" onclick="upyunPicUpload('pic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>
+            </TD>
+          </TR>
 				<input type="hidden" name="id" value="{pigcms:$info.id}" />
                <TR>
                   <TH valign="top"><label for="showpic">详细页是否显示封面：</label></TH>
@@ -100,6 +106,7 @@ items : [
         <td>经度 <input type="text" id="longitude"  name="longitude" size="14" class="px" value="{pigcms:$info.longitude}" /> 纬度 <input type="text"  name="latitude" size="14" id="latitude" class="px" value="{pigcms:$info.latitude}" /> <a href="###" onclick="setlatlng($('#longitude').val(),$('#latitude').val())">在地图中查看/设置</a>&nbsp;&nbsp;可以根据粉丝发送的地理位置后推送最近的图文（可以不填）</td> 
        </tr>
                 <TR>
+                <input value="1" name="texttype" type="hidden">
                   <TH></TH>
                   <TD><input type="submit" value="保存" name="sbmt" class="btnGreen left">　<a href="{pigcms::U('Img/index')}"  class="btnGray vm">取消</a></TD>
                 </TR>

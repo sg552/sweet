@@ -34,7 +34,14 @@
 					<th>需要审核：</th>
 					<td><label><input type="checkbox" name="needcheck" value="1" <if condition="$set.needcheck eq 1">checked</if> /> 需要审核</label></td>
 				</tr>
-
+				<tr>
+					<th>启用查看密码：</th>
+					<td><label><input type="checkbox" name="needpass" value="1" <if condition="$set.needpass eq 1">checked</if> /> 启用</label></td>
+				</tr>
+				<tr>
+					<th>请设置查看密码：</th>
+					<td><input type="password"class="px" name="readpass" value="" /> *修改时留空则不修改密码</td>
+				</tr>
 				<th>&nbsp;</th>
 					<td>
 					<input type="hidden" name="infotype" value="message" />

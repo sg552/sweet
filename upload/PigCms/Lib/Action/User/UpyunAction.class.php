@@ -107,17 +107,18 @@ class UpyunAction extends UserAction{
 	public function localUploadUsecordExcel(){
 		$token = $this->token;
 		$wecha_id = $this->_post('wecha_id');
+		$cardid   = $this->_post('id','intval');
 		$return=$this->localUpload(array('xls'));
 		if ($return['error']){
 			$this->error($return['msg']);
 		}else {
-		
+			chmod(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']),0777);
 			$data = new Spreadsheet_Excel_Reader();
 			// 设置输入编码 UTF-8/GB2312/CP936等等
 			$data->setOutputEncoding('UTF-8');
 			$data->read(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']));
-			chmod(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']),0777);
-			//
+			
+			
 			$sheet=$data->sheets[0];
 			$rows=$sheet['cells'];
 			if ($rows){
@@ -126,9 +127,15 @@ class UpyunAction extends UserAction{
 				foreach ($rows as $r){
 				//跳过表头
 					if($i != 0){
-						
 						$info['itemid'] = (int)$r[1];
-						$info['wecha_id'] = htmlspecialchars($r[2]);
+						$cardSn		= htmlspecialchars($r[2]);
+						$wecha_id 	= M('Member_card_create')->where(array('token'=>$this->token,'cardid'=>$cardid,'number'=>$cardSn))->getField('wecha_id');
+						if(empty($wecha_id)){
+							$this->error('会员卡号必须与与已有的会员卡对应');
+							exit;
+						}
+						$info['wecha_id'] = $wecha_id;
+						//$info['wecha_id'] = htmlspecialchars($r[2]);
 						if($info['wecha_id'] == ''){
 							$info['wecha_id'] = $wecha_id;
 						}
@@ -139,7 +146,7 @@ class UpyunAction extends UserAction{
 						}elseif($r[4] == '分享'){
 							$info['cat'] = 98;
 						}else{
-							$info['cat'] = 3;
+							$info['cat'] = 0;
 						}
 						
 						$info['expense'] = (int)$r[5];
@@ -151,9 +158,8 @@ class UpyunAction extends UserAction{
 							$r[8] = str_replace(array('年','月','时','分','日','秒'),array('-','-',':',':','',''),$r[8]);
 						
 						}
-						
 						$info['time'] = strtotime($r[8]);
-
+						$info['notes'] = $r[9];
 						$info['token'] = $this->token;
 						$record->add($info);
 
@@ -173,6 +179,7 @@ class UpyunAction extends UserAction{
 	public function localUploadPayrecordExcel(){
 		$token = $this->token;
 		$wecha_id = $this->_post('wecha_id');
+		$cardid   = $this->_post('id','intval');
 		$return=$this->localUpload(array('xls'));
 		if ($return['error']){
 			$this->error($return['msg']);
@@ -224,8 +231,14 @@ class UpyunAction extends UserAction{
 							
 							
 							
-							
-							$info['wecha_id'] = htmlspecialchars($r[9]);
+							$cardSn		= htmlspecialchars($r[9]);
+							$wecha_id 	= M('Member_card_create')->where(array('token'=>$this->token,'cardid'=>$cardid,'number'=>$cardSn))->getField('wecha_id');
+							if(empty($wecha_id)){
+								$this->error('会员卡号必须与与已有的会员卡对应');
+								exit;
+							}
+							$info['wecha_id'] = $wecha_id;
+							//$info['wecha_id'] = htmlspecialchars($r[9]);
 							$info['module'] = htmlspecialchars($r[10]);
 							
 							if($r[11] == '充值'){
@@ -267,7 +280,7 @@ class UpyunAction extends UserAction{
 			$data->setOutputEncoding('UTF-8');
 			$data->read(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']));
 			chmod(str_replace('http://'.$_SERVER['HTTP_HOST'],$_SERVER['DOCUMENT_ROOT'],$return['msg']),0777);
-			//
+
 			$sheet=$data->sheets[0];
 			$rows=$sheet['cells'];
 			

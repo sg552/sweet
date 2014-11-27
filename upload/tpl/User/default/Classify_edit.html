@@ -100,6 +100,19 @@
 	&nbsp;
   </TD>
 </tr>
+<if condition="$info['pc_cat_id']">
+<TR>
+	<TH valign="top">是否解绑电脑<br/>网站文章分类：</TH>
+	<TD>
+		<label for="pc_show_yes"><input type="radio" class="px" id="pc_show_yes" value="1" name="pc_show" />是</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统检测到此分类开启了添加到电脑网站。
+		<br/>
+		<label for="pc_show_no"><input type="radio" class="px" id="pc_show_no" value="0" name="pc_show" checked />否</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果选择是，此分类将不再与电脑网站文章分类挂钩，以后添加文章时不会出现“是否添加到电脑网站分类”的提示。改变后不可改回。
+    </TD>
+	<TD>&nbsp;</TD>
+</TR>
+</if>
 <tr>
 	<td colspan="3" align="center">
 	
