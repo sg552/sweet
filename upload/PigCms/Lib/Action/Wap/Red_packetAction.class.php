@@ -11,10 +11,10 @@ class Red_packetAction extends WapAction{
 			$this->error('活动还没有开启');
 		}
 
-		$Userinfo = M('Userinfo')->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id))->find();
+		/*$Userinfo = M('Userinfo')->where(array('token'=>$this->token,'wecha_id'=>$this->wecha_id))->find();
 		if (empty($Userinfo)){
 			$this->error('请先完善个人资料再参加活动',U('Userinfo/index',array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'redirect'=>MODULE_NAME.'/index|id:'.$id)));
-		}
+		}*/
 
 		$this->assign('packet_info',$this->packet_info);
 	}
@@ -30,7 +30,7 @@ class Red_packetAction extends WapAction{
 	function getPacket(){
 		$result 	= array();
 		$id 		= $this->_get('id','intval');
-		
+
 		if($this->is_start() == 1){
 			$result['err'] 	= 1;
 			$result['msg'] 	= '活动还没有开始，请耐心等待！';

@@ -79,9 +79,9 @@
 		<a href="{pigcms::U('Red_packet/prize_list',array('token'=>$token,'id'=>$list['id']))}">红包管理</a>
 		|
 		-->
-		<a href="{pigcms::U('Red_packet/set',array('token'=>$this->token,'id'=>$list['id']))}">修改</a>
+		<a href="{pigcms::U('Red_packet/set',array('token'=>$token,'id'=>$list['id']))}">修改</a>
 		|
-		<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Red_packet/del',array('token'=>$this->token,'id'=>$list['id']))}');">删除</a>
+		<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Red_packet/del',array('token'=>$token,'id'=>$list['id']))}');">删除</a>
     </td>
 </tr>
 

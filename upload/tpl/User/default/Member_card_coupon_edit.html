@@ -71,10 +71,10 @@ items : [
 <td height="35">
 	<label>
 		<input type="radio" <if  condition="$vip['type'] eq 1">checked="checked"</if> name="type" class="type" value="1">
-打折优惠券</label>
+优惠券</label>
 　<label>
 	<input name="type" <if  condition="$vip['type'] eq 0">checked="checked"</if>  type="radio" class="type" value="0">
-	现金抵用券
+	现金券
   </label>
 <span id="cktime" <if  condition="$vip['type'] neq false">style="display:none"</if>>（抵用金额：<input type="input" class="px"  value="{pigcms:$vip.price}" name="price" style="width:50px;"> 元）</span>
 </td>

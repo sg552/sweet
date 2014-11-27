@@ -338,17 +338,17 @@ class CardAction extends WapAction{
     			$previlegeCount=$member_card_vip_db->where('cardid='.$thisCard['id'].' AND ((type=0 AND statdate<'.$now.' AND enddate>'.$now.') OR type=1)')->count();
     			$this->assign('previlegeCount',$previlegeCount);
     			//
-    			$iwhere 		= array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'coupon_type'=>'3','cardid'=>$thisCard['cardid'],'is_use'=>'0');
+    			$iwhere 		= array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'coupon_type'=>'3','cardid'=>$thisCard['id'],'is_use'=>'0');
     			$integralCount 	= M('member_card_coupon_record')->where($iwhere)->count();
     			$this->assign('integralCount',$integralCount);
     			//
-    			$cwhere1 		= array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'coupon_type'=>'1','cardid'=>$thisCard['cardid'],'is_use'=>'0');
+    			$cwhere1 		= array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'coupon_type'=>'1','cardid'=>$thisCard['id'],'is_use'=>'0');
     			$couponCount1 	= M('member_card_coupon_record')->where($cwhere1)->count();
     			$this->assign('couponCount1',$couponCount1);
     			//
-    			$cwhere2 		= array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'coupon_type'=>'2','cardid'=>$thisCard['cardid'],'is_use'=>'0');
+    			$cwhere2 		= array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'coupon_type'=>'2','cardid'=>$thisCard['id'],'is_use'=>'0');
     			$couponCount2 	= M('member_card_coupon_record')->where($cwhere2)->count();
-    			$this->assign('couponCount2',$couponCount2);
+                $this->assign('couponCount2',$couponCount2);
     			//
     			$todaySigned=$this->_todaySigned();
     			$this->assign('todaySigned',$todaySigned);
@@ -556,9 +556,9 @@ class CardAction extends WapAction{
     	$now	= time();
     	$data 	= array();
     	if($type  == 3){
-    		$where 	= array('token'=>$this->token,'card_id'=>$thisCard['id'],'statdate'=>array('lt',$now),'enddate'=>array('gt',$now));
+    		$where 	= array('token'=>$this->token,'cardid'=>$thisCard['id'],'statdate'=>array('lt',$now),'enddate'=>array('gt',$now));
     		$data	= M('Member_card_integral')->where($where)->order('create_time desc')->select();
-    		foreach ($data as $k=>$n){
+            foreach ($data as $k=>$n){
     			$data[$k]['info']	= html_entity_decode($n['info']);
     			$data[$k]['count'] 	= 1;
     			//$cwhere = array('token'=>$this->token,'wecha_id'=>$this->wecha_id,'cardid'=>$thisCard['id'],'coupon_type'=>$type);
