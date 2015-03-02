@@ -1,5 +1,9 @@
 <?php
 class FunctionAction extends UserAction{
+	public function _initialize()
+	{
+		parent::_initialize();
+	}
 
 	function index(){
 
@@ -15,11 +19,12 @@ class FunctionAction extends UserAction{
 		}else {
 			$info=M('Wxuser')->find($id);
 		}
-		
+
 		$token=$this->_get('token','trim');	
 		if($info==false||$info['token']!=$token){
 			$this->error('非法操作',U('Home/Index/index'));
 		}
+
 		session('token',$token);
 		session('wxid',$info['id']);
 		session('companyid', null);
@@ -88,14 +93,23 @@ class FunctionAction extends UserAction{
 
 
 	function welcome(){
-		
-		if(session('token') === NULL || session('token') != $this->_get('token','trim')){
-			$token=$this->_get('token','trim');	
-			session('token',$token);
+
+		$id=$this->_get('id','intval');
+		if (!$id){
+			$info=M('Wxuser')->find(array('where'=>array('token'=>$this->token)));
+		}else {
+			$info=M('Wxuser')->find($id);
 		}
+
+		$token=$this->_get('token','trim');
+		
+		if($info==false||$info['token']!=$token){
+			$this->error('非法操作',U('Home/Index/index'));
+		}
+		session('token',$token);
+		session('wxid',$info['id']);
 		$wecha=M('Wxuser')->field('wxname,wxid,headerpic,weixin')->where(array('token'=>session('token'),'uid'=>session('uid')))->find();
 		$this->assign('wecha',$wecha);
-		$this->assign('token',session('token'));
 		// 模板 0 不让进
 		if ($this->usertplid != 1) {
 			$this->error('您需要选择使用新的模板才能进入此页');
@@ -204,7 +218,9 @@ class FunctionAction extends UserAction{
 	}
 		$sex_series['series'] = "{value:$man, name:'男'},"."{value:$woman, name:'女'},"."{value:$other, name:'其他'}";
 		
+		
 		$this->assign('sex_series',$sex_series);
+		$this->assign('token',session('token'));
 		$this->display();
 	}
 

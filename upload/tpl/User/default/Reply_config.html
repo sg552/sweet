@@ -7,9 +7,9 @@
 <div class="cLineB">
   <h4>留言板配置 </h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
  </div>
-      
+
     <div class="msgWrap bgfc" style="margin-top:10px;">
-	  <form class="form" method="post" action="" enctype="multipart/form-data">	 
+	  <form class="form" method="post" action="" enctype="multipart/form-data">
 		<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
 			<tbody>
 				<tr>
@@ -28,6 +28,10 @@
 				<tr>
 					<th>图文回复图片：</th>
 					<td><input type="text" name="picurl" value="{pigcms:$set.picurl}" id="pic" class="px" style="width:550px;"> <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>   &nbsp; 大小为720x400</td>
+				</tr>
+				<tr>
+					<th>头部banner图片：</th>
+					<td><input type="text" name="banner" value="{pigcms:$set['banner']|default=' '}" id="banner" class="px" style="width:550px;"><a href="###" onclick="upyunPicUpload('banner',0,0,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('banner')">预览</a> </td>
 				</tr>
 
 				<tr>
@@ -53,9 +57,9 @@
 			</tbody>
 		</table>
 	</form>
-  </div> 
- 
-  
+  </div>
+
+
         </div>
 <if condition="session('isQcloud') neq true">
 <include file="Public:footer"/>

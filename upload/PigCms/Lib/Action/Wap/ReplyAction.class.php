@@ -11,23 +11,24 @@ class ReplyAction extends WapAction{
         $this->reply_info_model=M('reply_info');
 		    $thisInfoConfig = $this->reply_info_model->where(array('infotype'=>'message','token'=>$this->token))->find();
 		    $detailConfig=unserialize($thisInfoConfig['config']);
-		
+        $banner = $thisInfoConfig['banner'];
+        $this->assign('banner',trim($banner));
         $this->needCheck=intval($detailConfig['needcheck']);
 		    $this->needpass=intval($detailConfig['needpass']);
-		
-        $this->sepTime=60;
-        $this->wecha_id	= $this->_get('wecha_id');        
 
-        
+        $this->sepTime=60;
+        $this->wecha_id	= $this->_get('wecha_id');
+
+
         $this->assign('wecha_id',$this->wecha_id);
         $this->assign('needCheck',$this->needCheck);
         $this->assign('needpass',$this->needpass);
         $this->assign('token',$this->token);
-    } 
+    }
      public function index(){ //显示数据
-      
-         $leave_model =M("leave");  
-         
+
+         $leave_model =M("leave");
+
             $where = array("token"=>$this->token,'checked'=>1);
             import('ORG.Util.Page');// 导入分页类
             $count      = $leave_model->where($where)->count();// 查询满足要求的总记录数
@@ -39,7 +40,7 @@ class ReplyAction extends WapAction{
             foreach($res as $key=>$val){
                 $reply_model = M("reply");
                 $where = array("message_id"=>$val['id'],"checked"=>1);
-                $res[$key]['vo'] = $reply_model->where($where)->order("time DESC")->select();  
+                $res[$key]['vo'] = $reply_model->where($where)->order("time DESC")->select();
             }
 
             $this->assign('res',$res);// 赋值数据集
@@ -55,18 +56,18 @@ class ReplyAction extends WapAction{
         $msgarr['checked'] = 1-intval($this->needCheck);
         $msgarr['name'] =$name;
         $msgarr['message'] = $message;
-        $msgarr['wecha_id'] = $this->wecha_id; 
+        $msgarr['wecha_id'] = $this->wecha_id;
         $msgarr['token']=$this->token;
         $msgarr['time'] =time();
 
-        //根据token 来确定同一用户60秒以后才能留言 
+        //根据token 来确定同一用户60秒以后才能留言
         $lasttime = $leave_model->where(array("token"=>$this->token))->getField("max(time)");//获得准备数据 是否与数据库中数据留言是同一人
-        $timeres = time() - $lasttime;   
+        $timeres = time() - $lasttime;
         if($timeres < $this->sepTime){
             $this->ajaxReturn("","您已留言,请60秒以后再留言",0);
             exit;
         }else{
-            $res = $leave_model->add($msgarr); 
+            $res = $leave_model->add($msgarr);
             //echo $res;exit;
             if($res){
             	Sms::sendSms($this->token,'留言板有新的留言');
@@ -105,7 +106,7 @@ class ReplyAction extends WapAction{
          }else {
          	 $replyarr['checked'] = 1;
          }
-        
+
          $replyarr['wecha_id'] = $this->wecha_id;
          $replyarr['message_id'] = $message_id;
          //
@@ -125,7 +126,7 @@ class ReplyAction extends WapAction{
                 $this->ajaxReturn("","你已回复，请60秒以后再回复",0);
                 exit;
             }else{
-                $res = $reply_model->add($replyarr); 
+                $res = $reply_model->add($replyarr);
                 if($res){
                     $replyarr['id']=$res;
                     if($replyarr['checked'] == 1){
@@ -148,9 +149,9 @@ class ReplyAction extends WapAction{
                     $data['status'] = 0;
                     $this->ajaxReturn($data);
                     exit;
-                }  
+                }
             }
- 
+
      }
 
      public function checkpass()
@@ -166,7 +167,7 @@ class ReplyAction extends WapAction{
               echo 0;
           }
 
-       
+
      }
 
 

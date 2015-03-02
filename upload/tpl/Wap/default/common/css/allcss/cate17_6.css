@@ -35,8 +35,7 @@
     height:100px;
     margin:5px;
     -webkit-box-sizing:border-box;
-    /*background:rgba(144, 156, 159, 0.6);*/
-    background-color:rgba(8, 177, 45, 0.4);
+    background:rgba(144, 156, 159, 0.6);
     overflow:hidden;
     font-size:45px;
     color:#fff;

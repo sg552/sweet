@@ -13,6 +13,7 @@ class HomeAction extends UserAction{
 	public function set(){
 		$home=$this->home_db->where(array('token'=>session('token')))->find();
 		if(IS_POST){
+			$_POST['token'] = session('token');
 			$stpic=$_POST['stpic'];
 			$start=$_POST['start'];
 			$str = substr($stpic,0,1);
